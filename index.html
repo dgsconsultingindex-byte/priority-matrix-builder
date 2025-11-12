@@ -3,235 +3,78 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DGS Consulting Priority Matrix</title>
+  <title>PrioBox – Focus What Matters</title>
   <link rel="icon" type="image/png" href="images/logo-icon-t.png" />
   <style>
-    /* === CORE STYLES === */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
       background: linear-gradient(90deg, #9CAF88 0%, #6B8E5A 50%, #4A5D23 100%);
-      color: #ffffff;
+      color: #fff;
       min-height: 100vh;
-      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
     }
 
-    .header { text-align: center; margin-bottom: 30px; }
-    .header h1 {
-      font-size: 2.5rem;
-      background: linear-gradient(135deg, #ffffff, #ffffff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .header p { color: #ffffff; font-size: 1.1rem; }
-
-    .controls {
-      display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
-      margin-bottom: 30px;
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
     }
 
-    input[type="text"] {
-      background: #21262d; border: 1px solid #30363d;
-      border-radius: 6px; color: #f0f6fc;
-      padding: 8px 12px; font-size: 14px; min-width: 200px;
+    p {
+      font-size: 1.2rem;
+      color: #e8f0e8;
+      max-width: 600px;
+      margin-bottom: 2rem;
     }
-    button {
+
+    .btn {
       background: linear-gradient(135deg, #238636, #2ea043);
-      border: none; border-radius: 6px; color: white;
-      padding: 8px 16px; cursor: pointer; font-weight: 600;
+      color: #fff;
+      text-decoration: none;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
       transition: all 0.2s;
+      display: inline-block;
     }
-    button:hover { background: linear-gradient(135deg, #2ea043, #238636); transform: translateY(-1px); }
-    .clear-btn { background: linear-gradient(135deg, #da3633, #f85149); }
-    .clear-btn:hover { background: linear-gradient(135deg, #f85149, #da3633); }
 
-    .matrix-container { max-width: 1000px; margin: 0 auto; position: relative; }
-    .matrix {
-      display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr;
-      gap: 2px; height: 600px; background: #30363d; border-radius: 8px;
-      overflow: hidden; box-shadow: 0 16px 32px rgba(0,0,0,0.4);
+    .btn:hover {
+      background: linear-gradient(135deg, #2ea043, #238636);
+      transform: translateY(-2px);
     }
-    .quadrant {
-      background: rgba(33, 38, 45, 0.8); padding: 20px; transition: all 0.3s ease;
-      position: relative;
+
+    footer {
+      position: absolute;
+      bottom: 20px;
+      font-size: 0.9rem;
+      color: #fff;
     }
-    .quadrant:hover { background: rgba(33, 38, 45, 0.9); transform: scale(1.02); }
-    .quadrant h3 { text-align: center; font-size: 1.2rem; margin-bottom: 10px; border-bottom: 2px solid; }
 
-    /* Quadrant colors */
-    .do-first { border-bottom-color: #f85149; background: linear-gradient(135deg, rgba(248,81,73,0.1), rgba(218,54,51,0.05)); }
-    .do-first h3 { color: #f85149; }
-    .schedule { border-bottom-color: #d29922; background: linear-gradient(135deg, rgba(210,153,34,0.1), rgba(187,128,9,0.05)); }
-    .schedule h3 { color: #d29922; }
-    .delegate { border-bottom-color: #58a6ff; background: linear-gradient(135deg, rgba(88,166,255,0.1), rgba(79,125,201,0.05)); }
-    .delegate h3 { color: #58a6ff; }
-    .eliminate { border-bottom-color: #8b949e; background: linear-gradient(135deg, rgba(139,148,158,0.1), rgba(110,118,129,0.05)); }
-    .eliminate h3 { color: #8b949e; }
-
-    .task {
-      background: rgba(13, 17, 23, 0.8); border: 1px solid #30363d;
-      border-radius: 6px; padding: 12px; margin-bottom: 10px;
-      cursor: move; transition: all 0.2s;
-    }
-    .task:hover { border-color: #58a6ff; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(88,166,255,0.2); }
-    .task-title { font-weight: 600; color: #f0f6fc; }
-    .task-description { font-size: 0.9rem; color: #8b949e; }
-
-    .task .delete-btn {
-      float: right; background: none; border: none; color: #f85149;
-      cursor: pointer; font-size: 16px; padding: 0;
-    }
-    .task .delete-btn:hover { background: rgba(248, 81, 73, 0.1); border-radius: 50%; }
-
-    @media (max-width: 768px) {
-      .matrix { grid-template-columns: 1fr; grid-template-rows: repeat(4, 1fr); height: auto; }
+    footer a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 6px;
     }
   </style>
 </head>
-
 <body>
-  <div class="header">
-    <h1>DGS Consulting Priority Matrix</h1>
-    <p>Organize your issues and tasks using the Eisenhower Matrix</p>
-  </div>
+  <h1>PrioBox</h1>
+  <p>Visualize your priorities. Focus your effort. Make progress that matters.</p>
+  <a href="app.html" class="btn">Launch App</a>
 
-  <div class="controls">
-    <input type="text" id="taskTitle" placeholder="Task title (e.g., Fix login bug)" />
-    <input type="text" id="taskDescription" placeholder="Description (optional)" />
-    <button onclick="addTask()">Add Task</button>
-    <button class="clear-btn" onclick="clearAll()">Clear All</button>
-  </div>
-
-  <div class="matrix-container">
-    <div class="matrix">
-      <div class="quadrant do-first drop-zone" data-quadrant="do-first">
-        <h3>🚨 Do First</h3>
-        <p>High Impact + Low Effort</p>
-        <div class="tasks" id="do-first-tasks"></div>
-      </div>
-      <div class="quadrant schedule drop-zone" data-quadrant="schedule">
-        <h3>📅 Schedule</h3>
-        <p>High Impact + High Effort</p>
-        <div class="tasks" id="schedule-tasks"></div>
-      </div>
-      <div class="quadrant delegate drop-zone" data-quadrant="delegate">
-        <h3>👥 Delegate</h3>
-        <p>Low Impact + Low Effort</p>
-        <div class="tasks" id="delegate-tasks"></div>
-      </div>
-      <div class="quadrant eliminate drop-zone" data-quadrant="eliminate">
-        <h3>🗑️ Eliminate</h3>
-        <p>Low Impact + High Effort</p>
-        <div class="tasks" id="eliminate-tasks"></div>
-      </div>
-    </div>
-  </div>
-
-  <footer style="background: linear-gradient(90deg, #9CAF88 0%, #6B8E5A 50%, #4A5D23 100%);
-    color:#fff; text-align:center; padding:20px; margin-top:50px; font-size:14px;">
-    <p>© 2025 DGS Consulting — Streamline Today, Scale Tomorrow</p>
-    <p>
-      <a href="mailto:DGSConsult@consultant.com" style="color:#fff; text-decoration:none;">Contact</a> |
-      <a href="https://www.linkedin.com/company/dgs-consutling/" target="_blank" style="color:#fff; text-decoration:none;">LinkedIn</a> |
-      <a href="https://www.instagram.com/dgsconsult/" target="_blank" style="color:#fff; text-decoration:none;">Instagram</a>
-    </p>
+  <footer>
+    <p>Created by <strong>DGS Consulting</strong> • <a href="mailto:DGSConsult@consultant.com">Contact</a></p>
   </footer>
-
-  <script>
-    let taskCounter = 0;
-    let tasks = {};
-
-    // === Add Task ===
-    function addTask() {
-      const titleInput = document.getElementById('taskTitle');
-      const descInput = document.getElementById('taskDescription');
-      const title = titleInput.value.trim();
-      const description = descInput.value.trim();
-
-      if (!title) { alert('Please enter a task title'); return; }
-
-      taskCounter++;
-      const id = `task-${taskCounter}`;
-      tasks[id] = { id, title, description, quadrant: 'do-first' };
-      createTaskElement(tasks[id]);
-      titleInput.value = descInput.value = '';
-      saveTasks();
-    }
-
-    // === Create DOM Element ===
-    function createTaskElement(task) {
-      const div = document.createElement('div');
-      div.className = 'task';
-      div.draggable = true;
-      div.dataset.taskId = task.id;
-      div.innerHTML = `
-        <button class="delete-btn" onclick="deleteTask('${task.id}')">×</button>
-        <div class="task-title">${escapeHtml(task.title)}</div>
-        ${task.description ? `<div class="task-description">${escapeHtml(task.description)}</div>` : ''}
-      `;
-      div.addEventListener('dragstart', handleDragStart);
-      div.addEventListener('dragend', handleDragEnd);
-      document.getElementById(`${task.quadrant}-tasks`).appendChild(div);
-    }
-
-    // === Delete Task ===
-    function deleteTask(id) {
-      delete tasks[id];
-      document.querySelector(`[data-task-id="${id}"]`)?.remove();
-      saveTasks();
-    }
-
-    function clearAll() {
-      if (confirm('Clear all tasks?')) {
-        tasks = {};
-        document.querySelectorAll('.tasks').forEach(el => el.innerHTML = '');
-        saveTasks();
-      }
-    }
-
-    // === Escape HTML ===
-    function escapeHtml(text) {
-      const div = document.createElement('div');
-      div.textContent = text;
-      return div.innerHTML;
-    }
-
-    // === Drag & Drop ===
-    let draggedElement = null;
-    function handleDragStart(e) { draggedElement = this; this.style.opacity = '0.5'; }
-    function handleDragEnd(e) { this.style.opacity = '1'; draggedElement = null; }
-
-    document.querySelectorAll('.drop-zone').forEach(zone => {
-      zone.addEventListener('dragover', e => e.preventDefault());
-      zone.addEventListener('drop', function(e) {
-        e.preventDefault();
-        const id = draggedElement.dataset.taskId;
-        const q = this.dataset.quadrant;
-        tasks[id].quadrant = q;
-        this.querySelector('.tasks').appendChild(draggedElement);
-        saveTasks();
-      });
-    });
-
-    // === Persistence ===
-    function saveTasks() {
-      const data = { tasks, counter: taskCounter };
-      localStorage.setItem('priorityMatrixData', JSON.stringify(data));
-    }
-
-    function loadTasks() {
-      const data = JSON.parse(localStorage.getItem('priorityMatrixData'));
-      if (data) {
-        tasks = data.tasks || {};
-        taskCounter = data.counter || 0;
-        Object.values(tasks).forEach(createTaskElement);
-      }
-    }
-
-    document.addEventListener('DOMContentLoaded', loadTasks);
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Enter' && (e.target.id === 'taskTitle' || e.target.id === 'taskDescription')) addTask();
-    });
-  </script>
 </body>
 </html>
