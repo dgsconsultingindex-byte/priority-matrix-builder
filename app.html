@@ -8,7 +8,7 @@
   <meta property="og:image" content="images/hero-illustration.svg" />
   <style>
     :root{
-      --bg: #f8f7f4;           /* chosen off-white */
+      --bg: #f8f7f4;
       --panel: #ffffff;
       --muted: #d9d9d6;
       --text: #163818;
@@ -34,12 +34,22 @@
     .brand h1{font-size:1.2rem;margin:0}
     .brand p{margin:0;font-size:0.85rem;color:#4f6b51}
 
-    /* Auth card (branded) */
-    .auth-card{width:100%;max-width:520px;margin:20px auto 10px;padding:18px;border-radius:12px;background:var(--panel);box-shadow:0 20px 50px rgba(0,0,0,0.08);display:flex;flex-direction:column;gap:12px}
-    .auth-row{display:flex;gap:8px;align-items:center}
-    .auth-row input{flex:1;height:44px;padding:8px 12px;border-radius:10px;border:1px solid var(--muted);background:var(--panel)}
-    .auth-row button{height:44px;padding:0 14px;border-radius:10px;border:none;background:linear-gradient(135deg,var(--accent-1),var(--accent-2));color:#fff;font-weight:700;cursor:pointer}
-    .auth-note{font-size:0.9rem;color:#546b52}
+    /* Slide-up auth bottom sheet */
+    .auth-sheet-backdrop{ position:fixed; inset:0; background:rgba(0,0,0,0.28); display:none; z-index:120; transition:opacity .22s ease }
+    .auth-sheet-backdrop.show{ display:block; opacity:1; }
+    .auth-sheet{
+      position:fixed; left:50%; transform:translateX(-50%); bottom:-100%; width:100%; max-width:720px;
+      background:var(--panel); border-radius:12px 12px 0 0; box-shadow:0 -20px 50px rgba(0,0,0,0.18);
+      padding:20px; z-index:130; transition:bottom .36s cubic-bezier(.2,.9,.3,1);
+    }
+    .auth-sheet.show{ bottom:0; }
+    .auth-top{ display:flex; gap:12px; align-items:center; margin-bottom:8px }
+    .auth-top img{ width:56px; height:56px; border-radius:10px; padding:6px; background:var(--panel) }
+    .auth-title{ margin:0 }
+    .auth-row{ display:flex; gap:8px; margin-top:10px }
+    .auth-row input{ flex:1; height:44px; padding:8px 12px; border-radius:10px; border:1px solid var(--muted) }
+    .auth-row button{ height:44px; padding:0 14px; border-radius:10px; border:none; background:linear-gradient(135deg,var(--accent-1),var(--accent-2)); color:#fff; font-weight:700; cursor:pointer }
+    .auth-note{ font-size:0.9rem; color:#546b52; margin-top:8px }
 
     /* Controls */
     .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:center;margin:12px 0}
@@ -72,7 +82,6 @@
     .task-due{margin-top:8px;display:inline-block;padding:6px 10px;border-radius:999px;font-weight:700;color:white;font-size:0.82rem}
     .task-controls{display:flex;gap:8px;align-items:center}
     .small-btn{background:transparent;border:none;cursor:pointer;padding:6px;border-radius:8px;font-size:14px}
-
     .task.completed{opacity:0.6;text-decoration:line-through}
 
     .due-on-time{border-left:4px solid var(--on-time);background:linear-gradient(90deg, rgba(167,196,160,0.12), transparent)}
@@ -103,7 +112,7 @@
     @media(max-width:900px){.matrix{grid-template-columns:1fr}.controls input[type="text"]{min-width:130px}.panel{width:100%}}
   </style>
 
-  <!-- Supabase client library -->
+  <!-- Supabase client -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.26.0/dist/bundle.min.js"></script>
 </head>
 <body>
@@ -123,31 +132,31 @@
       </div>
     </header>
 
-    <!-- Branded auth card: shown until signed in -->
-    <div id="authCard" class="auth-card" aria-hidden="false">
-      <div style="display:flex;align-items:center;gap:12px">
-        <img src="images/PrioBox - Icon.png" alt="logo" style="width:56px;height:56px;border-radius:12px;padding:6px;background:var(--panel)">
+    <!-- Auth bottom sheet (slide-up) -->
+    <div id="authBackdrop" class="auth-sheet-backdrop"></div>
+    <div id="authSheet" class="auth-sheet" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+      <div class="auth-top">
+        <img src="images/PrioBox - Icon.png" alt="PrioBox logo" />
         <div>
-          <h2 style="margin:0">Welcome to PrioBox</h2>
-          <div style="margin-top:6px;color:#546b52">Focus what matters — get started quickly with a magic link.</div>
+          <h2 id="authTitle" class="auth-title">Welcome to <strong>PrioBox</strong></h2>
+          <div class="auth-note">Focus what matters — sign in with email (magic link).</div>
         </div>
       </div>
-
       <div class="auth-row">
-        <input id="emailInput" type="email" placeholder="Your email" aria-label="email" />
-        <button id="magicBtn">Send Magic Link</button>
+        <input id="authEmail" type="email" placeholder="you@example.com" aria-label="Email" />
+        <button id="authSend">Send Magic Link</button>
       </div>
-      <div style="display:flex;gap:8px;align-items:center;justify-content:space-between">
-        <div class="auth-note">We’ll email a link — no password required.</div>
-        <div style="display:flex;gap:8px">
-          <button id="demoBtn" class="btn ghost">Use Demo Data</button>
-        </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
+        <div style="font-size:0.9rem;color:#4f6b51">No password — quick & secure.</div>
+        <button id="authClose" style="background:transparent;border:none;color:#4f6b51;cursor:pointer">Close</button>
       </div>
     </div>
 
-    <!-- App content (hidden until signed in) -->
+    <!-- Branded auth card (visible briefly if desired) -->
+    <div id="authCard" style="display:none;margin-top:18px;max-width:640px"></div>
+
+    <!-- App content -->
     <div id="appArea" style="display:none">
-      <!-- Controls -->
       <section class="controls" aria-label="Task controls">
         <input id="taskTitle" type="text" placeholder="Task title (required)" />
         <input id="taskDescription" type="text" placeholder="Description (optional)" />
@@ -177,7 +186,6 @@
         <div style="font-size:0.9rem;color:#4f6b51">Double-click to edit • Drag between quadrants</div>
       </div>
 
-      <!-- Matrix -->
       <section class="matrix" aria-label="Priority matrix">
         <div class="quadrant do-first" data-q="do-first">
           <div class="quad-head">
@@ -293,12 +301,11 @@
     const SUPABASE_URL = 'https://ppakzbnmqjoxiyijboob.supabase.co';
     const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBwYWt6Ym5tcWpveGl5aWpib29iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMwMjk3MjMsImV4cCI6MjA3ODYwNTcyM30.NgTuxA3osuTz0xB3o5XIryKyPBJ6tBukVwLW71OSl40';
 
-    // Create Supabase client (global 'supabase' provided by CDN)
     const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
     // ---------------- State
-    const STORAGE_KEY = 'priobox_v4_tasks';
-    const PREFS_KEY = 'priobox_v4_prefs';
+    const STORAGE_KEY = 'priobox_v5_tasks';
+    const PREFS_KEY = 'priobox_v5_prefs';
     let tasks = {}; // id => task
     let prefs = JSON.parse(localStorage.getItem(PREFS_KEY) || '{}');
     if (prefs.showCompleted === undefined) prefs.showCompleted = true;
@@ -310,10 +317,11 @@
     const quadrants = ['do-first','schedule','delegate','eliminate'];
 
     // ---------------- DOM refs
-    const authCard = document.getElementById('authCard');
-    const emailInput = document.getElementById('emailInput');
-    const magicBtn = document.getElementById('magicBtn');
-    const demoBtn = document.getElementById('demoBtn');
+    const authBackdrop = document.getElementById('authBackdrop');
+    const authSheet = document.getElementById('authSheet');
+    const authEmail = document.getElementById('authEmail');
+    const authSend = document.getElementById('authSend');
+    const authClose = document.getElementById('authClose');
 
     const appArea = document.getElementById('appArea');
     const addBtn = document.getElementById('addBtn');
@@ -374,54 +382,41 @@
       try { const data = JSON.parse(raw); tasks = data.tasks || {}; } catch(e){ console.warn('loadLocal failed', e) }
     }
 
-    // ---------------- Supabase auth: magic link
-    magicBtn.addEventListener('click', async ()=>{
-      const email = (emailInput.value || '').trim();
-      if (!email) { emailInput.focus(); return; }
-      try {
-        magicBtn.disabled = true;
-        await supabase.auth.signInWithOtp({ email, options: { emailRedirectTo: window.location.href } });
-        alert('Magic link sent — check your email. After clicking the link, this page will detect the session automatically.');
-      } catch(err){
-        console.error('magic error', err);
-        alert('Failed to send magic link. Check console.');
-      } finally { magicBtn.disabled = false; }
-    });
+    // ---------------- Auth sheet handlers
+    function showAuthSheet(show=true){
+      if (show){ authBackdrop.classList.add('show'); authSheet.classList.add('show'); }
+      else { authBackdrop.classList.remove('show'); authSheet.classList.remove('show'); }
+    }
+    authClose.addEventListener('click', ()=> showAuthSheet(false));
 
-    // Demo dataset: quick fill to test app without auth
-    demoBtn.addEventListener('click', ()=>{
-      tasks = {};
-      const sample = [
-        { title: 'Fix signup bug', quadrant:'do-first', due: fmtISO(new Date(Date.now()+86400000)), label:'client' },
-        { title: 'Plan Q2 roadmap', quadrant:'schedule', due: fmtISO(new Date(Date.now()+7*86400000)), label:'' },
-        { title: 'Buy groceries', quadrant:'delegate', due:'', label:'personal' },
-        { title: 'Clean inbox', quadrant:'eliminate', due:'', label:'' }
-      ];
-      sample.forEach(s=>{
-        const id=uid();
-        tasks[id] = { id, title:s.title, description:'', due:s.due, quadrant:s.quadrant, label:s.label||'', completed:false, createdAt:Date.now() };
-      });
-      saveLocal(); render();
-      // switch to app view
-      showApp(true);
+    authSend.addEventListener('click', async ()=>{
+      const email = (authEmail.value||'').trim();
+      if (!email) { authEmail.focus(); return; }
+      authSend.disabled = true;
+      try {
+        await supabase.auth.signInWithOtp({ email, options: { emailRedirectTo: window.location.href } });
+        alert('Magic link sent — check your email. After clicking the link, this page will detect the session.');
+      } catch(err){ console.error('magic link err', err); alert('Failed to send magic link'); }
+      finally { authSend.disabled = false; }
     });
 
     // ---------------- Supabase session listener
     supabase.auth.onAuthStateChange(async (event, session) => {
       if (session && session.user) {
         currentUser = session.user;
-        // hide auth and show app
+        signOutBtn.style.display = 'inline-block';
+        accountBtn.style.display = 'inline-block';
+        showAuthSheet(false);
         showApp(true);
         await syncFromServer();
         render();
-        signOutBtn.style.display = 'inline-block';
-        accountBtn.style.display = 'inline-block';
       } else {
         currentUser = null;
-        // keep local tasks available but show auth card
-        showApp(false);
         signOutBtn.style.display = 'none';
         accountBtn.style.display = 'none';
+        // show auth sheet to prompt sign in but still allow local usage
+        showAuthSheet(true);
+        showApp(true); // allow working locally
       }
     });
 
@@ -621,7 +616,7 @@
     toggleCompletedBtn.textContent = prefs.showCompleted ? 'Hide Completed' : 'Show Completed';
 
     // ---------------- export / import
-    document.getElementById('exportBtn').addEventListener('click', ()=>{
+    document.getElementById('exportBtn')?.addEventListener('click', ()=>{
       const data = JSON.stringify({ tasks }, null, 2);
       const blob = new Blob([data], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
@@ -629,7 +624,7 @@
       document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
     });
 
-    importBtn.addEventListener('click', ()=> importFileInput.click());
+    importBtn?.addEventListener('click', ()=> importFileInput.click());
     importFileInput.addEventListener('change', (ev)=>{
       const f = ev.target.files[0];
       if (!f) return;
@@ -708,7 +703,7 @@
         if (rows.length === 0) return;
         const { error } = await supabase.from('tasks').upsert(rows, { onConflict: ['id'] });
         if (error) console.warn('syncToServer error', error);
-      } catch(err){ console.warn('syncToServer', err); }
+      } catch(err){ console.warn('syncToServer', err) }
     }
 
     // ---------------- Auth UI & sign-out
@@ -726,7 +721,7 @@
       } else alert('No account info');
     });
 
-    // ---------------- UI toggles & keyboard
+    // ---------------- UI wiring & keyboard
     document.getElementById('addBtn').addEventListener('click', ()=> {
       if (taskTitle.value.trim()) { addTaskFromFormQuick(); return; }
       openPanelForNew();
@@ -744,16 +739,19 @@
 
     // ---------------- onboarding
     function showOnboarding(){ onboard.classList.add('show'); onboard.setAttribute('aria-hidden','false'); }
-    function hideOnboarding(){ onboard.classList.remove('show'); onboard.setAttribute('aria-hidden','true'); localStorage.setItem('prio_onboard_v4','seen'); }
+    function hideOnboarding(){ onboard.classList.remove('show'); onboard.setAttribute('aria-hidden','true'); localStorage.setItem('prio_onboard_v5','seen'); }
     onboardDone.addEventListener('click', ()=> hideOnboarding());
     onboardSkip.addEventListener('click', ()=> hideOnboarding());
 
     // ---------------- load & boot
     function showApp(visible){
       if (visible){
-        authCard.style.display = 'none'; appArea.style.display = 'block';
+        // keep auth sheet hidden but allow using local app
+        document.getElementById('authSheet').classList.remove('show');
+        document.getElementById('authBackdrop').classList.remove('show');
+        document.getElementById('appArea').style.display = 'block';
       } else {
-        authCard.style.display = 'block'; appArea.style.display = 'none';
+        document.getElementById('appArea').style.display = 'none';
       }
     }
 
@@ -762,18 +760,21 @@
       const raw = localStorage.getItem(PREFS_KEY);
       if (raw) try { prefs = JSON.parse(raw); } catch(e){}
       toggleCompletedBtn.textContent = prefs.showCompleted ? 'Hide Completed' : 'Show Completed';
-      if (!localStorage.getItem('prio_onboard_v4')) setTimeout(()=> showOnboarding(), 700);
+      if (!localStorage.getItem('prio_onboard_v5')) setTimeout(()=> showOnboarding(), 700);
 
       // restore Supabase session if present
       supabase.auth.getSession().then(res=>{
         if (res && res.data && res.data.session && res.data.session.user){
           currentUser = res.data.session.user;
           signOutBtn.style.display = 'inline-block'; accountBtn.style.display = 'inline-block';
+          // hide sheet
+          showAuthSheet(false);
           showApp(true);
           syncFromServer();
         } else {
-          // not signed in
-          showApp(true); // show app so user can use local data even before signing in
+          // show sheet to prompt sign in (but still allow local use)
+          showAuthSheet(true);
+          showApp(true);
         }
         render();
       });
@@ -782,11 +783,11 @@
     // ---------------- local prefs wrapper
     function saveLocal(){ localStorage.setItem(STORAGE_KEY, JSON.stringify({ tasks })); localStorage.setItem(PREFS_KEY, JSON.stringify(prefs)); }
 
-    // ---------------- boot
+    // ---------------- init
     loadAll();
     render();
 
-    // expose debug
+    // expose for debugging
     window.priobox = { tasks, render, supabase, syncToServer, syncFromServer };
 
   </script>
