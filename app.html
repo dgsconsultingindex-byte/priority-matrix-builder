@@ -3,13 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DGS Consulting Priority Matrix</title>
-  <link rel="icon" type="image/png" href="images/logo-icon-t.png" />
+  <title>PrioBox – Focus What Matters</title>
+
+  <!-- SEO + Open Graph -->
+  <meta name="description" content="Organize your priorities visually with PrioBox — a smart Eisenhower Matrix for focused productivity." />
+  <meta property="og:title" content="PrioBox – Focus What Matters" />
+  <meta property="og:description" content="Organize your priorities visually with PrioBox — a smart Eisenhower Matrix for focused productivity." />
+  <meta property="og:image" content="images/social-preview.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://yourdomain.com" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="PrioBox – Focus What Matters" />
+  <meta name="twitter:description" content="Organize your priorities visually with PrioBox — a smart Eisenhower Matrix for focused productivity." />
+  <meta name="twitter:image" content="images/social-preview.png" />
+
   <style>
-    /* === CORE STYLES === */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
       background: linear-gradient(90deg, #9CAF88 0%, #6B8E5A 50%, #4A5D23 100%);
       color: #ffffff;
       min-height: 100vh;
@@ -17,24 +28,28 @@
     }
 
     .header { text-align: center; margin-bottom: 30px; }
-    .header h1 {
-      font-size: 2.5rem;
-      background: linear-gradient(135deg, #ffffff, #ffffff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .header p { color: #ffffff; font-size: 1.1rem; }
+    .header h1 { font-size: 2.5rem; color: #fff; }
+    .header p { color: #eee; font-size: 1.1rem; }
 
-    .controls {
+    .hero-illustration img {
+      max-width: 500px;
+      width: 90%;
+      display: block;
+      margin: 20px auto 40px auto;
+      filter: drop-shadow(0 6px 12px rgba(0,0,0,0.3));
+    }
+
+    .controls, .search-bar, .filters {
       display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
     }
 
-    input[type="text"] {
+    input[type="text"], input[type="date"] {
       background: #21262d; border: 1px solid #30363d;
       border-radius: 6px; color: #f0f6fc;
-      padding: 8px 12px; font-size: 14px; min-width: 200px;
+      padding: 8px 12px; font-size: 14px; min-width: 180px;
     }
+
     button {
       background: linear-gradient(135deg, #238636, #2ea043);
       border: none; border-radius: 6px; color: white;
@@ -45,27 +60,32 @@
     .clear-btn { background: linear-gradient(135deg, #da3633, #f85149); }
     .clear-btn:hover { background: linear-gradient(135deg, #f85149, #da3633); }
 
-    .matrix-container { max-width: 1000px; margin: 0 auto; position: relative; }
     .matrix {
       display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr;
       gap: 2px; height: 600px; background: #30363d; border-radius: 8px;
       overflow: hidden; box-shadow: 0 16px 32px rgba(0,0,0,0.4);
+      max-width: 1000px; margin: 0 auto;
     }
+
     .quadrant {
       background: rgba(33, 38, 45, 0.8); padding: 20px; transition: all 0.3s ease;
-      position: relative;
     }
     .quadrant:hover { background: rgba(33, 38, 45, 0.9); transform: scale(1.02); }
-    .quadrant h3 { text-align: center; font-size: 1.2rem; margin-bottom: 10px; border-bottom: 2px solid; }
+    .quadrant h3 {
+      text-align: center; margin-bottom: 6px; border-bottom: 2px solid;
+      display: flex; justify-content: center; align-items: center; gap: 8px;
+      flex-wrap: wrap;
+    }
+    .progress { font-size: 0.9rem; color: #8b949e; }
 
-    /* Quadrant colors */
-    .do-first { border-bottom-color: #f85149; background: linear-gradient(135deg, rgba(248,81,73,0.1), rgba(218,54,51,0.05)); }
+    /* Quadrant Colors */
+    .do-first { border-bottom-color: #f85149; }
     .do-first h3 { color: #f85149; }
-    .schedule { border-bottom-color: #d29922; background: linear-gradient(135deg, rgba(210,153,34,0.1), rgba(187,128,9,0.05)); }
+    .schedule { border-bottom-color: #d29922; }
     .schedule h3 { color: #d29922; }
-    .delegate { border-bottom-color: #58a6ff; background: linear-gradient(135deg, rgba(88,166,255,0.1), rgba(79,125,201,0.05)); }
+    .delegate { border-bottom-color: #58a6ff; }
     .delegate h3 { color: #58a6ff; }
-    .eliminate { border-bottom-color: #8b949e; background: linear-gradient(135deg, rgba(139,148,158,0.1), rgba(110,118,129,0.05)); }
+    .eliminate { border-bottom-color: #8b949e; }
     .eliminate h3 { color: #8b949e; }
 
     .task {
@@ -73,112 +93,144 @@
       border-radius: 6px; padding: 12px; margin-bottom: 10px;
       cursor: move; transition: all 0.2s;
     }
-    .task:hover { border-color: #58a6ff; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(88,166,255,0.2); }
+    .task:hover { border-color: #58a6ff; transform: translateY(-2px); }
+
+    .task.completed {
+      opacity: 0.5; text-decoration: line-through;
+    }
+
+    .task .delete-btn, .task .complete-btn {
+      background: none; border: none; cursor: pointer;
+      font-size: 16px; padding: 0 4px;
+    }
+    .task .delete-btn { color: #f85149; float: right; }
+    .task .complete-btn { color: #2ea043; float: left; }
+
     .task-title { font-weight: 600; color: #f0f6fc; }
     .task-description { font-size: 0.9rem; color: #8b949e; }
-
-    .task .delete-btn {
-      float: right; background: none; border: none; color: #f85149;
-      cursor: pointer; font-size: 16px; padding: 0;
-    }
-    .task .delete-btn:hover { background: rgba(248, 81, 73, 0.1); border-radius: 50%; }
+    .task-due { font-size: 0.8rem; color: #d29922; }
+    .task.overdue .task-due { color: #f85149; }
 
     @media (max-width: 768px) {
-      .matrix { grid-template-columns: 1fr; grid-template-rows: repeat(4, 1fr); height: auto; }
+      .matrix { grid-template-columns: 1fr; grid-template-rows: repeat(4, auto); height: auto; }
     }
   </style>
 </head>
 
 <body>
   <div class="header">
-    <h1>DGS Consulting Priority Matrix</h1>
-    <p>Organize your issues and tasks using the Eisenhower Matrix</p>
+    <h1>PrioBox</h1>
+    <p>Organize your priorities visually with PrioBox</p>
+  </div>
+
+  <div class="hero-illustration">
+    <img src="images/hero-illustration.svg" alt="PrioBox Matrix Illustration" />
   </div>
 
   <div class="controls">
-    <input type="text" id="taskTitle" placeholder="Task title (e.g., Fix login bug)" />
-    <input type="text" id="taskDescription" placeholder="Description (optional)" />
+    <input type="text" id="taskTitle" placeholder="Task title" />
+    <input type="text" id="taskDescription" placeholder="Description" />
+    <input type="date" id="taskDueDate" />
     <button onclick="addTask()">Add Task</button>
     <button class="clear-btn" onclick="clearAll()">Clear All</button>
   </div>
 
-  <div class="matrix-container">
-    <div class="matrix">
-      <div class="quadrant do-first drop-zone" data-quadrant="do-first">
-        <h3>🚨 Do First</h3>
-        <p>High Impact + Low Effort</p>
-        <div class="tasks" id="do-first-tasks"></div>
-      </div>
-      <div class="quadrant schedule drop-zone" data-quadrant="schedule">
-        <h3>📅 Schedule</h3>
-        <p>High Impact + High Effort</p>
-        <div class="tasks" id="schedule-tasks"></div>
-      </div>
-      <div class="quadrant delegate drop-zone" data-quadrant="delegate">
-        <h3>👥 Delegate</h3>
-        <p>Low Impact + Low Effort</p>
-        <div class="tasks" id="delegate-tasks"></div>
-      </div>
-      <div class="quadrant eliminate drop-zone" data-quadrant="eliminate">
-        <h3>🗑️ Eliminate</h3>
-        <p>Low Impact + High Effort</p>
-        <div class="tasks" id="eliminate-tasks"></div>
-      </div>
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Search tasks..." onkeyup="filterTasks()" />
+  </div>
+
+  <div class="filters">
+    <button id="toggleCompletedBtn" onclick="toggleCompletedView()">Hide Completed</button>
+  </div>
+
+  <div class="matrix">
+    <div class="quadrant do-first drop-zone" data-quadrant="do-first">
+      <h3>🚨 Do First <span class="progress" id="do-first-progress">(0/0 done)</span></h3>
+      <div id="do-first-tasks"></div>
+    </div>
+    <div class="quadrant schedule drop-zone" data-quadrant="schedule">
+      <h3>📅 Schedule <span class="progress" id="schedule-progress">(0/0 done)</span></h3>
+      <div id="schedule-tasks"></div>
+    </div>
+    <div class="quadrant delegate drop-zone" data-quadrant="delegate">
+      <h3>👥 Delegate <span class="progress" id="delegate-progress">(0/0 done)</span></h3>
+      <div id="delegate-tasks"></div>
+    </div>
+    <div class="quadrant eliminate drop-zone" data-quadrant="eliminate">
+      <h3>🗑️ Eliminate <span class="progress" id="eliminate-progress">(0/0 done)</span></h3>
+      <div id="eliminate-tasks"></div>
     </div>
   </div>
 
-  <footer style="background: linear-gradient(90deg, #9CAF88 0%, #6B8E5A 50%, #4A5D23 100%);
-    color:#fff; text-align:center; padding:20px; margin-top:50px; font-size:14px;">
-    <p>© 2025 DGS Consulting — Streamline Today, Scale Tomorrow</p>
-    <p>
-      <a href="mailto:DGSConsult@consultant.com" style="color:#fff; text-decoration:none;">Contact</a> |
-      <a href="https://www.linkedin.com/company/dgs-consutling/" target="_blank" style="color:#fff; text-decoration:none;">LinkedIn</a> |
-      <a href="https://www.instagram.com/dgsconsult/" target="_blank" style="color:#fff; text-decoration:none;">Instagram</a>
-    </p>
+  <footer style="text-align:center; padding:20px; margin-top:40px;">
+    <p>© 2025 PrioBox — Focus What Matters</p>
   </footer>
 
   <script>
     let taskCounter = 0;
     let tasks = {};
+    let showCompleted = JSON.parse(localStorage.getItem('showCompleted')) ?? true;
 
-    // === Add Task ===
     function addTask() {
-      const titleInput = document.getElementById('taskTitle');
-      const descInput = document.getElementById('taskDescription');
-      const title = titleInput.value.trim();
-      const description = descInput.value.trim();
+      const title = document.getElementById('taskTitle').value.trim();
+      const desc = document.getElementById('taskDescription').value.trim();
+      const due = document.getElementById('taskDueDate').value;
+      if (!title) return alert("Please enter a task title");
 
-      if (!title) { alert('Please enter a task title'); return; }
-
-      taskCounter++;
-      const id = `task-${taskCounter}`;
-      tasks[id] = { id, title, description, quadrant: 'do-first' };
+      const id = `task-${++taskCounter}`;
+      tasks[id] = { id, title, description: desc, due, quadrant: 'do-first', completed: false };
       createTaskElement(tasks[id]);
-      titleInput.value = descInput.value = '';
       saveTasks();
+      updateCounts();
+      ['taskTitle', 'taskDescription', 'taskDueDate'].forEach(id => document.getElementById(id).value = '');
     }
 
-    // === Create DOM Element ===
     function createTaskElement(task) {
       const div = document.createElement('div');
       div.className = 'task';
+      if (task.completed) div.classList.add('completed');
+      if (task.due && new Date(task.due) < new Date() && !task.completed) div.classList.add('overdue');
       div.draggable = true;
       div.dataset.taskId = task.id;
+
       div.innerHTML = `
+        <button class="complete-btn" onclick="toggleComplete('${task.id}')">✔</button>
         <button class="delete-btn" onclick="deleteTask('${task.id}')">×</button>
         <div class="task-title">${escapeHtml(task.title)}</div>
         ${task.description ? `<div class="task-description">${escapeHtml(task.description)}</div>` : ''}
+        ${task.due ? `<div class="task-due">Due: ${task.due}</div>` : ''}
       `;
+
       div.addEventListener('dragstart', handleDragStart);
       div.addEventListener('dragend', handleDragEnd);
       document.getElementById(`${task.quadrant}-tasks`).appendChild(div);
+      if (!showCompleted && task.completed) div.style.display = 'none';
     }
 
-    // === Delete Task ===
+    function toggleComplete(id) {
+      const task = tasks[id];
+      task.completed = !task.completed;
+      const el = document.querySelector(`[data-task-id="${id}"]`);
+      el.classList.toggle('completed', task.completed);
+      if (!showCompleted && task.completed) el.style.display = 'none';
+      saveTasks();
+      updateCounts();
+    }
+
+    function toggleCompletedView() {
+      showCompleted = !showCompleted;
+      localStorage.setItem('showCompleted', JSON.stringify(showCompleted));
+      document.getElementById('toggleCompletedBtn').textContent = showCompleted ? "Hide Completed" : "Show Completed";
+      document.querySelectorAll('.task.completed').forEach(task => {
+        task.style.display = showCompleted ? '' : 'none';
+      });
+    }
+
     function deleteTask(id) {
       delete tasks[id];
       document.querySelector(`[data-task-id="${id}"]`)?.remove();
       saveTasks();
+      updateCounts();
     }
 
     function clearAll() {
@@ -186,20 +238,19 @@
         tasks = {};
         document.querySelectorAll('.tasks').forEach(el => el.innerHTML = '');
         saveTasks();
+        updateCounts();
       }
     }
 
-    // === Escape HTML ===
     function escapeHtml(text) {
       const div = document.createElement('div');
       div.textContent = text;
       return div.innerHTML;
     }
 
-    // === Drag & Drop ===
     let draggedElement = null;
-    function handleDragStart(e) { draggedElement = this; this.style.opacity = '0.5'; }
-    function handleDragEnd(e) { this.style.opacity = '1'; draggedElement = null; }
+    function handleDragStart() { draggedElement = this; this.style.opacity = '0.5'; }
+    function handleDragEnd() { this.style.opacity = '1'; draggedElement = null; }
 
     document.querySelectorAll('.drop-zone').forEach(zone => {
       zone.addEventListener('dragover', e => e.preventDefault());
@@ -208,29 +259,48 @@
         const id = draggedElement.dataset.taskId;
         const q = this.dataset.quadrant;
         tasks[id].quadrant = q;
-        this.querySelector('.tasks').appendChild(draggedElement);
+        this.querySelector('div').appendChild(draggedElement);
         saveTasks();
+        updateCounts();
       });
     });
 
-    // === Persistence ===
+    function filterTasks() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      document.querySelectorAll('.task').forEach(task => {
+        const text = task.textContent.toLowerCase();
+        task.style.display = text.includes(searchTerm)
+          ? (showCompleted || !task.classList.contains('completed') ? '' : 'none')
+          : 'none';
+      });
+    }
+
+    function updateCounts() {
+      ['do-first','schedule','delegate','eliminate'].forEach(q => {
+        const total = Object.values(tasks).filter(t => t.quadrant === q).length;
+        const completed = Object.values(tasks).filter(t => t.quadrant === q && t.completed).length;
+        document.getElementById(`${q}-progress`).textContent = `(${completed}/${total} done)`;
+      });
+    }
+
     function saveTasks() {
-      const data = { tasks, counter: taskCounter };
-      localStorage.setItem('priorityMatrixData', JSON.stringify(data));
+      localStorage.setItem('prioBoxData', JSON.stringify({ tasks, counter: taskCounter }));
     }
 
     function loadTasks() {
-      const data = JSON.parse(localStorage.getItem('priorityMatrixData'));
+      const data = JSON.parse(localStorage.getItem('prioBoxData'));
       if (data) {
         tasks = data.tasks || {};
         taskCounter = data.counter || 0;
         Object.values(tasks).forEach(createTaskElement);
+        updateCounts();
       }
+      document.getElementById('toggleCompletedBtn').textContent = showCompleted ? "Hide Completed" : "Show Completed";
     }
 
     document.addEventListener('DOMContentLoaded', loadTasks);
     document.addEventListener('keydown', e => {
-      if (e.key === 'Enter' && (e.target.id === 'taskTitle' || e.target.id === 'taskDescription')) addTask();
+      if (e.key === 'Enter' && ['taskTitle','taskDescription','taskDueDate'].includes(e.target.id)) addTask();
     });
   </script>
 </body>
