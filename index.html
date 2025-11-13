@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PrioBox – Focus What Matters</title>
-  <link rel="icon" type="image/png" href="images/logo-icon-t.png" />
   <style>
     * {
       margin: 0;
@@ -75,6 +74,7 @@
       padding: 6rem 1.5rem;
       max-width: 1200px;
       margin: 0 auto;
+      width: 100%;
     }
 
     .hero-content {
@@ -115,20 +115,34 @@
       transform: translateY(20px);
       animation: fadeUp 1s ease forwards;
       animation-delay: 0.8s;
+      border: none;
+      cursor: pointer;
     }
 
     .btn:hover {
       transform: translateY(-2px);
       background: linear-gradient(135deg, #238636, #2ea043);
+      box-shadow: 0 6px 20px rgba(46, 160, 67, 0.3);
     }
 
-    .hero-graphic img {
+    .hero-graphic {
       width: 100%;
       max-width: 650px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.5);
       border-radius: 16px;
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
       animation: float 6s ease-in-out infinite, fadeIn 1.4s ease forwards;
       opacity: 0;
+    }
+
+    .hero-graphic svg {
+      width: 100%;
+      height: auto;
+      max-width: 500px;
     }
 
     @keyframes float {
@@ -148,6 +162,15 @@
     }
 
     /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .hero-content h1 {
+        font-size: 2.2rem;
+      }
+      .hero-content p {
+        font-size: 1.1rem;
+      }
+    }
+
     @media (min-width: 900px) {
       .hero {
         flex-direction: row;
@@ -202,6 +225,10 @@
       color: #cfe8cf;
     }
 
+    body.dark .hero-graphic {
+      background: rgba(30, 45, 30, 0.5);
+    }
+
     body.dark .btn {
       background: linear-gradient(135deg, #2ea043, #1e7a32);
       color: #fff;
@@ -209,6 +236,7 @@
 
     body.dark .btn:hover {
       background: linear-gradient(135deg, #1e7a32, #2ea043);
+      box-shadow: 0 6px 20px rgba(46, 160, 67, 0.4);
     }
 
     body.dark footer {
@@ -218,11 +246,11 @@
 </head>
 <body>
   <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-    <!-- Sun & Moon icons -->
-    <svg id="sunIcon" viewBox="0 0 24 24">
-      <path d="M12 4V2m0 20v-2m8-8h2M2 12h2m15.364 6.364l1.414 1.414M4.222 4.222l1.414 1.414M4.222 19.778l1.414-1.414M18.364 5.636l1.414-1.414M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/>
+    <svg id="sunIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="4"/>
+      <path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/>
     </svg>
-    <svg id="moonIcon" viewBox="0 0 24 24" style="display:none;">
+    <svg id="moonIcon" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
       <path d="M21 12.79A9 9 0 0 1 11.21 3 7 7 0 0 0 12 17a7 7 0 0 0 9-4.21z"/>
     </svg>
   </button>
@@ -231,11 +259,37 @@
     <div class="hero-content">
       <h1>Focus What Matters</h1>
       <p>Visualize your priorities, align your effort, and make progress that truly counts with PrioBox.</p>
-      <a href="app.html" class="btn">Get Started Free</a>
+      <a href="#demo" class="btn">Get Started Free</a>
     </div>
 
     <div class="hero-graphic">
-      <img src="images/hero-illustration.svg" alt="Visualization of focus and clarity" loading="eager" />
+      <svg viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg">
+        <!-- Background circles -->
+        <circle cx="250" cy="200" r="150" fill="#e8f5e9" opacity="0.3"/>
+        <circle cx="250" cy="200" r="100" fill="#c8e6c9" opacity="0.4"/>
+        
+        <!-- Priority boxes -->
+        <rect x="180" y="120" width="140" height="40" rx="8" fill="#2ea043" opacity="0.9"/>
+        <text x="250" y="145" font-family="Arial" font-size="16" fill="white" text-anchor="middle" font-weight="bold">High Priority</text>
+        
+        <rect x="180" y="180" width="140" height="40" rx="8" fill="#4caf50" opacity="0.8"/>
+        <text x="250" y="205" font-family="Arial" font-size="16" fill="white" text-anchor="middle" font-weight="bold">Medium Priority</text>
+        
+        <rect x="180" y="240" width="140" height="40" rx="8" fill="#81c784" opacity="0.7"/>
+        <text x="250" y="265" font-family="Arial" font-size="16" fill="white" text-anchor="middle" font-weight="bold">Low Priority</text>
+        
+        <!-- Checkmarks -->
+        <path d="M 160 140 L 168 148 L 178 133" stroke="#2ea043" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M 160 200 L 168 208 L 178 193" stroke="#4caf50" stroke-width="3" fill="none" stroke-linecap="round"/>
+        
+        <!-- Focus arrow -->
+        <path d="M 350 180 Q 380 200 350 220" stroke="#2ea043" stroke-width="4" fill="none" marker-end="url(#arrowhead)"/>
+        <defs>
+          <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+            <polygon points="0 0, 10 5, 0 10" fill="#2ea043"/>
+          </marker>
+        </defs>
+      </svg>
     </div>
   </section>
 
@@ -251,26 +305,62 @@
     const sunIcon = document.getElementById('sunIcon');
     const moonIcon = document.getElementById('moonIcon');
 
-    // Load saved theme or system preference
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    // Initialize theme
+    function initTheme() {
+      try {
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-      body.classList.add('dark');
-      sunIcon.style.display = 'none';
-      moonIcon.style.display = 'block';
+        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+          setDarkMode(true);
+        } else {
+          setDarkMode(false);
+        }
+      } catch (error) {
+        console.warn('Could not access localStorage:', error);
+        // Fallback to system preference
+        setDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches);
+      }
     }
 
-    themeToggle.addEventListener('click', () => {
-      const isDark = body.classList.toggle('dark');
+    function setDarkMode(isDark) {
       if (isDark) {
+        body.classList.add('dark');
         sunIcon.style.display = 'none';
         moonIcon.style.display = 'block';
-        localStorage.setItem('theme', 'dark');
       } else {
+        body.classList.remove('dark');
         sunIcon.style.display = 'block';
         moonIcon.style.display = 'none';
-        localStorage.setItem('theme', 'light');
+      }
+    }
+
+    function saveTheme(theme) {
+      try {
+        localStorage.setItem('theme', theme);
+      } catch (error) {
+        console.warn('Could not save theme to localStorage:', error);
+      }
+    }
+
+    // Toggle theme on button click
+    themeToggle.addEventListener('click', () => {
+      const isDark = body.classList.toggle('dark');
+      setDarkMode(isDark);
+      saveTheme(isDark ? 'dark' : 'light');
+    });
+
+    // Initialize on load
+    initTheme();
+
+    // Listen for system theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+      try {
+        if (!localStorage.getItem('theme')) {
+          setDarkMode(e.matches);
+        }
+      } catch (error) {
+        setDarkMode(e.matches);
       }
     });
   </script>
