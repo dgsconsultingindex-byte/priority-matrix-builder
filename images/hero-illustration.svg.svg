@@ -1,0 +1,144 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="800" viewBox="0 0 1600 800" preserveAspectRatio="xMidYMid meet" role="img" aria-hidden="true">
+  <defs>
+    <!-- Soft radial focus glow -->
+    <radialGradient id="g-focus" cx="50%" cy="46%" r="50%">
+      <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.45"></stop>
+      <stop offset="40%" stop-color="#60A5FA" stop-opacity="0.18"></stop>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"></stop>
+    </radialGradient>
+
+    <!-- Accent gradient for subtle card highlights -->
+    <linearGradient id="g-accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#60A5FA" stop-opacity="0.18"></stop>
+      <stop offset="100%" stop-color="#3B82F6" stop-opacity="0.05"></stop>
+    </linearGradient>
+
+    <!-- Soft background gradient -->
+    <linearGradient id="g-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0f172a"></stop>
+      <stop offset="100%" stop-color="#0b1220"></stop>
+    </linearGradient>
+
+    <!-- Glass card blur -->
+    <filter id="f-blur" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="10" result="b"></feGaussianBlur>
+      <feBlend in="SourceGraphic" in2="b" mode="normal"></feBlend>
+    </filter>
+
+    <!-- Soft drop shadow -->
+    <filter id="f-shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="14" stdDeviation="28" flood-color="#000" flood-opacity="0.35"></feDropShadow>
+    </filter>
+
+    <!-- subtle grain texture (very light) -->
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"></feTurbulence>
+      <feColorMatrix type="saturate" values="0"></feColorMatrix>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.04"></feFuncA>
+      </feComponentTransfer>
+    </filter>
+
+    <!-- card corner radius -->
+    <clipPath id="rounded">
+      <rect x="0" y="0" width="100%" height="100%" rx="18" ry="18"></rect>
+    </clipPath>
+
+    <!-- small decorative dots pattern -->
+    <pattern id="dots" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+      <rect width="2" height="2" fill="#ffffff" opacity="0.06"></rect>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1600" height="800" fill="url(#g-bg)"></rect>
+  <!-- soft focus glow centered -->
+  <rect x="0" y="0" width="1600" height="800" fill="url(#g-focus)" style="mix-blend-mode:screen;"></rect>
+
+  <!-- faint grain overlay -->
+  <rect width="1600" height="800" filter="url(#grain)" opacity="0.04"></rect>
+
+  <!-- background floating blurred cards (out of focus) -->
+  <g opacity="0.7" transform="translate(0,0)">
+    <g transform="translate(120,120) rotate(-6)">
+      <rect x="0" y="0" width="220" height="130" rx="14" fill="#ffffff" opacity="0.04" filter="url(#f-blur)"></rect>
+      <rect x="14" y="18" width="120" height="12" rx="6" fill="#ffffff" opacity="0.04"></rect>
+      <rect x="14" y="40" width="180" height="10" rx="5" fill="#ffffff" opacity="0.03"></rect>
+    </g>
+
+    <g transform="translate(1180,85) rotate(8)">
+      <rect x="0" y="0" width="180" height="110" rx="12" fill="#ffffff" opacity="0.035" filter="url(#f-blur)"></rect>
+    </g>
+
+    <g transform="translate(520,260) rotate(-4)">
+      <rect x="0" y="0" width="260" height="150" rx="16" fill="#ffffff" opacity="0.05" filter="url(#f-blur)"></rect>
+    </g>
+  </g>
+
+  <!-- central composition -->
+  <g transform="translate(400,180)">
+    <!-- left stack of cards (rotated, layered) -->
+    <g transform="translate(0,40) rotate(-8)" opacity="0.95">
+      <rect x="0" y="0" width="220" height="140" rx="14" fill="#0b1220" opacity="0.85"></rect>
+      <rect x="8" y="12" width="60" height="12" rx="6" fill="#111827" opacity="0.35"></rect>
+      <rect x="8" y="34" width="180" height="10" rx="5" fill="#111827" opacity="0.18"></rect>
+      <rect x="8" y="56" width="140" height="10" rx="5" fill="#111827" opacity="0.12"></rect>
+      <rect x="-6" y="-6" width="232" height="152" rx="16" fill="url(#g-accent)" opacity="0.08" style="mix-blend-mode:screen;"></rect>
+      <g filter="url(#f-shadow)"><rect x="0" y="0" width="220" height="140" rx="14" fill="transparent"></rect></g>
+    </g>
+
+    <!-- right stack (slightly elevated) -->
+    <g transform="translate(520,20) rotate(6)" opacity="0.95">
+      <rect x="0" y="0" width="210" height="130" rx="14" fill="#0b1220" opacity="0.85"></rect>
+      <rect x="12" y="16" width="120" height="12" rx="6" fill="#111827" opacity="0.35"></rect>
+      <rect x="12" y="38" width="160" height="10" rx="5" fill="#111827" opacity="0.18"></rect>
+      <rect x="12" y="60" width="110" height="10" rx="5" fill="#111827" opacity="0.12"></rect>
+      <rect x="-6" y="-6" width="222" height="142" rx="16" fill="url(#g-accent)" opacity="0.07" style="mix-blend-mode:screen;"></rect>
+      <g filter="url(#f-shadow)"><rect x="0" y="0" width="210" height="130" rx="14" fill="transparent"></rect></g>
+    </g>
+
+    <!-- main focused card: centered, glassy -->
+    <g transform="translate(240,60)">
+      <!-- glowing ring behind card -->
+      <ellipse cx="160" cy="80" rx="220" ry="90" fill="#3B82F6" opacity="0.06" style="filter:blur(26px);"></ellipse>
+      <ellipse cx="160" cy="80" rx="140" ry="54" fill="#60A5FA" opacity="0.04" style="filter:blur(44px);"></ellipse>
+
+      <!-- card surface -->
+      <rect x="0" y="0" width="320" height="180" rx="18" fill="#0f172a" opacity="0.96" stroke="rgba(255,255,255,0.04)" stroke-width="1"></rect>
+      <rect x="0" y="0" width="320" height="180" rx="18" fill="url(#g-accent)" opacity="0.02" style="mix-blend-mode:screen;"></rect>
+
+      <!-- subtle inner divider and lines to imply content -->
+      <rect x="18" y="22" width="84" height="12" rx="6" fill="#fff" opacity="0.92"></rect>
+      <rect x="18" y="46" width="260" height="10" rx="5" fill="#fff" opacity="0.12"></rect>
+      <rect x="18" y="62" width="200" height="10" rx="5" fill="#fff" opacity="0.08"></rect>
+      <rect x="18" y="86" width="120" height="10" rx="5" fill="#fff" opacity="0.06"></rect>
+      <rect x="18" y="110" width="280" height="12" rx="6" fill="#fff" opacity="0.03"></rect>
+
+      <!-- small status chips -->
+      <g transform="translate(220,24)">
+        <rect x="0" y="0" width="84" height="28" rx="8" fill="#071133" opacity="0.75"></rect>
+        <rect x="8" y="6" width="68" height="16" rx="6" fill="#3B82F6" opacity="0.95"></rect>
+      </g>
+
+      <!-- accent border glow -->
+      <rect x="-2" y="-2" width="324" height="184" rx="20" fill="none" stroke="#3B82F6" stroke-opacity="0.06" stroke-width="2"></rect>
+      <g filter="url(#f-shadow)"><rect x="0" y="0" width="320" height="180" rx="18" fill="transparent"></rect></g>
+    </g>
+
+    <!-- small floating cards in front for depth -->
+    <g transform="translate(140,190) rotate(-3)">
+      <rect x="0" y="0" width="120" height="74" rx="12" fill="#ffffff" opacity="0.03"></rect>
+      <rect x="10" y="12" width="44" height="8" rx="4" fill="#ffffff" opacity="0.06"></rect>
+      <rect x="10" y="30" width="92" height="8" rx="4" fill="#ffffff" opacity="0.04"></rect>
+    </g>
+
+    <g transform="translate(620,240) rotate(3)">
+      <rect x="0" y="0" width="96" height="70" rx="10" fill="#ffffff" opacity="0.03"></rect>
+    </g>
+  </g>
+
+  <!-- overlay pattern to add sophistication (very light) -->
+  <rect x="0" y="0" width="1600" height="800" fill="url(#dots)" opacity="0.03"></rect>
+
+</svg>
