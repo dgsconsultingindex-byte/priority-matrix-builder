@@ -41,24 +41,23 @@
       --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
+    *,*::before,*::after{box-sizing:border-box}
     html,body{height:100%;margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif;color:var(--text);background:var(--bg);line-height:1.5}
     .wrap{max-width:1200px;margin:0 auto;padding:24px}
     header{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:32px;flex-wrap:wrap}
     .brand{display:flex;gap:14px;align-items:center}
-    .brand img{height:40px;width:auto}
-    .brand .logo-icon{height:48px;width:48px;object-fit:contain}
+    .brand svg{height:48px;width:48px}
+    .brand h1{margin:0;font-size:1.5rem;font-weight:700}
+    .brand p{margin:0;font-size:0.9rem;color:var(--text-secondary)}
 
-    /* Loading overlay */
-    .loading-overlay{ position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.95); z-index:9999; font-size:1.1rem; color:var(--text); transition:opacity .3s ease }
-    .loading-hidden{ opacity:0; pointer-events:none; }
+    .loading-overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.95);z-index:9999;font-size:1.1rem;color:var(--text);transition:opacity .3s ease}
+    .loading-hidden{opacity:0;pointer-events:none}
 
-    /* View Toggle */
     .view-toggle{display:flex;gap:4px;background:var(--panel);padding:4px;border-radius:var(--radius);box-shadow:0 2px 8px var(--shadow-sm);border:1px solid var(--border)}
     .view-toggle button{padding:10px 20px;border:none;background:transparent;border-radius:var(--radius-sm);cursor:pointer;font-weight:600;font-size:0.95rem;color:var(--text-secondary);transition:var(--transition)}
     .view-toggle button:hover{background:var(--panel-hover);color:var(--text)}
     .view-toggle button.active{background:var(--accent-1);color:white;box-shadow:0 2px 4px var(--shadow-sm)}
 
-    /* Stats Dashboard */
     .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:20px 0}
     .stat-card{background:var(--panel);padding:24px;border-radius:var(--radius);box-shadow:0 2px 8px var(--shadow-sm);border:1px solid var(--border);display:flex;flex-direction:column;gap:12px;transition:var(--transition)}
     .stat-card:hover{box-shadow:0 4px 16px var(--shadow-md);transform:translateY(-2px)}
@@ -68,45 +67,37 @@
     .chart-bar{height:6px;background:var(--muted);border-radius:999px;overflow:hidden;margin-top:8px}
     .chart-fill{height:100%;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));transition:width .4s cubic-bezier(0.4, 0, 0.2, 1)}
 
-    /* Daily Focus View */
     .daily-hero{background:linear-gradient(135deg,var(--accent-1),var(--accent-2));color:white;padding:32px;border-radius:var(--radius-lg);margin:20px 0;box-shadow:0 8px 24px var(--shadow-lg)}
     .daily-hero h2{margin:0 0 8px 0;font-size:2rem;font-weight:700;letter-spacing:-0.02em}
     .daily-hero p{margin:0;opacity:0.95;font-size:1.1rem}
     .focus-list{display:flex;flex-direction:column;gap:12px;margin-top:20px}
 
-    /* Subtasks */
     .subtasks{margin-top:8px;padding-left:8px;border-left:2px solid var(--muted)}
     .subtask{display:flex;gap:8px;align-items:center;padding:4px 0;font-size:0.9rem}
-    .subtask input[type="checkbox"]{cursor:pointer}
+    .subtask input[type="checkbox"]{cursor:pointer;width:16px;height:16px}
     .subtask.completed{opacity:0.6;text-decoration:line-through}
     .subtask-add{color:var(--accent-1);cursor:pointer;font-size:0.85rem;margin-top:4px;padding:4px 0}
     .subtask-add:hover{text-decoration:underline}
 
-    /* Auth sheet */
-    .auth-sheet-backdrop{ position:fixed; inset:0; background:rgba(0,0,0,0.28); display:none; z-index:120; transition:opacity .22s ease }
-    .auth-sheet-backdrop.show{ display:block; opacity:1; }
-    .auth-sheet{
-      position:fixed; left:50%; transform:translateX(-50%); bottom:-100%; width:100%; max-width:720px;
-      background:var(--panel); border-radius:12px 12px 0 0; box-shadow:0 -20px 50px rgba(0,0,0,0.18);
-      padding:20px; z-index:130; transition:bottom .36s cubic-bezier(.2,.9,.3,1);
-    }
-    .auth-sheet.show{ bottom:0; }
-    .auth-top{ display:flex; gap:12px; align-items:center; margin-bottom:8px }
-    .auth-top .logo-box{ width:56px; height:56px; border-radius:10px; padding:6px; background:var(--panel); display:flex; align-items:center; justify-content:center }
+    .auth-sheet-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.28);display:none;z-index:120;transition:opacity .22s ease}
+    .auth-sheet-backdrop.show{display:block;opacity:1}
+    .auth-sheet{position:fixed;left:50%;transform:translateX(-50%);bottom:-100%;width:100%;max-width:720px;background:var(--panel);border-radius:12px 12px 0 0;box-shadow:0 -20px 50px rgba(0,0,0,0.18);padding:20px;z-index:130;transition:bottom .36s cubic-bezier(.2,.9,.3,1)}
+    .auth-sheet.show{bottom:0}
+    .auth-top{display:flex;gap:12px;align-items:center;margin-bottom:8px}
+    .auth-top .logo-box{width:56px;height:56px;border-radius:10px;padding:6px;display:flex;align-items:center;justify-content:center}
     .auth-top svg{width:44px;height:44px}
-    .auth-title{ margin:0 }
-    .auth-row{ display:flex; gap:8px; margin-top:10px; flex-wrap:wrap }
-    .auth-row input{ flex:1; min-width:200px; height:44px; padding:8px 12px; border-radius:10px; border:1px solid var(--muted) }
-    .auth-row button{ height:44px; padding:0 14px; border-radius:10px; border:none; background:linear-gradient(135deg,var(--accent-1),var(--accent-2)); color:#fff; font-weight:700; cursor:pointer }
-    .auth-note{ font-size:0.9rem; color:#546b52; margin-top:8px }
+    .auth-title{margin:0}
+    .auth-row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+    .auth-row input{flex:1;min-width:200px;height:44px;padding:8px 12px;border-radius:10px;border:1px solid var(--muted);font-size:0.95rem}
+    .auth-row button{height:44px;padding:0 14px;border-radius:10px;border:none;background:linear-gradient(135deg,var(--accent-1),var(--accent-2));color:#fff;font-weight:700;cursor:pointer}
+    .auth-note{font-size:0.9rem;color:#546b52;margin-top:8px}
 
-    /* Controls */
     .controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;margin:20px 0}
-    .controls input[type="text"], .controls input[type="date"], .controls select { height:var(--ui-h); padding:0 14px; border-radius:var(--radius-sm); border:1px solid var(--border); background:var(--panel); font-size:0.95rem; box-shadow:0 2px 4px var(--shadow-sm); min-width:160px; transition:var(--transition)}
-    .controls input:focus, .controls select:focus{outline:none;border-color:var(--accent-1);box-shadow:0 0 0 3px var(--accent-light)}
-    .controls .btn{ height:var(--ui-h); padding:0 20px; border-radius:var(--radius-sm); border:none; background:linear-gradient(135deg,var(--accent-1),var(--accent-2)); color:white; font-weight:600; cursor:pointer; white-space:nowrap; transition:var(--transition); box-shadow:0 2px 8px var(--shadow-sm)}
+    .controls input[type="text"],.controls input[type="date"],.controls select{height:var(--ui-h);padding:0 14px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--panel);font-size:0.95rem;box-shadow:0 2px 4px var(--shadow-sm);min-width:160px;transition:var(--transition)}
+    .controls input:focus,.controls select:focus{outline:none;border-color:var(--accent-1);box-shadow:0 0 0 3px var(--accent-light)}
+    .controls .btn{height:var(--ui-h);padding:0 20px;border-radius:var(--radius-sm);border:none;background:linear-gradient(135deg,var(--accent-1),var(--accent-2));color:white;font-weight:600;cursor:pointer;white-space:nowrap;transition:var(--transition);box-shadow:0 2px 8px var(--shadow-sm)}
     .controls .btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px var(--shadow-md)}
-    .controls .btn.ghost{ background:var(--panel); border:1px solid var(--border); color:var(--text); box-shadow:0 2px 4px var(--shadow-sm)}
+    .controls .btn.ghost{background:var(--panel);border:1px solid var(--border);color:var(--text);box-shadow:0 2px 4px var(--shadow-sm)}
     .controls .btn.ghost:hover{background:var(--panel-hover);border-color:var(--accent-1)}
 
     .search-row{display:flex;justify-content:center;padding:8px 0}
@@ -115,8 +106,7 @@
 
     .filters{display:flex;gap:12px;align-items:center;justify-content:center;margin-bottom:8px;flex-wrap:wrap;text-align:center}
 
-    /* Matrix */
-    .matrix{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+    .matrix{display:grid;grid-template-columns:1fr 1fr;gap:20px}
     .quadrant{background:var(--panel);border-radius:var(--radius-lg);padding:24px;box-shadow:0 2px 8px var(--shadow-sm);border:1px solid var(--border);min-height:300px;display:flex;flex-direction:column;transition:var(--transition)}
     .quadrant:hover{box-shadow:0 4px 16px var(--shadow-md)}
     .quad-head{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:16px;padding-bottom:16px;border-bottom:2px solid var(--muted)}
@@ -127,9 +117,9 @@
 
     .tasks{margin-top:12px;display:flex;flex-direction:column;gap:12px;overflow:auto;padding-bottom:8px;flex:1}
 
-    /* Task */
-    .task{display:flex;gap:12px;align-items:flex-start;background:var(--panel);padding:16px;border-radius:var(--radius);border:1px solid var(--border);cursor:grab;transition:var(--transition)}
+    .task{display:flex;gap:12px;align-items:flex-start;background:var(--panel);padding:16px;border-radius:var(--radius);border:1px solid var(--border);cursor:grab;transition:var(--transition);position:relative}
     .task:hover{transform:translateY(-2px);box-shadow:0 4px 12px var(--shadow-md);border-color:var(--accent-border)}
+    .task.dragging{opacity:0.5;cursor:grabbing}
     .task-left{flex:1;min-width:0}
     .task-title{margin:0;font-weight:600;word-wrap:break-word;font-size:0.95rem;color:var(--text)}
     .task-desc{margin-top:6px;color:var(--text-secondary);font-size:0.9rem;word-wrap:break-word;line-height:1.5}
@@ -149,23 +139,26 @@
     .tag-personal{background:var(--tag-personal-bg);color:var(--tag-personal)}
     .tag-urgent{background:var(--tag-urgent-bg);color:var(--tag-urgent)}
 
-    /* slide-out panel */
     .panel-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.25);display:none;z-index:120}
     .panel{position:fixed;right:0;top:0;height:100%;width:420px;max-width:94%;background:var(--panel);box-shadow:-20px 0 60px rgba(0,0,0,0.3);transform:translateX(108%);transition:transform .28s ease;z-index:130;padding:18px;display:flex;flex-direction:column;gap:12px;overflow-y:auto}
     .panel.show{transform:translateX(0)}
     .panel-backdrop.show{display:block}
 
-    .panel input[type="text"],.panel input[type="date"],.panel select,.panel textarea{width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--muted);background:var(--panel);box-sizing:border-box}
+    .panel input[type="text"],.panel input[type="date"],.panel select,.panel textarea{width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--muted);background:var(--panel);box-sizing:border-box;font-size:0.95rem}
     .panel textarea{min-height:100px;resize:vertical;font-family:inherit}
     .panel .row{display:flex;gap:8px;flex-wrap:wrap}
-    .panel .row > *{flex:1;min-width:140px}
+    .panel .row>*{flex:1;min-width:140px}
 
-    /* onboarding */
     .onboard{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:140;pointer-events:none;opacity:0;background:rgba(0,0,0,0.3);transition:opacity .3s ease}
     .onboard.show{pointer-events:auto;opacity:1}
     .onboard-card{background:var(--panel);padding:20px;border-radius:12px;width:min(760px,94%);box-shadow:0 30px 70px rgba(0,0,0,0.28);max-height:90vh;overflow-y:auto}
 
-    footer{text-align:center;color:#557a5a;margin-top:12px;font-size:0.9rem}
+    .empty-state{text-align:center;padding:60px 20px;color:var(--text-secondary)}
+    .empty-state svg{width:80px;height:80px;margin-bottom:16px;opacity:0.5}
+    .empty-state h3{margin:16px 0 8px 0;font-size:1.3rem;color:var(--text)}
+    .empty-state p{margin:0;font-size:0.95rem}
+
+    footer{text-align:center;color:#557a5a;margin-top:32px;font-size:0.9rem;padding-bottom:20px}
 
     @media(max-width:900px){
       .matrix{grid-template-columns:1fr}
@@ -177,20 +170,17 @@
   </style>
 </head>
 <body>
-  <!-- Loading overlay -->
   <div id="loading" class="loading-overlay">Loading your priorities...</div>
 
   <div class="wrap" id="root">
     <header>
       <div class="brand">
-        <div class="logo-box">
-          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <rect x="10" y="10" width="35" height="35" rx="5" fill="#2ea043"/>
-            <rect x="55" y="10" width="35" height="35" rx="5" fill="#4caf50"/>
-            <rect x="10" y="55" width="35" height="35" rx="5" fill="#66bb6a"/>
-            <rect x="55" y="55" width="35" height="35" rx="5" fill="#81c784"/>
-          </svg>
-        </div>
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <rect x="10" y="10" width="35" height="35" rx="5" fill="#2ea043"/>
+          <rect x="55" y="10" width="35" height="35" rx="5" fill="#4caf50"/>
+          <rect x="10" y="55" width="35" height="35" rx="5" fill="#66bb6a"/>
+          <rect x="55" y="55" width="35" height="35" rx="5" fill="#81c784"/>
+        </svg>
         <div>
           <h1>PrioBox</h1>
           <p>Focus what matters</p>
@@ -198,12 +188,11 @@
       </div>
 
       <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-        <button id="signOutBtn" style="display:none;height:40px;padding:8px 12px;border-radius:10px;background:var(--panel);border:1px solid rgba(0,0,0,0.06);cursor:pointer">Sign Out</button>
-        <button id="accountBtn" style="display:none;height:40px;padding:8px 12px;border-radius:10px;background:var(--panel);border:1px solid rgba(0,0,0,0.06);cursor:pointer">Account</button>
+        <button id="signOutBtn" style="display:none;height:40px;padding:8px 12px;border-radius:10px;background:var(--panel);border:1px solid var(--border);cursor:pointer">Sign Out</button>
+        <button id="accountBtn" style="display:none;height:40px;padding:8px 12px;border-radius:10px;background:var(--panel);border:1px solid var(--border);cursor:pointer">Account</button>
       </div>
     </header>
 
-    <!-- Auth bottom sheet -->
     <div id="authBackdrop" class="auth-sheet-backdrop"></div>
     <div id="authSheet" class="auth-sheet" role="dialog" aria-modal="true" aria-labelledby="authTitle">
       <div class="auth-top">
@@ -230,9 +219,7 @@
       </div>
     </div>
 
-    <!-- App area -->
     <div id="appArea" style="display:none">
-      <!-- View Toggle -->
       <div style="display:flex;justify-content:center;margin:16px 0">
         <div class="view-toggle">
           <button id="viewDaily" class="active">Daily Focus</button>
@@ -241,7 +228,6 @@
         </div>
       </div>
 
-      <!-- Daily Focus View -->
       <div id="dailyView">
         <div class="daily-hero">
           <h2>Today's Focus</h2>
@@ -266,7 +252,6 @@
         <div class="focus-list" id="dailyTasks"></div>
       </div>
 
-      // Analytics View
       <div id="statsView" style="display:none">
         <h2 style="text-align:center;margin:16px 0">Your Productivity Analytics</h2>
         
@@ -317,13 +302,12 @@
           </div>
         </div>
 
-        <div style="background:var(--panel);padding:20px;border-radius:var(--radius);margin-top:20px;box-shadow:0 8px 20px var(--shadow)">
+        <div style="background:var(--panel);padding:20px;border-radius:var(--radius);margin-top:20px;box-shadow:0 2px 8px var(--shadow-sm);border:1px solid var(--border)">
           <h3>Insights</h3>
-          <ul id="insightsList" style="line-height:1.8;color:#596c56"></ul>
+          <ul id="insightsList" style="line-height:1.8;color:var(--text-secondary)"></ul>
         </div>
       </div>
 
-      <!-- Matrix View -->
       <div id="matrixView" style="display:none">
         <section class="controls" aria-label="Task controls">
           <input id="taskTitle" type="text" placeholder="Task title (required)" />
@@ -353,7 +337,7 @@
         </div>
 
         <div class="filters">
-          <button id="toggleCompletedBtn" style="height:36px;padding:8px 12px;border-radius:8px;background:var(--panel);border:1px solid rgba(0,0,0,0.06);cursor:pointer">Hide Completed</button>
+          <button id="toggleCompletedBtn" style="height:36px;padding:8px 12px;border-radius:8px;background:var(--panel);border:1px solid var(--border);cursor:pointer">Hide Completed</button>
           <div style="font-size:0.9rem;color:#4f6b51">Double-click to edit • Drag between quadrants</div>
         </div>
 
@@ -408,7 +392,6 @@
     </div>
   </div>
 
-  <!-- Slide-out edit panel -->
   <div id="panelBackdrop" class="panel-backdrop"></div>
   <aside id="slidePanel" class="panel" role="dialog" aria-hidden="true">
     <h3 id="panelTitle">Edit task</h3>
@@ -450,11 +433,10 @@
     <div style="display:flex;gap:8px;flex-direction:column">
       <button id="addToCalendarBtn" class="btn ghost">Open Google Calendar</button>
       <button id="downloadICSBtn" class="btn ghost">Download .ics</button>
-      <button id="deleteFromPanelBtn" class="btn ghost" style="color:#b33">Delete Task</button>
+      <button id="deleteFromPanelBtn" class="btn ghost" style="color:var(--overdue)">Delete Task</button>
     </div>
   </aside>
 
-  <!-- onboarding -->
   <div id="onboard" class="onboard" aria-hidden="true">
     <div class="onboard-card">
       <h2>Welcome to PrioBox</h2>
@@ -481,990 +463,636 @@
   <input id="importFileInput" type="file" accept="application/json" style="display:none" />
 
   <script>
-    // ---------------- State
-    const STORAGE_KEY = 'priobox_tasks';
-    const PREFS_KEY = 'priobox_prefs';
-    
-    let tasks = {};
-    let prefs = { showCompleted: true, theme: 'light', currentView: 'daily' };
-    let editingId = null;
-    let dragged = null;
-    const quadrants = ['do-first','schedule','delegate','eliminate'];
+    'use strict';
 
-    // Load from storage
-    function loadFromStorage() {
-      try {
-        const rawTasks = localStorage.getItem(STORAGE_KEY);
-        const rawPrefs = localStorage.getItem(PREFS_KEY);
-        if (rawTasks) {
-          const data = JSON.parse(rawTasks);
-          tasks = data.tasks || {};
-        }
-        if (rawPrefs) {
-          prefs = { ...prefs, ...JSON.parse(rawPrefs) };
-        }
-      } catch(e) {
-        console.warn('Could not load from localStorage:', e);
-      }
-    }
-
-    function saveToStorage() {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify({ tasks }));
-        localStorage.setItem(PREFS_KEY, JSON.stringify(prefs));
-      } catch(e) {
-        console.warn('Could not save to localStorage:', e);
-      }
-    }
-
-    // ---------------- DOM refs
-    const loadingEl = document.getElementById('loading');
-    const authBackdrop = document.getElementById('authBackdrop');
-    const authSheet = document.getElementById('authSheet');
-    const authEmail = document.getElementById('authEmail');
-    const authSend = document.getElementById('authSend');
-    const authClose = document.getElementById('authClose');
-    const appArea = document.getElementById('appArea');
-    
-    // View toggles
-    const viewDaily = document.getElementById('viewDaily');
-    const viewMatrix = document.getElementById('viewMatrix');
-    const viewStats = document.getElementById('viewStats');
-    const dailyView = document.getElementById('dailyView');
-    const matrixView = document.getElementById('matrixView');
-    const statsView = document.getElementById('statsView');
-
-    // Controls
-    const addBtn = document.getElementById('addBtn');
-    const clearBtn = document.getElementById('clearBtn');
-    const demoBtn = document.getElementById('demoBtn');
-    const taskTitle = document.getElementById('taskTitle');
-    const taskDesc = document.getElementById('taskDescription');
-    const taskDue = document.getElementById('taskDue');
-    const taskQuadrant = document.getElementById('taskQuadrant');
-    const taskLabel = document.getElementById('taskLabel');
-    const searchInput = document.getElementById('searchInput');
-    const toggleCompletedBtn = document.getElementById('toggleCompletedBtn');
-    const signOutBtn = document.getElementById('signOutBtn');
-    const accountBtn = document.getElementById('accountBtn');
-    const exportBtn = document.getElementById('exportBtn');
-    const importBtn = document.getElementById('importBtn');
-    const importFileInput = document.getElementById('importFileInput');
-
-    // Panel
-    const panelBackdrop = document.getElementById('panelBackdrop');
-    const slidePanel = document.getElementById('slidePanel');
-    const pTitle = document.getElementById('pTitle');
-    const pDesc = document.getElementById('pDesc');
-    const pDue = document.getElementById('pDue');
-    const pQuadrant = document.getElementById('pQuadrant');
-    const pLabel = document.getElementById('pLabel');
-    const pCompleted = document.getElementById('pCompleted');
-    const panelSave = document.getElementById('panelSave');
-    const panelCancel = document.getElementById('panelCancel');
-    const subtasksList = document.getElementById('subtasksList');
-    const addSubtaskBtn = document.getElementById('addSubtaskBtn');
-    const addToCalendarBtn = document.getElementById('addToCalendarBtn');
-    const downloadICSBtn = document.getElementById('downloadICSBtn');
-    const deleteFromPanelBtn = document.getElementById('deleteFromPanelBtn');
-
-    // Onboarding
-    const onboard = document.getElementById('onboard');
-    const onboardDone = document.getElementById('onboardDone');
-    const onboardSkip = document.getElementById('onboardSkip');
-
-    // ---------------- Helpers
-    function uid(){ return `t-${Date.now()}-${Math.floor(Math.random()*9000)}`; }
-    function fmtISO(v){ 
-      if(!v) return ''; 
-      try { 
-        const d = new Date(v);
-        return d.toISOString().slice(0,10); 
-      } catch { 
-        return v 
-      } 
-    }
-    function escapeHtml(s){ 
-      if(!s) return ''; 
-      const div = document.createElement('div');
-      div.textContent = s;
-      return div.innerHTML;
-    }
-    function computeUrgencyClass(d){
-      if (!d) return '';
-      const today = new Date(); 
-      today.setHours(0,0,0,0);
-      const dd = new Date(d); 
-      dd.setHours(0,0,0,0);
-      const diff = Math.round((dd - today) / (1000*60*60*24));
-      if (diff < 0) return 'due-overdue';
-      if (diff <= 2) return 'due-approach';
-      return 'due-on-time';
-    }
-
-    function getDaysDiff(dateStr) {
-      if (!dateStr) return null;
-      const today = new Date();
-      today.setHours(0,0,0,0);
-      const date = new Date(dateStr);
-      date.setHours(0,0,0,0);
-      return Math.round((date - today) / (1000*60*60*24));
-    }
-
-    // ---------------- View Switching
-    function switchView(view) {
-      prefs.currentView = view;
-      saveToStorage();
-
-      // Update button states
-      [viewDaily, viewMatrix, viewStats].forEach(btn => btn.classList.remove('active'));
-      
-      // Hide all views
-      dailyView.style.display = 'none';
-      matrixView.style.display = 'none';
-      statsView.style.display = 'none';
-
-      // Show selected view
-      if (view === 'daily') {
-        viewDaily.classList.add('active');
-        dailyView.style.display = 'block';
-        renderDailyView();
-      } else if (view === 'matrix') {
-        viewMatrix.classList.add('active');
-        matrixView.style.display = 'block';
-        render();
-      } else if (view === 'stats') {
-        viewStats.classList.add('active');
-        statsView.style.display = 'block';
-        renderStats();
-      }
-    }
-
-    viewDaily.addEventListener('click', () => switchView('daily'));
-    viewMatrix.addEventListener('click', () => switchView('matrix'));
-    viewStats.addEventListener('click', () => switchView('stats'));
-
-    // ---------------- Daily Focus View
-    function renderDailyView() {
-      const today = new Date();
-      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-      document.getElementById('dailyDate').textContent = today.toLocaleDateString('en-US', options);
-
-      const allTasks = Object.values(tasks);
-      const todayTasks = allTasks.filter(t => {
-        const diff = getDaysDiff(t.due);
-        return diff === 0 && !t.completed;
-      });
-      const overdueTasks = allTasks.filter(t => {
-        const diff = getDaysDiff(t.due);
-        return diff !== null && diff < 0 && !t.completed;
-      });
-      const upcomingTasks = allTasks.filter(t => {
-        const diff = getDaysDiff(t.due);
-        return diff !== null && diff > 0 && diff <= 7 && !t.completed;
-      });
-
-      document.getElementById('todayDue').textContent = todayTasks.length;
-      document.getElementById('overdueCount').textContent = overdueTasks.length;
-      document.getElementById('upcomingCount').textContent = upcomingTasks.length;
-
-      const dailyTasksContainer = document.getElementById('dailyTasks');
-      dailyTasksContainer.innerHTML = '';
-
-      // Render overdue first
-      if (overdueTasks.length > 0) {
-        const section = document.createElement('div');
-        section.innerHTML = '<h3 style="color:var(--overdue);margin:16px 0 8px 0">Overdue</h3>';
-        dailyTasksContainer.appendChild(section);
-        overdueTasks.sort((a,b) => new Date(a.due) - new Date(b.due)).forEach(t => {
-          dailyTasksContainer.appendChild(createTaskNode(t));
-        });
+    class TaskStore {
+      constructor() {
+        this.STORAGE_KEY = 'priobox_tasks';
+        this.PREFS_KEY = 'priobox_prefs';
+        this.tasks = {};
+        this.prefs = { showCompleted: true, theme: 'light', currentView: 'daily', onboardingSeen: false };
+        this.listeners = [];
       }
 
-      // Render today
-      if (todayTasks.length > 0) {
-        const section = document.createElement('div');
-        section.innerHTML = '<h3 style="color:var(--accent-1);margin:16px 0 8px 0">Due Today</h3>';
-        dailyTasksContainer.appendChild(section);
-        todayTasks.forEach(t => {
-          dailyTasksContainer.appendChild(createTaskNode(t));
-        });
-      }
-
-      // Render upcoming
-      if (upcomingTasks.length > 0) {
-        const section = document.createElement('div');
-        section.innerHTML = '<h3 style="color:var(--approach);margin:16px 0 8px 0">This Week</h3>';
-        dailyTasksContainer.appendChild(section);
-        upcomingTasks.sort((a,b) => new Date(a.due) - new Date(b.due)).forEach(t => {
-          dailyTasksContainer.appendChild(createTaskNode(t));
-        });
-      }
-
-      if (overdueTasks.length === 0 && todayTasks.length === 0 && upcomingTasks.length === 0) {
-        dailyTasksContainer.innerHTML = '<div style="text-align:center;padding:40px;color:#6b6b64">No urgent tasks! You\'re all caught up.</div>';
-      }
-    }
-
-    // ---------------- Analytics View
-    function renderStats() {
-      const allTasks = Object.values(tasks);
-      const total = allTasks.length;
-      const completed = allTasks.filter(t => t.completed).length;
-      const active = total - completed;
-      const overdue = allTasks.filter(t => {
-        const diff = getDaysDiff(t.due);
-        return diff !== null && diff < 0 && !t.completed;
-      }).length;
-
-      document.getElementById('totalTasks').textContent = total;
-      document.getElementById('completedTasks').textContent = completed;
-      document.getElementById('activeTasks').textContent = active;
-      document.getElementById('overdueStats').textContent = overdue;
-
-      const completionRate = total > 0 ? Math.round((completed / total) * 100) : 0;
-      document.getElementById('completionRate').textContent = `${completionRate}% completion rate`;
-      document.getElementById('completedBar').style.width = completionRate + '%';
-      document.getElementById('activeBar').style.width = (total > 0 ? (active / total) * 100 : 0) + '%';
-
-      // Quadrant distribution
-      quadrants.forEach(q => {
-        const count = allTasks.filter(t => t.quadrant === q).length;
-        const pct = total > 0 ? Math.round((count / total) * 100) : 0;
-        const label = q.replace('-', '');
-        document.getElementById(`${label}Stat`).textContent = count;
-        document.getElementById(`${label}Bar`).style.width = pct + '%';
-      });
-
-      // Generate insights
-      const insights = [];
-      if (overdue > 0) {
-        insights.push(`You have ${overdue} overdue task${overdue > 1 ? 's' : ''} that need immediate attention.`);
-      }
-      if (completionRate >= 70) {
-        insights.push(`Great job! You're completing ${completionRate}% of your tasks.`);
-      } else if (completionRate < 30 && total > 5) {
-        insights.push(`Consider breaking down tasks into smaller, more manageable pieces.`);
-      }
-      
-      const doFirstCount = allTasks.filter(t => t.quadrant === 'do-first').length;
-      const eliminateCount = allTasks.filter(t => t.quadrant === 'eliminate').length;
-      
-      if (doFirstCount > total * 0.5 && total > 5) {
-        insights.push(`Over half your tasks are in "Do First". Consider if some could be scheduled or delegated.`);
-      }
-      if (eliminateCount > 5) {
-        insights.push(`You have ${eliminateCount} tasks in "Eliminate". Consider removing low-value items.`);
-      }
-      if (total === completed && total > 0) {
-        insights.push(`All tasks completed! Time to set new goals.`);
-      }
-      if (insights.length === 0) {
-        insights.push(`Keep adding tasks and tracking your progress to see personalized insights.`);
-      }
-
-      const insightsList = document.getElementById('insightsList');
-      insightsList.innerHTML = insights.map(i => `<li>${i}</li>`).join('');
-    }
-
-    // ---------------- Auth sheet handlers
-    function showAuthSheet(show=true){
-      if (show){ 
-        authBackdrop.classList.add('show'); 
-        authSheet.classList.add('show'); 
-      } else { 
-        authBackdrop.classList.remove('show'); 
-        authSheet.classList.remove('show'); 
-      }
-    }
-    
-    authClose.addEventListener('click', ()=> {
-      showAuthSheet(false);
-      showApp(true);
-    });
-
-    authSend.addEventListener('click', ()=>{
-      alert('Cloud sync is not available in this demo version. Your tasks are saved locally in your browser.');
-      showAuthSheet(false);
-      showApp(true);
-    });
-
-    // ---------------- Subtasks
-    function renderSubtasks() {
-      if (!editingId) return;
-      const task = tasks[editingId];
-      if (!task) return;
-      
-      const subtasks = task.subtasks || [];
-      subtasksList.innerHTML = '';
-      
-      subtasks.forEach((st, idx) => {
-        const div = document.createElement('div');
-        div.className = 'subtask' + (st.completed ? ' completed' : '');
-        
-        const checkbox = document.createElement('input');
-        checkbox.type = 'checkbox';
-        checkbox.checked = st.completed;
-        checkbox.addEventListener('change', () => {
-          task.subtasks[idx].completed = checkbox.checked;
-          saveToStorage();
-          renderSubtasks();
-        });
-        
-        const text = document.createElement('span');
-        text.textContent = st.text;
-        text.style.flex = '1';
-        
-        const delBtn = document.createElement('button');
-        delBtn.textContent = '✕';
-        delBtn.className = 'small-btn';
-        delBtn.onclick = () => {
-          task.subtasks.splice(idx, 1);
-          saveToStorage();
-          renderSubtasks();
-        };
-        
-        div.appendChild(checkbox);
-        div.appendChild(text);
-        div.appendChild(delBtn);
-        subtasksList.appendChild(div);
-      });
-    }
-
-    addSubtaskBtn.addEventListener('click', () => {
-      if (!editingId) return;
-      const task = tasks[editingId];
-      if (!task) return;
-      
-      const text = prompt('Subtask:');
-      if (!text || !text.trim()) return;
-      
-      if (!task.subtasks) task.subtasks = [];
-      task.subtasks.push({ text: text.trim(), completed: false });
-      saveToStorage();
-      renderSubtasks();
-    });
-
-    // ---------------- Render helpers
-    function createTaskNode(t){
-      const div = document.createElement('div');
-      div.className = 'task'; 
-      div.dataset.id = t.id;
-      if (t.completed) div.classList.add('completed');
-      const urg = computeUrgencyClass(t.due);
-      if (urg) div.classList.add(urg);
-
-      const left = document.createElement('div'); 
-      left.className='task-left';
-      
-      let titleHtml = `<div class="task-title">${escapeHtml(t.title)}`;
-      if (t.label){
-        if (t.label === 'client') titleHtml += ` <span class="tag tag-client">Client</span>`;
-        if (t.label === 'personal') titleHtml += ` <span class="tag tag-personal">Personal</span>`;
-        if (t.label === 'urgent') titleHtml += ` <span class="tag tag-urgent">Urgent</span>`;
-      }
-      titleHtml += `</div>`;
-      
-      let contentHtml = titleHtml;
-      if (t.description) {
-        contentHtml += `<div class="task-desc">${escapeHtml(t.description)}</div>`;
-      }
-      
-      // Show subtask progress
-      if (t.subtasks && t.subtasks.length > 0) {
-        const completedSubs = t.subtasks.filter(s => s.completed).length;
-        contentHtml += `<div style="font-size:0.85rem;color:#4f6b51;margin-top:4px">✓ ${completedSubs}/${t.subtasks.length} subtasks</div>`;
-      }
-      
-      if (t.due) {
-        contentHtml += `<div class="task-due">${escapeHtml(t.due)}</div>`;
-      }
-      
-      left.innerHTML = contentHtml;
-
-      const controls = document.createElement('div'); 
-      controls.className='task-controls';
-      
-      const completeBtn = document.createElement('button'); 
-      completeBtn.className='small-btn'; 
-      completeBtn.textContent = t.completed ? '↺' : '✔';
-      completeBtn.title = t.completed ? 'Mark incomplete' : 'Mark complete';
-      completeBtn.onclick = (e)=> { e.stopPropagation(); toggleComplete(t.id) };
-      
-      const editBtn = document.createElement('button'); 
-      editBtn.className='small-btn'; 
-      editBtn.textContent='✎'; 
-      editBtn.title='Edit'; 
-      editBtn.onclick = (e)=> { e.stopPropagation(); openPanel(t.id) };
-      
-      const calBtn = document.createElement('button'); 
-      calBtn.className='small-btn'; 
-      calBtn.textContent='📅'; 
-      calBtn.title='Add to calendar'; 
-      calBtn.onclick = (e)=> { 
-        e.stopPropagation(); 
-        if (t.due) {
-          openGoogleCalendarFor(t);
-        } else {
-          alert('Please add a due date first');
-        }
-      };
-      
-      const delBtn = document.createElement('button'); 
-      delBtn.className='small-btn'; 
-      delBtn.textContent='✕'; 
-      delBtn.title='Delete'; 
-      delBtn.onclick = (e)=> { e.stopPropagation(); deleteTask(t.id) };
-
-      controls.appendChild(completeBtn);
-      controls.appendChild(editBtn);
-      controls.appendChild(calBtn);
-      controls.appendChild(delBtn);
-
-      div.appendChild(controls);
-      div.appendChild(left);
-
-      // drag
-      div.draggable = true;
-      div.addEventListener('dragstart', ()=> { 
-        dragged = div; 
-        setTimeout(()=>div.style.opacity='0.5',0); 
-      });
-      div.addEventListener('dragend', ()=> { 
-        if (dragged) dragged.style.opacity='1'; 
-        dragged=null; 
-      });
-
-      div.addEventListener('dblclick', ()=> openPanel(t.id));
-      return div;
-    }
-
-    function render(){
-      quadrants.forEach(q=>{
-        const container = document.getElementById(`${q}-tasks`);
-        if (!container) return;
-        container.innerHTML = '';
-        
-        const list = Object.values(tasks).filter(t=>t.quadrant===q);
-        list.sort((a,b)=>{
-          if (a.due && b.due) return new Date(a.due) - new Date(b.due);
-          if (a.due) return -1;
-          if (b.due) return 1;
-          return (a.createdAt || 0) - (b.createdAt || 0);
-        });
-        
-        list.forEach(t=>{
-          if (!matchesSearch(t)) return;
-          const node = createTaskNode(t);
-          if (!prefs.showCompleted && t.completed) {
-            node.style.display = 'none';
-          }
-          container.appendChild(node);
-        });
-      });
-      
-      updateCounts(); 
-      updateProgress(); 
-      saveToStorage();
-    }
-
-    function matchesSearch(t){
-      const term = (searchInput.value || '').trim().toLowerCase();
-      if (!term) return true;
-      const searchStr = (t.title + ' ' + (t.description||'') + ' ' + (t.due||'') + ' ' + (t.label||'')).toLowerCase();
-      return searchStr.includes(term);
-    }
-
-    // ---------------- CRUD
-    function addTaskFromFormQuick(){
-      const title = taskTitle.value.trim();
-      if (!title) { 
-        taskTitle.focus(); 
-        return; 
-      }
-      const id = uid();
-      tasks[id] = {
-        id,
-        title,
-        description: taskDesc.value.trim(),
-        due: taskDue.value || '',
-        quadrant: taskQuadrant.value || 'do-first',
-        label: taskLabel.value || '',
-        completed: false,
-        subtasks: [],
-        createdAt: Date.now()
-      };
-      taskTitle.value=''; 
-      taskDesc.value=''; 
-      taskDue.value=''; 
-      taskQuadrant.value='do-first'; 
-      taskLabel.value='';
-      render();
-      switchView(prefs.currentView); // Refresh current view
-    }
-
-    function deleteTask(id){
-      if (!confirm('Delete this task?')) return;
-      delete tasks[id];
-      render();
-      switchView(prefs.currentView);
-    }
-
-    function toggleComplete(id){
-      const t = tasks[id]; 
-      if (!t) return;
-      t.completed = !t.completed;
-      render();
-      switchView(prefs.currentView);
-    }
-
-    // ---------------- Slide-out panel
-    function openPanel(id){
-      editingId = id;
-      const t = tasks[id];
-      if (!t) return;
-      pTitle.value = t.title || '';
-      pDesc.value = t.description || '';
-      pDue.value = t.due || '';
-      pQuadrant.value = t.quadrant || 'do-first';
-      pLabel.value = t.label || '';
-      pCompleted.checked = !!t.completed;
-      document.getElementById('panelTitle').textContent = 'Edit task';
-      renderSubtasks();
-      showPanel(true);
-    }
-    
-    function openPanelForNew(){
-      editingId = null;
-      pTitle.value=''; 
-      pDesc.value=''; 
-      pDue.value=''; 
-      pQuadrant.value='do-first'; 
-      pLabel.value=''; 
-      pCompleted.checked=false;
-      subtasksList.innerHTML = '';
-      document.getElementById('panelTitle').textContent = 'New task';
-      showPanel(true);
-    }
-    
-    function showPanel(show){
-      if (show){ 
-        slidePanel.classList.add('show'); 
-        panelBackdrop.classList.add('show'); 
-        slidePanel.setAttribute('aria-hidden','false'); 
-      } else { 
-        slidePanel.classList.remove('show'); 
-        panelBackdrop.classList.remove('show'); 
-        slidePanel.setAttribute('aria-hidden','true'); 
-        editingId = null; 
-      }
-    }
-    
-    panelCancel.addEventListener('click', ()=> showPanel(false));
-    panelBackdrop.addEventListener('click', ()=> showPanel(false));
-
-    panelSave.addEventListener('click', ()=>{
-      if (!editingId){
-        const id = uid();
-        tasks[id] = { 
-          id, 
-          title: pTitle.value.trim() || 'Untitled', 
-          description: pDesc.value.trim(), 
-          due: pDue.value || '', 
-          quadrant: pQuadrant.value || 'do-first', 
-          label: pLabel.value || '', 
-          completed: !!pCompleted.checked,
-          subtasks: [],
-          createdAt: Date.now() 
-        };
-      } else {
-        const t = tasks[editingId]; 
-        if (!t) return showPanel(false);
-        t.title = pTitle.value.trim() || t.title;
-        t.description = pDesc.value.trim();
-        t.due = pDue.value || '';
-        t.quadrant = pQuadrant.value;
-        t.label = pLabel.value || '';
-        t.completed = !!pCompleted.checked;
-      }
-      showPanel(false);
-      render();
-      switchView(prefs.currentView);
-    });
-
-    deleteFromPanelBtn.addEventListener('click', ()=>{
-      if (!editingId) return;
-      if (!confirm('Delete this task?')) return;
-      delete tasks[editingId];
-      showPanel(false);
-      render();
-      switchView(prefs.currentView);
-    });
-
-    // ---------------- Drag targets
-    document.querySelectorAll('.quadrant').forEach(qEl=>{
-      qEl.addEventListener('dragover', e=> {
-        e.preventDefault();
-        qEl.style.background = 'rgba(46, 160, 67, 0.05)';
-      });
-      qEl.addEventListener('dragleave', ()=> {
-        qEl.style.background = '';
-      });
-      qEl.addEventListener('drop', e=>{
-        e.preventDefault();
-        qEl.style.background = '';
-        if (!dragged) return;
-        const id = dragged.dataset.id;
-        const target = qEl.dataset.q;
-        if (tasks[id]) {
-          tasks[id].quadrant = target;
-          render();
-        }
-      });
-    });
-
-    // ---------------- counts & progress
-    function totalIn(q){ 
-      return Object.values(tasks).filter(t=>t.quadrant===q).length 
-    }
-    function doneIn(q){ 
-      return Object.values(tasks).filter(t=>t.quadrant===q && t.completed).length 
-    }
-    function updateCounts(){
-      quadrants.forEach(q=>{
-        const total = totalIn(q), done = doneIn(q);
-        const el = document.getElementById(`${q}-count`);
-        if (el) el.textContent = `(${done}/${total} done)`;
-      });
-    }
-    function updateProgress(){
-      quadrants.forEach(q=>{
-        const total = totalIn(q), done = doneIn(q);
-        const pct = total === 0 ? 0 : Math.round((done/total)*100);
-        const fill = document.getElementById(`${q}-fill`);
-        if (fill) fill.style.width = pct + '%';
-      });
-    }
-
-    // ---------------- search & filter
-    searchInput.addEventListener('input', ()=> render());
-    
-    toggleCompletedBtn.addEventListener('click', ()=>{
-      prefs.showCompleted = !prefs.showCompleted;
-      toggleCompletedBtn.textContent = prefs.showCompleted ? 'Hide Completed' : 'Show Completed';
-      saveToStorage(); 
-      render();
-    });
-    
-    toggleCompletedBtn.textContent = prefs.showCompleted ? 'Hide Completed' : 'Show Completed';
-
-    // ---------------- export / import / demo
-    exportBtn.addEventListener('click', ()=>{
-      const data = JSON.stringify({ tasks }, null, 2);
-      const blob = new Blob([data], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a'); 
-      a.href = url; 
-      a.download = 'priobox-tasks.json';
-      document.body.appendChild(a); 
-      a.click(); 
-      a.remove(); 
-      URL.revokeObjectURL(url);
-    });
-
-    importBtn.addEventListener('click', ()=> importFileInput.click());
-    
-    importFileInput.addEventListener('change', (ev)=>{
-      const f = ev.target.files[0];
-      if (!f) return;
-      const r = new FileReader();
-      r.onload = ()=> {
+      load() {
         try {
-          const obj = JSON.parse(r.result);
-          if (obj.tasks){
-            Object.values(obj.tasks).forEach(t=>{
-              let id = t.id;
-              if (!id || tasks[id]) id = uid();
-              tasks[id] = {...t, id};
+          const rawTasks = localStorage.getItem(this.STORAGE_KEY);
+          const rawPrefs = localStorage.getItem(this.PREFS_KEY);
+          if (rawTasks) {
+            const data = JSON.parse(rawTasks);
+            this.tasks = data.tasks || {};
+            Object.values(this.tasks).forEach(t => {
+              if (!t.subtasks) t.subtasks = [];
+              if (!t.createdAt) t.createdAt = Date.now();
             });
-            render(); 
-            switchView(prefs.currentView);
-            alert('Imported tasks successfully');
-          } else {
-            alert('No tasks found in file');
           }
-        } catch(e){ 
-          alert('Invalid JSON file'); 
-          console.error(e);
-        }
-      };
-      r.readAsText(f);
-      importFileInput.value = '';
-    });
-
-    demoBtn.addEventListener('click', ()=>{
-      if (Object.keys(tasks).length > 0) {
-        if (!confirm('This will replace your current tasks. Continue?')) return;
+          if (rawPrefs) this.prefs = { ...this.prefs, ...JSON.parse(rawPrefs) };
+        } catch(e) { console.error('Load error:', e); }
       }
-      tasks = {};
-      const today = new Date();
-      const tomorrow = new Date(today.getTime() + 86400000);
-      const nextWeek = new Date(today.getTime() + 7*86400000);
-      const yesterday = new Date(today.getTime() - 86400000);
-      
-      const sample = [
-        { 
-          title: 'Fix critical signup bug', 
-          quadrant:'do-first', 
-          due: fmtISO(tomorrow), 
-          label:'client', 
-          description: 'Users cannot complete registration',
-          subtasks: [
-            { text: 'Reproduce the bug', completed: true },
-            { text: 'Identify root cause', completed: true },
-            { text: 'Write fix', completed: false },
-            { text: 'Test solution', completed: false },
-            { text: 'Deploy to production', completed: false }
-          ]
-        },
-        { 
-          title: 'Plan Q2 roadmap', 
-          quadrant:'schedule', 
-          due: fmtISO(nextWeek), 
-          label:'', 
-          description: 'Strategic planning session with team',
-          subtasks: [
-            { text: 'Review Q1 results', completed: false },
-            { text: 'Gather team input', completed: false },
-            { text: 'Draft objectives', completed: false }
-          ]
-        },
-        { 
-          title: 'Review social media posts', 
-          quadrant:'delegate', 
-          due: '', 
-          label:'personal', 
-          description: 'Quick 15-minute task',
-          subtasks: []
-        },
-        { 
-          title: 'Clean old email subscriptions', 
-          quadrant:'eliminate', 
-          due: '', 
-          label:'', 
-          description: 'Low priority cleanup',
-          subtasks: []
-        },
-        {
-          title: 'Submit quarterly report',
-          quadrant:'do-first',
-          due: fmtISO(yesterday),
-          label:'client',
-          description: 'Overdue - needs immediate attention',
-          subtasks: []
-        }
-      ];
-      
-      sample.forEach(s=>{
-        const id=uid();
-        tasks[id] = { 
-          id, 
-          title:s.title, 
-          description:s.description||'', 
-          due:s.due, 
-          quadrant:s.quadrant, 
-          label:s.label||'', 
-          completed:false,
-          subtasks: s.subtasks || [],
-          createdAt:Date.now() 
+
+      save() {
+        try {
+          localStorage.setItem(this.STORAGE_KEY, JSON.stringify({ tasks: this.tasks }));
+          localStorage.setItem(this.PREFS_KEY, JSON.stringify(this.prefs));
+          this.notify();
+        } catch(e) { console.error('Save error:', e); }
+      }
+
+      subscribe(callback) {
+        this.listeners.push(callback);
+        return () => { this.listeners = this.listeners.filter(l => l !== callback); };
+      }
+
+      notify() { this.listeners.forEach(cb => cb()); }
+
+      addTask(task) {
+        const id = this.generateId();
+        this.tasks[id] = { id, title: task.title || 'Untitled', description: task.description || '', due: task.due || '', quadrant: task.quadrant || 'do-first', label: task.label || '', completed: false, subtasks: [], createdAt: Date.now(), ...task };
+        this.save();
+        return id;
+      }
+
+      updateTask(id, updates) {
+        if (!this.tasks[id]) return false;
+        this.tasks[id] = { ...this.tasks[id], ...updates };
+        this.save();
+        return true;
+      }
+
+      deleteTask(id) {
+        if (!this.tasks[id]) return false;
+        delete this.tasks[id];
+        this.save();
+        return true;
+      }
+
+      getTask(id) { return this.tasks[id]; }
+      getAllTasks() { return Object.values(this.tasks); }
+      getTasksByQuadrant(quadrant) { return this.getAllTasks().filter(t => t.quadrant === quadrant); }
+
+      toggleComplete(id) {
+        const task = this.tasks[id];
+        if (!task) return false;
+        task.completed = !task.completed;
+        this.save();
+        return true;
+      }
+
+      generateId() { return `t-${Date.now()}-${Math.floor(Math.random() * 9000 + 1000)}`; }
+      setPref(key, value) { this.prefs[key] = value; this.save(); }
+      getPref(key) { return this.prefs[key]; }
+    }
+
+    const Utils = {
+      escapeHtml(text) {
+        if (!text) return '';
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+      },
+      formatDate(dateStr) {
+        if (!dateStr) return '';
+        try { return new Date(dateStr).toISOString().slice(0, 10); } catch { return dateStr; }
+      },
+      getDaysDiff(dateStr) {
+        if (!dateStr) return null;
+        const today = new Date(); today.setHours(0,0,0,0);
+        const date = new Date(dateStr); date.setHours(0,0,0,0);
+        return Math.round((date - today) / (1000 * 60 * 60 * 24));
+      },
+      getUrgencyClass(dateStr) {
+        const diff = this.getDaysDiff(dateStr);
+        if (diff === null) return '';
+        if (diff < 0) return 'due-overdue';
+        if (diff <= 2) return 'due-approach';
+        return 'due-on-time';
+      },
+      debounce(func, wait) {
+        let timeout;
+        return function(...args) {
+          clearTimeout(timeout);
+          timeout = setTimeout(() => func(...args), wait);
         };
-      });
-      saveToStorage(); 
-      switchView(prefs.currentView);
-    });
+      },
+      formatDateFull(date) {
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        return date.toLocaleDateString('en-US', options);
+      }
+    };
 
-    // ---------------- calendar integration
-    function downloadICSFor(t){
-      if (!t || !t.due) { 
-        alert('Task must have a due date to export to calendar'); 
-        return; 
+    const Calendar = {
+      openGoogleCalendar(task) {
+        if (!task || !task.due) { alert('Task must have a due date to add to Google Calendar'); return; }
+        const start = new Date(task.due + 'T09:00:00');
+        const end = new Date(start.getTime() + 60 * 60 * 1000);
+        const formatDate = (dt) => dt.toISOString().slice(0, 19).replace(/-|:/g, '') + 'Z';
+        const dates = `${formatDate(start)}/${formatDate(end)}`;
+        const text = encodeURIComponent(task.title || 'Task');
+        const details = encodeURIComponent(task.description || '');
+        window.open(`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${text}&dates=${dates}&details=${details}`, '_blank');
+      },
+      downloadICS(task) {
+        if (!task || !task.due) { alert('Task must have a due date to export to calendar'); return; }
+        const start = new Date(task.due + 'T09:00:00');
+        const end = new Date(start.getTime() + 60 * 60 * 1000);
+        const formatDate = (dt) => dt.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+        const ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//PrioBox//EN', 'BEGIN:VEVENT', `UID:${task.id}@priobox`, `DTSTAMP:${formatDate(new Date())}`, `DTSTART:${formatDate(start)}`, `DTEND:${formatDate(end)}`, `SUMMARY:${(task.title || '').replace(/[,;]/g, '')}`, `DESCRIPTION:${(task.description||'').replace(/\n/g,'\\n').replace(/[,;]/g, '')}`, 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+        const blob = new Blob([ics], { type: 'text/calendar' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = `${(task.title || 'task').slice(0, 40)}.ics`;
+        document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
       }
-      const start = new Date(t.due + 'T09:00:00');
-      const end = new Date(start.getTime() + 60*60*1000);
-      
-      function fmt(dt){ 
-        return dt.toISOString().replace(/[-:]/g,'').split('.')[0] + 'Z'; 
-      }
-      
-      const ics = [
-        'BEGIN:VCALENDAR',
-        'VERSION:2.0',
-        'PRODID:-//PrioBox//EN',
-        'BEGIN:VEVENT',
-        `UID:${t.id}@priobox`,
-        `DTSTAMP:${fmt(new Date())}`,
-        `DTSTART:${fmt(start)}`,
-        `DTEND:${fmt(end)}`,
-        `SUMMARY:${(t.title || '').replace(/[,;]/g, '')}`,
-        `DESCRIPTION:${(t.description||'').replace(/\n/g,'\\n').replace(/[,;]/g, '')}`,
-        'END:VEVENT',
-        'END:VCALENDAR'
-      ].join('\r\n');
-      
-      const blob = new Blob([ics], { type: 'text/calendar' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a'); 
-      a.href = url; 
-      a.download = `${(t.title || 'task').slice(0,40)}.ics`;
-      document.body.appendChild(a); 
-      a.click(); 
-      a.remove(); 
-      URL.revokeObjectURL(url);
-    }
-    
-    function openGoogleCalendarFor(t){
-      if (!t || !t.due) { 
-        alert('Task must have a due date to add to Google Calendar'); 
-        return; 
-      }
-      const start = new Date(t.due + 'T09:00:00'); 
-      const end = new Date(start.getTime() + 60*60*1000);
-      
-      function fmtLocal(dt){ 
-        return dt.toISOString().slice(0,19).replace(/-|:/g,'') + 'Z' 
-      }
-      
-      const dates = `${fmtLocal(start)}/${fmtLocal(end)}`;
-      const text = encodeURIComponent(t.title || 'Task');
-      const details = encodeURIComponent(t.description || '');
-      const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${text}&dates=${dates}&details=${details}`;
-      window.open(url, '_blank');
-    }
+    };
 
-    addToCalendarBtn.addEventListener('click', ()=>{
-      if (!editingId) {
-        alert('Please select a task first');
-        return;
+    class TaskRenderer {
+      constructor(store) {
+        this.store = store;
+        this.searchTerm = '';
       }
-      const t = tasks[editingId]; 
-      if (t) openGoogleCalendarFor(t);
-    });
-    
-    downloadICSBtn.addEventListener('click', ()=>{
-      if (!editingId) {
-        alert('Please select a task first');
-        return;
+      setSearchTerm(term) { this.searchTerm = term.toLowerCase().trim(); }
+      matchesSearch(task) {
+        if (!this.searchTerm) return true;
+        const searchStr = (task.title + ' ' + (task.description || '') + ' ' + (task.due || '') + ' ' + (task.label || '')).toLowerCase();
+        return searchStr.includes(this.searchTerm);
       }
-      const t = tasks[editingId]; 
-      if (t) downloadICSFor(t);
-    });
-
-    // ---------------- Sign out (disabled for artifact)
-    signOutBtn.addEventListener('click', ()=>{
-      alert('Cloud sync is not available in this demo version');
-    });
-
-    accountBtn.addEventListener('click', ()=>{
-      alert('Cloud sync is not available in this demo version. Your tasks are saved locally.');
-    });
-
-    // ---------------- UI wiring & keyboard
-    addBtn.addEventListener('click', ()=> {
-      if (taskTitle.value.trim()) { 
-        addTaskFromFormQuick(); 
-        return; 
-      }
-      openPanelForNew();
-    });
-    
-    clearBtn.addEventListener('click', ()=> {
-      if (!confirm('Clear all tasks? This cannot be undone.')) return;
-      tasks = {}; 
-      saveToStorage(); 
-      switchView(prefs.currentView);
-    });
-
-    document.addEventListener('keydown', (e)=>{
-      if (e.key === 'Escape') { 
-        showPanel(false); 
-        hideOnboarding(); 
-      }
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'n') { 
-        e.preventDefault();
-        if (taskTitle) taskTitle.focus(); 
-      }
-      if (e.key === 'Enter' && (document.activeElement === taskTitle || document.activeElement === taskDesc || document.activeElement === taskDue)) {
-        addTaskFromFormQuick();
-      }
-    });
-
-    // ---------------- onboarding
-    function showOnboarding(){ 
-      onboard.classList.add('show'); 
-      onboard.setAttribute('aria-hidden','false'); 
-    }
-    
-    function hideOnboarding(){ 
-      onboard.classList.remove('show'); 
-      onboard.setAttribute('aria-hidden','true'); 
-      try {
-        localStorage.setItem('prio_onboard_seen','true');
-      } catch(e) {
-        console.warn('Could not save onboarding state');
-      }
-    }
-    
-    onboardDone.addEventListener('click', ()=> hideOnboarding());
-    onboardSkip.addEventListener('click', ()=> hideOnboarding());
-
-    // ---------------- load & boot
-    function showApp(visible){
-      if (visible){
-        authSheet.classList.remove('show');
-        authBackdrop.classList.remove('show');
-        appArea.style.display = 'block';
-      } else {
-        appArea.style.display = 'none';
-      }
-    }
-
-    function loadAll(){
-      // Show loading
-      loadingEl.classList.remove('loading-hidden');
-      
-      // Load data
-      loadFromStorage();
-      
-      // Check onboarding
-      try {
-        const seen = localStorage.getItem('prio_onboard_seen');
-        if (!seen) {
-          setTimeout(()=> showOnboarding(), 700);
+      createTaskElement(task) {
+        const div = document.createElement('div');
+        div.className = 'task'; div.dataset.id = task.id;
+        if (task.completed) div.classList.add('completed');
+        const urgencyClass = Utils.getUrgencyClass(task.due);
+        if (urgencyClass) div.classList.add(urgencyClass);
+        const left = document.createElement('div'); left.className = 'task-left';
+        let titleHtml = `<div class="task-title">${Utils.escapeHtml(task.title)}`;
+        if (task.label) {
+          const labelClass = `tag-${task.label}`;
+          titleHtml += ` <span class="tag ${labelClass}">${task.label.charAt(0).toUpperCase() + task.label.slice(1)}</span>`;
         }
-      } catch(e) {
-        setTimeout(()=> showOnboarding(), 700);
+        titleHtml += `</div>`;
+        let contentHtml = titleHtml;
+        if (task.description) contentHtml += `<div class="task-desc">${Utils.escapeHtml(task.description)}</div>`;
+        if (task.subtasks && task.subtasks.length > 0) {
+          const completedSubs = task.subtasks.filter(s => s.completed).length;
+          contentHtml += `<div style="font-size:0.85rem;color:var(--text-secondary);margin-top:4px">✓ ${completedSubs}/${task.subtasks.length} subtasks</div>`;
+        }
+        if (task.due) contentHtml += `<div class="task-due">${Utils.escapeHtml(task.due)}</div>`;
+        left.innerHTML = contentHtml;
+        const controls = document.createElement('div'); controls.className = 'task-controls';
+        controls.appendChild(this.createButton(task.completed ? '↺' : '✔', task.completed ? 'Mark incomplete' : 'Mark complete', () => app.toggleComplete(task.id)));
+        controls.appendChild(this.createButton('✎', 'Edit', () => app.openEditPanel(task.id)));
+        controls.appendChild(this.createButton('📅', 'Add to calendar', () => { if (task.due) { Calendar.openGoogleCalendar(task); } else { alert('Please add a due date first'); } }));
+        controls.appendChild(this.createButton('✕', 'Delete', () => app.deleteTask(task.id)));
+        div.appendChild(controls); div.appendChild(left);
+        this.setupDrag(div);
+        div.addEventListener('dblclick', () => app.openEditPanel(task.id));
+        return div;
       }
-      
-      // Show app (skip auth for demo)
-      showAuthSheet(false);
-      showApp(true);
-      
-      // Load the saved view or default to daily
-      switchView(prefs.currentView || 'daily');
-      
-      // Hide loading
-      setTimeout(()=> {
-        loadingEl.classList.add('loading-hidden');
-        setTimeout(()=> loadingEl.style.display = 'none', 300);
-      }, 500);
+      createButton(text, title, onClick) {
+        const btn = document.createElement('button');
+        btn.className = 'small-btn'; btn.textContent = text; btn.title = title;
+        btn.onclick = (e) => { e.stopPropagation(); onClick(); };
+        return btn;
+      }
+      setupDrag(element) {
+        element.draggable = true;
+        element.addEventListener('dragstart', (e) => { element.classList.add('dragging'); e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text/plain', element.dataset.id); });
+        element.addEventListener('dragend', () => { element.classList.remove('dragging'); });
+      }
     }
 
-    // ---------------- init
-    loadAll();
+    class PrioBoxApp {
+      constructor() {
+        this.store = new TaskStore();
+        this.renderer = new TaskRenderer(this.store);
+        this.currentView = 'daily';
+        this.editingTaskId = null;
+        this.quadrants = ['do-first', 'schedule', 'delegate', 'eliminate'];
+        this.initializeElements();
+        this.setupEventListeners();
+        this.store.subscribe(() => this.render());
+      }
 
-    // Expose for debugging
-    window.priobox = { tasks, render, addTask: addTaskFromFormQuick, switchView };
+      initializeElements() {
+        this.loadingEl = document.getElementById('loading');
+        this.authBackdrop = document.getElementById('authBackdrop');
+        this.authSheet = document.getElementById('authSheet');
+        this.authClose = document.getElementById('authClose');
+        this.authSend = document.getElementById('authSend');
+        this.appArea = document.getElementById('appArea');
+        this.viewDaily = document.getElementById('viewDaily');
+        this.viewMatrix = document.getElementById('viewMatrix');
+        this.viewStats = document.getElementById('viewStats');
+        this.dailyView = document.getElementById('dailyView');
+        this.matrixView = document.getElementById('matrixView');
+        this.statsView = document.getElementById('statsView');
+        this.addBtn = document.getElementById('addBtn');
+        this.clearBtn = document.getElementById('clearBtn');
+        this.demoBtn = document.getElementById('demoBtn');
+        this.exportBtn = document.getElementById('exportBtn');
+        this.importBtn = document.getElementById('importBtn');
+        this.importFileInput = document.getElementById('importFileInput');
+        this.taskTitle = document.getElementById('taskTitle');
+        this.taskDescription = document.getElementById('taskDescription');
+        this.taskDue = document.getElementById('taskDue');
+        this.taskQuadrant = document.getElementById('taskQuadrant');
+        this.taskLabel = document.getElementById('taskLabel');
+        this.searchInput = document.getElementById('searchInput');
+        this.toggleCompletedBtn = document.getElementById('toggleCompletedBtn');
+        this.panelBackdrop = document.getElementById('panelBackdrop');
+        this.slidePanel = document.getElementById('slidePanel');
+        this.pTitle = document.getElementById('pTitle');
+        this.pDesc = document.getElementById('pDesc');
+        this.pDue = document.getElementById('pDue');
+        this.pQuadrant = document.getElementById('pQuadrant');
+        this.pLabel = document.getElementById('pLabel');
+        this.pCompleted = document.getElementById('pCompleted');
+        this.panelSave = document.getElementById('panelSave');
+        this.panelCancel = document.getElementById('panelCancel');
+        this.subtasksList = document.getElementById('subtasksList');
+        this.addSubtaskBtn = document.getElementById('addSubtaskBtn');
+        this.addToCalendarBtn = document.getElementById('addToCalendarBtn');
+        this.downloadICSBtn = document.getElementById('downloadICSBtn');
+        this.deleteFromPanelBtn = document.getElementById('deleteFromPanelBtn');
+        this.onboard = document.getElementById('onboard');
+        this.onboardDone = document.getElementById('onboardDone');
+        this.onboardSkip = document.getElementById('onboardSkip');
+      }
 
+      setupEventListeners() {
+        this.authClose.addEventListener('click', () => this.closeAuth());
+        this.authSend.addEventListener('click', () => this.handleAuthSend());
+        this.viewDaily.addEventListener('click', () => this.switchView('daily'));
+        this.viewMatrix.addEventListener('click', () => this.switchView('matrix'));
+        this.viewStats.addEventListener('click', () => this.switchView('stats'));
+        this.addBtn.addEventListener('click', () => this.handleAddTask());
+        this.clearBtn.addEventListener('click', () => this.handleClearAll());
+        this.demoBtn.addEventListener('click', () => this.loadDemoData());
+        this.exportBtn.addEventListener('click', () => this.exportTasks());
+        this.importBtn.addEventListener('click', () => this.importFileInput.click());
+        this.importFileInput.addEventListener('change', (e) => this.importTasks(e));
+        this.searchInput.addEventListener('input', Utils.debounce(() => { this.renderer.setSearchTerm(this.searchInput.value); this.render(); }, 300));
+        this.toggleCompletedBtn.addEventListener('click', () => this.toggleCompletedVisibility());
+        this.panelBackdrop.addEventListener('click', () => this.closePanel());
+        this.panelCancel.addEventListener('click', () => this.closePanel());
+        this.panelSave.addEventListener('click', () => this.savePanel());
+        this.addSubtaskBtn.addEventListener('click', () => this.addSubtask());
+        this.addToCalendarBtn.addEventListener('click', () => { if (this.editingTaskId) { const task = this.store.getTask(this.editingTaskId); if (task) Calendar.openGoogleCalendar(task); } });
+        this.downloadICSBtn.addEventListener('click', () => { if (this.editingTaskId) { const task = this.store.getTask(this.editingTaskId); if (task) Calendar.downloadICS(task); } });
+        this.deleteFromPanelBtn.addEventListener('click', () => { if (this.editingTaskId) { this.deleteTask(this.editingTaskId); this.closePanel(); } });
+        this.onboardDone.addEventListener('click', () => this.closeOnboarding());
+        this.onboardSkip.addEventListener('click', () => this.closeOnboarding());
+        document.addEventListener('keydown', (e) => this.handleKeyboard(e));
+        this.setupDragTargets();
+      }
+
+      setupDragTargets() {
+        document.querySelectorAll('.quadrant').forEach(qEl => {
+          qEl.addEventListener('dragover', (e) => { e.preventDefault(); qEl.style.background = 'rgba(46, 160, 67, 0.05)'; });
+          qEl.addEventListener('dragleave', () => { qEl.style.background = ''; });
+          qEl.addEventListener('drop', (e) => { e.preventDefault(); qEl.style.background = ''; const taskId = e.dataTransfer.getData('text/plain'); const targetQuadrant = qEl.dataset.q; if (taskId && targetQuadrant) this.store.updateTask(taskId, { quadrant: targetQuadrant }); });
+        });
+      }
+
+      switchView(view) {
+        this.currentView = view;
+        this.store.setPref('currentView', view);
+        [this.viewDaily, this.viewMatrix, this.viewStats].forEach(btn => btn.classList.remove('active'));
+        this.dailyView.style.display = 'none';
+        this.matrixView.style.display = 'none';
+        this.statsView.style.display = 'none';
+        if (view === 'daily') { this.viewDaily.classList.add('active'); this.dailyView.style.display = 'block'; this.renderDailyView(); }
+        else if (view === 'matrix') { this.viewMatrix.classList.add('active'); this.matrixView.style.display = 'block'; this.renderMatrixView(); }
+        else if (view === 'stats') { this.viewStats.classList.add('active'); this.statsView.style.display = 'block'; this.renderStatsView(); }
+      }
+
+      render() {
+        if (this.currentView === 'daily') this.renderDailyView();
+        else if (this.currentView === 'matrix') this.renderMatrixView();
+        else if (this.currentView === 'stats') this.renderStatsView();
+      }
+
+      renderDailyView() {
+        const today = new Date();
+        document.getElementById('dailyDate').textContent = Utils.formatDateFull(today);
+        const allTasks = this.store.getAllTasks();
+        const todayTasks = allTasks.filter(t => { const diff = Utils.getDaysDiff(t.due); return diff === 0 && !t.completed; });
+        const overdueTasks = allTasks.filter(t => { const diff = Utils.getDaysDiff(t.due); return diff !== null && diff < 0 && !t.completed; });
+        const upcomingTasks = allTasks.filter(t => { const diff = Utils.getDaysDiff(t.due); return diff !== null && diff > 0 && diff <= 7 && !t.completed; });
+        document.getElementById('todayDue').textContent = todayTasks.length;
+        document.getElementById('overdueCount').textContent = overdueTasks.length;
+        document.getElementById('upcomingCount').textContent = upcomingTasks.length;
+        const container = document.getElementById('dailyTasks');
+        container.innerHTML = '';
+        if (overdueTasks.length > 0) this.renderTaskSection(container, 'Overdue', overdueTasks, 'var(--overdue)');
+        if (todayTasks.length > 0) this.renderTaskSection(container, 'Due Today', todayTasks, 'var(--accent-1)');
+        if (upcomingTasks.length > 0) this.renderTaskSection(container, 'This Week', upcomingTasks, 'var(--approach)');
+        if (overdueTasks.length === 0 && todayTasks.length === 0 && upcomingTasks.length === 0) {
+          container.innerHTML = '<div class="empty-state"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="10" width="35" height="35" rx="5" fill="currentColor"/><rect x="55" y="10" width="35" height="35" rx="5" fill="currentColor"/><rect x="10" y="55" width="35" height="35" rx="5" fill="currentColor"/><rect x="55" y="55" width="35" height="35" rx="5" fill="currentColor"/></svg><h3>All caught up!</h3><p>No urgent tasks. Great job staying organized.</p></div>';
+        }
+      }
+
+      renderTaskSection(container, title, tasks, color) {
+        const section = document.createElement('div');
+        section.innerHTML = `<h3 style="color:${color};margin:16px 0 8px 0">${title}</h3>`;
+        container.appendChild(section);
+        tasks.sort((a, b) => { if (a.due && b.due) return new Date(a.due) - new Date(b.due); return 0; }).forEach(task => { container.appendChild(this.renderer.createTaskElement(task)); });
+      }
+
+      renderMatrixView() {
+        this.quadrants.forEach(q => {
+          const container = document.getElementById(`${q}-tasks`);
+          if (!container) return;
+          container.innerHTML = '';
+          const tasks = this.store.getTasksByQuadrant(q);
+          tasks.sort((a, b) => { if (a.due && b.due) return new Date(a.due) - new Date(b.due); if (a.due) return -1; if (b.due) return 1; return (a.createdAt || 0) - (b.createdAt || 0); });
+          tasks.forEach(task => {
+            if (!this.renderer.matchesSearch(task)) return;
+            const node = this.renderer.createTaskElement(task);
+            if (!this.store.getPref('showCompleted') && task.completed) node.style.display = 'none';
+            container.appendChild(node);
+          });
+        });
+        this.updateQuadrantStats();
+      }
+
+      updateQuadrantStats() {
+        this.quadrants.forEach(q => {
+          const tasks = this.store.getTasksByQuadrant(q);
+          const total = tasks.length;
+          const done = tasks.filter(t => t.completed).length;
+          const pct = total === 0 ? 0 : Math.round((done / total) * 100);
+          const countEl = document.getElementById(`${q}-count`);
+          const fillEl = document.getElementById(`${q}-fill`);
+          if (countEl) countEl.textContent = `(${done}/${total} done)`;
+          if (fillEl) fillEl.style.width = pct + '%';
+        });
+      }
+
+      renderStatsView() {
+        const allTasks = this.store.getAllTasks();
+        const total = allTasks.length;
+        const completed = allTasks.filter(t => t.completed).length;
+        const active = total - completed;
+        const overdue = allTasks.filter(t => { const diff = Utils.getDaysDiff(t.due); return diff !== null && diff < 0 && !t.completed; }).length;
+        document.getElementById('totalTasks').textContent = total;
+        document.getElementById('completedTasks').textContent = completed;
+        document.getElementById('activeTasks').textContent = active;
+        document.getElementById('overdueStats').textContent = overdue;
+        const completionRate = total > 0 ? Math.round((completed / total) * 100) : 0;
+        document.getElementById('completionRate').textContent = `${completionRate}% completion rate`;
+        document.getElementById('completedBar').style.width = completionRate + '%';
+        document.getElementById('activeBar').style.width = (total > 0 ? (active / total) * 100 : 0) + '%';
+        this.quadrants.forEach(q => {
+          const count = allTasks.filter(t => t.quadrant === q).length;
+          const pct = total > 0 ? Math.round((count / total) * 100) : 0;
+          const label = q.replace('-', '');
+          const statEl = document.getElementById(`${label}Stat`);
+          const barEl = document.getElementById(`${label}Bar`);
+          if (statEl) statEl.textContent = count;
+          if (barEl) barEl.style.width = pct + '%';
+        });
+        this.renderInsights(allTasks, total, completed, overdue, completionRate);
+      }
+
+      renderInsights(allTasks, total, completed, overdue, completionRate) {
+        const insights = [];
+        if (overdue > 0) insights.push(`You have ${overdue} overdue task${overdue > 1 ? 's' : ''} that need immediate attention.`);
+        if (completionRate >= 70) insights.push(`Great job! You're completing ${completionRate}% of your tasks.`);
+        else if (completionRate < 30 && total > 5) insights.push(`Consider breaking down tasks into smaller, more manageable pieces.`);
+        const doFirstCount = allTasks.filter(t => t.quadrant === 'do-first').length;
+        const eliminateCount = allTasks.filter(t => t.quadrant === 'eliminate').length;
+        if (doFirstCount > total * 0.5 && total > 5) insights.push(`Over half your tasks are in "Do First". Consider if some could be scheduled or delegated.`);
+        if (eliminateCount > 5) insights.push(`You have ${eliminateCount} tasks in "Eliminate". Consider removing low-value items.`);
+        if (total === completed && total > 0) insights.push(`All tasks completed! Time to set new goals.`);
+        if (insights.length === 0) insights.push(`Keep adding tasks and tracking your progress to see personalized insights.`);
+        document.getElementById('insightsList').innerHTML = insights.map(i => `<li>${i}</li>`).join('');
+      }
+
+      handleAddTask() {
+        const title = this.taskTitle.value.trim();
+        if (!title) { this.taskTitle.focus(); return; }
+        this.store.addTask({ title, description: this.taskDescription.value.trim(), due: this.taskDue.value || '', quadrant: this.taskQuadrant.value || 'do-first', label: this.taskLabel.value || '' });
+        this.taskTitle.value = ''; this.taskDescription.value = ''; this.taskDue.value = ''; this.taskQuadrant.value = 'do-first'; this.taskLabel.value = '';
+      }
+
+      toggleComplete(taskId) { this.store.toggleComplete(taskId); }
+      deleteTask(taskId) { if (!confirm('Delete this task?')) return; this.store.deleteTask(taskId); }
+      handleClearAll() { if (!confirm('Clear all tasks? This cannot be undone.')) return; this.store.tasks = {}; this.store.save(); }
+
+      openEditPanel(taskId) {
+        this.editingTaskId = taskId;
+        const task = this.store.getTask(taskId);
+        if (!task) return;
+        this.pTitle.value = task.title || '';
+        this.pDesc.value = task.description || '';
+        this.pDue.value = task.due || '';
+        this.pQuadrant.value = task.quadrant || 'do-first';
+        this.pLabel.value = task.label || '';
+        this.pCompleted.checked = !!task.completed;
+        document.getElementById('panelTitle').textContent = 'Edit task';
+        this.renderSubtasks();
+        this.showPanel(true);
+      }
+
+      showPanel(show) {
+        if (show) {
+          this.slidePanel.classList.add('show');
+          this.panelBackdrop.classList.add('show');
+          this.slidePanel.setAttribute('aria-hidden', 'false');
+        } else {
+          this.slidePanel.classList.remove('show');
+          this.panelBackdrop.classList.remove('show');
+          this.slidePanel.setAttribute('aria-hidden', 'true');
+          this.editingTaskId = null;
+        }
+      }
+
+      closePanel() { this.showPanel(false); }
+
+      savePanel() {
+        if (!this.editingTaskId) return;
+        const task = this.store.getTask(this.editingTaskId);
+        if (!task) { this.closePanel(); return; }
+        this.store.updateTask(this.editingTaskId, {
+          title: this.pTitle.value.trim() || task.title,
+          description: this.pDesc.value.trim(),
+          due: this.pDue.value || '',
+          quadrant: this.pQuadrant.value,
+          label: this.pLabel.value || '',
+          completed: !!this.pCompleted.checked
+        });
+        this.closePanel();
+      }
+
+      renderSubtasks() {
+        if (!this.editingTaskId) return;
+        const task = this.store.getTask(this.editingTaskId);
+        if (!task) return;
+        const subtasks = task.subtasks || [];
+        this.subtasksList.innerHTML = '';
+        subtasks.forEach((st, idx) => {
+          const div = document.createElement('div');
+          div.className = 'subtask' + (st.completed ? ' completed' : '');
+          const checkbox = document.createElement('input');
+          checkbox.type = 'checkbox';
+          checkbox.checked = st.completed;
+          checkbox.addEventListener('change', () => {
+            task.subtasks[idx].completed = checkbox.checked;
+            this.store.save();
+            this.renderSubtasks();
+          });
+          const text = document.createElement('span');
+          text.textContent = st.text;
+          text.style.flex = '1';
+          const delBtn = document.createElement('button');
+          delBtn.textContent = '✕';
+          delBtn.className = 'small-btn';
+          delBtn.onclick = () => {
+            task.subtasks.splice(idx, 1);
+            this.store.save();
+            this.renderSubtasks();
+          };
+          div.appendChild(checkbox);
+          div.appendChild(text);
+          div.appendChild(delBtn);
+          this.subtasksList.appendChild(div);
+        });
+      }
+
+      addSubtask() {
+        if (!this.editingTaskId) return;
+        const task = this.store.getTask(this.editingTaskId);
+        if (!task) return;
+        const text = prompt('Subtask:');
+        if (!text || !text.trim()) return;
+        if (!task.subtasks) task.subtasks = [];
+        task.subtasks.push({ text: text.trim(), completed: false });
+        this.store.save();
+        this.renderSubtasks();
+      }
+
+      exportTasks() {
+        const data = JSON.stringify({ tasks: this.store.tasks }, null, 2);
+        const blob = new Blob([data], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'priobox-tasks.json';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+      }
+
+      importTasks(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+          try {
+            const obj = JSON.parse(reader.result);
+            if (obj.tasks) {
+              Object.values(obj.tasks).forEach(t => {
+                let id = t.id;
+                if (!id || this.store.tasks[id]) id = this.store.generateId();
+                this.store.tasks[id] = { ...t, id };
+              });
+              this.store.save();
+              alert('Imported tasks successfully');
+            } else {
+              alert('No tasks found in file');
+            }
+          } catch(e) {
+            alert('Invalid JSON file');
+            console.error(e);
+          }
+        };
+        reader.readAsText(file);
+        this.importFileInput.value = '';
+      }
+
+      loadDemoData() {
+        if (Object.keys(this.store.tasks).length > 0) {
+          if (!confirm('This will replace your current tasks. Continue?')) return;
+        }
+        this.store.tasks = {};
+        const today = new Date();
+        const tomorrow = new Date(today.getTime() + 86400000);
+        const nextWeek = new Date(today.getTime() + 7 * 86400000);
+        const yesterday = new Date(today.getTime() - 86400000);
+        const samples = [
+          { title: 'Fix critical signup bug', quadrant: 'do-first', due: Utils.formatDate(tomorrow), label: 'client', description: 'Users cannot complete registration', subtasks: [{ text: 'Reproduce the bug', completed: true }, { text: 'Identify root cause', completed: true }, { text: 'Write fix', completed: false }, { text: 'Test solution', completed: false }, { text: 'Deploy to production', completed: false }] },
+          { title: 'Plan Q2 roadmap', quadrant: 'schedule', due: Utils.formatDate(nextWeek), label: '', description: 'Strategic planning session with team', subtasks: [{ text: 'Review Q1 results', completed: false }, { text: 'Gather team input', completed: false }, { text: 'Draft objectives', completed: false }] },
+          { title: 'Review social media posts', quadrant: 'delegate', due: '', label: 'personal', description: 'Quick 15-minute task', subtasks: [] },
+          { title: 'Clean old email subscriptions', quadrant: 'eliminate', due: '', label: '', description: 'Low priority cleanup', subtasks: [] },
+          { title: 'Submit quarterly report', quadrant: 'do-first', due: Utils.formatDate(yesterday), label: 'client', description: 'Overdue - needs immediate attention', subtasks: [] }
+        ];
+        samples.forEach(s => this.store.addTask(s));
+      }
+
+      toggleCompletedVisibility() {
+        const showCompleted = !this.store.getPref('showCompleted');
+        this.store.setPref('showCompleted', showCompleted);
+        this.toggleCompletedBtn.textContent = showCompleted ? 'Hide Completed' : 'Show Completed';
+        this.render();
+      }
+
+      closeAuth() {
+        this.authBackdrop.classList.remove('show');
+        this.authSheet.classList.remove('show');
+        this.appArea.style.display = 'block';
+      }
+
+      handleAuthSend() {
+        alert('Cloud sync is not available in this demo version. Your tasks are saved locally in your browser.');
+        this.closeAuth();
+      }
+
+      showOnboarding() {
+        this.onboard.classList.add('show');
+        this.onboard.setAttribute('aria-hidden', 'false');
+      }
+
+      closeOnboarding() {
+        this.onboard.classList.remove('show');
+        this.onboard.setAttribute('aria-hidden', 'true');
+        this.store.setPref('onboardingSeen', true);
+      }
+
+      handleKeyboard(e) {
+        if (e.key === 'Escape') {
+          this.closePanel();
+          this.closeOnboarding();
+        }
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'n') {
+          e.preventDefault();
+          if (this.taskTitle) this.taskTitle.focus();
+        }
+        if (e.key === 'Enter' && (document.activeElement === this.taskTitle || document.activeElement === this.taskDescription || document.activeElement === this.taskDue)) {
+          this.handleAddTask();
+        }
+      }
+
+      async init() {
+        this.loadingEl.classList.remove('loading-hidden');
+        this.store.load();
+        if (!this.store.getPref('onboardingSeen')) {
+          setTimeout(() => this.showOnboarding(), 700);
+        }
+        this.closeAuth();
+        this.toggleCompletedBtn.textContent = this.store.getPref('showCompleted') ? 'Hide Completed' : 'Show Completed';
+        this.switchView(this.store.getPref('currentView') || 'daily');
+        setTimeout(() => {
+          this.loadingEl.classList.add('loading-hidden');
+          setTimeout(() => this.loadingEl.style.display = 'none', 300);
+        }, 500);
+      }
+    }
+
+    const app = new PrioBoxApp();
+    app.init();
+
+    window.priobox = { app, store: app.store, utils: Utils };
   </script>
 </body>
 </html>
