@@ -3,148 +3,162 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>PrioBox-Focus What Matters</title>
+  <title>PrioBox — Focus What Matters</title>
   <meta name="description" content="PrioBox — Eisenhower priority matrix with due dates, labels, calendar export and cloud sync." />
   <style>
     :root{
-      --bg: #f8f7f4;
+      --bg: #f6f8fa;
       --panel: #ffffff;
-      --muted: #d9d9d6;
-      --text: #163818;
-      --accent-1: #2ea043;
-      --accent-2: #238636;
-      --on-time: #a7c4a0;
-      --approach: #e0b86b;
-      --overdue:  #d97a6d;
-      --tag-client: #7ad3c9;
-      --tag-personal: #f7d07a;
-      --tag-urgent: #ff9c8a;
-      --shadow: rgba(0,0,0,0.08);
-      --radius: 10px;
+      --panel-hover: #fafbfc;
+      --border: #d0d7de;
+      --muted: #e1e4e8;
+      --text: #1f2328;
+      --text-secondary: #57606a;
+      --accent-1: #0969da;
+      --accent-2: #0550ae;
+      --accent-light: #ddf4ff;
+      --accent-border: #54aeff;
+      --on-time: #1a7f37;
+      --on-time-bg: #dafbe1;
+      --approach: #bf8700;
+      --approach-bg: #fff8c5;
+      --overdue: #cf222e;
+      --overdue-bg: #ffebe9;
+      --tag-client: #0969da;
+      --tag-client-bg: #ddf4ff;
+      --tag-personal: #8250df;
+      --tag-personal-bg: #fbefff;
+      --tag-urgent: #cf222e;
+      --tag-urgent-bg: #ffebe9;
+      --shadow-sm: rgba(27,31,36,0.04);
+      --shadow-md: rgba(27,31,36,0.08);
+      --shadow-lg: rgba(27,31,36,0.12);
+      --radius: 12px;
+      --radius-sm: 8px;
+      --radius-lg: 16px;
       --gap: 1rem;
       --ui-h: 44px;
+      --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    html,body{height:100%;margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial;color:var(--text);background:var(--bg)}
-    .wrap{max-width:1120px;margin:28px auto;padding:0 18px}
-    header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-    .brand{display:flex;gap:12px;align-items:center}
-    .brand .logo-box{width:56px;height:56px;border-radius:12px;padding:6px;background:var(--panel);box-shadow:0 8px 26px var(--shadow);display:flex;align-items:center;justify-content:center}
-    .brand svg{width:44px;height:44px}
-    .brand h1{font-size:1.2rem;margin:0}
-    .brand p{margin:0;font-size:0.85rem;color:#4f6b51}
+    *{margin:0;padding:0;box-sizing:border-box}
+    html,body{height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif;color:var(--text);background:var(--bg);line-height:1.5}
+    .wrap{max-width:1200px;margin:0 auto;padding:24px}
+    
+    header{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:32px;flex-wrap:wrap}
+    .brand{display:flex;gap:14px;align-items:center}
+    .brand img{height:40px;width:auto}
+    
+    .loading-overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.95);z-index:9999;font-size:1.1rem;color:var(--text);transition:opacity .3s ease}
+    .loading-hidden{opacity:0;pointer-events:none}
 
-    /* Loading overlay */
-    .loading-overlay{ position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.95); z-index:9999; font-size:1.1rem; color:var(--text); transition:opacity .3s ease }
-    .loading-hidden{ opacity:0; pointer-events:none; }
+    .view-toggle{display:flex;gap:4px;background:var(--panel);padding:4px;border-radius:var(--radius);box-shadow:0 2px 8px var(--shadow-sm);border:1px solid var(--border)}
+    .view-toggle button{padding:10px 20px;border:none;background:transparent;border-radius:var(--radius-sm);cursor:pointer;font-weight:600;font-size:0.95rem;color:var(--text-secondary);transition:var(--transition)}
+    .view-toggle button:hover{background:var(--panel-hover);color:var(--text)}
+    .view-toggle button.active{background:var(--accent-1);color:white;box-shadow:0 2px 4px var(--shadow-sm)}
 
-    /* View Toggle */
-    .view-toggle{display:flex;gap:8px;background:var(--panel);padding:4px;border-radius:10px;box-shadow:0 4px 12px var(--shadow)}
-    .view-toggle button{padding:8px 16px;border:none;background:transparent;border-radius:8px;cursor:pointer;font-weight:600;transition:all .2s}
-    .view-toggle button.active{background:linear-gradient(135deg,var(--accent-1),var(--accent-2));color:white}
+    .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:20px 0}
+    .stat-card{background:var(--panel);padding:24px;border-radius:var(--radius);box-shadow:0 2px 8px var(--shadow-sm);border:1px solid var(--border);display:flex;flex-direction:column;gap:12px;transition:var(--transition)}
+    .stat-card:hover{box-shadow:0 4px 16px var(--shadow-md);transform:translateY(-2px)}
+    .stat-value{font-size:2.5rem;font-weight:700;color:var(--accent-1);line-height:1}
+    .stat-label{font-size:0.95rem;color:var(--text-secondary);font-weight:500;text-transform:uppercase;letter-spacing:0.05em}
+    .stat-trend{font-size:0.9rem;color:var(--text-secondary)}
+    .chart-bar{height:6px;background:var(--muted);border-radius:999px;overflow:hidden;margin-top:8px}
+    .chart-fill{height:100%;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));transition:width .4s cubic-bezier(0.4, 0, 0.2, 1)}
 
-    /* Stats Dashboard */
-    .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:16px 0}
-    .stat-card{background:var(--panel);padding:16px;border-radius:var(--radius);box-shadow:0 8px 20px var(--shadow);display:flex;flex-direction:column;gap:8px}
-    .stat-value{font-size:2rem;font-weight:800;color:var(--accent-1)}
-    .stat-label{font-size:0.9rem;color:#6b6b64}
-    .stat-trend{font-size:0.85rem;color:#4f6b51}
-    .chart-bar{height:8px;background:#f0f0ee;border-radius:999px;overflow:hidden;margin-top:4px}
-    .chart-fill{height:100%;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));transition:width .3s}
+    .daily-hero{background:linear-gradient(135deg,var(--accent-1),var(--accent-2));color:white;padding:32px;border-radius:var(--radius-lg);margin:20px 0;box-shadow:0 8px 24px var(--shadow-lg)}
+    .daily-hero h2{margin:0 0 8px 0;font-size:2rem;font-weight:700;letter-spacing:-0.02em}
+    .daily-hero p{margin:0;opacity:0.95;font-size:1.1rem}
+    .focus-list{display:flex;flex-direction:column;gap:12px;margin-top:20px}
 
-    /* Daily Focus View */
-    .daily-hero{background:linear-gradient(135deg,#2ea043,#238636);color:white;padding:24px;border-radius:var(--radius);margin:16px 0;box-shadow:0 12px 34px var(--shadow)}
-    .daily-hero h2{margin:0 0 8px 0;font-size:1.8rem}
-    .daily-hero p{margin:0;opacity:0.9}
-    .focus-list{display:flex;flex-direction:column;gap:10px;margin-top:16px}
-
-    /* Subtasks */
-    .subtasks{margin-top:8px;padding-left:8px;border-left:2px solid var(--muted)}
-    .subtask{display:flex;gap:8px;align-items:center;padding:4px 0;font-size:0.9rem}
-    .subtask input[type="checkbox"]{cursor:pointer}
+    .subtasks{margin-top:12px;padding-left:12px;border-left:2px solid var(--border)}
+    .subtask{display:flex;gap:10px;align-items:center;padding:8px 0;font-size:0.9rem;color:var(--text-secondary)}
+    .subtask input[type="checkbox"]{cursor:pointer;width:16px;height:16px;accent-color:var(--accent-1)}
     .subtask.completed{opacity:0.6;text-decoration:line-through}
-    .subtask-add{color:var(--accent-1);cursor:pointer;font-size:0.85rem;margin-top:4px;padding:4px 0}
-    .subtask-add:hover{text-decoration:underline}
+    .subtask-add{color:var(--accent-1);cursor:pointer;font-size:0.9rem;margin-top:8px;padding:8px 0;font-weight:600;transition:var(--transition)}
+    .subtask-add:hover{color:var(--accent-2)}
 
-    /* Auth sheet */
-    .auth-sheet-backdrop{ position:fixed; inset:0; background:rgba(0,0,0,0.28); display:none; z-index:120; transition:opacity .22s ease }
-    .auth-sheet-backdrop.show{ display:block; opacity:1; }
-    .auth-sheet{
-      position:fixed; left:50%; transform:translateX(-50%); bottom:-100%; width:100%; max-width:720px;
-      background:var(--panel); border-radius:12px 12px 0 0; box-shadow:0 -20px 50px rgba(0,0,0,0.18);
-      padding:20px; z-index:130; transition:bottom .36s cubic-bezier(.2,.9,.3,1);
-    }
-    .auth-sheet.show{ bottom:0; }
-    .auth-top{ display:flex; gap:12px; align-items:center; margin-bottom:8px }
-    .auth-top .logo-box{ width:56px; height:56px; border-radius:10px; padding:6px; background:var(--panel); display:flex; align-items:center; justify-content:center }
-    .auth-top svg{width:44px;height:44px}
-    .auth-title{ margin:0 }
-    .auth-row{ display:flex; gap:8px; margin-top:10px; flex-wrap:wrap }
-    .auth-row input{ flex:1; min-width:200px; height:44px; padding:8px 12px; border-radius:10px; border:1px solid var(--muted) }
-    .auth-row button{ height:44px; padding:0 14px; border-radius:10px; border:none; background:linear-gradient(135deg,var(--accent-1),var(--accent-2)); color:#fff; font-weight:700; cursor:pointer }
-    .auth-note{ font-size:0.9rem; color:#546b52; margin-top:8px }
+    .auth-sheet-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.4);display:none;z-index:120;transition:opacity .3s ease}
+    .auth-sheet-backdrop.show{display:block;opacity:1}
+    .auth-sheet{position:fixed;left:50%;transform:translateX(-50%);bottom:-100%;width:100%;max-width:500px;background:var(--panel);border-radius:var(--radius-lg) var(--radius-lg) 0 0;box-shadow:0 -8px 32px var(--shadow-lg);padding:32px;z-index:130;transition:bottom .4s cubic-bezier(.2,.9,.3,1);border:1px solid var(--border)}
+    .auth-sheet.show{bottom:0}
+    .auth-top{display:flex;gap:16px;align-items:center;margin-bottom:20px}
+    .auth-top img{height:48px;width:auto}
+    .auth-title{margin:0;font-size:1.5rem;font-weight:700}
+    .auth-row{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap}
+    .auth-row input{flex:1;min-width:200px;height:44px;padding:0 14px;border-radius:var(--radius-sm);border:1px solid var(--border);transition:var(--transition)}
+    .auth-row input:focus{outline:none;border-color:var(--accent-1);box-shadow:0 0 0 3px var(--accent-light)}
+    .auth-row button{height:44px;padding:0 24px;border-radius:var(--radius-sm);border:none;background:linear-gradient(135deg,var(--accent-1),var(--accent-2));color:#fff;font-weight:600;cursor:pointer;transition:var(--transition)}
+    .auth-row button:hover{transform:translateY(-1px);box-shadow:0 4px 12px var(--shadow-md)}
+    .auth-note{font-size:0.9rem;color:var(--text-secondary);margin-top:12px}
 
-    /* Controls */
-    .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:center;margin:12px 0}
-    .controls input[type="text"], .controls input[type="date"], .controls select { height:var(--ui-h); padding:8px 12px; border-radius:10px; border:1px solid var(--muted); background:var(--panel); font-size:0.95rem; box-shadow:0 8px 20px var(--shadow); min-width:140px }
-    .controls .btn{ height:var(--ui-h); padding:0 14px; border-radius:10px; border:none; background:linear-gradient(135deg,var(--accent-1),var(--accent-2)); color:white; font-weight:700; cursor:pointer; white-space:nowrap }
-    .controls .btn.ghost{ background:transparent; border:1px solid rgba(0,0,0,0.06); color:var(--text) }
+    .controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;margin:20px 0}
+    .controls input[type="text"],.controls input[type="date"],.controls select{height:var(--ui-h);padding:0 14px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--panel);font-size:0.95rem;box-shadow:0 2px 4px var(--shadow-sm);min-width:160px;transition:var(--transition)}
+    .controls input:focus,.controls select:focus{outline:none;border-color:var(--accent-1);box-shadow:0 0 0 3px var(--accent-light)}
+    .controls .btn{height:var(--ui-h);padding:0 20px;border-radius:var(--radius-sm);border:none;background:linear-gradient(135deg,var(--accent-1),var(--accent-2));color:white;font-weight:600;cursor:pointer;white-space:nowrap;transition:var(--transition);box-shadow:0 2px 8px var(--shadow-sm)}
+    .controls .btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px var(--shadow-md)}
+    .controls .btn.ghost{background:var(--panel);border:1px solid var(--border);color:var(--text);box-shadow:0 2px 4px var(--shadow-sm)}
+    .controls .btn.ghost:hover{background:var(--panel-hover);border-color:var(--accent-1)}
 
-    .search-row{display:flex;justify-content:center;padding:6px 0}
-    .search-row input{width:520px;max-width:100%;height:42px;padding:8px 12px;border-radius:10px;border:1px solid var(--muted);background:var(--panel)}
+    .search-row{display:flex;justify-content:center;padding:8px 0}
+    .search-row input{width:560px;max-width:100%;height:44px;padding:0 16px;border-radius:var(--radius);border:1px solid var(--border);background:var(--panel);font-size:0.95rem;transition:var(--transition)}
+    .search-row input:focus{outline:none;border-color:var(--accent-1);box-shadow:0 0 0 3px var(--accent-light)}
 
     .filters{display:flex;gap:12px;align-items:center;justify-content:center;margin-bottom:8px;flex-wrap:wrap;text-align:center}
 
-    /* Matrix */
-    .matrix{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap);}
-    .quadrant{background:var(--panel);border-radius:var(--radius);padding:16px;box-shadow:0 12px 34px var(--shadow);min-height:260px;display:flex;flex-direction:column}
-    .quad-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-    .quad-title{font-weight:800}
-    .quad-sub{font-size:0.88rem;color:#6b6b64;margin-top:6px}
-    .progress-bar{width:140px;height:8px;background:#f0f0ee;border-radius:999px;overflow:hidden}
-    .progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));transition:width .28s ease}
+    .matrix{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .quadrant{background:var(--panel);border-radius:var(--radius-lg);padding:24px;box-shadow:0 2px 8px var(--shadow-sm);border:1px solid var(--border);min-height:300px;display:flex;flex-direction:column;transition:var(--transition)}
+    .quadrant:hover{box-shadow:0 4px 16px var(--shadow-md)}
+    .quad-head{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:16px;padding-bottom:16px;border-bottom:2px solid var(--muted)}
+    .quad-title{font-weight:700;font-size:1.1rem;letter-spacing:-0.01em}
+    .quad-sub{font-size:0.9rem;color:var(--text-secondary);margin-top:4px;font-weight:500}
+    .progress-bar{width:140px;height:6px;background:var(--muted);border-radius:999px;overflow:hidden}
+    .progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));transition:width .4s cubic-bezier(0.4, 0, 0.2, 1)}
 
-    .tasks{margin-top:10px;display:flex;flex-direction:column;gap:10px;overflow:auto;padding-bottom:6px;flex:1}
+    .tasks{margin-top:12px;display:flex;flex-direction:column;gap:12px;overflow:auto;padding-bottom:8px;flex:1}
 
-    /* Task */
-    .task{display:flex;gap:12px;align-items:flex-start;background:linear-gradient(180deg,#fff,#fbfbfb);padding:12px;border-radius:10px;border:1px solid rgba(0,0,0,0.06);cursor:grab;transition:transform .14s ease,box-shadow .14s ease,opacity .18s ease}
-    .task:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(0,0,0,0.06)}
+    .task{display:flex;gap:12px;align-items:flex-start;background:var(--panel);padding:16px;border-radius:var(--radius);border:1px solid var(--border);cursor:grab;transition:var(--transition)}
+    .task:hover{transform:translateY(-2px);box-shadow:0 4px 12px var(--shadow-md);border-color:var(--accent-border)}
     .task-left{flex:1;min-width:0}
-    .task-title{margin:0;font-weight:700;word-wrap:break-word}
-    .task-desc{margin-top:6px;color:#596c56;font-size:0.88rem;word-wrap:break-word}
-    .task-due{margin-top:8px;display:inline-block;padding:6px 10px;border-radius:999px;font-weight:700;color:white;font-size:0.82rem}
-    .task-controls{display:flex;gap:8px;align-items:center;flex-shrink:0}
-    .small-btn{background:transparent;border:none;cursor:pointer;padding:6px;border-radius:8px;font-size:14px}
-    .small-btn:hover{background:rgba(0,0,0,0.05)}
-    .task.completed{opacity:0.6}
+    .task-title{margin:0;font-weight:600;word-wrap:break-word;font-size:0.95rem;color:var(--text)}
+    .task-desc{margin-top:6px;color:var(--text-secondary);font-size:0.9rem;word-wrap:break-word;line-height:1.5}
+    .task-due{margin-top:10px;display:inline-block;padding:6px 12px;border-radius:var(--radius-sm);font-weight:600;color:white;font-size:0.85rem}
+    .task-controls{display:flex;gap:6px;align-items:center;flex-shrink:0}
+    .small-btn{background:transparent;border:none;cursor:pointer;padding:8px;border-radius:var(--radius-sm);font-size:15px;color:var(--text-secondary);transition:var(--transition)}
+    .small-btn:hover{background:var(--panel-hover);color:var(--text)}
+    .task.completed{opacity:0.5}
     .task.completed .task-title{text-decoration:line-through}
 
-    .due-on-time{border-left:4px solid var(--on-time);background:linear-gradient(90deg, rgba(167,196,160,0.12), transparent)}
-    .due-approach{border-left:4px solid var(--approach);background:linear-gradient(90deg, rgba(224,184,107,0.10), transparent)}
-    .due-overdue{border-left:4px solid var(--overdue);background:linear-gradient(90deg, rgba(217,122,109,0.10), transparent)}
+    .due-on-time{border-left:3px solid var(--on-time);background:var(--on-time-bg)}
+    .due-approach{border-left:3px solid var(--approach);background:var(--approach-bg)}
+    .due-overdue{border-left:3px solid var(--overdue);background:var(--overdue-bg)}
 
-    .tag{display:inline-block;padding:4px 8px;border-radius:999px;font-weight:700;font-size:0.75rem;margin-left:6px}
-    .tag-client{background:var(--tag-client);color:#064542}
-    .tag-personal{background:var(--tag-personal);color:#5a3f00}
-    .tag-urgent{background:var(--tag-urgent);color:#6b1f10}
+    .tag{display:inline-block;padding:4px 10px;border-radius:var(--radius-sm);font-weight:600;font-size:0.75rem;margin-left:8px}
+    .tag-client{background:var(--tag-client-bg);color:var(--tag-client)}
+    .tag-personal{background:var(--tag-personal-bg);color:var(--tag-personal)}
+    .tag-urgent{background:var(--tag-urgent-bg);color:var(--tag-urgent)}
 
-    /* slide-out panel */
-    .panel-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.25);display:none;z-index:120}
-    .panel{position:fixed;right:0;top:0;height:100%;width:420px;max-width:94%;background:var(--panel);box-shadow:-20px 0 60px rgba(0,0,0,0.3);transform:translateX(108%);transition:transform .28s ease;z-index:130;padding:18px;display:flex;flex-direction:column;gap:12px;overflow-y:auto}
+    .panel-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.4);display:none;z-index:120;transition:opacity .3s ease}
+    .panel-backdrop.show{display:block;opacity:1}
+    .panel{position:fixed;right:0;top:0;height:100%;width:480px;max-width:94%;background:var(--panel);box-shadow:-8px 0 32px var(--shadow-lg);transform:translateX(108%);transition:transform .3s cubic-bezier(0.4, 0, 0.2, 1);z-index:130;padding:32px;display:flex;flex-direction:column;gap:20px;overflow-y:auto;border-left:1px solid var(--border)}
     .panel.show{transform:translateX(0)}
-    .panel-backdrop.show{display:block}
+    .panel h3{margin:0;font-size:1.5rem;font-weight:700}
+    .panel h4{margin:16px 0 8px 0;font-size:1rem;font-weight:600;color:var(--text-secondary)}
+    .panel input[type="text"],.panel input[type="date"],.panel select,.panel textarea{width:100%;padding:12px 14px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--panel);box-sizing:border-box;font-size:0.95rem;transition:var(--transition)}
+    .panel input:focus,.panel select:focus,.panel textarea:focus{outline:none;border-color:var(--accent-1);box-shadow:0 0 0 3px var(--accent-light)}
+    .panel textarea{min-height:100px;resize:vertical;font-family:inherit;line-height:1.5}
+    .panel .row{display:flex;gap:12px;flex-wrap:wrap}
+    .panel .row > *{flex:1;min-width:180px}
 
-    .panel input[type="text"],.panel input[type="date"],.panel select,.panel textarea{width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--muted);background:var(--panel);box-sizing:border-box}
-    .panel textarea{min-height:100px;resize:vertical;font-family:inherit}
-    .panel .row{display:flex;gap:8px;flex-wrap:wrap}
-    .panel .row > *{flex:1;min-width:140px}
-
-    /* onboarding */
-    .onboard{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:140;pointer-events:none;opacity:0;background:rgba(0,0,0,0.3);transition:opacity .3s ease}
+    .onboard{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:140;pointer-events:none;opacity:0;background:rgba(0,0,0,0.4);transition:opacity .3s ease}
     .onboard.show{pointer-events:auto;opacity:1}
-    .onboard-card{background:var(--panel);padding:20px;border-radius:12px;width:min(760px,94%);box-shadow:0 30px 70px rgba(0,0,0,0.28);max-height:90vh;overflow-y:auto}
+    .onboard-card{background:var(--panel);padding:40px;border-radius:var(--radius-lg);width:min(600px,94%);box-shadow:0 20px 60px var(--shadow-lg);max-height:90vh;overflow-y:auto;border:1px solid var(--border)}
+    .onboard-card h2{margin:0 0 20px 0;font-size:1.75rem;font-weight:700}
+    .onboard-card p{margin:16px 0;color:var(--text-secondary);line-height:1.6}
+    .onboard-card ul,.onboard-card ol{line-height:1.8;color:var(--text-secondary);padding-left:24px}
+    .onboard-card strong{color:var(--text)}
 
-    footer{text-align:center;color:#557a5a;margin-top:12px;font-size:0.9rem}
+    footer{text-align:center;color:var(--text-secondary);margin-top:32px;font-size:0.9rem;padding:20px}
 
     @media(max-width:900px){
       .matrix{grid-template-columns:1fr}
@@ -152,50 +166,37 @@
       .panel{width:100%}
       header{justify-content:center}
       .stats-grid{grid-template-columns:1fr}
+      .wrap{padding:16px}
     }
   </style>
 </head>
 <body>
-  <!-- Loading overlay -->
   <div id="loading" class="loading-overlay">Loading your priorities...</div>
 
   <div class="wrap" id="root">
     <header>
       <div class="brand">
-        <div class="logo-box">
-          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <rect x="10" y="10" width="35" height="35" rx="5" fill="#2ea043"/>
-            <rect x="55" y="10" width="35" height="35" rx="5" fill="#4caf50"/>
-            <rect x="10" y="55" width="35" height="35" rx="5" fill="#66bb6a"/>
-            <rect x="55" y="55" width="35" height="35" rx="5" fill="#81c784"/>
-          </svg>
-        </div>
-        <div>
-          <h1>PrioBox</h1>
-          <p>Focus what matters</p>
-        </div>
+        <img src="images/PrioBox - Primary.png" alt="PrioBox" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+        <svg style="display:none;height:40px;width:auto" viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg">
+          <rect x="5" y="10" width="15" height="15" rx="3" fill="#0969da"/>
+          <rect x="25" y="10" width="15" height="15" rx="3" fill="#0550ae"/>
+          <rect x="5" y="30" width="15" height="15" rx="3" fill="#54aeff"/>
+          <rect x="25" y="30" width="15" height="15" rx="3" fill="#ddf4ff"/>
+          <text x="50" y="35" font-family="system-ui,-apple-system,sans-serif" font-size="24" font-weight="700" fill="#1f2328">PrioBox</text>
+        </svg>
       </div>
-
       <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-        <button id="signOutBtn" style="display:none;height:40px;padding:8px 12px;border-radius:10px;background:var(--panel);border:1px solid rgba(0,0,0,0.06);cursor:pointer">Sign Out</button>
-        <button id="accountBtn" style="display:none;height:40px;padding:8px 12px;border-radius:10px;background:var(--panel);border:1px solid rgba(0,0,0,0.06);cursor:pointer">Account</button>
+        <button id="signOutBtn" style="display:none;height:40px;padding:8px 12px;border-radius:10px;background:var(--panel);border:1px solid var(--border);cursor:pointer;transition:var(--transition)">Sign Out</button>
+        <button id="accountBtn" style="display:none;height:40px;padding:8px 12px;border-radius:10px;background:var(--panel);border:1px solid var(--border);cursor:pointer;transition:var(--transition)">Account</button>
       </div>
     </header>
 
-    <!-- Auth bottom sheet -->
     <div id="authBackdrop" class="auth-sheet-backdrop"></div>
     <div id="authSheet" class="auth-sheet" role="dialog" aria-modal="true" aria-labelledby="authTitle">
       <div class="auth-top">
-        <div class="logo-box">
-          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <rect x="10" y="10" width="35" height="35" rx="5" fill="#2ea043"/>
-            <rect x="55" y="10" width="35" height="35" rx="5" fill="#4caf50"/>
-            <rect x="10" y="55" width="35" height="35" rx="5" fill="#66bb6a"/>
-            <rect x="55" y="55" width="35" height="35" rx="5" fill="#81c784"/>
-          </svg>
-        </div>
+        <img src="images/PrioBox - Icon.png" alt="PrioBox" />
         <div>
-          <h2 id="authTitle" class="auth-title">Welcome to <strong>PrioBox</strong></h2>
+          <h2 id="authTitle" class="auth-title">Welcome to PrioBox</h2>
           <div class="auth-note">Cloud sync available - sign in optional (works offline too!)</div>
         </div>
       </div>
@@ -203,30 +204,26 @@
         <input id="authEmail" type="email" placeholder="you@example.com" aria-label="Email" />
         <button id="authSend">Send Magic Link</button>
       </div>
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;flex-wrap:wrap;gap:8px">
-        <div style="font-size:0.9rem;color:#4f6b51">No password needed</div>
-        <button id="authClose" style="background:transparent;border:none;color:#4f6b51;cursor:pointer;text-decoration:underline">Continue Without Sign In</button>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px;flex-wrap:wrap;gap:12px">
+        <div style="font-size:0.9rem;color:var(--text-secondary)">No password needed</div>
+        <button id="authClose" style="background:transparent;border:none;color:var(--accent-1);cursor:pointer;font-weight:600;padding:8px">Continue Without Sign In</button>
       </div>
     </div>
 
-    <!-- App area -->
     <div id="appArea" style="display:none">
-      <!-- View Toggle -->
       <div style="display:flex;justify-content:center;margin:16px 0">
         <div class="view-toggle">
-          <button id="viewDaily" class="active">📅 Daily Focus</button>
-          <button id="viewMatrix">📊 Full Matrix</button>
-          <button id="viewStats">📈 Analytics</button>
+          <button id="viewDaily" class="active">Daily Focus</button>
+          <button id="viewMatrix">Full Matrix</button>
+          <button id="viewStats">Analytics</button>
         </div>
       </div>
 
-      <!-- Daily Focus View -->
       <div id="dailyView">
         <div class="daily-hero">
           <h2>Today's Focus</h2>
           <p id="dailyDate"></p>
         </div>
-        
         <div id="dailyStats" class="stats-grid" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr))">
           <div class="stat-card">
             <div class="stat-value" id="todayDue">0</div>
@@ -241,14 +238,11 @@
             <div class="stat-label">This Week</div>
           </div>
         </div>
-
         <div class="focus-list" id="dailyTasks"></div>
       </div>
 
-      <!-- Analytics View -->
       <div id="statsView" style="display:none">
-        <h2 style="text-align:center;margin:16px 0">📈 Your Productivity Analytics</h2>
-        
+        <h2 style="text-align:center;margin:16px 0">Your Productivity Analytics</h2>
         <div class="stats-grid">
           <div class="stat-card">
             <div class="stat-value" id="totalTasks">0</div>
@@ -271,38 +265,35 @@
             <div class="stat-trend">Need attention</div>
           </div>
         </div>
-
         <h3 style="margin:24px 0 12px 0">Focus Distribution</h3>
         <div class="stats-grid">
           <div class="stat-card">
-            <div class="stat-label">🚨 Do First</div>
+            <div class="stat-label">Do First</div>
             <div class="stat-value" style="font-size:1.5rem" id="doFirstStat">0</div>
             <div class="chart-bar"><div class="chart-fill" id="doFirstBar"></div></div>
           </div>
           <div class="stat-card">
-            <div class="stat-label">📅 Schedule</div>
+            <div class="stat-label">Schedule</div>
             <div class="stat-value" style="font-size:1.5rem" id="scheduleStat">0</div>
             <div class="chart-bar"><div class="chart-fill" id="scheduleBar"></div></div>
           </div>
           <div class="stat-card">
-            <div class="stat-label">👥 Delegate</div>
+            <div class="stat-label">Delegate</div>
             <div class="stat-value" style="font-size:1.5rem" id="delegateStat">0</div>
             <div class="chart-bar"><div class="chart-fill" id="delegateBar"></div></div>
           </div>
           <div class="stat-card">
-            <div class="stat-label">🗑️ Eliminate</div>
+            <div class="stat-label">Eliminate</div>
             <div class="stat-value" style="font-size:1.5rem" id="eliminateStat">0</div>
             <div class="chart-bar"><div class="chart-fill" id="eliminateBar"></div></div>
           </div>
         </div>
-
-        <div style="background:var(--panel);padding:20px;border-radius:var(--radius);margin-top:20px;box-shadow:0 8px 20px var(--shadow)">
-          <h3>💡 Insights</h3>
-          <ul id="insightsList" style="line-height:1.8;color:#596c56"></ul>
+        <div style="background:var(--panel);padding:20px;border-radius:var(--radius);margin-top:20px;box-shadow:0 8px 20px var(--shadow-sm);border:1px solid var(--border)">
+          <h3>Insights</h3>
+          <ul id="insightsList" style="line-height:1.8;color:var(--text-secondary)"></ul>
         </div>
       </div>
 
-      <!-- Matrix View -->
       <div id="matrixView" style="display:none">
         <section class="controls" aria-label="Task controls">
           <input id="taskTitle" type="text" placeholder="Task title (required)" />
@@ -311,94 +302,6 @@
           <select id="taskQuadrant">
             <option value="do-first">Do First</option>
             <option value="schedule">Schedule</option>
-            <option value="delegate">Delegate</option>
-            <option value="eliminate">Eliminate</option>
-          </select>
-          <select id="taskLabel">
-            <option value="">No label</option>
-            <option value="client">Client</option>
-            <option value="personal">Personal</option>
-            <option value="urgent">Urgent</option>
-          </select>
-          <button class="btn" id="addBtn">Add Task</button>
-          <button class="btn ghost" id="clearBtn">Clear All</button>
-          <button class="btn ghost" id="demoBtn">Demo Data</button>
-          <button id="exportBtn" class="btn ghost" title="Export JSON">Export</button>
-          <button id="importBtn" class="btn ghost" title="Import JSON">Import</button>
-        </section>
-
-        <div class="search-row">
-          <input id="searchInput" type="search" placeholder="Search tasks by title, description, due date, label..." />
-        </div>
-
-        <div class="filters">
-          <button id="toggleCompletedBtn" style="height:36px;padding:8px 12px;border-radius:8px;background:var(--panel);border:1px solid rgba(0,0,0,0.06);cursor:pointer">Hide Completed</button>
-          <div style="font-size:0.9rem;color:#4f6b51">Double-click to edit • Drag between quadrants</div>
-        </div>
-
-        <section class="matrix" aria-label="Priority matrix">
-          <div class="quadrant do-first" data-q="do-first">
-            <div class="quad-head">
-              <div><div class="quad-title">🚨 Do First</div><div class="quad-sub">Urgent & Important</div></div>
-              <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
-                <div id="do-first-count">(0/0 done)</div>
-                <div class="progress-bar"><div id="do-first-fill" class="progress-fill"></div></div>
-              </div>
-            </div>
-            <div class="tasks" id="do-first-tasks" aria-live="polite"></div>
-          </div>
-
-          <div class="quadrant schedule" data-q="schedule">
-            <div class="quad-head">
-              <div><div class="quad-title">📅 Schedule</div><div class="quad-sub">Not Urgent but Important</div></div>
-              <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
-                <div id="schedule-count">(0/0 done)</div>
-                <div class="progress-bar"><div id="schedule-fill" class="progress-fill"></div></div>
-              </div>
-            </div>
-            <div class="tasks" id="schedule-tasks"></div>
-          </div>
-
-          <div class="quadrant delegate" data-q="delegate">
-            <div class="quad-head">
-              <div><div class="quad-title">👥 Delegate</div><div class="quad-sub">Urgent but Not Important</div></div>
-              <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
-                <div id="delegate-count">(0/0 done)</div>
-                <div class="progress-bar"><div id="delegate-fill" class="progress-fill"></div></div>
-              </div>
-            </div>
-            <div class="tasks" id="delegate-tasks"></div>
-          </div>
-
-          <div class="quadrant eliminate" data-q="eliminate">
-            <div class="quad-head">
-              <div><div class="quad-title">🗑️ Eliminate</div><div class="quad-sub">Not Urgent & Not Important</div></div>
-              <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
-                <div id="eliminate-count">(0/0 done)</div>
-                <div class="progress-bar"><div id="eliminate-fill" class="progress-fill"></div></div>
-              </div>
-            </div>
-            <div class="tasks" id="eliminate-tasks"></div>
-          </div>
-        </section>
-      </div>
-
-      <footer>© 2025 PrioBox — Built by DGS Consulting</footer>
-    </div>
-  </div>
-
-  <!-- Slide-out edit panel -->
-  <div id="panelBackdrop" class="panel-backdrop"></div>
-  <aside id="slidePanel" class="panel" role="dialog" aria-hidden="true">
-    <h3 id="panelTitle">Edit task</h3>
-    <div class="row">
-      <input id="pTitle" type="text" placeholder="Task title" />
-    </div>
-    <div class="row">
-      <input id="pDue" type="date" />
-      <select id="pQuadrant">
-        <option value="do-first">Do First</option>
-        <option value="schedule">Schedule</option>
         <option value="delegate">Delegate</option>
         <option value="eliminate">Eliminate</option>
       </select>
@@ -425,24 +328,23 @@
       <button id="panelSave" class="btn">Save</button>
     </div>
 
-    <hr style="border:none;border-top:1px solid var(--muted);margin:12px 0" />
+    <hr style="border:none;border-top:1px solid var(--border);margin:12px 0" />
     <div style="display:flex;gap:8px;flex-direction:column">
       <button id="addToCalendarBtn" class="btn ghost">Open Google Calendar</button>
       <button id="downloadICSBtn" class="btn ghost">Download .ics</button>
-      <button id="deleteFromPanelBtn" class="btn ghost" style="color:#b33">Delete Task</button>
+      <button id="deleteFromPanelBtn" class="btn ghost" style="color:var(--overdue)">Delete Task</button>
     </div>
   </aside>
 
-  <!-- onboarding -->
   <div id="onboard" class="onboard" aria-hidden="true">
     <div class="onboard-card">
       <h2>Welcome to PrioBox</h2>
       <p><strong>New Features:</strong></p>
       <ul style="line-height:1.8">
-        <li>📅 <strong>Daily Focus</strong> - See today's priorities at a glance</li>
-        <li>📈 <strong>Analytics</strong> - Track your productivity and completion rates</li>
-        <li>✓ <strong>Subtasks</strong> - Break down big tasks into manageable steps</li>
-        <li>🎯 <strong>Smart Insights</strong> - Get personalized productivity tips</li>
+        <li><strong>Daily Focus</strong> - See today's priorities at a glance</li>
+        <li><strong>Analytics</strong> - Track your productivity and completion rates</li>
+        <li><strong>Subtasks</strong> - Break down big tasks into manageable steps</li>
+        <li><strong>Smart Insights</strong> - Get personalized productivity tips</li>
       </ul>
       <p style="margin-top:12px"><strong>Quick Tips:</strong></p>
       <ol style="line-height:1.8">
@@ -460,7 +362,6 @@
   <input id="importFileInput" type="file" accept="application/json" style="display:none" />
 
   <script>
-    // ---------------- State
     const STORAGE_KEY = 'priobox_tasks';
     const PREFS_KEY = 'priobox_prefs';
     
@@ -470,7 +371,6 @@
     let dragged = null;
     const quadrants = ['do-first','schedule','delegate','eliminate'];
 
-    // Load from storage
     function loadFromStorage() {
       try {
         const rawTasks = localStorage.getItem(STORAGE_KEY);
@@ -496,7 +396,6 @@
       }
     }
 
-    // ---------------- DOM refs
     const loadingEl = document.getElementById('loading');
     const authBackdrop = document.getElementById('authBackdrop');
     const authSheet = document.getElementById('authSheet');
@@ -504,16 +403,12 @@
     const authSend = document.getElementById('authSend');
     const authClose = document.getElementById('authClose');
     const appArea = document.getElementById('appArea');
-    
-    // View toggles
     const viewDaily = document.getElementById('viewDaily');
     const viewMatrix = document.getElementById('viewMatrix');
     const viewStats = document.getElementById('viewStats');
     const dailyView = document.getElementById('dailyView');
     const matrixView = document.getElementById('matrixView');
     const statsView = document.getElementById('statsView');
-
-    // Controls
     const addBtn = document.getElementById('addBtn');
     const clearBtn = document.getElementById('clearBtn');
     const demoBtn = document.getElementById('demoBtn');
@@ -529,8 +424,6 @@
     const exportBtn = document.getElementById('exportBtn');
     const importBtn = document.getElementById('importBtn');
     const importFileInput = document.getElementById('importFileInput');
-
-    // Panel
     const panelBackdrop = document.getElementById('panelBackdrop');
     const slidePanel = document.getElementById('slidePanel');
     const pTitle = document.getElementById('pTitle');
@@ -546,13 +439,10 @@
     const addToCalendarBtn = document.getElementById('addToCalendarBtn');
     const downloadICSBtn = document.getElementById('downloadICSBtn');
     const deleteFromPanelBtn = document.getElementById('deleteFromPanelBtn');
-
-    // Onboarding
     const onboard = document.getElementById('onboard');
     const onboardDone = document.getElementById('onboardDone');
     const onboardSkip = document.getElementById('onboardSkip');
 
-    // ---------------- Helpers
     function uid(){ return `t-${Date.now()}-${Math.floor(Math.random()*9000)}`; }
     function fmtISO(v){ 
       if(!v) return ''; 
@@ -590,20 +480,14 @@
       return Math.round((date - today) / (1000*60*60*24));
     }
 
-    // ---------------- View Switching
     function switchView(view) {
       prefs.currentView = view;
       saveToStorage();
-
-      // Update button states
       [viewDaily, viewMatrix, viewStats].forEach(btn => btn.classList.remove('active'));
-      
-      // Hide all views
       dailyView.style.display = 'none';
       matrixView.style.display = 'none';
       statsView.style.display = 'none';
 
-      // Show selected view
       if (view === 'daily') {
         viewDaily.classList.add('active');
         dailyView.style.display = 'block';
@@ -623,7 +507,6 @@
     viewMatrix.addEventListener('click', () => switchView('matrix'));
     viewStats.addEventListener('click', () => switchView('stats'));
 
-    // ---------------- Daily Focus View
     function renderDailyView() {
       const today = new Date();
       const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -650,30 +533,27 @@
       const dailyTasksContainer = document.getElementById('dailyTasks');
       dailyTasksContainer.innerHTML = '';
 
-      // Render overdue first
       if (overdueTasks.length > 0) {
         const section = document.createElement('div');
-        section.innerHTML = '<h3 style="color:var(--overdue);margin:16px 0 8px 0">⚠️ Overdue</h3>';
+        section.innerHTML = '<h3 style="color:var(--overdue);margin:16px 0 8px 0">Overdue</h3>';
         dailyTasksContainer.appendChild(section);
         overdueTasks.sort((a,b) => new Date(a.due) - new Date(b.due)).forEach(t => {
           dailyTasksContainer.appendChild(createTaskNode(t));
         });
       }
 
-      // Render today
       if (todayTasks.length > 0) {
         const section = document.createElement('div');
-        section.innerHTML = '<h3 style="color:var(--accent-1);margin:16px 0 8px 0">🎯 Due Today</h3>';
+        section.innerHTML = '<h3 style="color:var(--accent-1);margin:16px 0 8px 0">Due Today</h3>';
         dailyTasksContainer.appendChild(section);
         todayTasks.forEach(t => {
           dailyTasksContainer.appendChild(createTaskNode(t));
         });
       }
 
-      // Render upcoming
       if (upcomingTasks.length > 0) {
         const section = document.createElement('div');
-        section.innerHTML = '<h3 style="color:var(--approach);margin:16px 0 8px 0">📅 This Week</h3>';
+        section.innerHTML = '<h3 style="color:var(--approach);margin:16px 0 8px 0">This Week</h3>';
         dailyTasksContainer.appendChild(section);
         upcomingTasks.sort((a,b) => new Date(a.due) - new Date(b.due)).forEach(t => {
           dailyTasksContainer.appendChild(createTaskNode(t));
@@ -681,11 +561,10 @@
       }
 
       if (overdueTasks.length === 0 && todayTasks.length === 0 && upcomingTasks.length === 0) {
-        dailyTasksContainer.innerHTML = '<div style="text-align:center;padding:40px;color:#6b6b64">🎉 No urgent tasks! You\'re all caught up.</div>';
+        dailyTasksContainer.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text-secondary)">No urgent tasks! You\'re all caught up.</div>';
       }
     }
 
-    // ---------------- Analytics View
     function renderStats() {
       const allTasks = Object.values(tasks);
       const total = allTasks.length;
@@ -706,7 +585,6 @@
       document.getElementById('completedBar').style.width = completionRate + '%';
       document.getElementById('activeBar').style.width = (total > 0 ? (active / total) * 100 : 0) + '%';
 
-      // Quadrant distribution
       quadrants.forEach(q => {
         const count = allTasks.filter(t => t.quadrant === q).length;
         const pct = total > 0 ? Math.round((count / total) * 100) : 0;
@@ -715,7 +593,6 @@
         document.getElementById(`${label}Bar`).style.width = pct + '%';
       });
 
-      // Generate insights
       const insights = [];
       if (overdue > 0) {
         insights.push(`You have ${overdue} overdue task${overdue > 1 ? 's' : ''} that need immediate attention.`);
@@ -736,7 +613,7 @@
         insights.push(`You have ${eliminateCount} tasks in "Eliminate". Consider removing low-value items.`);
       }
       if (total === completed && total > 0) {
-        insights.push(`🎉 All tasks completed! Time to set new goals.`);
+        insights.push(`All tasks completed! Time to set new goals.`);
       }
       if (insights.length === 0) {
         insights.push(`Keep adding tasks and tracking your progress to see personalized insights.`);
@@ -746,7 +623,6 @@
       insightsList.innerHTML = insights.map(i => `<li>${i}</li>`).join('');
     }
 
-    // ---------------- Auth sheet handlers
     function showAuthSheet(show=true){
       if (show){ 
         authBackdrop.classList.add('show'); 
@@ -768,7 +644,6 @@
       showApp(true);
     });
 
-    // ---------------- Subtasks
     function renderSubtasks() {
       if (!editingId) return;
       const task = tasks[editingId];
@@ -824,7 +699,6 @@
       renderSubtasks();
     });
 
-    // ---------------- Render helpers
     function createTaskNode(t){
       const div = document.createElement('div');
       div.className = 'task'; 
@@ -849,10 +723,9 @@
         contentHtml += `<div class="task-desc">${escapeHtml(t.description)}</div>`;
       }
       
-      // Show subtask progress
       if (t.subtasks && t.subtasks.length > 0) {
         const completedSubs = t.subtasks.filter(s => s.completed).length;
-        contentHtml += `<div style="font-size:0.85rem;color:#4f6b51;margin-top:4px">✓ ${completedSubs}/${t.subtasks.length} subtasks</div>`;
+        contentHtml += `<div style="font-size:0.85rem;color:var(--text-secondary);margin-top:4px">✓ ${completedSubs}/${t.subtasks.length} subtasks</div>`;
       }
       
       if (t.due) {
@@ -903,7 +776,6 @@
       div.appendChild(controls);
       div.appendChild(left);
 
-      // drag
       div.draggable = true;
       div.addEventListener('dragstart', ()=> { 
         dragged = div; 
@@ -954,7 +826,6 @@
       return searchStr.includes(term);
     }
 
-    // ---------------- CRUD
     function addTaskFromFormQuick(){
       const title = taskTitle.value.trim();
       if (!title) { 
@@ -979,7 +850,7 @@
       taskQuadrant.value='do-first'; 
       taskLabel.value='';
       render();
-      switchView(prefs.currentView); // Refresh current view
+      switchView(prefs.currentView);
     }
 
     function deleteTask(id){
@@ -997,7 +868,6 @@
       switchView(prefs.currentView);
     }
 
-    // ---------------- Slide-out panel
     function openPanel(id){
       editingId = id;
       const t = tasks[id];
@@ -1080,11 +950,10 @@
       switchView(prefs.currentView);
     });
 
-    // ---------------- Drag targets
     document.querySelectorAll('.quadrant').forEach(qEl=>{
       qEl.addEventListener('dragover', e=> {
         e.preventDefault();
-        qEl.style.background = 'rgba(46, 160, 67, 0.05)';
+        qEl.style.background = 'rgba(9, 105, 218, 0.05)';
       });
       qEl.addEventListener('dragleave', ()=> {
         qEl.style.background = '';
@@ -1102,7 +971,6 @@
       });
     });
 
-    // ---------------- counts & progress
     function totalIn(q){ 
       return Object.values(tasks).filter(t=>t.quadrant===q).length 
     }
@@ -1125,7 +993,6 @@
       });
     }
 
-    // ---------------- search & filter
     searchInput.addEventListener('input', ()=> render());
     
     toggleCompletedBtn.addEventListener('click', ()=>{
@@ -1137,7 +1004,6 @@
     
     toggleCompletedBtn.textContent = prefs.showCompleted ? 'Hide Completed' : 'Show Completed';
 
-    // ---------------- export / import / demo
     exportBtn.addEventListener('click', ()=>{
       const data = JSON.stringify({ tasks }, null, 2);
       const blob = new Blob([data], { type: 'application/json' });
@@ -1162,288 +1028,90 @@
           const obj = JSON.parse(r.result);
           if (obj.tasks){
             Object.values(obj.tasks).forEach(t=>{
-              let id = t.id;
-              if (!id || tasks[id]) id = uid();
-              tasks[id] = {...t, id};
-            });
-            render(); 
-            switchView(prefs.currentView);
-            alert('Imported tasks successfully');
-          } else {
-            alert('No tasks found in file');
-          }
-        } catch(e){ 
-          alert('Invalid JSON file'); 
-          console.error(e);
-        }
-      };
-      r.readAsText(f);
-      importFileInput.value = '';
-    });
+              let    <option value="delegate">Delegate</option>
+            <option value="eliminate">Eliminate</option>
+          </select>
+          <select id="taskLabel">
+            <option value="">No label</option>
+            <option value="client">Client</option>
+            <option value="personal">Personal</option>
+            <option value="urgent">Urgent</option>
+          </select>
+          <button class="btn" id="addBtn">Add Task</button>
+          <button class="btn ghost" id="clearBtn">Clear All</button>
+          <button class="btn ghost" id="demoBtn">Demo Data</button>
+          <button id="exportBtn" class="btn ghost">Export</button>
+          <button id="importBtn" class="btn ghost">Import</button>
+        </section>
 
-    demoBtn.addEventListener('click', ()=>{
-      if (Object.keys(tasks).length > 0) {
-        if (!confirm('This will replace your current tasks. Continue?')) return;
-      }
-      tasks = {};
-      const today = new Date();
-      const tomorrow = new Date(today.getTime() + 86400000);
-      const nextWeek = new Date(today.getTime() + 7*86400000);
-      const yesterday = new Date(today.getTime() - 86400000);
-      
-      const sample = [
-        { 
-          title: 'Fix critical signup bug', 
-          quadrant:'do-first', 
-          due: fmtISO(tomorrow), 
-          label:'client', 
-          description: 'Users cannot complete registration',
-          subtasks: [
-            { text: 'Reproduce the bug', completed: true },
-            { text: 'Identify root cause', completed: true },
-            { text: 'Write fix', completed: false },
-            { text: 'Test solution', completed: false },
-            { text: 'Deploy to production', completed: false }
-          ]
-        },
-        { 
-          title: 'Plan Q2 roadmap', 
-          quadrant:'schedule', 
-          due: fmtISO(nextWeek), 
-          label:'', 
-          description: 'Strategic planning session with team',
-          subtasks: [
-            { text: 'Review Q1 results', completed: false },
-            { text: 'Gather team input', completed: false },
-            { text: 'Draft objectives', completed: false }
-          ]
-        },
-        { 
-          title: 'Review social media posts', 
-          quadrant:'delegate', 
-          due: '', 
-          label:'personal', 
-          description: 'Quick 15-minute task',
-          subtasks: []
-        },
-        { 
-          title: 'Clean old email subscriptions', 
-          quadrant:'eliminate', 
-          due: '', 
-          label:'', 
-          description: 'Low priority cleanup',
-          subtasks: []
-        },
-        {
-          title: 'Submit quarterly report',
-          quadrant:'do-first',
-          due: fmtISO(yesterday),
-          label:'client',
-          description: 'Overdue - needs immediate attention',
-          subtasks: []
-        }
-      ];
-      
-      sample.forEach(s=>{
-        const id=uid();
-        tasks[id] = { 
-          id, 
-          title:s.title, 
-          description:s.description||'', 
-          due:s.due, 
-          quadrant:s.quadrant, 
-          label:s.label||'', 
-          completed:false,
-          subtasks: s.subtasks || [],
-          createdAt:Date.now() 
-        };
-      });
-      saveToStorage(); 
-      switchView(prefs.currentView);
-    });
+        <div class="search-row">
+          <input id="searchInput" type="search" placeholder="Search tasks by title, description, due date, label..." />
+        </div>
 
-    // ---------------- calendar integration
-    function downloadICSFor(t){
-      if (!t || !t.due) { 
-        alert('Task must have a due date to export to calendar'); 
-        return; 
-      }
-      const start = new Date(t.due + 'T09:00:00');
-      const end = new Date(start.getTime() + 60*60*1000);
-      
-      function fmt(dt){ 
-        return dt.toISOString().replace(/[-:]/g,'').split('.')[0] + 'Z'; 
-      }
-      
-      const ics = [
-        'BEGIN:VCALENDAR',
-        'VERSION:2.0',
-        'PRODID:-//PrioBox//EN',
-        'BEGIN:VEVENT',
-        `UID:${t.id}@priobox`,
-        `DTSTAMP:${fmt(new Date())}`,
-        `DTSTART:${fmt(start)}`,
-        `DTEND:${fmt(end)}`,
-        `SUMMARY:${(t.title || '').replace(/[,;]/g, '')}`,
-        `DESCRIPTION:${(t.description||'').replace(/\n/g,'\\n').replace(/[,;]/g, '')}`,
-        'END:VEVENT',
-        'END:VCALENDAR'
-      ].join('\r\n');
-      
-      const blob = new Blob([ics], { type: 'text/calendar' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a'); 
-      a.href = url; 
-      a.download = `${(t.title || 'task').slice(0,40)}.ics`;
-      document.body.appendChild(a); 
-      a.click(); 
-      a.remove(); 
-      URL.revokeObjectURL(url);
-    }
-    
-    function openGoogleCalendarFor(t){
-      if (!t || !t.due) { 
-        alert('Task must have a due date to add to Google Calendar'); 
-        return; 
-      }
-      const start = new Date(t.due + 'T09:00:00'); 
-      const end = new Date(start.getTime() + 60*60*1000);
-      
-      function fmtLocal(dt){ 
-        return dt.toISOString().slice(0,19).replace(/-|:/g,'') + 'Z' 
-      }
-      
-      const dates = `${fmtLocal(start)}/${fmtLocal(end)}`;
-      const text = encodeURIComponent(t.title || 'Task');
-      const details = encodeURIComponent(t.description || '');
-      const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${text}&dates=${dates}&details=${details}`;
-      window.open(url, '_blank');
-    }
+        <div class="filters">
+          <button id="toggleCompletedBtn" style="height:36px;padding:8px 12px;border-radius:8px;background:var(--panel);border:1px solid var(--border);cursor:pointer">Hide Completed</button>
+          <div style="font-size:0.9rem;color:var(--text-secondary)">Double-click to edit • Drag between quadrants</div>
+        </div>
 
-    addToCalendarBtn.addEventListener('click', ()=>{
-      if (!editingId) {
-        alert('Please select a task first');
-        return;
-      }
-      const t = tasks[editingId]; 
-      if (t) openGoogleCalendarFor(t);
-    });
-    
-    downloadICSBtn.addEventListener('click', ()=>{
-      if (!editingId) {
-        alert('Please select a task first');
-        return;
-      }
-      const t = tasks[editingId]; 
-      if (t) downloadICSFor(t);
-    });
+        <section class="matrix" aria-label="Priority matrix">
+          <div class="quadrant do-first" data-q="do-first">
+            <div class="quad-head">
+              <div><div class="quad-title">Do First</div><div class="quad-sub">Urgent & Important</div></div>
+              <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+                <div id="do-first-count">(0/0 done)</div>
+                <div class="progress-bar"><div id="do-first-fill" class="progress-fill"></div></div>
+              </div>
+            </div>
+            <div class="tasks" id="do-first-tasks" aria-live="polite"></div>
+          </div>
 
-    // ---------------- Sign out (disabled for artifact)
-    signOutBtn.addEventListener('click', ()=>{
-      alert('Cloud sync is not available in this demo version');
-    });
+          <div class="quadrant schedule" data-q="schedule">
+            <div class="quad-head">
+              <div><div class="quad-title">Schedule</div><div class="quad-sub">Not Urgent but Important</div></div>
+              <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+                <div id="schedule-count">(0/0 done)</div>
+                <div class="progress-bar"><div id="schedule-fill" class="progress-fill"></div></div>
+              </div>
+            </div>
+            <div class="tasks" id="schedule-tasks"></div>
+          </div>
 
-    accountBtn.addEventListener('click', ()=>{
-      alert('Cloud sync is not available in this demo version. Your tasks are saved locally.');
-    });
+          <div class="quadrant delegate" data-q="delegate">
+            <div class="quad-head">
+              <div><div class="quad-title">Delegate</div><div class="quad-sub">Urgent but Not Important</div></div>
+              <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+                <div id="delegate-count">(0/0 done)</div>
+                <div class="progress-bar"><div id="delegate-fill" class="progress-fill"></div></div>
+              </div>
+            </div>
+            <div class="tasks" id="delegate-tasks"></div>
+          </div>
 
-    // ---------------- UI wiring & keyboard
-    addBtn.addEventListener('click', ()=> {
-      if (taskTitle.value.trim()) { 
-        addTaskFromFormQuick(); 
-        return; 
-      }
-      openPanelForNew();
-    });
-    
-    clearBtn.addEventListener('click', ()=> {
-      if (!confirm('Clear all tasks? This cannot be undone.')) return;
-      tasks = {}; 
-      saveToStorage(); 
-      switchView(prefs.currentView);
-    });
+          <div class="quadrant eliminate" data-q="eliminate">
+            <div class="quad-head">
+              <div><div class="quad-title">Eliminate</div><div class="quad-sub">Not Urgent & Not Important</div></div>
+              <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+                <div id="eliminate-count">(0/0 done)</div>
+                <div class="progress-bar"><div id="eliminate-fill" class="progress-fill"></div></div>
+              </div>
+            </div>
+            <div class="tasks" id="eliminate-tasks"></div>
+          </div>
+        </section>
+      </div>
 
-    document.addEventListener('keydown', (e)=>{
-      if (e.key === 'Escape') { 
-        showPanel(false); 
-        hideOnboarding(); 
-      }
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'n') { 
-        e.preventDefault();
-        if (taskTitle) taskTitle.focus(); 
-      }
-      if (e.key === 'Enter' && (document.activeElement === taskTitle || document.activeElement === taskDesc || document.activeElement === taskDue)) {
-        addTaskFromFormQuick();
-      }
-    });
+      <footer>© 2025 PrioBox — Built by DGS Consulting</footer>
+    </div>
+  </div>
 
-    // ---------------- onboarding
-    function showOnboarding(){ 
-      onboard.classList.add('show'); 
-      onboard.setAttribute('aria-hidden','false'); 
-    }
-    
-    function hideOnboarding(){ 
-      onboard.classList.remove('show'); 
-      onboard.setAttribute('aria-hidden','true'); 
-      try {
-        localStorage.setItem('prio_onboard_seen','true');
-      } catch(e) {
-        console.warn('Could not save onboarding state');
-      }
-    }
-    
-    onboardDone.addEventListener('click', ()=> hideOnboarding());
-    onboardSkip.addEventListener('click', ()=> hideOnboarding());
-
-    // ---------------- load & boot
-    function showApp(visible){
-      if (visible){
-        authSheet.classList.remove('show');
-        authBackdrop.classList.remove('show');
-        appArea.style.display = 'block';
-      } else {
-        appArea.style.display = 'none';
-      }
-    }
-
-    function loadAll(){
-      // Show loading
-      loadingEl.classList.remove('loading-hidden');
-      
-      // Load data
-      loadFromStorage();
-      
-      // Check onboarding
-      try {
-        const seen = localStorage.getItem('prio_onboard_seen');
-        if (!seen) {
-          setTimeout(()=> showOnboarding(), 700);
-        }
-      } catch(e) {
-        setTimeout(()=> showOnboarding(), 700);
-      }
-      
-      // Show app (skip auth for demo)
-      showAuthSheet(false);
-      showApp(true);
-      
-      // Load the saved view or default to daily
-      switchView(prefs.currentView || 'daily');
-      
-      // Hide loading
-      setTimeout(()=> {
-        loadingEl.classList.add('loading-hidden');
-        setTimeout(()=> loadingEl.style.display = 'none', 300);
-      }, 500);
-    }
-
-    // ---------------- init
-    loadAll();
-
-    // Expose for debugging
-    window.priobox = { tasks, render, addTask: addTaskFromFormQuick, switchView };
-
-  </script>
-</body>
-</html>
+  <div id="panelBackdrop" class="panel-backdrop"></div>
+  <aside id="slidePanel" class="panel" role="dialog" aria-hidden="true">
+    <h3 id="panelTitle">Edit task</h3>
+    <div class="row">
+      <input id="pTitle" type="text" placeholder="Task title" />
+    </div>
+    <div class="row">
+      <input id="pDue" type="date" />
+      <select id="pQuadrant">
+        <option value="do-first">Do First</option>
+        <option value="schedule">Schedule</option>
