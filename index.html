@@ -267,6 +267,7 @@
     }
 
     function showSuccessMessage() {
+      // Hide the modal and show success message
       document.getElementById('waitlistModal').style.display = 'none';
       document.getElementById('successMessage').style.display = 'block';
     }
@@ -391,11 +392,10 @@
     async function joinWaitlist() {
       const firstName = document.getElementById("firstName").value.trim();
       const companyName = document.getElementById("companyName").value.trim();
-      const useCase = document.getElementById("useCase").value.trim();
       const jobRole = document.getElementById("jobRole").value.trim();
       const email = document.getElementById("emailInput").value.trim();
 
-      if (!email || !firstName || !companyName || !useCase || !jobRole) {
+      if (!email || !firstName || !companyName || !jobRole) {
         alert("Please fill out all fields.");
         return;
       }
@@ -405,7 +405,6 @@
           email: email,
           first_name: firstName,
           company: companyName,
-          use_case: useCase,
           job_role: jobRole,
           source: "landing-page"
         }
