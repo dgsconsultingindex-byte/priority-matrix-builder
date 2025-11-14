@@ -342,7 +342,7 @@
 
     const SUPABASE_URL = "https://easinqqgvnirkqejtgnu.supabase.co";
     const SUPABASE_ANON_KEY =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVhc2lucXFndm5pcmtxZWp0Z251Iiwicm9sZSI6ImFub24iLCJpYXQiOjE";
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBwYWt6Ym5tcWpveGl5aWpib29iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMwMjk3MjMsImV4cCI6MjA3ODYwNTcyM30.NgTuxA3osuTz0xB3o5XIryKyPBJ6tBukVwLW71OSl40";
 
     const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -354,11 +354,10 @@
         return;
       }
 
-      const { error } = await supabase.from("tasks").insert([
+      const { error } = await supabase.from("waitlist").insert([
         {
-          id: crypto.randomUUID(),
-          user_id: "00000000-0000-0000-0000-000000000000", // placeholder
-          payload: { email: email, source: "landing-page-waitlist" }
+          email: email,
+          source: "landing-page"
         }
       ]);
 
