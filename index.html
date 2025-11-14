@@ -234,6 +234,27 @@
       cursor: pointer;
       font-weight: 600;
     }
+
+    /* CONFIRMATION MESSAGE */
+    #successMessage {
+      text-align: center;
+      display: none;
+      padding: 2rem;
+      background: #d4f4e0;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    #successMessage h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #2ea043;
+    }
+
+    #successMessage p {
+      font-size: 1.1rem;
+      color: #555;
+    }
   </style>
 
   <script>
@@ -242,6 +263,11 @@
     }
     function closeWaitlist() {
       document.getElementById('waitlistModal').style.display = 'none';
+    }
+
+    function showSuccessMessage() {
+      document.getElementById('waitlistModal').style.display = 'none';
+      document.getElementById('successMessage').style.display = 'block';
     }
   </script>
 </head>
@@ -331,9 +357,25 @@
     <div class="modal-content">
       <h2>Join the Waitlist</h2>
       <p>Get early access and be first to try PrioBox.</p>
+      <input id="firstName" type="text" placeholder="First Name" />
+      <input id="companyName" type="text" placeholder="Company Name" />
+      <input id="useCase" type="text" placeholder="Use Case" />
+      <select id="jobRole">
+        <option value="">Select Job Role</option>
+        <option value="Developer">Developer</option>
+        <option value="Designer">Designer</option>
+        <option value="Product Manager">Product Manager</option>
+        <option value="Other">Other</option>
+      </select>
       <input id="emailInput" type="email" placeholder="Enter your email" />
       <button id="joinBtn">Join</button>
     </div>
+  </div>
+
+  <!-- SUCCESS MESSAGE -->
+  <div id="successMessage">
+    <h2>You're on the waitlist 🎉</h2>
+    <p>We’ll email you as soon as your workspace is ready.</p>
   </div>
 
   <!-- SUPABASE WAITLIST SCRIPT -->
@@ -347,16 +389,24 @@
     const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     async function joinWaitlist() {
+      const firstName = document.getElementById("firstName").value.trim();
+      const companyName = document.getElementById("companyName").value.trim();
+      const useCase = document.getElementById("useCase").value.trim();
+      const jobRole = document.getElementById("jobRole").value.trim();
       const email = document.getElementById("emailInput").value.trim();
 
-      if (!email) {
-        alert("Please enter a valid email.");
+      if (!email || !firstName || !companyName || !useCase || !jobRole) {
+        alert("Please fill out all fields.");
         return;
       }
 
       const { error } = await supabase.from("waitlist").insert([
         {
           email: email,
+          first_name: firstName,
+          company: companyName,
+          use_case: useCase,
+          job_role: jobRole,
           source: "landing-page"
         }
       ]);
@@ -367,8 +417,7 @@
         return;
       }
 
-      document.getElementById("waitlistModal").style.display = "none";
-      alert("You're on the waitlist! Thank you 🎉");
+      showSuccessMessage();
     }
 
     document.getElementById("joinBtn").onclick = joinWaitlist;
