@@ -1,21 +1,278 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>PrioBox — Landing</title>
-  <meta name="description" content="PrioBox landing" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PrioBox – Focus What Matters</title>
+  <link rel="icon" type="image/png" href="images/logo-icon-t.png" />
   <style>
-    body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;background:#f6f8fa}
-    .card{background:white;padding:32px;border-radius:12px;box-shadow:0 8px 40px rgba(0,0,0,0.06);text-align:center}
-    a{display:inline-block;margin-top:16px;padding:10px 18px;background:#0969da;color:white;border-radius:8px;text-decoration:none}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+      background: linear-gradient(180deg, #f9faf9 0%, #e8f2e3 100%);
+      color: #1a1a1a;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-x: hidden;
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+
+    /* THEME TOGGLE BUTTON */
+    .theme-toggle {
+      position: fixed;
+      top: 1.2rem;
+      right: 1.2rem;
+      background: rgba(255,255,255,0.8);
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 50%;
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      transition: all 0.3s ease;
+      z-index: 10;
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.05);
+      background: rgba(255,255,255,0.95);
+    }
+
+    .theme-toggle svg {
+      width: 22px;
+      height: 22px;
+      fill: #163818;
+      transition: fill 0.3s ease;
+    }
+
+    body.dark .theme-toggle {
+      background: rgba(30, 45, 30, 0.9);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    body.dark .theme-toggle svg {
+      fill: #f2f9f1;
+    }
+
+    /* HERO SECTION */
+    .hero {
+      display: flex;
+      flex-direction: column-reverse;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 2rem;
+      padding: 6rem 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .hero-content {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 1.2s ease forwards;
+      animation-delay: 0.3s;
+    }
+
+    .hero-content h1 {
+      font-size: 3.2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: #163818;
+      line-height: 1.2;
+    }
+
+    .hero-content p {
+      font-size: 1.25rem;
+      color: #365634;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn {
+      background: linear-gradient(135deg, #2ea043, #238636);
+      color: #fff;
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 1s ease forwards;
+      animation-delay: 0.8s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(135deg, #238636, #2ea043);
+    }
+
+    .hero-graphic img {
+      width: 100%;
+      max-width: 650px;
+      border-radius: 16px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+      animation: float 6s ease-in-out infinite, fadeIn 1.4s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    /* RESPONSIVE */
+    @media (min-width: 900px) {
+      .hero {
+        flex-direction: row;
+        text-align: left;
+        gap: 4rem;
+      }
+      .hero-content {
+        flex: 1;
+      }
+      .hero-graphic {
+        flex: 1;
+      }
+      .hero-content p {
+        margin-left: 0;
+      }
+    }
+
+    /* FOOTER */
+    footer {
+      width: 100%;
+      text-align: center;
+      padding: 2rem 1rem;
+      background: #163818;
+      color: #fff;
+      font-size: 0.9rem;
+      margin-top: auto;
+      transition: background 0.4s ease;
+    }
+
+    footer a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 6px;
+      font-weight: 500;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* DARK MODE */
+    body.dark {
+      background: linear-gradient(180deg, #0d1510 0%, #1c2a1a 100%);
+      color: #f2f9f1;
+    }
+
+    body.dark .hero-content h1 {
+      color: #ebfbee;
+    }
+
+    body.dark .hero-content p {
+      color: #cfe8cf;
+    }
+
+    body.dark .btn {
+      background: linear-gradient(135deg, #2ea043, #1e7a32);
+      color: #fff;
+    }
+
+    body.dark .btn:hover {
+      background: linear-gradient(135deg, #1e7a32, #2ea043);
+    }
+
+    body.dark footer {
+      background: #0f2010;
+    }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>PrioBox</h1>
-    <p>Focus what matters — Eisenhower matrix with calendar export & sync.</p>
-    <a href="./app.html">Open App</a>
-  </div>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+    <!-- Sun & Moon icons -->
+    <svg id="sunIcon" viewBox="0 0 24 24">
+      <path d="M12 4V2m0 20v-2m8-8h2M2 12h2m15.364 6.364l1.414 1.414M4.222 4.222l1.414 1.414M4.222 19.778l1.414-1.414M18.364 5.636l1.414-1.414M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/>
+    </svg>
+    <svg id="moonIcon" viewBox="0 0 24 24" style="display:none;">
+      <path d="M21 12.79A9 9 0 0 1 11.21 3 7 7 0 0 0 12 17a7 7 0 0 0 9-4.21z"/>
+    </svg>
+  </button>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Focus What Matters</h1>
+      <p>Visualize your priorities, align your effort, and make progress that truly counts with PrioBox.</p>
+      <a href="app.html" class="btn">Get Started Free</a>
+    </div>
+
+    <div class="hero-graphic">
+      <img src="images/hero-illustration.svg" alt="Visualization of focus and clarity" loading="eager" />
+    </div>
+  </section>
+
+  <footer>
+    <p>Created by <strong>DGS Consulting</strong> • 
+      <a href="mailto:DGSConsult@consultant.com">Contact</a>
+    </p>
+  </footer>
+
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
+    const sunIcon = document.getElementById('sunIcon');
+    const moonIcon = document.getElementById('moonIcon');
+
+    // Load saved theme or system preference
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+      body.classList.add('dark');
+      sunIcon.style.display = 'none';
+      moonIcon.style.display = 'block';
+    }
+
+    themeToggle.addEventListener('click', () => {
+      const isDark = body.classList.toggle('dark');
+      if (isDark) {
+        sunIcon.style.display = 'none';
+        moonIcon.style.display = 'block';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        sunIcon.style.display = 'block';
+        moonIcon.style.display = 'none';
+        localStorage.setItem('theme', 'light');
+      }
+    });
+  </script>
 </body>
 </html>
