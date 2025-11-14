@@ -5,274 +5,336 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PrioBox – Focus What Matters</title>
   <link rel="icon" type="image/png" href="images/logo-icon-t.png" />
+
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    /* RESET */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
-      background: linear-gradient(180deg, #f9faf9 0%, #e8f2e3 100%);
-      color: #1a1a1a;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      overflow-x: hidden;
-      transition: background 0.4s ease, color 0.4s ease;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans',
+        Helvetica, Arial, sans-serif;
+      background: #f9fafb;
+      color: #111;
+      line-height: 1.6;
     }
 
-    /* THEME TOGGLE BUTTON */
-    .theme-toggle {
-      position: fixed;
-      top: 1.2rem;
-      right: 1.2rem;
-      background: rgba(255,255,255,0.8);
-      border: 1px solid rgba(0,0,0,0.1);
-      border-radius: 50%;
-      width: 42px;
-      height: 42px;
+    header {
+      width: 100%;
+      padding: 1.5rem 2rem;
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-      transition: all 0.3s ease;
+      position: fixed;
+      top: 0;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid #eee;
       z-index: 10;
     }
 
-    .theme-toggle:hover {
-      transform: scale(1.05);
-      background: rgba(255,255,255,0.95);
-    }
-
-    .theme-toggle svg {
-      width: 22px;
-      height: 22px;
-      fill: #163818;
-      transition: fill 0.3s ease;
-    }
-
-    body.dark .theme-toggle {
-      background: rgba(30, 45, 30, 0.9);
-      border: 1px solid rgba(255,255,255,0.2);
-    }
-
-    body.dark .theme-toggle svg {
-      fill: #f2f9f1;
-    }
-
-    /* HERO SECTION */
-    .hero {
+    header .logo {
       display: flex;
-      flex-direction: column-reverse;
       align-items: center;
-      justify-content: center;
-      text-align: center;
-      gap: 2rem;
-      padding: 6rem 1.5rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .hero-content {
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeUp 1.2s ease forwards;
-      animation-delay: 0.3s;
-    }
-
-    .hero-content h1 {
-      font-size: 3.2rem;
+      gap: 10px;
+      font-size: 1.5rem;
       font-weight: 700;
-      margin-bottom: 1rem;
-      color: #163818;
-      line-height: 1.2;
+      color: #2d4a22;
     }
 
-    .hero-content p {
-      font-size: 1.25rem;
-      color: #365634;
-      margin-bottom: 2rem;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .btn {
-      background: linear-gradient(135deg, #2ea043, #238636);
-      color: #fff;
-      padding: 14px 32px;
-      border-radius: 10px;
-      font-size: 1.1rem;
-      font-weight: 600;
+    header nav a {
+      margin-left: 1.5rem;
       text-decoration: none;
-      transition: all 0.25s ease;
-      display: inline-block;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeUp 1s ease forwards;
-      animation-delay: 0.8s;
+      font-weight: 500;
+      color: #333;
+      transition: color 0.2s;
     }
 
-    .btn:hover {
+    header nav a:hover {
+      color: #2a7a38;
+    }
+
+    .btn-primary {
+      padding: 12px 20px;
+      font-weight: 600;
+      border-radius: 8px;
+      text-decoration: none;
+      background: #2ea043;
+      color: #fff;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: #238636;
       transform: translateY(-2px);
-      background: linear-gradient(135deg, #238636, #2ea043);
     }
 
-    .hero-graphic img {
+    /* HERO */
+    .hero {
+      padding: 180px 2rem 100px;
+      max-width: 1300px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4rem;
+    }
+
+    .hero-text {
+      max-width: 600px;
+    }
+
+    .hero-text h1 {
+      font-size: 3.3rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      color: #1a1a1a;
+    }
+
+    .hero-text p {
+      font-size: 1.2rem;
+      color: #555;
+      margin-bottom: 2rem;
+    }
+
+    .hero-img {
+      max-width: 550px;
       width: 100%;
-      max-width: 650px;
-      border-radius: 16px;
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
-      animation: float 6s ease-in-out infinite, fadeIn 1.4s ease forwards;
-      opacity: 0;
     }
 
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+    /* FEATURES SECTION */
+    .section {
+      padding: 120px 2rem;
+      text-align: center;
     }
 
-    @keyframes fadeUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
     }
 
-    @keyframes fadeIn {
-      to { opacity: 1; }
+    .section p.subtext {
+      color: #666;
+      max-width: 700px;
+      margin: 0 auto 3rem;
+      font-size: 1.1rem;
     }
 
-    /* RESPONSIVE */
-    @media (min-width: 900px) {
-      .hero {
-        flex-direction: row;
-        text-align: left;
-        gap: 4rem;
-      }
-      .hero-content {
-        flex: 1;
-      }
-      .hero-graphic {
-        flex: 1;
-      }
-      .hero-content p {
-        margin-left: 0;
-      }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2.5rem;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .feature {
+      padding: 2rem;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      text-align: left;
+    }
+
+    .feature h3 {
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .feature p { color: #555; }
+
+    /* WAITLIST BUTTON */
+    .waitlist-btn {
+      margin-top: 2rem;
+      padding: 14px 30px;
+      background: #111;
+      color: #fff;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      display: inline-block;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .waitlist-btn:hover {
+      background: #333;
+      transform: translateY(-2px);
+    }
+
+    /* SOCIAL PROOF */
+    .logos-row {
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      opacity: 0.45;
+      margin-top: 2rem;
+    }
+
+    .logos-row img {
+      height: 45px;
+      filter: grayscale(100%);
+      opacity: 0.8;
     }
 
     /* FOOTER */
     footer {
-      width: 100%;
       text-align: center;
-      padding: 2rem 1rem;
-      background: #163818;
-      color: #fff;
+      padding: 3rem 2rem;
+      color: #777;
       font-size: 0.9rem;
-      margin-top: auto;
-      transition: background 0.4s ease;
+      margin-top: 80px;
     }
 
     footer a {
-      color: #fff;
+      color: #2d4a22;
+      font-weight: 600;
       text-decoration: none;
-      margin-left: 6px;
-      font-weight: 500;
     }
 
-    footer a:hover {
-      text-decoration: underline;
+    /* WAITLIST MODAL */
+    #waitlistModal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.55);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 20;
     }
 
-    /* DARK MODE */
-    body.dark {
-      background: linear-gradient(180deg, #0d1510 0%, #1c2a1a 100%);
-      color: #f2f9f1;
+    #waitlistModal .modal-content {
+      background: white;
+      padding: 2rem 2.5rem;
+      width: 95%;
+      max-width: 450px;
+      border-radius: 15px;
+      text-align: center;
     }
 
-    body.dark .hero-content h1 {
-      color: #ebfbee;
+    #waitlistModal input {
+      width: 100%;
+      padding: 14px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-top: 1rem;
+      font-size: 1rem;
     }
 
-    body.dark .hero-content p {
-      color: #cfe8cf;
-    }
-
-    body.dark .btn {
-      background: linear-gradient(135deg, #2ea043, #1e7a32);
+    #waitlistModal button {
+      margin-top: 1.5rem;
+      padding: 12px 20px;
+      background: #2ea043;
       color: #fff;
-    }
-
-    body.dark .btn:hover {
-      background: linear-gradient(135deg, #1e7a32, #2ea043);
-    }
-
-    body.dark footer {
-      background: #0f2010;
+      width: 100%;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
     }
   </style>
-</head>
-<body>
-  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-    <!-- Sun & Moon icons -->
-    <svg id="sunIcon" viewBox="0 0 24 24">
-      <path d="M12 4V2m0 20v-2m8-8h2M2 12h2m15.364 6.364l1.414 1.414M4.222 4.222l1.414 1.414M4.222 19.778l1.414-1.414M18.364 5.636l1.414-1.414M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/>
-    </svg>
-    <svg id="moonIcon" viewBox="0 0 24 24" style="display:none;">
-      <path d="M21 12.79A9 9 0 0 1 11.21 3 7 7 0 0 0 12 17a7 7 0 0 0 9-4.21z"/>
-    </svg>
-  </button>
 
+  <script>
+    function openWaitlist() {
+      document.getElementById('waitlistModal').style.display = 'flex';
+    }
+    function closeWaitlist() {
+      document.getElementById('waitlistModal').style.display = 'none';
+    }
+  </script>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">PrioBox</div>
+    <nav>
+      <a href="#features">Features</a>
+      <a href="#value">Benefits</a>
+      <a href="#" onclick="openWaitlist()">Join Waitlist</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
   <section class="hero">
-    <div class="hero-content">
-      <h1>Focus What Matters</h1>
-      <p>Visualize your priorities, align your effort, and make progress that truly counts with PrioBox.</p>
-      <a href="app.html" class="btn">Get Started Free</a>
+    <div class="hero-text">
+      <h1>Focus on the Work That Matters Most.</h1>
+      <p>Eliminate noise, see your priorities clearly, and move forward with purpose.  
+      PrioBox helps you visualize, rank, and execute your highest-impact tasks.</p>
+
+      <a class="btn-primary" href="#" onclick="openWaitlist()">Get Early Access</a>
     </div>
 
-    <div class="hero-graphic">
-      <img src="images/hero-illustration.svg" alt="Visualization of focus and clarity" loading="eager" />
+    <img src="images/hero-illustration.svg" class="hero-img" alt="PrioBox Hero Illustration" />
+  </section>
+
+  <!-- FEATURES -->
+  <section class="section" id="features">
+    <h2>Clarity. Focus. Momentum.</h2>
+    <p class="subtext">PrioBox gives you a simple, visual system for choosing what truly matters—and executing faster.</p>
+
+    <div class="features-grid">
+
+      <div class="feature">
+        <h3>🎯 Priority Mapping</h3>
+        <p>See your goals, tasks, and effort in a clean visual matrix designed for decisive action.</p>
+      </div>
+
+      <div class="feature">
+        <h3>⚡ Instant Sorting</h3>
+        <p>Drag, drop, reorder. Let your priorities re-organize without friction.</p>
+      </div>
+
+      <div class="feature">
+        <h3>📦 Progress Tracking</h3>
+        <p>Watch each priority evolve with snapshots, notes, and measurable outcomes.</p>
+      </div>
+
+      <div class="feature">
+        <h3>🤝 Work + Life Friendly</h3>
+        <p>Use it for teams, business goals, or personal life structure. One system for everything.</p>
+      </div>
+
     </div>
   </section>
 
+  <!-- SOCIAL PROOF -->
+  <section class="section">
+    <h2>Loved by Early Testers</h2>
+    <p class="subtext">People organizing their businesses, startups, and daily lives trust PrioBox to bring clarity.</p>
+
+    <div class="logos-row">
+      <img src="https://dummyimage.com/120x50/ccc/fff.png&text=Logo" />
+      <img src="https://dummyimage.com/120x50/ccc/fff.png&text=Logo" />
+      <img src="https://dummyimage.com/120x50/ccc/fff.png&text=Logo" />
+    </div>
+  </section>
+
+  <!-- VALUE SECTION -->
+  <section class="section" id="value">
+    <h2>Stay Organized Without Feeling Overwhelmed</h2>
+    <p class="subtext">PrioBox turns chaos into clarity. Whether you're building a startup or balancing life,  
+    it helps you decide what deserves your time—and what doesn’t.</p>
+    <a href="#" class="waitlist-btn" onclick="openWaitlist()">Join the Waitlist</a>
+  </section>
+
+  <!-- FOOTER -->
   <footer>
-    <p>Created by <strong>DGS Consulting</strong> • 
-      <a href="mailto:DGSConsult@consultant.com">Contact</a>
-    </p>
+    © 2025 PrioBox • Built by <a href="mailto:DGSConsult@consultant.com">DGS Consulting</a>
   </footer>
 
-  <script>
-    const themeToggle = document.getElementById('themeToggle');
-    const body = document.body;
-    const sunIcon = document.getElementById('sunIcon');
-    const moonIcon = document.getElementById('moonIcon');
+  <!-- WAITLIST MODAL -->
+  <div id="waitlistModal">
+    <div class="modal-content">
+      <h2>Join the Waitlist</h2>
+      <p>Get early access and be first to try PrioBox.</p>
+      <input id="emailInput" type="email" placeholder="Enter your email" />
+      <button onclick="closeWaitlist()">Join</button>
+    </div>
+  </div>
 
-    // Load saved theme or system preference
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-      body.classList.add('dark');
-      sunIcon.style.display = 'none';
-      moonIcon.style.display = 'block';
-    }
-
-    themeToggle.addEventListener('click', () => {
-      const isDark = body.classList.toggle('dark');
-      if (isDark) {
-        sunIcon.style.display = 'none';
-        moonIcon.style.display = 'block';
-        localStorage.setItem('theme', 'dark');
-      } else {
-        sunIcon.style.display = 'block';
-        moonIcon.style.display = 'none';
-        localStorage.setItem('theme', 'light');
-      }
-    });
-  </script>
 </body>
 </html>
