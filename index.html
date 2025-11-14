@@ -68,22 +68,6 @@
       transform: translateY(-2px);
     }
 
-    .btn-auth {
-      padding: 10px 16px;
-      background: #111;
-      color: #fff;
-      border-radius: 8px;
-      font-weight: 600;
-      text-decoration: none;
-      cursor: pointer;
-      transition: opacity 0.2s, transform 0.2s;
-    }
-
-    .btn-auth:hover {
-      opacity: 0.8;
-      transform: translateY(-2px);
-    }
-
     /* HERO */
     .hero {
       padding: 180px 2rem 100px;
@@ -208,49 +192,6 @@
       text-decoration: none;
     }
 
-    /* AUTH MODAL */
-    #authModal {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.55);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 30;
-    }
-
-    #authModal .modal-content {
-      background: white;
-      padding: 2rem 2.5rem;
-      width: 95%;
-      max-width: 420px;
-      border-radius: 15px;
-      text-align: center;
-    }
-
-    #authModal input {
-      width: 100%;
-      padding: 14px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      margin-top: 1rem;
-      font-size: 1rem;
-    }
-
-    #authModal button {
-      margin-top: 1.5rem;
-      padding: 12px 20px;
-      background: #2ea043;
-      color: #fff;
-      width: 100%;
-      font-size: 1.1rem;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-    }
-
     /* WAITLIST MODAL */
     #waitlistModal {
       position: fixed;
@@ -302,13 +243,6 @@
     function closeWaitlist() {
       document.getElementById('waitlistModal').style.display = 'none';
     }
-
-    function openAuth() {
-      document.getElementById('authModal').style.display = 'flex';
-    }
-    function closeAuth() {
-      document.getElementById('authModal').style.display = 'none';
-    }
   </script>
 </head>
 
@@ -321,8 +255,6 @@
       <a href="#features">Features</a>
       <a href="#value">Benefits</a>
       <a href="#" onclick="openWaitlist()">Join Waitlist</a>
-      <a id="authBtn" class="btn-auth" onclick="openAuth()">Sign In</a>
-      <a id="logoutBtn" class="btn-auth" style="display:none;" onclick="logout()">Sign Out</a>
     </nav>
   </header>
 
@@ -394,69 +326,53 @@
     © 2025 PrioBox • Built by <a href="mailto:DGSConsult@consultant.com">DGS Consulting</a>
   </footer>
 
-  <!-- AUTH MODAL -->
-  <div id="authModal">
-    <div class="modal-content">
-      <h2>Sign In</h2>
-      <p>Use your email and we’ll send you a magic link to log in.</p>
-      <input id="authEmail" type="email" placeholder="Your email" />
-      <button onclick="sendMagicLink()">Send Magic Link</button>
-    </div>
-  </div>
-
   <!-- WAITLIST MODAL -->
   <div id="waitlistModal">
     <div class="modal-content">
       <h2>Join the Waitlist</h2>
       <p>Get early access and be first to try PrioBox.</p>
       <input id="emailInput" type="email" placeholder="Enter your email" />
-      <button onclick="closeWaitlist()">Join</button>
+      <button id="joinBtn">Join</button>
     </div>
   </div>
 
-  <!-- SUPABASE AUTH SCRIPT -->
+  <!-- SUPABASE WAITLIST SCRIPT -->
   <script type="module">
-    import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+    import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-    const supabaseUrl = "YOUR_SUPABASE_URL";
-    const supabaseAnonKey = "YOUR_SUPABASE_ANON_KEY";
+    const SUPABASE_URL = "https://easinqqgvnirkqejtgnu.supabase.co";
+    const SUPABASE_ANON_KEY =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVhc2lucXFndm5pcmtxZWp0Z251Iiwicm9sZSI6ImFub24iLCJpYXQiOjE";
 
-    const supabase = createClient(supabaseUrl, supabaseAnonKey);
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    async function sendMagicLink() {
-      const email = document.getElementById("authEmail").value;
-      if (!email) return alert("Enter a valid email");
+    async function joinWaitlist() {
+      const email = document.getElementById("emailInput").value.trim();
 
-      const { error } = await supabase.auth.signInWithOtp({ email });
+      if (!email) {
+        alert("Please enter a valid email.");
+        return;
+      }
+
+      const { error } = await supabase.from("tasks").insert([
+        {
+          id: crypto.randomUUID(),
+          user_id: "00000000-0000-0000-0000-000000000000", // placeholder
+          payload: { email: email, source: "landing-page-waitlist" }
+        }
+      ]);
 
       if (error) {
-        alert("Error: " + error.message);
-      } else {
-        alert("Magic link sent! Check your email.");
-        closeAuth();
+        console.error(error);
+        alert("Something went wrong. Try again.");
+        return;
       }
+
+      document.getElementById("waitlistModal").style.display = "none";
+      alert("You're on the waitlist! Thank you 🎉");
     }
 
-    async function checkLogin() {
-      const { data: { session } } = await supabase.auth.getSession();
-
-      if (session) {
-        document.getElementById("authBtn").style.display = "none";
-        document.getElementById("logoutBtn").style.display = "inline-block";
-      } else {
-        document.getElementById("authBtn").style.display = "inline-block";
-        document.getElementById("logoutBtn").style.display = "none";
-      }
-    }
-
-    async function logout() {
-      await supabase.auth.signOut();
-      checkLogin();
-      alert("Signed out");
-    }
-
-    // On page load
-    checkLogin();
+    document.getElementById("joinBtn").onclick = joinWaitlist;
   </script>
 
 </body>
