@@ -5,31 +5,58 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>PrioBox – Focus What Matters</title>
 <link rel="icon" type="image/png" href="images/logo-icon-t.png" />
+
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial; background:#f9fafb;color:#111;line-height:1.6}
-  header{position:fixed;top:0;left:0;right:0;padding:1.2rem 2rem;background:rgba(255,255,255,.9);backdrop-filter:blur(6px);display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee;z-index:40}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;background:#f9fafb;color:#111;line-height:1.6}
+
+  header{
+    position:fixed;top:0;left:0;right:0;padding:1.2rem 2rem;
+    background:rgba(255,255,255,.9);backdrop-filter:blur(6px);
+    display:flex;justify-content:space-between;align-items:center;
+    border-bottom:1px solid #eee;z-index:40
+  }
   .logo{font-weight:700;color:#2d4a22}
   nav a{margin-left:1.2rem;color:#333;text-decoration:none}
-  .hero{padding:140px 2rem 80px;max-width:1200px;margin:0 auto;display:flex;gap:2.5rem;align-items:center}
+
+  .hero{
+    padding:140px 2rem 80px;max-width:1200px;margin:0 auto;
+    display:flex;gap:2.5rem;align-items:center
+  }
   .hero-text h1{font-size:2.6rem;margin-bottom:.6rem}
-  .btn-primary{background:#2ea043;color:#fff;padding:.8rem 1.2rem;border-radius:8px;text-decoration:none;font-weight:700}
-  /* modal */
-  #waitlistModal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.5);z-index:50}
-  .modal-content{background:#fff;padding:1.6rem;border-radius:12px;width:95%;max-width:480px;box-shadow:0 10px 30px rgba(0,0,0,.12);text-align:left}
-  .modal-content h2{margin-bottom:.5rem}
-  .modal-field{width:100%;padding:.8rem;border:1px solid #ddd;border-radius:8px;margin-top:.6rem;font-size:1rem}
-  .modal-row{display:flex;gap:.6rem}
-  .small{font-size:.9rem;color:#666;margin-top:.4rem}
-  #joinBtn{margin-top:1rem;background:#2ea043;color:#fff;border:none;padding:.8rem;border-radius:8px;width:100%;font-weight:700;cursor:pointer}
-  #joinBtn[disabled]{opacity:.6;cursor:not-allowed}
-  #modalError{color:#bf211e;margin-top:.6rem;display:none}
-  /* success */
-  #successMessage{display:none;max-width:900px;margin:24px auto;padding:1.6rem;border-radius:10px;background:#dff5e6;color:#114b28;text-align:center;box-shadow:0 6px 24px rgba(17,75,40,.06)}
-  /* success small close link */
-  .close-link{display:inline-block;margin-top:12px;color:#0b6b2a;cursor:pointer;text-decoration:underline}
+  .btn-primary{
+    background:#2ea043;color:#fff;padding:.8rem 1.2rem;
+    border-radius:8px;text-decoration:none;font-weight:700
+  }
+
+  /* WAITLIST FORM */
+  #waitlist-container{
+    max-width:420px;margin:60px auto;padding:24px;
+    background:#fff;border-radius:12px;box-shadow:0 6px 24px rgba(0,0,0,.08)
+  }
+  #waitlist-container h2{margin-bottom:12px}
+  .input-field{
+    width:100%;padding:12px;border:1px solid #ccc;border-radius:8px;
+    margin-top:12px;font-size:1rem
+  }
+  #waitlist-btn{
+    margin-top:16px;width:100%;padding:12px;border:none;
+    background:#2ea043;color:#fff;border-radius:8px;font-size:1.1rem;
+    cursor:pointer;font-weight:700
+  }
+  #waitlist-btn[disabled]{opacity:.6;cursor:not-allowed}
+
+  #waitlist-error{
+    color:#b30000;margin-top:12px;display:none
+  }
+  #waitlist-success{
+    display:none;background:#dff5e6;color:#114b28;padding:20px;
+    border-radius:10px;margin-top:20px;text-align:center;
+    font-size:1.2rem
+  }
 </style>
 </head>
+
 <body>
 
 <header>
@@ -37,177 +64,131 @@
   <nav>
     <a href="#features">Features</a>
     <a href="#value">Benefits</a>
-    <a href="#" onclick="openWaitlist()">Join Waitlist</a>
+    <a href="#waitlist-container">Join Waitlist</a>
   </nav>
 </header>
 
-<section class="hero" aria-labelledby="hero-heading">
+<section class="hero">
   <div class="hero-text">
-    <h1 id="hero-heading">Focus on the Work That Matters Most.</h1>
-    <p style="color:#555;max-width:56ch">Eliminate noise, see your priorities clearly, and move forward with purpose. PrioBox helps you visualize, rank, and execute your highest-impact tasks.</p>
-    <a class="btn-primary" href="#" onclick="openWaitlist()">Get Early Access</a>
+    <h1>Focus on the Work That Matters Most.</h1>
+    <p style="color:#555;max-width:56ch">
+      Eliminate noise, see your priorities clearly, and move forward with purpose.
+      PrioBox helps you visualize, rank, and execute your highest-impact tasks.
+    </p>
+    <a class="btn-primary" href="#waitlist-container">Get Early Access</a>
   </div>
   <img src="images/hero-illustration.svg" alt="PrioBox Hero Illustration" style="max-width:420px;width:100%" />
 </section>
 
-<!-- other sections truncated for brevity in this snippet (keeps layout same) -->
-<section style="padding:40px 2rem 24px"><div style="max-width:1100px;margin:0 auto;text-align:center"><h2>Clarity. Focus. Momentum.</h2><p class="small">PrioBox gives you a simple, visual system for choosing what truly matters—and executing faster.</p></div></section>
-
-<!-- success message (inline page) -->
-<div id="successMessage" role="status">
-  <h2>You're on the waitlist 🎉</h2>
-  <p>Thanks — we’ll email you when your workspace is ready.</p>
-  <div><span class="close-link" onclick="document.getElementById('successMessage').style.display='none'">Dismiss</span></div>
-</div>
-
-<!-- WAITLIST MODAL -->
-<div id="waitlist">
+<!-- SIMPLE WAITLIST FORM -->
+<div id="waitlist-container">
   <h2>Join the Waitlist</h2>
 
-  <form id="waitlist-form">
-      <input type="text" id="first_name" placeholder="First Name" required />
-      <input type="text" id="company" placeholder="Company Name" required />
-      <input type="text" id="use_case" placeholder="Use Case" required />
+  <input id="first_name" class="input-field" type="text" placeholder="First Name" required>
+  <input id="company" class="input-field" type="text" placeholder="Company Name" required>
+  <input id="use_case" class="input-field" type="text" placeholder="Use Case" required>
 
-      <select id="job_role" required>
-        <option value="">Job Role</option>
-        <option value="Founder">Founder</option>
-        <option value="Executive">Executive</option>
-        <option value="Developer">Developer</option>
-        <option value="Product Manager">Product Manager</option>
-        <option value="Other">Other</option>
-      </select>
+  <select id="job_role" class="input-field" required>
+    <option value="">Job Role</option>
+    <option value="Founder">Founder</option>
+    <option value="Executive">Executive</option>
+    <option value="Developer">Developer</option>
+    <option value="Product Manager">Product Manager</option>
+    <option value="Other">Other</option>
+  </select>
 
-      <input type="email" id="email" placeholder="Email Address" required />
+  <input id="email" class="input-field" type="email" placeholder="Email Address" required>
 
-      <button type="submit">Join Waitlist</button>
-  </form>
+  <button id="waitlist-btn">Join Waitlist</button>
 
-  <div id="success-message" style="display:none; margin-top:20px; font-size:20px;">
-    🎉 You’re on the waitlist!
-  </div>
+  <div id="waitlist-error"></div>
+  <div id="waitlist-success">🎉 You're on the waitlist!</div>
 </div>
 
-<footer style="text-align:center;padding:40px 2rem;color:#777">© 2025 PrioBox • Built by <a href="mailto:DGSConsult@consultant.com">DGS Consulting</a></footer>
+<footer style="text-align:center;padding:40px 2rem;color:#777">
+  © 2025 PrioBox • Built by <a href="mailto:DGSConsult@consultant.com">DGS Consulting</a>
+</footer>
 
 <script>
-(function(){
-  // CONFIG - change only these values if you rotate keys
-  const SUPABASE_URL = "https://easinqqgvnirkqejtgnu.supabase.co";
-  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBwYWt6Ym5tcWpveGl5aWpib29iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMwMjk3MjMsImV4cCI6MjA3ODYwNTcyM30.NgTuxA3osuTz0xB3o5XIryKyPBJ6tBukVwLW71OSl40";
-  const API_ENDPOINT = SUPABASE_URL.replace(/\/$/,'') + "/rest/v1/waitlist";
+// ------------------------
+// CONFIG
+// ------------------------
+const SUPABASE_URL = "https://easinqqgvnirkqejtgnu.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBwYWt6Ym5tcWpveGl5aWpib29iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMwMjk3MjMsImV4cCI6MjA3ODYwNTcyM30.NgTuxA3osuTz0xB3o5XIryKyPBJ6tBukVwLW71OSl40";
 
-  // Elements
-  const modal = document.getElementById('waitlistModal');
-  const joinBtn = document.getElementById('joinBtn');
-  const modalError = document.getElementById('modalError');
-  const successBox = document.getElementById('successMessage');
-  const modalClose = document.getElementById('modalClose');
+const API_ENDPOINT = SUPABASE_URL + "/rest/v1/waitlist";
 
-  function openWaitlist(){ modal.style.display='flex'; modal.setAttribute('aria-hidden','false'); document.getElementById('firstName').focus(); }
-  function closeWaitlist(){ modal.style.display='none'; modal.setAttribute('aria-hidden','true'); }
+// Elements
+const btn = document.getElementById("waitlist-btn");
+const errBox = document.getElementById("waitlist-error");
+const successBox = document.getElementById("waitlist-success");
 
-  // expose for existing markup hooks
-  window.openWaitlist = openWaitlist;
-  window.closeWaitlist = closeWaitlist;
+async function submitWaitlist() {
+  errBox.style.display = "none";
+  successBox.style.display = "none";
 
-  modalClose.addEventListener('click', closeWaitlist);
-  modal.addEventListener('click', function(e){
-    if (e.target === modal) closeWaitlist(); // click backdrop to close
-  });
+  const first_name = document.getElementById("first_name").value.trim();
+  const company = document.getElementById("company").value.trim();
+  const use_case = document.getElementById("use_case").value.trim();
+  const job_role = document.getElementById("job_role").value.trim();
+  const email = document.getElementById("email").value.trim();
 
-  function setLoading(isLoading){
-    joinBtn.disabled = isLoading;
-    joinBtn.textContent = isLoading ? 'Joining…' : 'Join';
+  if (!first_name || !company || !use_case || !job_role || !email) {
+    errBox.innerText = "All fields are required.";
+    errBox.style.display = "block";
+    return;
   }
 
-  function showError(msg){
-    modalError.style.display = 'block';
-    modalError.textContent = msg;
-    console.error('Waitlist error:', msg);
-  }
+  btn.disabled = true;
+  btn.innerText = "Joining…";
 
-  function clearError(){
-    modalError.style.display = 'none';
-    modalError.textContent = '';
-  }
+  const payload = {
+    first_name,
+    company,
+    use_case,
+    job_role,
+    email,
+    source: "landing-page"
+  };
 
-  function showSuccess(){
-    closeWaitlist();
-    successBox.style.display = 'block';
-    successBox.scrollIntoView({behavior:'smooth', block:'center'});
-  }
+  try {
+    const res = await fetch(API_ENDPOINT, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": SUPABASE_ANON_KEY,
+        "Authorization": "Bearer " + SUPABASE_ANON_KEY,
+        "Prefer": "return=representation"
+      },
+      body: JSON.stringify(payload)
+    });
 
-  async function joinWaitlistHandler(){
-    clearError();
-    const firstName = document.getElementById('firstName').value.trim();
-    const companyName = document.getElementById('companyName').value.trim();
-    const jobRole = document.getElementById('jobRole').value.trim();
-    const email = document.getElementById('emailInput').value.trim();
-
-    // simple client validation
-    if (!firstName || !companyName || !jobRole || !email) {
-      showError('Please fill out all fields.');
-      return;
-    }
-    // basic email regex
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      showError('Please enter a valid email address.');
-      return;
+    if (!res.ok) {
+      const message = await res.text();
+      throw new Error(message);
     }
 
-    setLoading(true);
+    successBox.style.display = "block";
 
-    // Prepare payload
-    const payload = {
-      email,
-      first_name: firstName,
-      company: companyName,
-      job_role: jobRole,
-      source: "landing-page"
-    };
+    // Optional: clear form
+    document.getElementById("first_name").value = "";
+    document.getElementById("company").value = "";
+    document.getElementById("use_case").value = "";
+    document.getElementById("job_role").value = "";
+    document.getElementById("email").value = "";
 
-    try {
-      // POST to Supabase REST endpoint
-      const res = await fetch(API_ENDPOINT, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          // must include anon key both as apiKey and Authorization for Supabase REST
-          'apikey': SUPABASE_ANON_KEY,
-          'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
-          'Prefer': 'return=representation'
-        },
-        body: JSON.stringify(payload)
-      });
-
-      if (!res.ok) {
-        const text = await res.text();
-        // show server error message if present
-        showError('Server returned an error. Check console for details.');
-        console.error('Supabase response error', res.status, text);
-        setLoading(false);
-        return;
-      }
-
-      const data = await res.json();
-      console.log('Insert response', data);
-      // on success, show success message
-      showSuccess();
-    } catch (err) {
-      console.error('Network/JS error', err);
-      showError('Network error — please try again (check console).');
-    } finally {
-      setLoading(false);
-    }
+  } catch (err) {
+    errBox.innerText = "Server error — check console.";
+    errBox.style.display = "block";
+    console.error("Supabase error:", err);
   }
 
-  // attach handler after DOM ready
-  document.addEventListener('DOMContentLoaded', function(){
-    joinBtn.addEventListener('click', joinWaitlistHandler);
-  });
-})();
+  btn.disabled = false;
+  btn.innerText = "Join Waitlist";
+}
+
+btn.addEventListener("click", submitWaitlist);
 </script>
- 
+
 </body>
 </html>
