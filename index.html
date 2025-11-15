@@ -163,38 +163,52 @@
 </footer>
 
 <script>
-// Your Google Apps Script endpoint
-const GOOGLE_WEBHOOK_URL =
-  "https://script.google.com/macros/s/AKfycby-J1bNDcTgIcq_K_nXFDOjBBbloJxai7OyUXDDQNH01yvdMGO-kCotRlrbI46K38H1Ow/exec";
-
-document.getElementById("waitlistForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-  const payload = {
-    first_name: document.getElementById("first_name").value,
-    email: document.getElementById("email").value,
-    company: document.getElementById("company").value,
-    use_case: document.getElementById("use_case").value,
-    job_role: document.getElementById("job_role").value
+function doPost(e) {
+  const headers = {
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",     // Allow all domains
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Methods": "POST, OPTIONS"
   };
 
   try {
-    const res = await fetch(GOOGLE_WEBHOOK_URL, {
-      method: "POST",
-      body: JSON.stringify(payload),
-      headers: { "Content-Type": "application/json" }
-    });
+    const data = JSON.parse(e.postData.contents);
 
-    if (res.ok) {
-      document.getElementById("waitlistForm").style.display = "none";
-      document.getElementById("successMessage").style.display = "block";
-    } else {
-      alert("Error submitting form. Try again.");
-    }
+    const sheet = SpreadsheetApp.openById("YOUR_SHEET_ID")
+      .getSheetByName("Sheet1");
+
+    sheet.appendRow([
+      new Date(),
+      data.first_name,
+      data.company,
+      data.use_case,
+      data.job_role,
+      data.email
+    ]);
+
+    return ContentService
+      .createTextOutput(JSON.stringify({ status: "success" }))
+      .setMimeType(ContentService.MimeType.JSON)
+      .setHeaders(headers);
+
   } catch (err) {
-    alert("Network error — please try again.");
+    return ContentService
+      .createTextOutput(JSON.stringify({ error: err.message }))
+      .setMimeType(ContentService.MimeType.JSON)
+      .setHeaders(headers);
   }
-});
+}
+
+// Handle OPTIONS Preflight
+function doOptions(e) {
+  return ContentService
+    .createTextOutput("")
+    .setHeaders({
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Headers": "Content-Type",
+      "Access-Control-Allow-Methods": "POST, OPTIONS"
+    });
+}
 </script>
 
 </body>
