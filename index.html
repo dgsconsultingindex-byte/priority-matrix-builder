@@ -5,6 +5,51 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>PrioBox – Focus What Matters</title>
 <link rel="icon" type="image/png" href="images/logo-icon-t.png" />
+
+<!-- GOOGLE ANALYTICS -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3TQ4METDYF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'G-3TQ4METDYF');
+</script>
+
+<!-- CUSTOM GA4 EVENT FUNCTIONS -->
+<script>
+  // Hero CTA button click
+  function trackHeroCTA() {
+    gtag('event', 'cta_clicked', {
+      event_category: 'engagement',
+      event_label: 'Hero – Get in Touch'
+    });
+  }
+
+  // Contact section became visible
+  function trackOpenContact() {
+    gtag('event', 'contact_opened', {
+      event_category: 'engagement',
+      event_label: 'Contact Section Viewed'
+    });
+  }
+
+  // Form step navigation
+  function trackFormStep(stepNumber) {
+    gtag('event', 'contact_form_step', {
+      event_category: 'form_progress',
+      event_label: 'Step ' + stepNumber
+    });
+  }
+
+  // Form successfully submitted
+  function trackFormSubmitted() {
+    gtag('event', 'contact_form_submitted', {
+      event_category: 'lead',
+      event_label: 'Formspree Submission Success'
+    });
+  }
+</script>
+
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial; background:#f9fafb;color:#111;line-height:1.6}
@@ -54,7 +99,7 @@
     animation:fadeIn .4s ease;
   }
 
-  /* Honeypot (hidden anti-spam field) */
+  /* Honeypot field */
   .hp{display:none !important}
 </style>
 </head>
@@ -74,8 +119,11 @@
   <div class="hero-text">
     <h1>Focus on the Work That Matters Most.</h1>
     <p style="color:#555;max-width:56ch">Eliminate noise, see your priorities clearly, and move forward with purpose. PrioBox helps you visualize, rank, and execute your highest-impact tasks.</p>
-    <a class="btn-primary" href="#contact-section">Get in Touch</a>
+
+    <!-- HERO CTA → GA TRACKING ADDED -->
+    <a class="btn-primary" href="#contact-section" onclick="trackHeroCTA()">Get in Touch</a>
   </div>
+
   <img src="images/hero-illustration.svg" alt="PrioBox Hero Illustration" style="max-width:420px;width:100%" />
 </section>
 
@@ -88,7 +136,6 @@
   <!-- MULTI-STEP FORM -->
   <form id="msform" action="https://formspree.io/f/xyzleapr" method="POST">
 
-    <!-- Honeypot spam field -->
     <input class="hp" type="text" name="_gotcha">
 
     <!-- Step 1 -->
@@ -146,13 +193,31 @@ function showStep(n){
 }
 
 function nextStep(){
-  if(step < steps.length - 1){ step++; showStep(step); }
+  if(step < steps.length - 1){
+    step++;
+    showStep(step);
+    trackFormStep(step + 1); // GA tracking
+  }
 }
 
 function prevStep(){
-  if(step > 0){ step--; showStep(step); }
+  if(step > 0){
+    step--;
+    showStep(step);
+    trackFormStep(step + 1); // GA tracking backwards
+  }
 }
 
+// Contact section viewed (scroll tracking)
+const contactObserver = new IntersectionObserver(entries => {
+  if(entries[0].isIntersecting){
+    trackOpenContact();
+    contactObserver.disconnect();
+  }
+});
+contactObserver.observe(document.querySelector('#contact-section'));
+
+// Form submission handler
 document.getElementById("msform").addEventListener("submit", async function(e){
   e.preventDefault();
 
@@ -165,12 +230,9 @@ document.getElementById("msform").addEventListener("submit", async function(e){
   });
 
   if(res.ok){
+    trackFormSubmitted();
     form.style.display = "none";
     document.getElementById("success-box").style.display = "block";
-
-    // OPTIONAL REDIRECT (enabled by removing comment)
-    // setTimeout(()=> window.location.href = "/thank-you.html", 2000);
-
   } else {
     alert("There was an error. Please try again.");
   }
