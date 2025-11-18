@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Connect Email - PrioBox</title>
+<link rel="icon" type="image/png" href="images/logo-icon-t.png" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family: 'Inter', sans-serif; 
+    background:#fff;
+    color:#111;
+    line-height:1.6;
+  }
+  
+  /* HEADER */
+  header{
+    position:fixed;top:0;left:0;right:0;padding:1rem 2rem;
+    background:rgba(255,255,255,.95);
+    backdrop-filter:blur(8px);
+    display:flex;justify-content:space-between;align-items:center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    z-index:40;
+  }
+  .logo{font-weight:800;font-size:1.4rem;color:#2d4a22}
+  nav{display:flex;align-items:center;gap:1rem;} 
+  nav a{color:#444;text-decoration:none;font-weight:600;white-space:nowrap;}
+  .btn-primary{
+    display:inline-block;
+    background:#2ea043;
+    color:#fff;
+    padding:.75rem 1.5rem;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:700;
+    transition:0.3s;
+    white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(46, 160, 67, 0.3);
+  }
+  .btn-primary:hover{background:#268a39;}
+  
+  /* HERO */
+  .page-hero{
+    padding:140px 2rem 80px;
+    text-align:center;
+    background: linear-gradient(135deg, #ea4335 0%, #c5221f 100%);
+    color:#fff;
+  }
+  .page-hero h1{
+    font-size:3rem;
+    font-weight:800;
+    margin-bottom:1rem;
+  }
+  .page-hero p{
+    font-size:1.25rem;
+    max-width:700px;
+    margin:0 auto 2rem;
+    opacity:0.9;
+  }
+  .email-logo{
+    width:60px;
+    height:60px;
+    margin:0 auto 1.5rem;
+    background:#fff;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:2rem;
+  }
+  
+  /* INTEGRATION CARD */
+  .integration-section{
+    padding:80px 2rem;
+    max-width:900px;
+    margin:0 auto;
+  }
+  .integration-card{
+    background:#f9fafb;
+    padding:3rem;
+    border-radius:16px;
+    box-shadow:0 4px 20px rgba(0,0,0,0.06);
+    margin-bottom:3rem;
+  }
+  .integration-card h2{
+    font-size:2rem;
+    font-weight:800;
+    color:#2d4a22;
+    margin-bottom:1rem;
+  }
+  .integration-card p{
+    font-size:1.1rem;
+    color:#555;
+    margin-bottom:2rem;
+    line-height:1.8;
+  }
+  
+  /* BENEFITS */
+  .benefits-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+    gap:1.5rem;
+    margin:2rem 0;
+  }
+  .benefit-item{
+    text-align:center;
+    padding:1.5rem;
+    background:#fff;
+    border-radius:12px;
+  }
+  .benefit-icon{
+    font-size:2.5rem;
+    margin-bottom:0.5rem;
+  }
+  .benefit-item h3{
+    font-size:1rem;
+    font-weight:700;
+    color:#2d4a22;
+    margin-bottom:0.5rem;
+  }
+  .benefit-item p{
+    font-size:0.9rem;
+    color:#666;
+    margin:0;
+  }
+  
+  /* INTEGRATION OPTIONS */
+  .integration-options{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));
+    gap:2rem;
+    margin:2rem 0;
+  }
+  .option-card{
+    background:#fff;
+    padding:2rem;
+    border-radius:12px;
+    border:2px solid #e0e0e0;
+    transition:0.3s;
+  }
+  .option-card:hover{
+    border-color:#ea4335;
+    box-shadow:0 4px 16px rgba(234,67,53,0.15);
+  }
+  .option-card h3{
+    color:#ea4335;
+    font-size:1.3rem;
+    margin-bottom:1rem;
+  }
+  .option-card ul{
+    list-style:none;
+    padding:0;
+  }
+  .option-card li{
+    padding:0.5rem 0;
+    padding-left:1.5rem;
+    position:relative;
+    color:#555;
+  }
+  .option-card li:before{
+    content:"✓";
+    position:absolute;
+    left:0;
+    color:#2ea043;
+    font-weight:bold;
+  }
+  
+  /* STEPS */
+  .steps-section{
+    margin:3rem 0;
+  }
+  .steps-section h3{
+    font-size:1.5rem;
+    font-weight:700;
+    color:#2d4a22;
+    margin-bottom:1.5rem;
+  }
+  .step{
+    display:flex;
+    gap:1.5rem;
+    margin-bottom:2rem;
+    padding:1.5rem;
+    background:#fff;
+    border-radius:12px;
+    border-left:4px solid #ea4335;
+  }
+  .step-number{
+    flex-shrink:0;
+    width:40px;
+    height:40px;
+    background:#ea4335;
+    color:#fff;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:800;
+    font-size:1.2rem;
+  }
+  .step-content h4{
+    font-size:1.2rem;
+    font-weight:700;
+    color:#2d4a22;
+    margin-bottom:0.5rem;
+  }
+  .step-content p{
+    color:#555;
+    margin:0;
+  }
+  .step-content a{
+    color:#ea4335;
+    font-weight:600;
+    text-decoration:none;
+  }
+  .step-content a:hover{
+    text-decoration:underline;
+  }
+  
+  /* CTA BUTTONS */
+  .cta-buttons{
+    display:flex;
+    gap:1rem;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin:2rem 0;
+  }
+  .btn-email{
+    display:inline-flex;
+    align-items:center;
+    gap:0.75rem;
+    background:#ea4335;
+    color:#fff;
+    padding:1rem 2rem;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:700;
+    transition:0.3s;
+    font-size:1.1rem;
+  }
+  .btn-email:hover{
+    background:#c5221f;
+    transform:translateY(-2px);
+    box-shadow:0 6px 20px rgba(234,67,53,0.3);
+  }
+  .btn-secondary{
+    display:inline-block;
+    background:#fff;
+    color:#ea4335;
+    padding:1rem 2rem;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:700;
+    transition:0.3s;
+    border:2px solid #ea4335;
+  }
+  .btn-secondary:hover{
+    background:#ea4335;
+    color:#fff;
+  }
+  
+  /* FAQ */
+  .faq-section{
+    margin-top:4rem;
+  }
+  .faq-section h3{
+    font-size:1.8rem;
+    font-weight:700;
+    color:#2d4a22;
+    margin-bottom:2rem;
+    text-align:center;
+  }
+  details{
+    background:#fff;
+    padding:1.5rem;
+    border-radius:12px;
+    margin-bottom:1rem;
+    cursor:pointer;
+    box-shadow:0 2px 8px rgba(0,0,0,0.04);
+  }
+  summary{
+    font-weight:700;
+    color:#2d4a22;
+    font-size:1.1rem;
+    cursor:pointer;
+    list-style:none;
+  }
+  summary::-webkit-details-marker{
+    display:none;
+  }
+  summary:after{
+    content:" ▼";
+    float:right;
+    color:#ea4335;
+  }
+  details[open] summary:after{
+    content:" ▲";
+  }
+  details p{
+    margin-top:1rem;
+    color:#555;
+    line-height:1.8;
+  }
+  
+  /* USE CASES */
+  .use-cases{
+    margin:3rem 0;
+  }
+  .use-case{
+    background:#fff;
+    padding:1.5rem;
+    border-radius:12px;
+    margin-bottom:1.5rem;
+    border-left:4px solid #ea4335;
+  }
+  .use-case h4{
+    color:#ea4335;
+    font-size:1.2rem;
+    margin-bottom:0.5rem;
+  }
+  .use-case p{
+    color:#555;
+    margin:0;
+  }
+  
+  /* FOOTER */
+  footer {
+    padding: 40px 2rem;
+    background: #111;
+    color: #aaa;
+    text-align: center;
+    font-size:0.9rem;
+  }
+  footer a {
+    color: #ccc;
+    text-decoration: none;
+    margin:0 10px;
+  }
+  footer a:hover{color:#fff;}
+  
+  /* MOBILE */
+  @media (max-width: 768px) {
+    header{padding:1rem;}
+    nav{gap:0.5rem;}
+    nav a{font-size:0.9rem;}
+    
+    .page-hero{padding:120px 1.5rem 60px;}
+    .page-hero h1{font-size:2rem;}
+    .page-hero p{font-size:1.1rem;}
+    
+    .integration-card{padding:2rem;}
+    .benefits-grid{grid-template-columns:1fr;}
+    .integration-options{grid-template-columns:1fr;}
+    .step{flex-direction:column;}
+    .cta-buttons{flex-direction:column;}
+  }
+</style>
+</head>
+
+<body>
+
+<header>
+  <a href="./index.html" class="logo" style="text-decoration: none;">PrioBox</a>
+  <nav>
+    <a href="./index.html">Home</a>
+    <a href="./features.html">Features</a>
+    <a href="./support.html">Support</a>
+    <a class="btn-primary" href="./app.html">Launch App</a>
+  </nav>
+</header>
+
+<section class="page-hero">
+  <div class="email-logo">📧</div>
+  <h1>Connect PrioBox to Email</h1>
+  <p>Send automatic notifications, create tasks from emails, and get daily priority digests delivered to your inbox.</p>
+</section>
+
+<section class="integration-section">
+  
+  <div class="integration-card">
+    <h2>Why Connect Email?</h2>
+    <p>Email is where work happens. Stay on top of priorities without constantly checking PrioBox. Get the right information at the right time, directly in your inbox.</p>
+    
+    <div class="benefits-grid">
+      <div class="benefit-item">
+        <div class="benefit-icon">📨</div>
+        <h3>Instant Notifications</h3>
+        <p>Get emailed when tasks are assigned to you</p>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">📋</div>
+        <h3>Daily Digests</h3>
+        <p>Morning summary of your top priorities</p>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">✉️</div>
+        <h3>Email to Task</h3>
+        <p>Forward emails to create priority tasks</p>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">🆓</div>
+        <h3>100% Free</h3>
+        <p>Uses Zapier's free tier - no cost</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="integration-card">
+    <h2>Choose Your Integration Type</h2>
+    <p>Pick the email workflow that fits your needs. You can set up multiple integrations!</p>
+    
+    <div class="integration-options">
+      <div class="option-card">
+        <h3>Option 1: Task Notifications</h3>
+        <p style="margin-bottom:1rem;">Get emailed when tasks are created or assigned</p>
+        <ul>
+          <li>Instant email alerts</li>
+          <li>Task details included</li>
+          <li>Customizable triggers</li>
+          <li>Works with Gmail & Outlook</li>
+        </ul>
+      </div>
+
+      <div class="option-card">
+        <h3>Option 2: Daily Digest</h3>
+        <p style="margin-bottom:1rem;">Receive a morning summary of your priorities</p>
+        <ul>
+          <li>Scheduled delivery</li>
+          <li>All high-priority tasks</li>
+          <li>Clean formatted email</li>
+          <li>Set your preferred time</li>
+        </ul>
+      </div>
+
+      <div class="option-card">
+        <h3>Option 3: Email to Task</h3>
+        <p style="margin-bottom:1rem;">Forward emails to automatically create tasks</p>
+        <ul>
+          <li>Dedicated email address</li>
+          <li>Auto-extracts details</li>
+          <li>Quick task creation</li>
+          <li>No app switching needed</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="integration-card">
+    <h2>Setup: Task Notifications</h2>
+    <p>Get instant email notifications when tasks are assigned to you or when high-priority items are added.</p>
+    
+    <div class="steps-section">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <h4>Click "Connect with Zapier"</h4>
+          <p>Use our pre-configured template to get started quickly.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <h4>Connect Your Email</h4>
+          <p>Choose Gmail or Outlook. Zapier will ask permission to send emails on your behalf.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <h4>Connect PrioBox Data</h4>
+          <p>Link your task source (Google Sheets, Airtable, etc.) so Zapier knows when to send emails.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-content">
+          <h4>Design Your Email</h4>
+          <p>Customize the subject line and message. Include task details like priority, due date, and description.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">5</div>
+        <div class="step-content">
+          <h4>Add Filters (Optional)</h4>
+          <p>Only send emails for high-priority tasks or when tasks are assigned to specific people.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">6</div>
+        <div class="step-content">
+          <h4>Test and Activate</h4>
+          <p>Send yourself a test email, verify it looks good, then turn on the Zap!</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-buttons">
+      <a href="https://zapier.com/app/editor" class="btn-email" target="_blank">
+        Connect with Zapier →
+      </a>
+      <a href="./email-integration-guide.html" class="btn-secondary">
+        View Detailed Guide
+      </a>
+    </div>
+  </div>
+
+  <div class="integration-card">
+    <h2>Email Templates</h2>
+    <p>Use these professionally designed email templates for your notifications:</p>
+    
+    <div class="use-cases">
+      <div class="use-case">
+        <h4>Template 1: Task Assignment</h4>
+        <p><strong>Subject:</strong> [PrioBox] New Task Assigned: [Task Name]</p>
+        <p><strong>Body:</strong><br>
+        Hi [Assigned To],<br><br>
+        You've been assigned a new priority task in PrioBox:<br><br>
+        <strong>Task:</strong> [Task Name]<br>
+        <strong>Priority:</strong> [Priority Level]<br>
+        <strong>Impact:</strong> [Impact Score]/10<br>
+        <strong>Due Date:</strong> [Due Date]<br><br>
+        <strong>Description:</strong><br>
+        [Task Description]<br><br>
+        View in PrioBox: [Link]
+        </p>
+      </div>
+      
+      <div class="use-case">
+        <h4>Template 2: High-Priority Alert</h4>
+        <p><strong>Subject:</strong> 🚨 High Priority Task Added</p>
+        <p><strong>Body:</strong><br>
+        ATTENTION: A high-priority task needs your immediate attention.<br><br>
+        <strong>[Task Name]</strong><br>
+        Impact: [Impact]/10 | Effort: [Effort]/10<br><br>
+        This task has been flagged as urgent. Please review and schedule time to complete it within the next 24-48 hours.
+        </p>
+      </div>
+      
+      <div class="use-case">
+        <h4>Template 3: Daily Digest</h4>
+        <p><strong>Subject:</strong> Your Priority Tasks for [Today's Date]</p>
+        <p><strong>Body:</strong><br>
+        Good morning!<br><br>
+        Here are your top priority tasks for today:<br><br>
+        <strong>HIGH PRIORITY:</strong><br>
+        • [Task 1]<br>
+        • [Task 2]<br><br>
+        <strong>MEDIUM PRIORITY:</strong><br>
+        • [Task 3]<br>
+        • [Task 4]<br><br>
+        Let's make today count! 🎯
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="integration-card">
+    <h2>Advanced: Email to Task Creation</h2>
+    <p>Want to create tasks by forwarding emails? Here's how:</p>
+    
+    <div class="use-cases">
+      <div class="use-case">
+        <h4>Step 1: Set Up Email Parser</h4>
+        <p>Use Zapier's Email Parser to create a dedicated email address (e.g., priorities@priobox.parser.zapier.com). Forward emails to this address to create tasks.</p>
+      </div>
+      
+      <div class="use-case">
+        <h4>Step 2: Configure Parsing Rules</h4>
+        <p>Teach the parser to extract: Subject → Task Name, Body → Description, and Keywords → Priority Level (e.g., "urgent" = High Priority).</p>
+      </div>
+      
+      <div class="use-case">
+        <h4>Step 3: Connect to PrioBox</h4>
+        <p>Set up a Zap that takes parsed email data and creates a new row in your PrioBox task list automatically.</p>
+      </div>
+      
+      <div class="use-case">
+        <h4>Step 4: Share With Team</h4>
+        <p>Give your team the special email address. Anyone can now create priority tasks by forwarding emails!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-section">
+    <h3>Frequently Asked Questions</h3>
+    
+    <details>
+      <summary>Does this work with Outlook/Microsoft 365?</summary>
+      <p>Yes! While the examples show Gmail, Zapier fully supports Microsoft Outlook and Office 365. The setup process is identical - just choose "Outlook" instead of "Gmail" when connecting your email.</p>
+    </details>
+
+    <details>
+      <summary>How many emails will I receive?</summary>
+      <p>That's completely up to you! You control the triggers with filters. Common setups: 1-5 emails per day for task assignments, or 1 daily digest email in the morning. You decide what's too much.</p>
+    </details>
+
+    <details>
+      <summary>Can I customize the email format?</summary>
+      <p>Absolutely! You have full control over the subject line, body text, formatting, and what information is included. Make it as simple or detailed as you need.</p>
+    </details>
+
+    <details>
+      <summary>Will emails go to spam?</summary>
+      <p>Unlikely, since they're sent from legitimate email services (Gmail/Outlook via Zapier). However, you can whitelist the sender address to be 100% sure emails reach your inbox.</p>
+    </details>
+
+    <details>
+      <summary>Can multiple team members receive the same notification?</summary>
+      <p>Yes! You can send the same notification to multiple email addresses. In Zapier, just add the email addresses separated by commas in the "To" field.</p>
+    </details>
+
+    <details>
+      <summary>Is there a limit on emails sent?</summary>
+      <p>On Zapier's free tier, you get 100 "tasks" per month. Each email sent = 1 task. So you can send up to 100 emails per month for free. Paid plans offer unlimited emails.</p>
+    </details>
+
+    <details>
+      <summary>Can I reply to notification emails?</summary>
+      <p>With the basic setup, replies won't update PrioBox (one-way only). However, you can set up a more advanced workflow where replies trigger actions - this requires additional Zaps and some creativity!</p>
+    </details>
+
+    <details>
+      <summary>How do I stop receiving emails?</summary>
+      <p>Simply turn off the Zap in your Zapier dashboard. You can pause it temporarily or delete it entirely. You're always in control.</p>
+    </details>
+  </div>
+
+  <div class="integration-card" style="text-align:center;background:#ea4335;color:#fff;">
+    <h2 style="color:#fff;">Ready to Stay Informed?</h2>
+    <p style="color:#fff;">Never miss an important task again. Get priority updates delivered straight to your inbox.</p>
+    <a href="https://zapier.com/app/editor" class="btn-email" target="_blank" style="background:#fff;color:#ea4335;margin-top:1rem;">
+      Connect Email Now →
+    </a>
+  </div>
+
+</section>
+
+<footer>
+  <div>
+    © 2025 PrioBox • Built by 
+    <a href="mailto:DGSConsult@consultant.com">DGS Consulting</a>
+    <span>|</span>
+    <a href="./terms.html">Terms of Service</a>
+    <span>|</span>
+    <a href="./privacy.html">Privacy Policy</a>
+  </div>
+</footer>
+
+</body>
+</html>
