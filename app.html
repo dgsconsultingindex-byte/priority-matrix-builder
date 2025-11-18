@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <!-- Google tag (gtag.js) -->
+  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-3TQ4METDYF"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -12,44 +12,13 @@
   
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#0969da" />
+  <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiUHJpb0JveCIsInNob3J0X25hbWUiOiJQcmlvQm94IiwiZGVzY3JpcHRpb24iOiJGb2N1cyB3aGF0IG1hdHRlcnMiLCJzdGFydF91cmwiOiIvIiwiZGlzcGxheSI6InN0YW5kYWxvbmUiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiI2Y2ZjhmYSIsInRoZW1lX2NvbG9yIjoiIzA5NjlkYSIsImljb25zIjpbeyJzcmMiOiJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUI0Yld4dWN6MGlhSFIwY0RvdkwzZDNkeTUzTXk1dmNtY3ZNakF3TUM5emRtY2lJSFpwWlhkQ2IzZzlJakFnTUNBeE1EQWdNVEF3SWo0OGNtVmpkQ0I0UFNJeE1DSWdlVDBpTVRBaUlIZHBaSFJvUFNJek5TSWdhR1ZwWjJoMFBTSXpOU0lnY25nOUlqVWlJR1pwYkd3OUlpTXlaV0V3TkRNaUx6NDhjbVZqZENCNFBTSTFOU0lnZVQwaU1UQWlJSGRwWkhSb1BTSXpOU0lnYUdWcFoyaDBQU0l6TlNJZ2NuZzlJalVpSUdacGJHdzlJaU0wWTJGbU5UQWlMejQ4Y21WamRDQjRQU0l4TUNJZ2VUMGlOVFVpSUhkcFpIUm9QU0l6TlNJZ2FHVnBaMmgwUFNJek5TSWdjbmc5SWpVaUlHWnBiR3c5SWlNMk5tSmlObUVpTHo0OGNtVmpkQ0I0UFNJMU5TSWdlVDBpTlRVaUlIZHBaSFJvUFNJek5TSWdhR1ZwWjJoMFBTSXpOU0lnY25nOUlqVWlJR1pwYkd3OUlpTTRNV00zT0RRaUx6NDhMM04yWno0PSIsInNpemVzIjoiNTEyeDUxMiIsInR5cGUiOiJpbWFnZS9zdmcreG1sIn1dfQ==" />
   <title>PrioBox — Focus What Matters</title>
- <meta name="description" content="PrioBox — Eisenhower priority matrix with due dates, labels, calendar export and cloud sync." />
+  <meta name="description" content="PrioBox — Enhanced productivity app with focus timer, recurring tasks, dark mode, and integrations." />
   <style>
-    :root{
-      --bg: #f6f8fa;
-      --panel: #ffffff;
-      --panel-hover: #fafbfc;
-      --border: #d0d7de;
-      --muted: #e1e4e8;
-      --text: #1f2328;
-      --text-secondary: #57606a;
-      --accent-1: #0969da;
-      --accent-2: #0550ae;
-      --accent-light: #ddf4ff;
-      --accent-border: #54aeff;
-      --on-time: #1a7f37;
-      --on-time-bg: #dafbe1;
-      --approach: #bf8700;
-      --approach-bg: #fff8c5;
-      --overdue: #cf222e;
-      --overdue-bg: #ffebe9;
-      --tag-client: #0969da;
-      --tag-client-bg: #ddf4ff;
-      --tag-personal: #8250df;
-      --tag-personal-bg: #fbefff;
-      --tag-urgent: #cf222e;
-      --tag-urgent-bg: #ffebe9;
-      --shadow-sm: rgba(27,31,36,0.04);
-      --shadow-md: rgba(27,31,36,0.08);
-      --shadow-lg: rgba(27,31,36,0.12);
-      --radius: 12px;
-      --radius-sm: 8px;
-      --radius-lg: 16px;
-      --gap: 1rem;
-      --ui-h: 44px;
-      --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
+    :root{--bg:#f6f8fa;--panel:#ffffff;--panel-hover:#fafbfc;--border:#d0d7de;--muted:#e1e4e8;--text:#1f2328;--text-secondary:#57606a;--accent-1:#0969da;--accent-2:#0550ae;--accent-light:#ddf4ff;--accent-border:#54aeff;--on-time:#1a7f37;--on-time-bg:#dafbe1;--approach:#bf8700;--approach-bg:#fff8c5;--overdue:#cf222e;--overdue-bg:#ffebe9;--tag-client:#0969da;--tag-client-bg:#ddf4ff;--tag-personal:#8250df;--tag-personal-bg:#fbefff;--tag-urgent:#cf222e;--tag-urgent-bg:#ffebe9;--shadow-sm:rgba(27,31,36,0.04);--shadow-md:rgba(27,31,36,0.08);--shadow-lg:rgba(27,31,36,0.12);--radius:12px;--radius-sm:8px;--radius-lg:16px;--gap:1rem;--ui-h:44px;--transition:all 0.2s cubic-bezier(0.4,0,0.2,1)}
+    [data-theme="dark"]{--bg:#0d1117;--panel:#161b22;--panel-hover:#1c2128;--border:#30363d;--muted:#21262d;--text:#e6edf3;--text-secondary:#8b949e;--accent-1:#2f81f7;--accent-2:#1f6feb;--accent-light:#1c2d41;--accent-border:#388bfd;--shadow-sm:rgba(1,4,9,0.3);--shadow-md:rgba(1,4,9,0.4);--shadow-lg:rgba(1,4,9,0.5)}
     *,*::before,*::after{box-sizing:border-box}
     html,body{height:100%;margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif;color:var(--text);background:var(--bg);line-height:1.5}
     .wrap{max-width:1200px;margin:0 auto;padding:24px}
@@ -58,18 +27,16 @@
     .brand svg{height:48px;width:48px}
     .brand h1{margin:0;font-size:1.5rem;font-weight:700}
     .brand p{margin:0;font-size:0.9rem;color:var(--text-secondary)}
-
+    .header-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .icon-btn{height:40px;width:40px;padding:8px;border-radius:10px;background:var(--panel);border:1px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--transition)}
+    .icon-btn:hover{background:var(--panel-hover);border-color:var(--accent-1)}
     .loading-overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.95);z-index:9999;font-size:1.1rem;color:var(--text);transition:opacity .3s ease}
+    [data-theme="dark"] .loading-overlay{background:rgba(13,17,23,0.95)}
     .loading-hidden{opacity:0;pointer-events:none}
-
-    .view-toggle{display:flex;gap:4px;background:var(--panel);padding:4px;border-radius:var(--radius);box-shadow:0 2px 8px var(--shadow-sm);border:1px solid var(--border)}
-    .view-toggle button{padding:10px 20px;border:none;background:transparent;border-radius:24px;cursor:pointer;font-weight:600;font-size:0.95rem;color:var(--text-secondary);transition:0.3s cubic-bezier(0.215, 0.61, 0.355, 1);position:relative;overflow:hidden}
-    .view-toggle button::before{position:absolute;content:"";top:0;left:0;z-index:-1;width:100%;height:100%;background:transparent;border-radius:24px;transition:0.3s cubic-bezier(0.215, 0.61, 0.355, 1)}
+    .view-toggle{display:flex;gap:4px;background:var(--panel);padding:4px;border-radius:var(--radius);box-shadow:0 2px 8px var(--shadow-sm);border:1px solid var(--border);flex-wrap:wrap}
+    .view-toggle button{padding:10px 20px;border:none;background:transparent;border-radius:24px;cursor:pointer;font-weight:600;font-size:0.95rem;color:var(--text-secondary);transition:0.3s cubic-bezier(0.215,0.61,0.355,1)}
     .view-toggle button:hover{background:var(--panel-hover);color:var(--text)}
-    .view-toggle button.active{background:var(--accent-1);color:white;box-shadow:0 2px 8px rgba(39, 94, 254, 0.32)}
-    .view-toggle button.active::before{background:var(--accent-1)}
-    .view-toggle button.active:hover::before{transform:scale(1.1)}
-
+    .view-toggle button.active{background:var(--accent-1);color:white;box-shadow:0 2px 8px rgba(39,94,254,0.32)}
     .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:20px 0}
     .stat-card{background:var(--panel);padding:24px;border-radius:var(--radius);box-shadow:0 2px 8px var(--shadow-sm);border:1px solid var(--border);display:flex;flex-direction:column;gap:12px;transition:var(--transition)}
     .stat-card:hover{box-shadow:0 4px 16px var(--shadow-md);transform:translateY(-2px)}
@@ -77,53 +44,38 @@
     .stat-label{font-size:0.95rem;color:var(--text-secondary);font-weight:500;text-transform:uppercase;letter-spacing:0.05em}
     .stat-trend{font-size:0.9rem;color:var(--text-secondary)}
     .chart-bar{height:6px;background:var(--muted);border-radius:999px;overflow:hidden;margin-top:8px}
-    .chart-fill{height:100%;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));transition:width .4s cubic-bezier(0.4, 0, 0.2, 1)}
-
+    .chart-fill{height:100%;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));transition:width .4s cubic-bezier(0.4,0,0.2,1)}
     .daily-hero{background:linear-gradient(135deg,var(--accent-1),var(--accent-2));color:white;padding:32px;border-radius:var(--radius-lg);margin:20px 0;box-shadow:0 8px 24px var(--shadow-lg)}
     .daily-hero h2{margin:0 0 8px 0;font-size:2rem;font-weight:700;letter-spacing:-0.02em}
     .daily-hero p{margin:0;opacity:0.95;font-size:1.1rem}
     .focus-list{display:flex;flex-direction:column;gap:12px;margin-top:20px}
-
+    .focus-timer-widget{background:var(--panel);padding:32px;border-radius:var(--radius-lg);margin:20px auto;max-width:600px;box-shadow:0 2px 8px var(--shadow-sm);border:1px solid var(--border);text-align:center}
+    .timer-display{font-size:4rem;font-weight:700;color:var(--accent-1);margin:24px 0;font-variant-numeric:tabular-nums;letter-spacing:0.05em}
+    .timer-controls{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+    .timer-controls button{padding:12px 28px;border-radius:24px;border:none;background:var(--accent-1);color:white;font-weight:600;cursor:pointer;transition:0.3s cubic-bezier(0.215,0.61,0.355,1);box-shadow:0 2px 8px rgba(39,94,254,0.32)}
+    .timer-controls button:hover{transform:scale(1.05)}
+    .timer-controls button.ghost{background:var(--panel);border:1px solid var(--border);color:var(--text);box-shadow:0 2px 4px var(--shadow-sm)}
+    .timer-mode{display:flex;gap:8px;justify-content:center;margin:20px 0;flex-wrap:wrap}
+    .timer-mode button{padding:10px 20px;border-radius:20px;border:1px solid var(--border);background:var(--panel);cursor:pointer;font-size:0.95rem;transition:var(--transition);color:var(--text);font-weight:500}
+    .timer-mode button.active{background:var(--accent-1);color:white;border-color:var(--accent-1)}
+    .timer-status{margin-top:16px;font-size:0.95rem;color:var(--text-secondary);font-weight:500}
     .subtasks{margin-top:8px;padding-left:8px;border-left:2px solid var(--muted)}
     .subtask{display:flex;gap:8px;align-items:center;padding:4px 0;font-size:0.9rem}
     .subtask input[type="checkbox"]{cursor:pointer;width:16px;height:16px}
     .subtask.completed{opacity:0.6;text-decoration:line-through}
     .subtask-add{color:var(--accent-1);cursor:pointer;font-size:0.85rem;margin-top:4px;padding:4px 0}
     .subtask-add:hover{text-decoration:underline}
-
-    .auth-sheet-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.28);display:none;z-index:120;transition:opacity .22s ease}
-    .auth-sheet-backdrop.show{display:block;opacity:1}
-    .auth-sheet{position:fixed;left:50%;transform:translateX(-50%);bottom:-100%;width:100%;max-width:720px;background:var(--panel);border-radius:12px 12px 0 0;box-shadow:0 -20px 50px rgba(0,0,0,0.18);padding:20px;z-index:130;transition:bottom .36s cubic-bezier(.2,.9,.3,1)}
-    .auth-sheet.show{bottom:0}
-    .auth-top{display:flex;gap:12px;align-items:center;margin-bottom:8px}
-    .auth-top .logo-box{width:56px;height:56px;border-radius:10px;padding:6px;display:flex;align-items:center;justify-content:center}
-    .auth-top svg{width:44px;height:44px}
-    .auth-title{margin:0}
-    .auth-row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
-    .auth-row input{flex:1;min-width:200px;height:44px;padding:8px 12px;border-radius:10px;border:1px solid var(--muted);font-size:0.95rem}
-    .auth-row button{height:44px;padding:0 24px;border-radius:24px;border:none;background:var(--accent-1);color:#fff;font-weight:700;cursor:pointer;position:relative;overflow:hidden;transition:0.3s cubic-bezier(0.215, 0.61, 0.355, 1);filter:drop-shadow(0 2px 8px rgba(39, 94, 254, 0.32))}
-    .auth-row button::before{position:absolute;content:"";top:0;left:0;z-index:-1;width:100%;height:100%;background:var(--accent-1);border-radius:24px;transition:0.3s cubic-bezier(0.215, 0.61, 0.355, 1)}
-    .auth-row button:hover{transform:scale(1.05)}
-    .auth-row button:hover::before{transform:scale(1.2)}
-    .auth-note{font-size:0.9rem;color:#546b52;margin-top:8px}
-
     .controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;margin:20px 0}
-    .controls input[type="text"],.controls input[type="date"],.controls select{height:var(--ui-h);padding:0 14px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--panel);font-size:0.95rem;box-shadow:0 2px 4px var(--shadow-sm);min-width:160px;transition:var(--transition)}
+    .controls input[type="text"],.controls input[type="date"],.controls input[type="email"],.controls select{height:var(--ui-h);padding:0 14px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--panel);color:var(--text);font-size:0.95rem;box-shadow:0 2px 4px var(--shadow-sm);min-width:160px;transition:var(--transition)}
     .controls input:focus,.controls select:focus{outline:none;border-color:var(--accent-1);box-shadow:0 0 0 3px var(--accent-light)}
-    .controls .btn{height:var(--ui-h);padding:0 20px;border-radius:24px;border:none;background:var(--accent-1);color:white;font-weight:600;cursor:pointer;white-space:nowrap;transition:0.3s cubic-bezier(0.215, 0.61, 0.355, 1);box-shadow:0 2px 8px rgba(39, 94, 254, 0.32);position:relative;overflow:hidden}
-    .controls .btn::before{position:absolute;content:"";top:0;left:0;z-index:-1;width:100%;height:100%;background:var(--accent-1);border-radius:24px;transition:0.3s cubic-bezier(0.215, 0.61, 0.355, 1)}
-    .controls .btn:hover{transform:scale(1.05);box-shadow:0 4px 16px rgba(39, 94, 254, 0.48)}
-    .controls .btn:hover::before{transform:scale(1.2)}
+    .controls .btn{height:var(--ui-h);padding:0 20px;border-radius:24px;border:none;background:var(--accent-1);color:white;font-weight:600;cursor:pointer;white-space:nowrap;transition:0.3s cubic-bezier(0.215,0.61,0.355,1);box-shadow:0 2px 8px rgba(39,94,254,0.32)}
+    .controls .btn:hover{transform:scale(1.05);box-shadow:0 4px 16px rgba(39,94,254,0.48)}
     .controls .btn.ghost{background:var(--panel);border:1px solid var(--border);color:var(--text);box-shadow:0 2px 4px var(--shadow-sm)}
-    .controls .btn.ghost::before{background:var(--panel)}
-    .controls .btn.ghost:hover{background:var(--panel-hover);border-color:var(--accent-1);transform:scale(1.05)}
-
+    .controls .btn.ghost:hover{background:var(--panel-hover);border-color:var(--accent-1)}
     .search-row{display:flex;justify-content:center;padding:8px 0}
-    .search-row input{width:560px;max-width:100%;height:44px;padding:0 16px;border-radius:var(--radius);border:1px solid var(--border);background:var(--panel);font-size:0.95rem;transition:var(--transition)}
+    .search-row input{width:560px;max-width:100%;height:44px;padding:0 16px;border-radius:var(--radius);border:1px solid var(--border);background:var(--panel);color:var(--text);font-size:0.95rem;transition:var(--transition)}
     .search-row input:focus{outline:none;border-color:var(--accent-1);box-shadow:0 0 0 3px var(--accent-light)}
-
     .filters{display:flex;gap:12px;align-items:center;justify-content:center;margin-bottom:8px;flex-wrap:wrap;text-align:center}
-
     .matrix{display:grid;grid-template-columns:1fr 1fr;gap:20px}
     .quadrant{background:var(--panel);border-radius:var(--radius-lg);padding:24px;box-shadow:0 2px 8px var(--shadow-sm);border:1px solid var(--border);min-height:300px;display:flex;flex-direction:column;transition:var(--transition)}
     .quadrant:hover{box-shadow:0 4px 16px var(--shadow-md)}
@@ -131,10 +83,8 @@
     .quad-title{font-weight:700;font-size:1.1rem;letter-spacing:-0.01em}
     .quad-sub{font-size:0.9rem;color:var(--text-secondary);margin-top:4px;font-weight:500}
     .progress-bar{width:140px;height:6px;background:var(--muted);border-radius:999px;overflow:hidden}
-    .progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));transition:width .4s cubic-bezier(0.4, 0, 0.2, 1)}
-
+    .progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));transition:width .4s cubic-bezier(0.4,0,0.2,1)}
     .tasks{margin-top:12px;display:flex;flex-direction:column;gap:12px;overflow:auto;padding-bottom:8px;flex:1}
-
     .task{display:flex;gap:12px;align-items:flex-start;background:var(--panel);padding:16px;border-radius:var(--radius);border:1px solid var(--border);cursor:grab;transition:var(--transition);position:relative}
     .task:hover{transform:translateY(-2px);box-shadow:0 4px 12px var(--shadow-md);border-color:var(--accent-border)}
     .task.dragging{opacity:0.5;cursor:grabbing}
@@ -147,66 +97,64 @@
     .small-btn:hover{background:var(--panel-hover);color:var(--text)}
     .task.completed{opacity:0.5}
     .task.completed .task-title{text-decoration:line-through}
-
+    .task-recurring{border-left:3px solid var(--accent-1)!important}
     .due-on-time{border-left:3px solid var(--on-time);background:var(--on-time-bg)}
     .due-approach{border-left:3px solid var(--approach);background:var(--approach-bg)}
     .due-overdue{border-left:3px solid var(--overdue);background:var(--overdue-bg)}
-
     .tag{display:inline-block;padding:4px 10px;border-radius:var(--radius-sm);font-weight:600;font-size:0.75rem;margin-left:8px}
     .tag-client{background:var(--tag-client-bg);color:var(--tag-client)}
     .tag-personal{background:var(--tag-personal-bg);color:var(--tag-personal)}
     .tag-urgent{background:var(--tag-urgent-bg);color:var(--tag-urgent)}
-
     .panel-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.25);display:none;z-index:120}
     .panel{position:fixed;right:0;top:0;height:100%;width:420px;max-width:94%;background:var(--panel);box-shadow:-20px 0 60px rgba(0,0,0,0.3);transform:translateX(108%);transition:transform .28s ease;z-index:130;padding:18px;display:flex;flex-direction:column;gap:12px;overflow-y:auto}
     .panel.show{transform:translateX(0)}
     .panel-backdrop.show{display:block}
-
-    .panel input[type="text"],.panel input[type="date"],.panel select,.panel textarea{width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--muted);background:var(--panel);box-sizing:border-box;font-size:0.95rem}
+    .panel input[type="text"],.panel input[type="date"],.panel input[type="number"],.panel input[type="email"],.panel select,.panel textarea{width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--muted);background:var(--panel);color:var(--text);box-sizing:border-box;font-size:0.95rem}
     .panel textarea{min-height:100px;resize:vertical;font-family:inherit}
     .panel .row{display:flex;gap:8px;flex-wrap:wrap}
     .panel .row>*{flex:1;min-width:140px}
-    .panel button{padding:12px 24px;border-radius:24px;border:none;font-weight:600;cursor:pointer;font-size:0.95rem;position:relative;overflow:hidden;transition:0.3s cubic-bezier(0.215, 0.61, 0.355, 1)}
-    .panel .btn{background:var(--accent-1);color:white;filter:drop-shadow(0 2px 8px rgba(39, 94, 254, 0.32))}
-    .panel .btn::before{position:absolute;content:"";top:0;left:0;z-index:-1;width:100%;height:100%;background:var(--accent-1);border-radius:24px;transition:0.3s cubic-bezier(0.215, 0.61, 0.355, 1)}
+    .panel button{padding:12px 24px;border-radius:24px;border:none;font-weight:600;cursor:pointer;font-size:0.95rem;transition:0.3s cubic-bezier(0.215,0.61,0.355,1)}
+    .panel .btn{background:var(--accent-1);color:white;filter:drop-shadow(0 2px 8px rgba(39,94,254,0.32))}
     .panel .btn:hover{transform:scale(1.05)}
-    .panel .btn:hover::before{transform:scale(1.2)}
     .panel .btn.ghost{background:var(--panel);border:1px solid var(--border);color:var(--text);box-shadow:0 2px 4px var(--shadow-sm)}
-    .panel .btn.ghost::before{background:var(--panel)}
     .panel .btn.ghost:hover{background:var(--panel-hover);border-color:var(--accent-1)}
-
+    .templates-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-top:12px}
+    .template-card{background:var(--panel);border:1px solid var(--border);padding:16px;border-radius:var(--radius);cursor:pointer;transition:var(--transition);text-align:center}
+    .template-card:hover{border-color:var(--accent-1);box-shadow:0 4px 12px var(--shadow-md);transform:translateY(-2px)}
+    .template-icon{font-size:2rem;margin-bottom:8px}
+    .template-name{font-weight:600;font-size:0.9rem;color:var(--text)}
+    .template-desc{font-size:0.8rem;color:var(--text-secondary);margin-top:4px}
+    .integration-item{background:var(--panel);border:1px solid var(--border);padding:16px;border-radius:var(--radius);margin-bottom:12px;transition:var(--transition)}
+    .integration-item:hover{box-shadow:0 4px 12px var(--shadow-md)}
+    .integration-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+    .integration-name{font-weight:600;font-size:1rem;color:var(--text)}
+    .integration-status{font-size:0.85rem;padding:4px 8px;border-radius:12px;background:var(--muted);color:var(--text-secondary)}
+    .integration-status.connected{background:var(--on-time-bg);color:var(--on-time)}
+    .integration-desc{font-size:0.9rem;color:var(--text-secondary);margin-bottom:12px}
     .onboard{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:140;pointer-events:none;opacity:0;background:rgba(0,0,0,0.3);transition:opacity .3s ease}
     .onboard.show{pointer-events:auto;opacity:1}
     .onboard-card{background:var(--panel);padding:20px;border-radius:12px;width:min(760px,94%);box-shadow:0 30px 70px rgba(0,0,0,0.28);max-height:90vh;overflow-y:auto}
-    .onboard-card button{padding:12px 28px;border-radius:24px;border:none;font-weight:600;cursor:pointer;font-size:0.95rem;position:relative;overflow:hidden;transition:0.3s cubic-bezier(0.215, 0.61, 0.355, 1)}
-    .onboard-card .btn{background:var(--accent-1);color:white;filter:drop-shadow(0 2px 8px rgba(39, 94, 254, 0.32))}
-    .onboard-card .btn::before{position:absolute;content:"";top:0;left:0;z-index:-1;width:100%;height:100%;background:var(--accent-1);border-radius:24px;transition:0.3s cubic-bezier(0.215, 0.61, 0.355, 1)}
+    .onboard-card h2{color:var(--text)}
+    .onboard-card button{padding:12px 28px;border-radius:24px;border:none;font-weight:600;cursor:pointer;font-size:0.95rem;transition:0.3s cubic-bezier(0.215,0.61,0.355,1)}
+    .onboard-card .btn{background:var(--accent-1);color:white;filter:drop-shadow(0 2px 8px rgba(39,94,254,0.32))}
     .onboard-card .btn:hover{transform:scale(1.05)}
-    .onboard-card .btn:hover::before{transform:scale(1.2)}
     .onboard-card .btn.ghost{background:var(--panel);border:1px solid var(--border);color:var(--text);box-shadow:0 2px 4px var(--shadow-sm)}
-    .onboard-card .btn.ghost::before{background:var(--panel)}
     .onboard-card .btn.ghost:hover{background:var(--panel-hover);border-color:var(--accent-1)}
-
+    .shortcuts-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:12px}
+    .shortcut-item{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--muted);border-radius:var(--radius-sm);font-size:0.9rem}
+    .shortcut-key{background:var(--panel);padding:4px 8px;border-radius:4px;border:1px solid var(--border);font-family:monospace;font-size:0.85rem;color:var(--text)}
     .empty-state{text-align:center;padding:60px 20px;color:var(--text-secondary)}
     .empty-state svg{width:80px;height:80px;margin-bottom:16px;opacity:0.5}
     .empty-state h3{margin:16px 0 8px 0;font-size:1.3rem;color:var(--text)}
     .empty-state p{margin:0;font-size:0.95rem}
-
-    footer{text-align:center;color:#557a5a;margin-top:32px;font-size:0.9rem;padding-bottom:20px}
-
-    @media(max-width:900px){
-      .matrix{grid-template-columns:1fr}
-      .controls input[type="text"]{min-width:130px}
-      .panel{width:100%}
-      header{justify-content:center}
-      .stats-grid{grid-template-columns:1fr}
-    }
+    footer{text-align:center;color:var(--text-secondary);margin-top:32px;font-size:0.9rem;padding-bottom:20px}
+    @media(max-width:900px){.matrix{grid-template-columns:1fr}.controls input[type="text"]{min-width:130px}.panel{width:100%}header{justify-content:center}.stats-grid{grid-template-columns:1fr}.templates-grid{grid-template-columns:1fr}.timer-display{font-size:2.5rem}.shortcuts-list{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
-  <div id="loading" class="loading-overlay">Loading your priorities...</div>
+  <div id="loading" class="loading-overlay">Loading PrioBox...</div>
 
-  <div class="wrap" id="root">
+  <div class="wrap">
     <header>
       <div class="brand">
         <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -221,47 +169,25 @@
         </div>
       </div>
 
-      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-        <button id="signOutBtn" style="display:none;height:40px;padding:8px 12px;border-radius:10px;background:var(--panel);border:1px solid var(--border);cursor:pointer">Sign Out</button>
-        <button id="accountBtn" style="display:none;height:40px;padding:8px 12px;border-radius:10px;background:var(--panel);border:1px solid var(--border);cursor:pointer">Account</button>
+      <div class="header-actions">
+        <button id="themeToggle" class="icon-btn" title="Toggle dark mode">🌓</button>
+        <button id="shortcutsBtn" class="icon-btn" title="Keyboard shortcuts (K)">⌨️</button>
+        <button id="integrationsBtn" class="icon-btn" title="Integrations">🔗</button>
+        <button id="templatesBtn" class="icon-btn" title="Task templates (T)">📋</button>
       </div>
     </header>
-
-    <div id="authBackdrop" class="auth-sheet-backdrop"></div>
-    <div id="authSheet" class="auth-sheet" role="dialog" aria-modal="true" aria-labelledby="authTitle">
-      <div class="auth-top">
-        <div class="logo-box">
-          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <rect x="10" y="10" width="35" height="35" rx="5" fill="#2ea043"/>
-            <rect x="55" y="10" width="35" height="35" rx="5" fill="#4caf50"/>
-            <rect x="10" y="55" width="35" height="35" rx="5" fill="#66bb6a"/>
-            <rect x="55" y="55" width="35" height="35" rx="5" fill="#81c784"/>
-          </svg>
-        </div>
-        <div>
-          <h2 id="authTitle" class="auth-title">Welcome to <strong>PrioBox</strong></h2>
-          <div class="auth-note">Cloud sync available - sign in optional (works offline too!)</div>
-        </div>
-      </div>
-      <div class="auth-row">
-        <input id="authEmail" type="email" placeholder="you@example.com" aria-label="Email" />
-        <button id="authSend">Send Magic Link</button>
-      </div>
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;flex-wrap:wrap;gap:8px">
-        <div style="font-size:0.9rem;color:#4f6b51">No password needed</div>
-        <button id="authClose" style="background:transparent;border:none;color:#4f6b51;cursor:pointer;text-decoration:underline">Continue Without Sign In</button>
-      </div>
-    </div>
 
     <div id="appArea" style="display:none">
       <div style="display:flex;justify-content:center;margin:16px 0">
         <div class="view-toggle">
           <button id="viewDaily" class="active">Daily Focus</button>
+          <button id="viewTimer">Focus Timer</button>
           <button id="viewMatrix">Full Matrix</button>
           <button id="viewStats">Analytics</button>
         </div>
       </div>
 
+      <!-- Daily View -->
       <div id="dailyView">
         <div class="daily-hero">
           <h2>Today's Focus</h2>
@@ -286,6 +212,28 @@
         <div class="focus-list" id="dailyTasks"></div>
       </div>
 
+      <!-- Focus Timer View -->
+      <div id="timerView" style="display:none">
+        <div class="focus-timer-widget">
+          <h2 style="margin:0 0 16px 0">Focus Timer</h2>
+          <div class="timer-mode">
+            <button id="timerFocus" class="active">Focus (25min)</button>
+            <button id="timerShortBreak">Short Break (5min)</button>
+            <button id="timerLongBreak">Long Break (15min)</button>
+          </div>
+          <div class="timer-display" id="timerDisplay">25:00</div>
+          <div class="timer-status" id="timerStatus">Ready to focus</div>
+          <div class="timer-controls">
+            <button id="timerStart">Start</button>
+            <button id="timerReset" class="ghost">Reset</button>
+          </div>
+          <div style="margin-top:24px;padding-top:24px;border-top:1px solid var(--muted)">
+            <div style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:8px">Sessions completed today: <strong id="sessionsToday">0</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats View -->
       <div id="statsView" style="display:none">
         <h2 style="text-align:center;margin:16px 0">Your Productivity Analytics</h2>
         
@@ -342,6 +290,7 @@
         </div>
       </div>
 
+      <!-- Matrix View -->
       <div id="matrixView" style="display:none">
         <section class="controls" aria-label="Task controls">
           <input id="taskTitle" type="text" placeholder="Task title (required)" />
@@ -372,7 +321,7 @@
 
         <div class="filters">
           <button id="toggleCompletedBtn" style="height:36px;padding:8px 12px;border-radius:8px;background:var(--panel);border:1px solid var(--border);cursor:pointer">Hide Completed</button>
-          <div style="font-size:0.9rem;color:#4f6b51">Double-click to edit • Drag between quadrants</div>
+          <div style="font-size:0.9rem;color:var(--text-secondary)">Double-click to edit • Drag between quadrants</div>
         </div>
 
         <section class="matrix" aria-label="Priority matrix">
@@ -422,10 +371,11 @@
         </section>
       </div>
 
-      <footer>© 2025 PrioBox — Built by DGS Consulting</footer>
+      <footer>© 2025 PrioBox — Built by DGS Consulting • <a href="#" id="installBtn" style="color:var(--accent-1);display:none">Install as App</a></footer>
     </div>
   </div>
 
+  <!-- Edit Panel -->
   <div id="panelBackdrop" class="panel-backdrop"></div>
   <aside id="slidePanel" class="panel" role="dialog" aria-hidden="true">
     <h3 id="panelTitle">Edit task</h3>
@@ -451,6 +401,16 @@
       <label style="display:flex;align-items:center;gap:8px;padding:8px"><input id="pCompleted" type="checkbox"> Completed</label>
     </div>
     <div class="row">
+      <label style="display:flex;align-items:center;gap:8px;padding:8px">
+        <input id="pRecurring" type="checkbox"> Recurring
+      </label>
+      <select id="pRecurringInterval" style="display:none">
+        <option value="daily">Daily</option>
+        <option value="weekly">Weekly</option>
+        <option value="monthly">Monthly</option>
+      </select>
+    </div>
+    <div class="row">
       <textarea id="pDesc" placeholder="Description"></textarea>
     </div>
 
@@ -471,25 +431,154 @@
     </div>
   </aside>
 
+  <!-- Modals -->
   <div id="onboard" class="onboard" aria-hidden="true">
     <div class="onboard-card">
-      <h2>Welcome to PrioBox</h2>
+      <h2>Welcome to PrioBox Enhanced! 🎉</h2>
       <p><strong>New Features:</strong></p>
       <ul style="line-height:1.8">
-        <li><strong>Daily Focus</strong> - See today's priorities at a glance</li>
-        <li><strong>Analytics</strong> - Track your productivity and completion rates</li>
-        <li><strong>Subtasks</strong> - Break down big tasks into manageable steps</li>
-        <li><strong>Smart Insights</strong> - Get personalized productivity tips</li>
+        <li><strong>🎯 Daily Focus</strong> - See today's priorities at a glance</li>
+        <li><strong>⏱️ Focus Timer</strong> - Pomodoro timer with breaks for better productivity</li>
+        <li><strong>📊 Analytics</strong> - Track your productivity and completion rates</li>
+        <li><strong>✅ Subtasks</strong> - Break down big tasks into manageable steps</li>
+        <li><strong>🔁 Recurring Tasks</strong> - Set tasks to repeat daily, weekly, or monthly</li>
+        <li><strong>🌙 Dark Mode</strong> - Easy on the eyes, especially at night</li>
+        <li><strong>⌨️ Keyboard Shortcuts</strong> - Navigate faster with hotkeys</li>
+        <li><strong>📋 Templates</strong> - Quick-start common task types</li>
+        <li><strong>🔗 Integrations</strong> - Connect with Slack, Google Tasks, Zapier & Email</li>
+        <li><strong>📱 PWA Support</strong> - Install as a standalone app on your device</li>
       </ul>
       <p style="margin-top:12px"><strong>Quick Tips:</strong></p>
       <ol style="line-height:1.8">
         <li>Start with Daily Focus to see what needs attention today</li>
-        <li>Add subtasks to complex items for better tracking</li>
-        <li>Check Analytics weekly to see your progress trends</li>
+        <li>Use the Focus Timer (25min work, 5min break) for deep work</li>
+        <li>Press <kbd>K</kbd> to see all keyboard shortcuts</li>
+        <li>Try templates (<kbd>T</kbd>) for quick task creation</li>
+        <li>Enable dark mode with the 🌓 button</li>
       </ol>
       <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:16px;flex-wrap:wrap">
         <button id="onboardSkip" class="btn ghost">Skip</button>
         <button id="onboardDone" class="btn">Got it!</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shortcuts Modal -->
+  <div id="shortcutsModal" class="onboard" aria-hidden="true">
+    <div class="onboard-card">
+      <h2>Keyboard Shortcuts ⌨️</h2>
+      <div class="shortcuts-list">
+        <div class="shortcut-item"><span>New Task</span><span class="shortcut-key">Ctrl/⌘ + N</span></div>
+        <div class="shortcut-item"><span>Search</span><span class="shortcut-key">Ctrl/⌘ + F</span></div>
+        <div class="shortcut-item"><span>Templates</span><span class="shortcut-key">T</span></div>
+        <div class="shortcut-item"><span>Shortcuts</span><span class="shortcut-key">K</span></div>
+        <div class="shortcut-item"><span>Daily View</span><span class="shortcut-key">1</span></div>
+        <div class="shortcut-item"><span>Timer View</span><span class="shortcut-key">2</span></div>
+        <div class="shortcut-item"><span>Matrix View</span><span class="shortcut-key">3</span></div>
+        <div class="shortcut-item"><span>Analytics</span><span class="shortcut-key">4</span></div>
+        <div class="shortcut-item"><span>Toggle Dark Mode</span><span class="shortcut-key">D</span></div>
+        <div class="shortcut-item"><span>Close Modal</span><span class="shortcut-key">Esc</span></div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;margin-top:16px">
+        <button id="shortcutsClose" class="btn">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Templates Modal -->
+  <div id="templatesModal" class="onboard" aria-hidden="true">
+    <div class="onboard-card">
+      <h2>Task Templates 📋</h2>
+      <p style="color:var(--text-secondary);margin-bottom:16px">Quickly create common task types</p>
+      <div class="templates-grid">
+        <div class="template-card" data-template="meeting">
+          <div class="template-icon">📅</div>
+          <div class="template-name">Team Meeting</div>
+          <div class="template-desc">Schedule & prepare</div>
+        </div>
+        <div class="template-card" data-template="client">
+          <div class="template-icon">👤</div>
+          <div class="template-name">Client Work</div>
+          <div class="template-desc">Urgent client task</div>
+        </div>
+        <div class="template-card" data-template="review">
+          <div class="template-icon">📝</div>
+          <div class="template-name">Code Review</div>
+          <div class="template-desc">Review PR or code</div>
+        </div>
+        <div class="template-card" data-template="research">
+          <div class="template-icon">🔍</div>
+          <div class="template-name">Research</div>
+          <div class="template-desc">Deep dive topic</div>
+        </div>
+        <div class="template-card" data-template="email">
+          <div class="template-icon">📧</div>
+          <div class="template-name">Email Tasks</div>
+          <div class="template-desc">Process inbox</div>
+        </div>
+        <div class="template-card" data-template="planning">
+          <div class="template-icon">🗺️</div>
+          <div class="template-name">Planning</div>
+          <div class="template-desc">Strategy & roadmap</div>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;margin-top:16px">
+        <button id="templatesClose" class="btn ghost">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Integrations Modal -->
+  <div id="integrationsModal" class="onboard" aria-hidden="true">
+    <div class="onboard-card">
+      <h2>Integrations 🔗</h2>
+      <p style="color:var(--text-secondary);margin-bottom:16px">Connect PrioBox with your favorite tools</p>
+      
+      <div class="integration-item">
+        <div class="integration-header">
+          <div class="integration-name">📨 Email to Task</div>
+          <div class="integration-status">Available</div>
+        </div>
+        <div class="integration-desc">Forward emails to create tasks automatically</div>
+        <input type="email" placeholder="Your task email address" style="width:100%;padding:8px;border-radius:8px;border:1px solid var(--border);background:var(--panel);color:var(--text);margin-bottom:8px" id="emailTaskAddress" />
+        <button class="btn ghost" id="setupEmailBtn">Generate Email Address</button>
+      </div>
+
+      <div class="integration-item">
+        <div class="integration-header">
+          <div class="integration-name">💬 Slack Notifications</div>
+          <div class="integration-status">Available</div>
+        </div>
+        <div class="integration-desc">Get notified in Slack when tasks are due</div>
+        <input type="text" placeholder="Slack webhook URL" style="width:100%;padding:8px;border-radius:8px;border:1px solid var(--border);background:var(--panel);color:var(--text);margin-bottom:8px" id="slackWebhook" />
+        <button class="btn ghost" id="connectSlackBtn">Connect Slack</button>
+      </div>
+
+      <div class="integration-item">
+        <div class="integration-header">
+          <div class="integration-name">✅ Google Tasks Sync</div>
+          <div class="integration-status">Coming Soon</div>
+        </div>
+        <div class="integration-desc">Sync your tasks with Google Tasks automatically</div>
+        <button class="btn ghost" disabled>Connect Google Tasks</button>
+      </div>
+
+      <div class="integration-item">
+        <div class="integration-header">
+          <div class="integration-name">⚡ Zapier Integration</div>
+          <div class="integration-status">Available</div>
+        </div>
+        <div class="integration-desc">Connect with 5000+ apps via Zapier webhooks</div>
+        <input type="text" placeholder="Zapier webhook URL" style="width:100%;padding:8px;border-radius:8px;border:1px solid var(--border);background:var(--panel);color:var(--text);margin-bottom:8px" id="zapierWebhook" />
+        <button class="btn ghost" id="connectZapierBtn">Connect Zapier</button>
+      </div>
+
+      <div style="margin-top:20px;padding:16px;background:var(--muted);border-radius:var(--radius)">
+        <strong>Note:</strong> Integrations are stored locally. Your credentials stay on your device.
+      </div>
+
+      <div style="display:flex;justify-content:flex-end;margin-top:16px">
+        <button id="integrationsClose" class="btn">Close</button>
       </div>
     </div>
   </div>
@@ -499,12 +588,27 @@
   <script>
     'use strict';
 
+    // Task Store with recurring tasks support
     class TaskStore {
       constructor() {
-        this.STORAGE_KEY = 'priobox_tasks';
-        this.PREFS_KEY = 'priobox_prefs';
+        this.STORAGE_KEY = 'priobox_tasks_v2';
+        this.PREFS_KEY = 'priobox_prefs_v2';
+        this.TIMER_KEY = 'priobox_timer';
+        this.INTEGRATIONS_KEY = 'priobox_integrations';
         this.tasks = {};
-        this.prefs = { showCompleted: true, theme: 'light', currentView: 'daily', onboardingSeen: false };
+        this.prefs = { 
+          showCompleted: true, 
+          theme: 'light', 
+          currentView: 'daily', 
+          onboardingSeen: false,
+          timerSessions: 0,
+          timerSessionsDate: new Date().toDateString()
+        };
+        this.integrations = {
+          emailTask: '',
+          slackWebhook: '',
+          zapierWebhook: ''
+        };
         this.listeners = [];
       }
 
@@ -512,24 +616,84 @@
         try {
           const rawTasks = localStorage.getItem(this.STORAGE_KEY);
           const rawPrefs = localStorage.getItem(this.PREFS_KEY);
+          const rawIntegrations = localStorage.getItem(this.INTEGRATIONS_KEY);
+          
           if (rawTasks) {
             const data = JSON.parse(rawTasks);
             this.tasks = data.tasks || {};
             Object.values(this.tasks).forEach(t => {
               if (!t.subtasks) t.subtasks = [];
               if (!t.createdAt) t.createdAt = Date.now();
+              if (!t.recurring) t.recurring = { enabled: false, interval: 'daily' };
             });
           }
+          
           if (rawPrefs) this.prefs = { ...this.prefs, ...JSON.parse(rawPrefs) };
+          if (rawIntegrations) this.integrations = { ...this.integrations, ...JSON.parse(rawIntegrations) };
+          
+          // Reset daily timer sessions
+          const today = new Date().toDateString();
+          if (this.prefs.timerSessionsDate !== today) {
+            this.prefs.timerSessions = 0;
+            this.prefs.timerSessionsDate = today;
+            this.savePrefs();
+          }
+          
+          // Process recurring tasks
+          this.processRecurringTasks();
         } catch(e) { console.error('Load error:', e); }
       }
 
       save() {
         try {
           localStorage.setItem(this.STORAGE_KEY, JSON.stringify({ tasks: this.tasks }));
-          localStorage.setItem(this.PREFS_KEY, JSON.stringify(this.prefs));
           this.notify();
         } catch(e) { console.error('Save error:', e); }
+      }
+
+      savePrefs() {
+        try {
+          localStorage.setItem(this.PREFS_KEY, JSON.stringify(this.prefs));
+        } catch(e) { console.error('Save prefs error:', e); }
+      }
+
+      saveIntegrations() {
+        try {
+          localStorage.setItem(this.INTEGRATIONS_KEY, JSON.stringify(this.integrations));
+        } catch(e) { console.error('Save integrations error:', e); }
+      }
+
+      processRecurringTasks() {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        
+        Object.values(this.tasks).forEach(task => {
+          if (task.recurring && task.recurring.enabled && task.due) {
+            const dueDate = new Date(task.due);
+            dueDate.setHours(0, 0, 0, 0);
+            
+            if (task.completed && dueDate < today) {
+              const newDue = new Date(dueDate);
+              switch(task.recurring.interval) {
+                case 'daily':
+                  newDue.setDate(newDue.getDate() + 1);
+                  break;
+                case 'weekly':
+                  newDue.setDate(newDue.getDate() + 7);
+                  break;
+                case 'monthly':
+                  newDue.setMonth(newDue.getMonth() + 1);
+                  break;
+              }
+              
+              if (newDue <= today) {
+                task.completed = false;
+                task.due = newDue.toISOString().slice(0, 10);
+                this.save();
+              }
+            }
+          }
+        });
       }
 
       subscribe(callback) {
@@ -541,8 +705,21 @@
 
       addTask(task) {
         const id = this.generateId();
-        this.tasks[id] = { id, title: task.title || 'Untitled', description: task.description || '', due: task.due || '', quadrant: task.quadrant || 'do-first', label: task.label || '', completed: false, subtasks: [], createdAt: Date.now(), ...task };
+        this.tasks[id] = { 
+          id, 
+          title: task.title || 'Untitled', 
+          description: task.description || '', 
+          due: task.due || '', 
+          quadrant: task.quadrant || 'do-first', 
+          label: task.label || '', 
+          completed: false, 
+          subtasks: task.subtasks || [], 
+          recurring: task.recurring || { enabled: false, interval: 'daily' },
+          createdAt: Date.now(), 
+          ...task 
+        };
         this.save();
+        this.sendWebhookNotification('task_created', this.tasks[id]);
         return id;
       }
 
@@ -550,6 +727,7 @@
         if (!this.tasks[id]) return false;
         this.tasks[id] = { ...this.tasks[id], ...updates };
         this.save();
+        this.sendWebhookNotification('task_updated', this.tasks[id]);
         return true;
       }
 
@@ -573,10 +751,35 @@
       }
 
       generateId() { return `t-${Date.now()}-${Math.floor(Math.random() * 9000 + 1000)}`; }
-      setPref(key, value) { this.prefs[key] = value; this.save(); }
+      setPref(key, value) { this.prefs[key] = value; this.savePrefs(); }
       getPref(key) { return this.prefs[key]; }
+
+      incrementTimerSessions() {
+        this.prefs.timerSessions++;
+        this.savePrefs();
+        this.notify();
+      }
+
+      async sendWebhookNotification(event, task) {
+        const webhooks = [];
+        if (this.integrations.slackWebhook) webhooks.push(this.integrations.slackWebhook);
+        if (this.integrations.zapierWebhook) webhooks.push(this.integrations.zapierWebhook);
+        
+        for (const webhook of webhooks) {
+          try {
+            await fetch(webhook, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ event, task, timestamp: Date.now() })
+            });
+          } catch(e) {
+            console.log('Webhook notification failed:', e);
+          }
+        }
+      }
     }
 
+    // Utility functions
     const Utils = {
       escapeHtml(text) {
         if (!text) return '';
@@ -614,9 +817,10 @@
       }
     };
 
+    // Calendar integration
     const Calendar = {
       openGoogleCalendar(task) {
-        if (!task || !task.due) { alert('Task must have a due date to add to Google Calendar'); return; }
+        if (!task || !task.due) { alert('Task must have a due date'); return; }
         const start = new Date(task.due + 'T09:00:00');
         const end = new Date(start.getTime() + 60 * 60 * 1000);
         const formatDate = (dt) => dt.toISOString().slice(0, 19).replace(/-|:/g, '') + 'Z';
@@ -626,7 +830,7 @@
         window.open(`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${text}&dates=${dates}&details=${details}`, '_blank');
       },
       downloadICS(task) {
-        if (!task || !task.due) { alert('Task must have a due date to export to calendar'); return; }
+        if (!task || !task.due) { alert('Task must have a due date'); return; }
         const start = new Date(task.due + 'T09:00:00');
         const end = new Date(start.getTime() + 60 * 60 * 1000);
         const formatDate = (dt) => dt.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
@@ -639,6 +843,82 @@
       }
     };
 
+    // Focus Timer
+    class FocusTimer {
+      constructor(store) {
+        this.store = store;
+        this.modes = { focus: 25 * 60, shortBreak: 5 * 60, longBreak: 15 * 60 };
+        this.currentMode = 'focus';
+        this.timeLeft = this.modes.focus;
+        this.isRunning = false;
+        this.interval = null;
+      }
+
+      setMode(mode) {
+        this.currentMode = mode;
+        this.timeLeft = this.modes[mode];
+        this.isRunning = false;
+        if (this.interval) clearInterval(this.interval);
+        this.updateDisplay();
+      }
+
+      start() {
+        this.isRunning = true;
+        this.interval = setInterval(() => {
+          this.timeLeft--;
+          this.updateDisplay();
+          if (this.timeLeft <= 0) {
+            this.complete();
+          }
+        }, 1000);
+        this.updateDisplay();
+      }
+
+      pause() {
+        this.isRunning = false;
+        if (this.interval) clearInterval(this.interval);
+        this.updateDisplay();
+      }
+
+      reset() {
+        this.isRunning = false;
+        if (this.interval) clearInterval(this.interval);
+        this.timeLeft = this.modes[this.currentMode];
+        this.updateDisplay();
+      }
+
+      complete() {
+        this.pause();
+        if (this.currentMode === 'focus') {
+          this.store.incrementTimerSessions();
+          if (Notification.permission === 'granted') {
+            new Notification('Focus session complete!', { body: 'Time for a break 🎉' });
+          }
+        }
+        alert(`${this.currentMode === 'focus' ? 'Focus' : 'Break'} complete!`);
+      }
+
+      updateDisplay() {
+        const mins = Math.floor(this.timeLeft / 60);
+        const secs = this.timeLeft % 60;
+        document.getElementById('timerDisplay').textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        document.getElementById('timerStatus').textContent = this.isRunning ? 'Focus time...' : 'Paused';
+        document.getElementById('timerStart').textContent = this.isRunning ? 'Pause' : 'Start';
+        document.getElementById('sessionsToday').textContent = this.store.getPref('timerSessions') || 0;
+      }
+    }
+
+    // Task Templates
+    const Templates = {
+      meeting: { title: 'Team Meeting', description: 'Prepare agenda and materials', quadrant: 'schedule', label: 'client' },
+      client: { title: 'Client Work', description: 'Urgent client deliverable', quadrant: 'do-first', label: 'client' },
+      review: { title: 'Code Review', description: 'Review pull request', quadrant: 'delegate', label: '' },
+      research: { title: 'Research', description: 'Deep dive into topic', quadrant: 'schedule', label: '' },
+      email: { title: 'Process Emails', description: 'Clear inbox', quadrant: 'delegate', label: '' },
+      planning: { title: 'Strategic Planning', description: 'Quarterly roadmap', quadrant: 'schedule', label: '' }
+    };
+
+    // Task Renderer
     class TaskRenderer {
       constructor(store) {
         this.store = store;
@@ -652,17 +932,25 @@
       }
       createTaskElement(task) {
         const div = document.createElement('div');
-        div.className = 'task'; div.dataset.id = task.id;
+        div.className = 'task'; 
+        div.dataset.id = task.id;
         if (task.completed) div.classList.add('completed');
+        if (task.recurring && task.recurring.enabled) div.classList.add('task-recurring');
         const urgencyClass = Utils.getUrgencyClass(task.due);
         if (urgencyClass) div.classList.add(urgencyClass);
-        const left = document.createElement('div'); left.className = 'task-left';
+        
+        const left = document.createElement('div'); 
+        left.className = 'task-left';
         let titleHtml = `<div class="task-title">${Utils.escapeHtml(task.title)}`;
         if (task.label) {
           const labelClass = `tag-${task.label}`;
           titleHtml += ` <span class="tag ${labelClass}">${task.label.charAt(0).toUpperCase() + task.label.slice(1)}</span>`;
         }
+        if (task.recurring && task.recurring.enabled) {
+          titleHtml += ` <span style="font-size:0.85rem;opacity:0.7">🔁</span>`;
+        }
         titleHtml += `</div>`;
+        
         let contentHtml = titleHtml;
         if (task.description) contentHtml += `<div class="task-desc">${Utils.escapeHtml(task.description)}</div>`;
         if (task.subtasks && task.subtasks.length > 0) {
@@ -671,19 +959,25 @@
         }
         if (task.due) contentHtml += `<div class="task-due">${Utils.escapeHtml(task.due)}</div>`;
         left.innerHTML = contentHtml;
-        const controls = document.createElement('div'); controls.className = 'task-controls';
+        
+        const controls = document.createElement('div'); 
+        controls.className = 'task-controls';
         controls.appendChild(this.createButton(task.completed ? '↺' : '✔', task.completed ? 'Mark incomplete' : 'Mark complete', () => app.toggleComplete(task.id)));
         controls.appendChild(this.createButton('✎', 'Edit', () => app.openEditPanel(task.id)));
         controls.appendChild(this.createButton('📅', 'Add to calendar', () => { if (task.due) { Calendar.openGoogleCalendar(task); } else { alert('Please add a due date first'); } }));
         controls.appendChild(this.createButton('✕', 'Delete', () => app.deleteTask(task.id)));
-        div.appendChild(controls); div.appendChild(left);
+        
+        div.appendChild(controls); 
+        div.appendChild(left);
         this.setupDrag(div);
         div.addEventListener('dblclick', () => app.openEditPanel(task.id));
         return div;
       }
       createButton(text, title, onClick) {
         const btn = document.createElement('button');
-        btn.className = 'small-btn'; btn.textContent = text; btn.title = title;
+        btn.className = 'small-btn'; 
+        btn.textContent = text; 
+        btn.title = title;
         btn.onclick = (e) => { e.stopPropagation(); onClick(); };
         return btn;
       }
@@ -694,10 +988,12 @@
       }
     }
 
+    // Main App
     class PrioBoxApp {
       constructor() {
         this.store = new TaskStore();
         this.renderer = new TaskRenderer(this.store);
+        this.timer = new FocusTimer(this.store);
         this.currentView = 'daily';
         this.editingTaskId = null;
         this.quadrants = ['do-first', 'schedule', 'delegate', 'eliminate'];
@@ -708,17 +1004,19 @@
 
       initializeElements() {
         this.loadingEl = document.getElementById('loading');
-        this.authBackdrop = document.getElementById('authBackdrop');
-        this.authSheet = document.getElementById('authSheet');
-        this.authClose = document.getElementById('authClose');
-        this.authSend = document.getElementById('authSend');
         this.appArea = document.getElementById('appArea');
+        this.themeToggle = document.getElementById('themeToggle');
+        this.shortcutsBtn = document.getElementById('shortcutsBtn');
+        this.integrationsBtn = document.getElementById('integrationsBtn');
+        this.templatesBtn = document.getElementById('templatesBtn');
         this.viewDaily = document.getElementById('viewDaily');
         this.viewMatrix = document.getElementById('viewMatrix');
         this.viewStats = document.getElementById('viewStats');
+        this.viewTimer = document.getElementById('viewTimer');
         this.dailyView = document.getElementById('dailyView');
         this.matrixView = document.getElementById('matrixView');
         this.statsView = document.getElementById('statsView');
+        this.timerView = document.getElementById('timerView');
         this.addBtn = document.getElementById('addBtn');
         this.clearBtn = document.getElementById('clearBtn');
         this.demoBtn = document.getElementById('demoBtn');
@@ -740,6 +1038,8 @@
         this.pQuadrant = document.getElementById('pQuadrant');
         this.pLabel = document.getElementById('pLabel');
         this.pCompleted = document.getElementById('pCompleted');
+        this.pRecurring = document.getElementById('pRecurring');
+        this.pRecurringInterval = document.getElementById('pRecurringInterval');
         this.panelSave = document.getElementById('panelSave');
         this.panelCancel = document.getElementById('panelCancel');
         this.subtasksList = document.getElementById('subtasksList');
@@ -750,14 +1050,24 @@
         this.onboard = document.getElementById('onboard');
         this.onboardDone = document.getElementById('onboardDone');
         this.onboardSkip = document.getElementById('onboardSkip');
+        this.shortcutsModal = document.getElementById('shortcutsModal');
+        this.shortcutsClose = document.getElementById('shortcutsClose');
+        this.templatesModal = document.getElementById('templatesModal');
+        this.templatesClose = document.getElementById('templatesClose');
+        this.integrationsModal = document.getElementById('integrationsModal');
+        this.integrationsClose = document.getElementById('integrationsClose');
+        this.installBtn = document.getElementById('installBtn');
       }
 
       setupEventListeners() {
-        this.authClose.addEventListener('click', () => this.closeAuth());
-        this.authSend.addEventListener('click', () => this.handleAuthSend());
+        this.themeToggle.addEventListener('click', () => this.toggleTheme());
+        this.shortcutsBtn.addEventListener('click', () => this.showShortcuts());
+        this.integrationsBtn.addEventListener('click', () => this.showIntegrations());
+        this.templatesBtn.addEventListener('click', () => this.showTemplates());
         this.viewDaily.addEventListener('click', () => this.switchView('daily'));
         this.viewMatrix.addEventListener('click', () => this.switchView('matrix'));
         this.viewStats.addEventListener('click', () => this.switchView('stats'));
+        this.viewTimer.addEventListener('click', () => this.switchView('timer'));
         this.addBtn.addEventListener('click', () => this.handleAddTask());
         this.clearBtn.addEventListener('click', () => this.handleClearAll());
         this.demoBtn.addEventListener('click', () => this.loadDemoData());
@@ -773,10 +1083,87 @@
         this.addToCalendarBtn.addEventListener('click', () => { if (this.editingTaskId) { const task = this.store.getTask(this.editingTaskId); if (task) Calendar.openGoogleCalendar(task); } });
         this.downloadICSBtn.addEventListener('click', () => { if (this.editingTaskId) { const task = this.store.getTask(this.editingTaskId); if (task) Calendar.downloadICS(task); } });
         this.deleteFromPanelBtn.addEventListener('click', () => { if (this.editingTaskId) { this.deleteTask(this.editingTaskId); this.closePanel(); } });
+        this.pRecurring.addEventListener('change', () => { this.pRecurringInterval.style.display = this.pRecurring.checked ? 'block' : 'none'; });
         this.onboardDone.addEventListener('click', () => this.closeOnboarding());
         this.onboardSkip.addEventListener('click', () => this.closeOnboarding());
+        this.shortcutsClose.addEventListener('click', () => this.hideShortcuts());
+        this.templatesClose.addEventListener('click', () => this.hideTemplates());
+        this.integrationsClose.addEventListener('click', () => this.hideIntegrations());
+        
+        // Timer controls
+        document.getElementById('timerFocus').addEventListener('click', () => { this.timer.setMode('focus'); this.updateTimerModeButtons('focus'); });
+        document.getElementById('timerShortBreak').addEventListener('click', () => { this.timer.setMode('shortBreak'); this.updateTimerModeButtons('shortBreak'); });
+        document.getElementById('timerLongBreak').addEventListener('click', () => { this.timer.setMode('longBreak'); this.updateTimerModeButtons('longBreak'); });
+        document.getElementById('timerStart').addEventListener('click', () => { this.timer.isRunning ? this.timer.pause() : this.timer.start(); });
+        document.getElementById('timerReset').addEventListener('click', () => this.timer.reset());
+
+        // Template cards
+        document.querySelectorAll('.template-card').forEach(card => {
+          card.addEventListener('click', () => {
+            const template = Templates[card.dataset.template];
+            if (template) {
+              this.store.addTask(template);
+              this.hideTemplates();
+              this.switchView('matrix');
+            }
+          });
+        });
+
+        // Integration buttons
+        document.getElementById('setupEmailBtn').addEventListener('click', () => {
+          const email = `tasks-${Math.random().toString(36).substr(2, 9)}@priobox.app`;
+          document.getElementById('emailTaskAddress').value = email;
+          this.store.integrations.emailTask = email;
+          this.store.saveIntegrations();
+          alert('Email address generated! Forward emails to this address to create tasks.');
+        });
+        
+        document.getElementById('connectSlackBtn').addEventListener('click', () => {
+          const webhook = document.getElementById('slackWebhook').value.trim();
+          if (webhook) {
+            this.store.integrations.slackWebhook = webhook;
+            this.store.saveIntegrations();
+            alert('Slack connected! You\'ll receive notifications for due tasks.');
+          }
+        });
+        
+        document.getElementById('connectZapierBtn').addEventListener('click', () => {
+          const webhook = document.getElementById('zapierWebhook').value.trim();
+          if (webhook) {
+            this.store.integrations.zapierWebhook = webhook;
+            this.store.saveIntegrations();
+            alert('Zapier connected! Tasks will be sent to your webhook.');
+          }
+        });
+
         document.addEventListener('keydown', (e) => this.handleKeyboard(e));
         this.setupDragTargets();
+        this.setupPWA();
+      }
+
+      setupPWA() {
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+          e.preventDefault();
+          deferredPrompt = e;
+          this.installBtn.style.display = 'inline';
+        });
+
+        this.installBtn.addEventListener('click', async () => {
+          if (deferredPrompt) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            if (outcome === 'accepted') {
+              this.installBtn.style.display = 'none';
+            }
+            deferredPrompt = null;
+          }
+        });
+
+        // Request notification permission
+        if ('Notification' in window && Notification.permission === 'default') {
+          Notification.requestPermission();
+        }
       }
 
       setupDragTargets() {
@@ -787,22 +1174,74 @@
         });
       }
 
+      toggleTheme() {
+        const current = this.store.getPref('theme') || 'light';
+        const newTheme = current === 'light' ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', newTheme);
+        this.store.setPref('theme', newTheme);
+      }
+
+      showShortcuts() {
+        this.shortcutsModal.classList.add('show');
+        this.shortcutsModal.setAttribute('aria-hidden', 'false');
+      }
+
+      hideShortcuts() {
+        this.shortcutsModal.classList.remove('show');
+        this.shortcutsModal.setAttribute('aria-hidden', 'true');
+      }
+
+      showTemplates() {
+        this.templatesModal.classList.add('show');
+        this.templatesModal.setAttribute('aria-hidden', 'false');
+      }
+
+      hideTemplates() {
+        this.templatesModal.classList.remove('show');
+        this.templatesModal.setAttribute('aria-hidden', 'true');
+      }
+
+      showIntegrations() {
+        document.getElementById('emailTaskAddress').value = this.store.integrations.emailTask || '';
+        document.getElementById('slackWebhook').value = this.store.integrations.slackWebhook || '';
+        document.getElementById('zapierWebhook').value = this.store.integrations.zapierWebhook || '';
+        this.integrationsModal.classList.add('show');
+        this.integrationsModal.setAttribute('aria-hidden', 'false');
+      }
+
+      hideIntegrations() {
+        this.integrationsModal.classList.remove('show');
+        this.integrationsModal.setAttribute('aria-hidden', 'true');
+      }
+
+      updateTimerModeButtons(mode) {
+        ['timerFocus', 'timerShortBreak', 'timerLongBreak'].forEach(id => {
+          document.getElementById(id).classList.remove('active');
+        });
+        const modeMap = { focus: 'timerFocus', shortBreak: 'timerShortBreak', longBreak: 'timerLongBreak' };
+        document.getElementById(modeMap[mode]).classList.add('active');
+      }
+
       switchView(view) {
         this.currentView = view;
         this.store.setPref('currentView', view);
-        [this.viewDaily, this.viewMatrix, this.viewStats].forEach(btn => btn.classList.remove('active'));
+        [this.viewDaily, this.viewMatrix, this.viewStats, this.viewTimer].forEach(btn => btn.classList.remove('active'));
         this.dailyView.style.display = 'none';
         this.matrixView.style.display = 'none';
         this.statsView.style.display = 'none';
+        this.timerView.style.display = 'none';
+        
         if (view === 'daily') { this.viewDaily.classList.add('active'); this.dailyView.style.display = 'block'; this.renderDailyView(); }
         else if (view === 'matrix') { this.viewMatrix.classList.add('active'); this.matrixView.style.display = 'block'; this.renderMatrixView(); }
         else if (view === 'stats') { this.viewStats.classList.add('active'); this.statsView.style.display = 'block'; this.renderStatsView(); }
+        else if (view === 'timer') { this.viewTimer.classList.add('active'); this.timerView.style.display = 'block'; this.timer.updateDisplay(); }
       }
 
       render() {
         if (this.currentView === 'daily') this.renderDailyView();
         else if (this.currentView === 'matrix') this.renderMatrixView();
         else if (this.currentView === 'stats') this.renderStatsView();
+        else if (this.currentView === 'timer') this.timer.updateDisplay();
       }
 
       renderDailyView() {
@@ -812,14 +1251,17 @@
         const todayTasks = allTasks.filter(t => { const diff = Utils.getDaysDiff(t.due); return diff === 0 && !t.completed; });
         const overdueTasks = allTasks.filter(t => { const diff = Utils.getDaysDiff(t.due); return diff !== null && diff < 0 && !t.completed; });
         const upcomingTasks = allTasks.filter(t => { const diff = Utils.getDaysDiff(t.due); return diff !== null && diff > 0 && diff <= 7 && !t.completed; });
+        
         document.getElementById('todayDue').textContent = todayTasks.length;
         document.getElementById('overdueCount').textContent = overdueTasks.length;
         document.getElementById('upcomingCount').textContent = upcomingTasks.length;
+        
         const container = document.getElementById('dailyTasks');
         container.innerHTML = '';
         if (overdueTasks.length > 0) this.renderTaskSection(container, 'Overdue', overdueTasks, 'var(--overdue)');
         if (todayTasks.length > 0) this.renderTaskSection(container, 'Due Today', todayTasks, 'var(--accent-1)');
         if (upcomingTasks.length > 0) this.renderTaskSection(container, 'This Week', upcomingTasks, 'var(--approach)');
+        
         if (overdueTasks.length === 0 && todayTasks.length === 0 && upcomingTasks.length === 0) {
           container.innerHTML = '<div class="empty-state"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="10" width="35" height="35" rx="5" fill="currentColor"/><rect x="55" y="10" width="35" height="35" rx="5" fill="currentColor"/><rect x="10" y="55" width="35" height="35" rx="5" fill="currentColor"/><rect x="55" y="55" width="35" height="35" rx="5" fill="currentColor"/></svg><h3>All caught up!</h3><p>No urgent tasks. Great job staying organized.</p></div>';
         }
@@ -868,14 +1310,17 @@
         const completed = allTasks.filter(t => t.completed).length;
         const active = total - completed;
         const overdue = allTasks.filter(t => { const diff = Utils.getDaysDiff(t.due); return diff !== null && diff < 0 && !t.completed; }).length;
+        
         document.getElementById('totalTasks').textContent = total;
         document.getElementById('completedTasks').textContent = completed;
         document.getElementById('activeTasks').textContent = active;
         document.getElementById('overdueStats').textContent = overdue;
+        
         const completionRate = total > 0 ? Math.round((completed / total) * 100) : 0;
         document.getElementById('completionRate').textContent = `${completionRate}% completion rate`;
         document.getElementById('completedBar').style.width = completionRate + '%';
         document.getElementById('activeBar').style.width = (total > 0 ? (active / total) * 100 : 0) + '%';
+        
         this.quadrants.forEach(q => {
           const count = allTasks.filter(t => t.quadrant === q).length;
           const pct = total > 0 ? Math.round((count / total) * 100) : 0;
@@ -885,6 +1330,7 @@
           if (statEl) statEl.textContent = count;
           if (barEl) barEl.style.width = pct + '%';
         });
+        
         this.renderInsights(allTasks, total, completed, overdue, completionRate);
       }
 
@@ -893,36 +1339,63 @@
         if (overdue > 0) insights.push(`You have ${overdue} overdue task${overdue > 1 ? 's' : ''} that need immediate attention.`);
         if (completionRate >= 70) insights.push(`Great job! You're completing ${completionRate}% of your tasks.`);
         else if (completionRate < 30 && total > 5) insights.push(`Consider breaking down tasks into smaller, more manageable pieces.`);
+        
         const doFirstCount = allTasks.filter(t => t.quadrant === 'do-first').length;
         const eliminateCount = allTasks.filter(t => t.quadrant === 'eliminate').length;
+        
         if (doFirstCount > total * 0.5 && total > 5) insights.push(`Over half your tasks are in "Do First". Consider if some could be scheduled or delegated.`);
         if (eliminateCount > 5) insights.push(`You have ${eliminateCount} tasks in "Eliminate". Consider removing low-value items.`);
         if (total === completed && total > 0) insights.push(`All tasks completed! Time to set new goals.`);
         if (insights.length === 0) insights.push(`Keep adding tasks and tracking your progress to see personalized insights.`);
+        
         document.getElementById('insightsList').innerHTML = insights.map(i => `<li>${i}</li>`).join('');
       }
 
       handleAddTask() {
         const title = this.taskTitle.value.trim();
         if (!title) { this.taskTitle.focus(); return; }
-        this.store.addTask({ title, description: this.taskDescription.value.trim(), due: this.taskDue.value || '', quadrant: this.taskQuadrant.value || 'do-first', label: this.taskLabel.value || '' });
-        this.taskTitle.value = ''; this.taskDescription.value = ''; this.taskDue.value = ''; this.taskQuadrant.value = 'do-first'; this.taskLabel.value = '';
+        this.store.addTask({ 
+          title, 
+          description: this.taskDescription.value.trim(), 
+          due: this.taskDue.value || '', 
+          quadrant: this.taskQuadrant.value || 'do-first', 
+          label: this.taskLabel.value || '' 
+        });
+        this.taskTitle.value = ''; 
+        this.taskDescription.value = ''; 
+        this.taskDue.value = ''; 
+        this.taskQuadrant.value = 'do-first'; 
+        this.taskLabel.value = '';
       }
 
       toggleComplete(taskId) { this.store.toggleComplete(taskId); }
-      deleteTask(taskId) { if (!confirm('Delete this task?')) return; this.store.deleteTask(taskId); }
-      handleClearAll() { if (!confirm('Clear all tasks? This cannot be undone.')) return; this.store.tasks = {}; this.store.save(); }
+      
+      deleteTask(taskId) { 
+        if (!confirm('Delete this task?')) return; 
+        this.store.deleteTask(taskId); 
+      }
+      
+      handleClearAll() { 
+        if (!confirm('Clear all tasks? This cannot be undone.')) return; 
+        this.store.tasks = {}; 
+        this.store.save(); 
+      }
 
       openEditPanel(taskId) {
         this.editingTaskId = taskId;
         const task = this.store.getTask(taskId);
         if (!task) return;
+        
         this.pTitle.value = task.title || '';
         this.pDesc.value = task.description || '';
         this.pDue.value = task.due || '';
         this.pQuadrant.value = task.quadrant || 'do-first';
         this.pLabel.value = task.label || '';
         this.pCompleted.checked = !!task.completed;
+        this.pRecurring.checked = task.recurring && task.recurring.enabled;
+        this.pRecurringInterval.value = task.recurring && task.recurring.interval || 'daily';
+        this.pRecurringInterval.style.display = this.pRecurring.checked ? 'block' : 'none';
+        
         document.getElementById('panelTitle').textContent = 'Edit task';
         this.renderSubtasks();
         this.showPanel(true);
@@ -947,13 +1420,18 @@
         if (!this.editingTaskId) return;
         const task = this.store.getTask(this.editingTaskId);
         if (!task) { this.closePanel(); return; }
+        
         this.store.updateTask(this.editingTaskId, {
           title: this.pTitle.value.trim() || task.title,
           description: this.pDesc.value.trim(),
           due: this.pDue.value || '',
           quadrant: this.pQuadrant.value,
           label: this.pLabel.value || '',
-          completed: !!this.pCompleted.checked
+          completed: !!this.pCompleted.checked,
+          recurring: {
+            enabled: !!this.pRecurring.checked,
+            interval: this.pRecurringInterval.value
+          }
         });
         this.closePanel();
       }
@@ -964,9 +1442,11 @@
         if (!task) return;
         const subtasks = task.subtasks || [];
         this.subtasksList.innerHTML = '';
+        
         subtasks.forEach((st, idx) => {
           const div = document.createElement('div');
           div.className = 'subtask' + (st.completed ? ' completed' : '');
+          
           const checkbox = document.createElement('input');
           checkbox.type = 'checkbox';
           checkbox.checked = st.completed;
@@ -975,9 +1455,11 @@
             this.store.save();
             this.renderSubtasks();
           });
+          
           const text = document.createElement('span');
           text.textContent = st.text;
           text.style.flex = '1';
+          
           const delBtn = document.createElement('button');
           delBtn.textContent = '✕';
           delBtn.className = 'small-btn';
@@ -986,6 +1468,7 @@
             this.store.save();
             this.renderSubtasks();
           };
+          
           div.appendChild(checkbox);
           div.appendChild(text);
           div.appendChild(delBtn);
@@ -1054,9 +1537,10 @@
         const tomorrow = new Date(today.getTime() + 86400000);
         const nextWeek = new Date(today.getTime() + 7 * 86400000);
         const yesterday = new Date(today.getTime() - 86400000);
+        
         const samples = [
           { title: 'Fix critical signup bug', quadrant: 'do-first', due: Utils.formatDate(tomorrow), label: 'client', description: 'Users cannot complete registration', subtasks: [{ text: 'Reproduce the bug', completed: true }, { text: 'Identify root cause', completed: true }, { text: 'Write fix', completed: false }, { text: 'Test solution', completed: false }, { text: 'Deploy to production', completed: false }] },
-          { title: 'Plan Q2 roadmap', quadrant: 'schedule', due: Utils.formatDate(nextWeek), label: '', description: 'Strategic planning session with team', subtasks: [{ text: 'Review Q1 results', completed: false }, { text: 'Gather team input', completed: false }, { text: 'Draft objectives', completed: false }] },
+          { title: 'Plan Q2 roadmap', quadrant: 'schedule', due: Utils.formatDate(nextWeek), label: '', description: 'Strategic planning session with team', subtasks: [{ text: 'Review Q1 results', completed: false }, { text: 'Gather team input', completed: false }, { text: 'Draft objectives', completed: false }], recurring: { enabled: true, interval: 'monthly' } },
           { title: 'Review social media posts', quadrant: 'delegate', due: '', label: 'personal', description: 'Quick 15-minute task', subtasks: [] },
           { title: 'Clean old email subscriptions', quadrant: 'eliminate', due: '', label: '', description: 'Low priority cleanup', subtasks: [] },
           { title: 'Submit quarterly report', quadrant: 'do-first', due: Utils.formatDate(yesterday), label: 'client', description: 'Overdue - needs immediate attention', subtasks: [] }
@@ -1071,17 +1555,6 @@
         this.render();
       }
 
-      closeAuth() {
-        this.authBackdrop.classList.remove('show');
-        this.authSheet.classList.remove('show');
-        this.appArea.style.display = 'block';
-      }
-
-      handleAuthSend() {
-        alert('Cloud sync is not available in this demo version. Your tasks are saved locally in your browser.');
-        this.closeAuth();
-      }
-
       showOnboarding() {
         this.onboard.classList.add('show');
         this.onboard.setAttribute('aria-hidden', 'false');
@@ -1094,14 +1567,52 @@
       }
 
       handleKeyboard(e) {
+        // Close modals with Escape
         if (e.key === 'Escape') {
           this.closePanel();
           this.closeOnboarding();
+          this.hideShortcuts();
+          this.hideTemplates();
+          this.hideIntegrations();
         }
+        
+        // New task with Ctrl/Cmd + N
         if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'n') {
           e.preventDefault();
           if (this.taskTitle) this.taskTitle.focus();
         }
+        
+        // Search with Ctrl/Cmd + F
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'f') {
+          e.preventDefault();
+          if (this.searchInput) this.searchInput.focus();
+        }
+        
+        // Quick view switching
+        if (e.key === '1') this.switchView('daily');
+        if (e.key === '2') this.switchView('timer');
+        if (e.key === '3') this.switchView('matrix');
+        if (e.key === '4') this.switchView('stats');
+        
+        // Shortcuts modal
+        if (e.key.toLowerCase() === 'k' && !e.ctrlKey && !e.metaKey) {
+          e.preventDefault();
+          this.showShortcuts();
+        }
+        
+        // Templates modal
+        if (e.key.toLowerCase() === 't' && !e.ctrlKey && !e.metaKey) {
+          e.preventDefault();
+          this.showTemplates();
+        }
+        
+        // Dark mode toggle
+        if (e.key.toLowerCase() === 'd' && !e.ctrlKey && !e.metaKey) {
+          e.preventDefault();
+          this.toggleTheme();
+        }
+        
+        // Enter to add task
         if (e.key === 'Enter' && (document.activeElement === this.taskTitle || document.activeElement === this.taskDescription || document.activeElement === this.taskDue)) {
           this.handleAddTask();
         }
@@ -1110,12 +1621,19 @@
       async init() {
         this.loadingEl.classList.remove('loading-hidden');
         this.store.load();
+        
+        // Apply saved theme
+        const theme = this.store.getPref('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', theme);
+        
         if (!this.store.getPref('onboardingSeen')) {
           setTimeout(() => this.showOnboarding(), 700);
         }
-        this.closeAuth();
+        
+        this.appArea.style.display = 'block';
         this.toggleCompletedBtn.textContent = this.store.getPref('showCompleted') ? 'Hide Completed' : 'Show Completed';
         this.switchView(this.store.getPref('currentView') || 'daily');
+        
         setTimeout(() => {
           this.loadingEl.classList.add('loading-hidden');
           setTimeout(() => this.loadingEl.style.display = 'none', 300);
@@ -1123,10 +1641,12 @@
       }
     }
 
+    // Initialize app
     const app = new PrioBoxApp();
     app.init();
 
-    window.priobox = { app, store: app.store, utils: Utils };
+    // Expose to window for debugging
+    window.priobox = { app, store: app.store, utils: Utils, timer: app.timer };
   </script>
 </body>
 </html>
