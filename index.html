@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>PrioBox – Focus What Matters</title>
 <link rel="icon" type="image/png" href="images/logo-icon-t.png" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3TQ4METDYF"></script>
 <script>
@@ -49,72 +50,82 @@
 </script>
 
 <style>
+  /* 1. SAAS STYLE REFINEMENTS */
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial; background:#f9fafb;color:#111;line-height:1.6}
-  header{position:fixed;top:0;left:0;right:0;padding:1.2rem 2rem;background:rgba(255,255,255,.9);backdrop-filter:blur(6px);display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee;z-index:40}
-  .logo{font-weight:700;color:#2d4a22}
-  nav{display:flex;align-items:center} /* Ensures items in nav align */
-  nav a{margin-left:1.2rem;color:#333;text-decoration:none}
-  .hero{padding:140px 2rem 80px;max-width:1200px;margin:0 auto;display:flex;gap:2.5rem;align-items:center}
-  .hero-text h1{font-size:2.6rem;margin-bottom:.6rem}
-  .btn-primary{background:#2ea043;color:#fff;padding:.8rem 1.2rem;border-radius:8px;text-decoration:none;font-weight:700;transition:0.3s; white-space: nowrap;}
-  .btn-primary:hover{background:#268a39}
-
-  /* Testimonials Section */
-  #testimonials{padding:40px 2rem;text-align:center;background:#fff;}
-  #testimonials p{font-style:italic;max-width:600px;margin:0.5rem auto 0;color:#555}
-  #testimonials h3{font-size:1.1rem;color:#2d4a22;margin-bottom:.25rem}
-
-  /* Contact Section */
-  #contact-section {padding:80px 2rem;background:#f9fafb;} /* Updated background for separation */
-  #contact-section h2{text-align:center;margin-bottom:1rem;font-size:2rem}
-
-  /* Multi-step form */
-  #msform{max-width:480px;margin:0 auto;background:#fff;padding:2rem;border-radius:16px;box-shadow:0 10px 28px rgba(0,0,0,.08)}
-  fieldset{border:0;display:none}
-  fieldset.active{display:block;animation:fadeIn .4s ease}
-  @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-
-  input, textarea, select{
-    width:100%;padding:.9rem;font-size:1rem;border:1px solid #ddd;border-radius:10px;margin-top:.5rem
+  body{
+    font-family: 'Inter', sans-serif; 
+    background:#fff; /* Clean white background */
+    color:#111;line-height:1.6
   }
-  .field-group {position:relative; margin-bottom: 1.2rem;} /* For error messages */
-  .error-message {color: #e3342f; font-size: 0.85rem; margin-top: 0.25rem; display: none;}
-
-
-  .btn{
-    padding:.9rem 1.2rem;border-radius:10px;font-size:1rem;border:none;cursor:pointer;font-weight:700;margin-top:1rem;transition:.25s
+  header{
+    position:fixed;top:0;left:0;right:0;padding:1rem 2rem;
+    background:rgba(255,255,255,.95); /* Slightly less blur, cleaner look */
+    backdrop-filter:blur(8px);
+    display:flex;justify-content:space-between;align-items:center;
+    border-bottom:none; /* Removed bottom border for cleaner top edge */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05); /* subtle shadow */
+    z-index:40
   }
-  .btn-next{background:#2ea043;color:#fff}
-  .btn-next:hover{background:#268a39}
-  .btn-back{background:#eee;color:#333}
-  .btn-back:hover{background:#ddd}
-  .btn-submit{background:#2ea043;color:#fff}
-  .btn-submit:hover{background:#268a39}
-
-  /* Success box */
-  #success-box{
-    display:none;
-    margin:0 auto;
-    max-width:480px;
-    background:#dff5e6;
-    padding:2rem;
-    text-align:center;
-    border-radius:16px;
-    color:#114b28;
-    font-size:1.2rem;
-    animation:fadeIn .4s ease;
+  .logo{font-weight:800;font-size:1.4rem;color:#2d4a22} /* Bolder logo */
+  nav{display:flex;align-items:center} 
+  nav a{margin-left:1.5rem;color:#444;text-decoration:none;font-weight:600}
+  
+  /* 2. HERO SECTION STYLING */
+  .hero{padding:160px 2rem 100px;max-width:1200px;margin:0 auto;display:flex;gap:4rem;align-items:center}
+  .hero-text h1{
+    font-size:3.5rem; /* Larger, bolder headline */
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom:1rem;
   }
+  .hero-text p {
+    font-size: 1.25rem;
+    color: #555;
+    max-width: 60ch;
+    margin-bottom: 2rem;
+  }
+  .btn-primary{
+    background:#2ea043;color:#fff;
+    padding:.9rem 1.8rem; /* Bigger, bolder button */
+    border-radius:10px;
+    text-decoration:none;font-weight:700;transition:0.3s; white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(46, 160, 67, 0.3); /* Subtle button shadow */
+  }
+  .btn-primary:hover{background:#268a39; box-shadow: 0 6px 18px rgba(46, 160, 67, 0.4);}
+  
+  /* 3. TESTIMONIALS/SOCIAL PROOF STYLING */
+  #testimonials{padding:60px 2rem;text-align:center;background:#f9fafb; border-top: 1px solid #eee;}
+  #testimonials h3{font-size:1.1rem;color:#2d4a22;margin-bottom:2rem;font-weight:700;}
+  .testimonial-box{
+    max-width: 700px; margin: 0 auto; padding: 2rem; background: #fff; border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+  }
+  .testimonial-box p{font-style:italic;font-size: 1.1rem; color:#333}
+  .testimonial-box small{display: block; margin-top: 1rem; font-weight: 600; color: #555;}
+  
+  /* 4. PRICING/MAIN CTA BLOCK STYLING */
+  #cta-block {padding: 80px 2rem; text-align: center; background: #2d4a22; color: #fff;}
+  #cta-block h2 {font-size: 2.5rem; margin-bottom: 1rem; font-weight: 800;}
+  #cta-block .btn-primary {background: #fff; color: #2d4a22; box-shadow: none; margin-top: 2rem;}
+  #cta-block .btn-primary:hover {background: #eee; color: #2d4a22;}
+
+  /* 5. CONTACT SECTION STYLING */
+  #contact-section {padding:80px 2rem;background:#fff; border-top: 1px solid #eee;} 
+  #contact-section h2{text-align:center;margin-bottom:1rem;font-size:2rem; font-weight: 700; color: #222;}
+
+  /* Form Styling (Minor Adjustments) */
+  #msform{max-width:480px;margin:0 auto;background:#f9fafb;padding:2rem;border-radius:16px;box-shadow:0 10px 28px rgba(0,0,0,.04)}
+  input, textarea, select{border-radius:6px; background: #fff;}
+  .error-message {color: #e3342f; font-size: 0.8rem; margin-top: 0.25rem; display: none;}
+  
+  /* Footer Styling */
+  footer {padding: 60px 2rem 30px; background: #111; color: #aaa; text-align: center;}
+  footer a {color: #ccc; text-decoration: none; margin-left: 10px;}
+  .footer-cta {margin-bottom: 40px;}
+  .footer-cta p {color: #fff;}
 
   /* Honeypot field */
   .hp{display:none !important}
-
-  /* Footer CTA styling */
-  .footer-cta {text-align: center; margin-bottom: 20px;}
-  .footer-cta .btn-primary {
-    padding: 1rem 2rem;
-    font-size: 1.1rem;
-  }
 </style>
 </head>
 
@@ -123,34 +134,39 @@
 <header>
   <a href="Priobox.solutions/app.html" class="logo" style="text-decoration: none;">PrioBox</a>
   <nav>
-    <a href="#contact-section">Contact</a>
+    <a href="#contact-section">Support</a>
         <a class="btn-primary" href="Priobox.solutions/app.html" onclick="trackHeroCTA()" style="margin-left: 1.5rem;">Launch App</a>
   </nav>
 </header>
 
 <section class="hero">
   <div class="hero-text">
-    <h1>Focus on the Work That Matters Most.</h1>
-    <p style="color:#555;max-width:56ch">Eliminate noise, see your priorities clearly, and move forward with purpose. **Ready to start? Launch the app now** to visualize, rank, and execute your highest-impact tasks.</p>
+    <h1>Stop Prioritizing. Start Executing.</h1>
+    <p>PrioBox is the simple, powerful SaaS tool that cuts through noise, visualizes true impact, and drives your team toward mission-critical goals.</p>
 
-        <a class="btn-primary" href="Priobox.solutions/app.html" onclick="trackHeroCTA()">Launch App</a>
+        <a class="btn-primary" href="Priobox.solutions/app.html" onclick="trackHeroCTA()">Start for Free →</a>
   </div>
 
-  <img src="images/hero-illustration.svg" alt="PrioBox Hero Illustration" style="max-width:420px;width:100%" />
+  <img src="images/hero-illustration.svg" alt="PrioBox Hero Illustration" style="max-width:480px;width:100%" />
 </section>
-
----
 
 <section id="testimonials">
-    <h3>Trusted by early access teams.</h3>
-    <p>"PrioBox cut our distraction time by 30% and brought instant clarity to our roadmap. It's the only tool we use for deep work prioritization."</p>
-    <p style="font-style:normal; margin-top:.5rem; font-weight:600">— Sarah L., Product Manager, TechCorp</p>
+    <h3>Join the high-performing teams already maximizing their output.</h3>
+    <div class="testimonial-box">
+        <p>"PrioBox cut our distraction time by 30% and brought instant clarity to our roadmap. It's the only tool we trust for high-impact prioritization."</p>
+        <small>— Sarah L., Product Manager, TechCorp</small>
+    </div>
 </section>
 
----
+<section id="cta-block">
+    <h2>Ready to focus? Try PrioBox now.</h2>
+    <p style="max-width: 600px; margin: 0 auto; color: #ccc;">No credit card required. Instantly visualize your priorities and get started on your highest-impact tasks today.</p>
+    <a class="btn-primary" href="Priobox.solutions/app.html" onclick="trackHeroCTA()">Launch App Instantly</a>
+</section>
 
 <section id="contact-section">
-  <h2>Need Help or Access? Contact Us.</h2>
+  <h2>Need Sales or Technical Support?</h2>
+  <p style="text-align:center; max-width: 500px; margin: 0 auto 2rem; color: #555;">Use the form below if you need enterprise sales inquiries, technical support, or partnership questions.</p>
 
     <div id="success-box">🎉 Message sent successfully! We’ll reply soon.</div>
 
@@ -181,9 +197,9 @@
           <select name="topic" required>
             <option value="">Choose one...</option>
             <option>General Question</option>
-            <option>Partnership</option>
-            <option>Request Access</option>
-            <option>Support</option>
+            <option>Partnership/Sales Inquiry</option>
+            <option>Request Access/Pricing</option>
+            <option>Technical Support</option>
           </select>
         </label>
         <div class="error-message">Please select a topic.</div>
@@ -212,18 +228,22 @@
   </form>
 </section>
 
-<footer style="text-align:center;padding:40px 2rem;color:#777">
-    <div class="footer-cta">
-    <p style="margin-bottom: 1rem; color: #333; font-weight: 600;">Ready to prioritize your work?</p>
-    <a class="btn-primary" href="Priobox.solutions/app.html" onclick="trackHeroCTA()">Launch PrioBox</a>
+<footer>
+  <div class="footer-cta">
+    <p style="margin-bottom: 1rem; color: #fff; font-weight: 600;">Still evaluating? Launch PrioBox to see its power.</p>
+    <a class="btn-primary" href="Priobox.solutions/app.html" onclick="trackHeroCTA()" style="background: #2ea043; color: #fff;">Launch App Now</a>
   </div>
 
-  <hr style="border:0; border-top:1px solid #eee; margin: 20px 0;">
+  <hr style="border:0; border-top:1px solid #333; margin: 40px 0 20px;">
 
-  © 2025 PrioBox • Built by 
-  <a href="mailto:DGSConsult@consultant.com">DGS Consulting</a>
-  <span style="margin-left:15px">|</span>
-  <a href="#" style="color:#777; margin-left:15px;">Privacy Policy</a>
+  <div style="font-size: 0.9rem;">
+    © 2025 PrioBox • Built by 
+    <a href="mailto:DGSConsult@consultant.com" style="color: #aaa;">DGS Consulting</a>
+    <span style="margin-left:15px">|</span>
+    <a href="#" style="color: #aaa; margin-left:15px;">Terms of Service</a>
+    <span style="margin-left:15px">|</span>
+    <a href="#" style="color: #aaa; margin-left:15px;">Privacy Policy</a>
+  </div>
 </footer>
 
 <script>
@@ -239,14 +259,18 @@ function validateStep(currentStep) {
         const fieldGroup = field.closest('.field-group');
         const errorMessage = fieldGroup.querySelector('.error-message');
 
-        if (!field.value || (field.type === 'email' && !field.checkValidity())) {
+        // Check if required fields are empty or if email format is invalid
+        const isSelect = field.tagName.toLowerCase() === 'select';
+        const isInvalid = !field.value || (isSelect && field.value === "") || (field.type === 'email' && !field.checkValidity());
+
+        if (isInvalid) {
             isValid = false;
             if (errorMessage) {
-                errorMessage.style.display = 'block'; // SHOWS the error message
+                errorMessage.style.display = 'block'; 
             }
         } else {
             if (errorMessage) {
-                errorMessage.style.display = 'none';  // HIDES the error message
+                errorMessage.style.display = 'none'; 
             }
         }
     });
