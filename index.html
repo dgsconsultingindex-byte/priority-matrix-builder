@@ -9,341 +9,646 @@
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3TQ4METDYF"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){ dataLayer.push(arguments); }
-  gtag('js', new Date());
-  gtag('config', 'G-3TQ4METDYF');
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'G-3TQ4METDYF');
 </script>
 
 <script>
-  // Hero CTA button click
-  function trackHeroCTA() {
-    gtag('event', 'cta_clicked', {
-      event_category: 'engagement',
-      event_label: 'Hero – Launch App' 
-    });
-  }
+  function trackHeroCTA() {
+    gtag('event', 'cta_clicked', {
+      event_category: 'engagement',
+      event_label: 'Hero – Launch App' 
+    });
+  }
 
-  // Contact section became visible
-  function trackOpenContact() {
-    gtag('event', 'contact_opened', {
-      event_category: 'engagement',
-      event_label: 'Contact Section Viewed'
-    });
-  }
+  function trackOpenContact() {
+    gtag('event', 'contact_opened', {
+      event_category: 'engagement',
+      event_label: 'Contact Section Viewed'
+    });
+  }
 
-  // Form step navigation
-  function trackFormStep(stepNumber) {
-    gtag('event', 'contact_form_step', {
-      event_category: 'form_progress',
-      event_label: 'Step ' + stepNumber
-    });
-  }
+  function trackFormStep(stepNumber) {
+    gtag('event', 'contact_form_step', {
+      event_category: 'form_progress',
+      event_label: 'Step ' + stepNumber
+    });
+  }
 
-  // Form successfully submitted
-  function trackFormSubmitted() {
-    gtag('event', 'contact_form_submitted', {
-      event_category: 'lead',
-      event_label: 'Formspree Submission Success'
-    });
-  }
+  function trackFormSubmitted() {
+    gtag('event', 'contact_form_submitted', {
+      event_category: 'lead',
+      event_label: 'Formspree Submission Success'
+    });
+  }
 </script>
 
 <style>
-  /* 1. SAAS STYLE REFINEMENTS */
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{
-    font-family: 'Inter', sans-serif; 
-    background:#fff; /* Clean white background */
-    color:#111;line-height:1.6
-  }
-  header{
-    position:fixed;top:0;left:0;right:0;padding:1rem 2rem;
-    background:rgba(255,255,255,.95); /* Slightly less blur, cleaner look */
-    backdrop-filter:blur(8px);
-    display:flex;justify-content:space-between;align-items:center;
-    border-bottom:none; /* Removed bottom border for cleaner top edge */
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05); /* subtle shadow */
-    z-index:40
-  }
-  .logo{font-weight:800;font-size:1.4rem;color:#2d4a22} /* Bolder logo */
-  nav{display:flex;align-items:center} 
-  nav a{margin-left:1.5rem;color:#444;text-decoration:none;font-weight:600}
-  
-  /* 2. HERO SECTION STYLING */
-  .hero{padding:160px 2rem 100px;max-width:1200px;margin:0 auto;display:flex;gap:4rem;align-items:center}
-  .hero-text h1{
-    font-size:3.5rem; /* Larger, bolder headline */
-    font-weight: 800;
-    line-height: 1.1;
-    margin-bottom:1rem;
-  }
-  .hero-text p {
-    font-size: 1.25rem;
-    color: #555;
-    max-width: 60ch;
-    margin-bottom: 2rem;
-  }
-  .btn-primary{
-    background:#2ea043;color:#fff;
-    padding:.9rem 1.8rem; /* Bigger, bolder button */
-    border-radius:10px;
-    text-decoration:none;font-weight:700;transition:0.3s; white-space: nowrap;
-    box-shadow: 0 4px 12px rgba(46, 160, 67, 0.3); /* Subtle button shadow */
-  }
-  .btn-primary:hover{background:#268a39; box-shadow: 0 6px 18px rgba(46, 160, 67, 0.4);}
-  
-  /* 3. TESTIMONIALS/SOCIAL PROOF STYLING */
-  #testimonials{padding:60px 2rem;text-align:center;background:#f9fafb; border-top: 1px solid #eee;}
-  #testimonials h3{font-size:1.1rem;color:#2d4a22;margin-bottom:2rem;font-weight:700;}
-  .testimonial-box{
-    max-width: 700px; margin: 0 auto; padding: 2rem; background: #fff; border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
-  }
-  .testimonial-box p{font-style:italic;font-size: 1.1rem; color:#333}
-  .testimonial-box small{display: block; margin-top: 1rem; font-weight: 600; color: #555;}
-  
-  /* 4. PRICING/MAIN CTA BLOCK STYLING */
-  #cta-block {padding: 80px 2rem; text-align: center; background: #2d4a22; color: #fff;}
-  #cta-block h2 {font-size: 2.5rem; margin-bottom: 1rem; font-weight: 800;}
-  #cta-block .btn-primary {
-    background: #fff; 
-    color: #2d4a22; 
-    box-shadow: none; 
-    margin-top: 2rem;
-    padding: 1rem 2rem; /* Slightly larger button */
-  }
-  #cta-block .btn-primary:hover {background: #eee; color: #2d4a22;}
+  /* BASE STYLES */
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family: 'Inter', sans-serif; 
+    background:#fff;
+    color:#111;
+    line-height:1.6;
+    overflow-x: hidden;
+  }
+  
+  /* HEADER */
+  header{
+    position:fixed;top:0;left:0;right:0;padding:1rem 2rem;
+    background:rgba(255,255,255,.95);
+    backdrop-filter:blur(8px);
+    display:flex;justify-content:space-between;align-items:center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    z-index:40;
+  }
+  .logo{font-weight:800;font-size:1.4rem;color:#2d4a22}
+  nav{display:flex;align-items:center;gap:1rem;} 
+  nav a{color:#444;text-decoration:none;font-weight:600;white-space:nowrap;}
+  
+  /* HERO SECTION */
+  .hero{
+    padding:160px 2rem 100px;
+    max-width:1200px;
+    margin:0 auto;
+    display:flex;
+    gap:4rem;
+    align-items:center;
+  }
+  .hero-text h1{
+    font-size:3.5rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom:1rem;
+  }
+  .hero-text p {
+    font-size: 1.25rem;
+    color: #555;
+    max-width: 60ch;
+    margin-bottom: 2rem;
+  }
+  .btn-primary{
+    display:inline-block;
+    background:#2ea043;
+    color:#fff;
+    padding:.9rem 1.8rem;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:700;
+    transition:0.3s;
+    white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(46, 160, 67, 0.3);
+    border:none;
+    cursor:pointer;
+  }
+  .btn-primary:hover{background:#268a39; box-shadow: 0 6px 18px rgba(46, 160, 67, 0.4);}
+  
+  /* FEATURES SECTION */
+  #features{
+    padding:80px 2rem;
+    background:#f9fafb;
+    border-top: 1px solid #eee;
+  }
+  #features h2{
+    text-align:center;
+    font-size:2.5rem;
+    margin-bottom:3rem;
+    font-weight:800;
+    color:#222;
+  }
+  .features-grid{
+    max-width:1200px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+    gap:2rem;
+  }
+  .feature-card{
+    background:#fff;
+    padding:2rem;
+    border-radius:12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    transition:0.3s;
+  }
+  .feature-card:hover{
+    transform:translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  }
+  .feature-icon{
+    font-size:2.5rem;
+    margin-bottom:1rem;
+  }
+  .feature-card h3{
+    font-size:1.3rem;
+    margin-bottom:0.75rem;
+    color:#2d4a22;
+    font-weight:700;
+  }
+  .feature-card p{
+    color:#666;
+    line-height:1.7;
+  }
+  
+  /* TESTIMONIALS */
+  #testimonials{
+    padding:80px 2rem;
+    text-align:center;
+    background:#fff;
+    border-top: 1px solid #eee;
+  }
+  #testimonials h3{
+    font-size:1.3rem;
+    color:#2d4a22;
+    margin-bottom:3rem;
+    font-weight:700;
+  }
+  .testimonials-grid{
+    max-width:1200px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));
+    gap:2rem;
+  }
+  .testimonial-box{
+    padding: 2rem;
+    background: #f9fafb;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    transition:0.3s;
+  }
+  .testimonial-box:hover{
+    transform:translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  }
+  .testimonial-box p{
+    font-style:italic;
+    font-size: 1rem;
+    color:#333;
+    line-height:1.7;
+  }
+  .testimonial-box small{
+    display: block;
+    margin-top: 1rem;
+    font-weight: 600;
+    color: #2d4a22;
+  }
+  
+  /* CTA BLOCK */
+  #cta-block {
+    padding: 80px 2rem;
+    text-align: center;
+    background: #2d4a22;
+    color: #fff;
+  }
+  #cta-block h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    font-weight: 800;
+  }
+  #cta-block .btn-primary {
+    background: #fff; 
+    color: #2d4a22; 
+    box-shadow: none; 
+    margin-top: 2rem;
+    padding: 1rem 2rem;
+  }
+  #cta-block .btn-primary:hover {
+    background: #eee;
+    color: #2d4a22;
+  }
 
-  /* 5. CONTACT SECTION STYLING */
-  #contact-section {padding:80px 2rem;background:#fff; border-top: 1px solid #eee;} 
-  #contact-section h2{text-align:center;margin-bottom:1rem;font-size:2rem; font-weight: 700; color: #222;}
+  /* CONTACT SECTION */
+  #contact-section {
+    padding:80px 2rem;
+    background:#fff;
+    border-top: 1px solid #eee;
+  } 
+  #contact-section h2{
+    text-align:center;
+    margin-bottom:1rem;
+    font-size:2rem;
+    font-weight: 700;
+    color: #222;
+  }
 
-  /* Form Styling (Minor Adjustments) */
-  #msform{max-width:480px;margin:0 auto;background:#f9fafb;padding:2rem;border-radius:16px;box-shadow:0 10px 28px rgba(0,0,0,.04)}
-  input, textarea, select{border-radius:6px; background: #fff;}
-  .error-message {color: #e3342f; font-size: 0.8rem; margin-top: 0.25rem; display: none;}
-  
-  /* Footer Styling */
-  footer {padding: 60px 2rem 30px; background: #111; color: #aaa; text-align: center;}
-  footer a {color: #ccc; text-decoration: none; margin-left: 10px;}
-  .footer-cta {margin-bottom: 40px;}
-  .footer-cta p {color: #fff;}
+  /* SUCCESS BOX */
+  #success-box {
+    display: none;
+    background: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+    padding: 1.5rem;
+    border-radius: 12px;
+    max-width: 480px;
+    margin: 0 auto 2rem;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
 
-  /* Honeypot field */
-  .hp{display:none !important}
+  /* FORM STYLING */
+  #msform{
+    max-width:480px;
+    margin:0 auto;
+    background:#f9fafb;
+    padding:2rem;
+    border-radius:16px;
+    box-shadow:0 10px 28px rgba(0,0,0,.04);
+  }
+  fieldset{
+    border:0;
+    padding:0;
+    display:none;
+  }
+  fieldset.active{
+    display:block;
+  }
+  .field-group{
+    margin-bottom:1.5rem;
+  }
+  label{
+    display:block;
+    font-weight:600;
+    margin-bottom:0.5rem;
+    color:#333;
+  }
+  input, textarea, select{
+    width:100%;
+    padding:0.75rem;
+    border:1px solid #ddd;
+    border-radius:6px;
+    background: #fff;
+    font-family:inherit;
+    font-size:1rem;
+    transition:0.2s;
+  }
+  input:focus, textarea:focus, select:focus{
+    outline:none;
+    border-color:#2ea043;
+    box-shadow:0 0 0 3px rgba(46,160,67,0.1);
+  }
+  .error-message {
+    color: #e3342f;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    display: none;
+  }
+  .btn{
+    padding:0.75rem 1.5rem;
+    border:none;
+    border-radius:8px;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+    font-size:1rem;
+  }
+  .btn-next, .btn-submit{
+    background:#2ea043;
+    color:#fff;
+    width:100%;
+    margin-top:1rem;
+  }
+  .btn-next:hover, .btn-submit:hover{
+    background:#268a39;
+  }
+  .btn-back{
+    background:#e0e0e0;
+    color:#333;
+    margin-right:0.5rem;
+  }
+  .btn-back:hover{
+    background:#d0d0d0;
+  }
+  
+  /* FOOTER */
+  footer {
+    padding: 60px 2rem 30px;
+    background: #111;
+    color: #aaa;
+    text-align: center;
+  }
+  footer a {
+    color: #ccc;
+    text-decoration: none;
+    margin:0 10px;
+    transition:0.3s;
+  }
+  footer a:hover{
+    color:#fff;
+  }
+  .footer-cta {
+    margin-bottom: 40px;
+  }
+  .footer-cta p {
+    color: #fff;
+  }
+
+  /* UTILITY */
+  .hp{display:none !important}
+  
+  /* MOBILE RESPONSIVENESS */
+  @media (max-width: 768px) {
+    header{
+      padding:1rem;
+      flex-wrap:wrap;
+    }
+    nav{
+      gap:0.5rem;
+    }
+    nav a{
+      font-size:0.9rem;
+    }
+    
+    .hero {
+      flex-direction: column;
+      padding: 120px 1.5rem 60px;
+      gap: 2rem;
+      text-align:center;
+    }
+    
+    .hero-text h1 {
+      font-size: 2.2rem;
+    }
+    
+    .hero-text p{
+      font-size:1.1rem;
+    }
+    
+    #features h2,
+    #cta-block h2 {
+      font-size: 1.8rem;
+    }
+    
+    .features-grid{
+      grid-template-columns:1fr;
+    }
+    
+    .testimonials-grid{
+      grid-template-columns:1fr;
+    }
+    
+    #msform{
+      padding:1.5rem;
+    }
+  }
+  
+  @media (max-width: 480px){
+    .hero-text h1{
+      font-size:1.8rem;
+    }
+    .btn-primary{
+      padding:0.75rem 1.5rem;
+      font-size:0.95rem;
+    }
+  }
 </style>
 </head>
 
 <body>
 
 <header>
-  <a href="Priobox.solutions/app.html" class="logo" style="text-decoration: none;">PrioBox</a>
-  <nav>
-    <a href="#contact-section">Support</a>
-        <a class="btn-primary" href="Priobox.solutions/app.html" onclick="trackHeroCTA()">Launch App</a>
-  </nav>
+  <a href="./app.html" class="logo" style="text-decoration: none;">PrioBox</a>
+  <nav>
+    <a href="#features">Features</a>
+    <a href="#contact-section">Support</a>
+    <a class="btn-primary" href="./app.html" onclick="trackHeroCTA()">Launch App</a>
+  </nav>
 </header>
 
 <section class="hero">
-  <div class="hero-text">
-    <h1>Stop Prioritizing. Start Executing.</h1>
-    <p>PrioBox is the simple, powerful SaaS tool that cuts through noise, visualizes true impact, and drives your team toward mission-critical goals.</p>
+  <div class="hero-text">
+    <h1>Stop Prioritizing. Start Executing.</h1>
+    <p>PrioBox is the simple, powerful SaaS tool that cuts through noise, visualizes true impact, and drives your team toward mission-critical goals.</p>
+    <a class="btn-primary" href="./app.html" onclick="trackHeroCTA()">Start for Free →</a>
+  </div>
+  <img src="images/hero-illustration.svg" alt="PrioBox Hero Illustration" style="max-width:480px;width:100%" onerror="this.style.display='none'" />
+</section>
 
-        <a class="btn-primary" href="Priobox.solutions/app.html" onclick="trackHeroCTA()">Start for Free →</a>
-  </div>
-
-  <img src="images/hero-illustration.svg" alt="PrioBox Hero Illustration" style="max-width:480px;width:100%" />
+<section id="features">
+  <h2>Built for High-Performance Teams</h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🎯</div>
+      <h3>Visual Priority Matrix</h3>
+      <p>Instantly see what matters most with our intuitive impact vs. effort visualization. No more guesswork.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h3>Real-Time Collaboration</h3>
+      <p>Your entire team stays aligned with live updates and shared priority boards. Work together, execute faster.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📊</div>
+      <h3>Data-Driven Insights</h3>
+      <p>Track completion rates and measure impact over time. Make better decisions with clear analytics.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔗</div>
+      <h3>Seamless Integrations</h3>
+      <p>Connect with your existing tools. Sync with Slack, Jira, Asana, and more in just a few clicks.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🚀</div>
+      <h3>Zero Learning Curve</h3>
+      <p>Start prioritizing in minutes, not hours. Clean interface designed for speed and simplicity.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔒</div>
+      <h3>Enterprise Security</h3>
+      <p>Bank-level encryption, SOC 2 compliant, and GDPR ready. Your data stays secure, always.</p>
+    </div>
+  </div>
 </section>
 
 <section id="testimonials">
-    <h3>Join the high-performing teams already maximizing their output.</h3>
+  <h3>Join the high-performing teams already maximizing their output.</h3>
+  <div class="testimonials-grid">
     <div class="testimonial-box">
-        <p>"PrioBox cut our distraction time by 30% and brought instant clarity to our roadmap. It's the only tool we trust for high-impact prioritization."</p>
-        <small>— Sarah L., Product Manager, TechCorp</small>
+      <p>"PrioBox cut our distraction time by 30% and brought instant clarity to our roadmap. It's the only tool we trust for high-impact prioritization."</p>
+      <small>— Sarah L., Product Manager, TechCorp</small>
     </div>
+    <div class="testimonial-box">
+      <p>"We went from endless meetings to clear action in days. PrioBox helped us ship our biggest feature 3 weeks ahead of schedule."</p>
+      <small>— Marcus T., Engineering Lead, DataFlow</small>
+    </div>
+    <div class="testimonial-box">
+      <p>"Finally, a tool that our entire executive team actually uses daily. PrioBox transformed how we allocate resources and make strategic decisions."</p>
+      <small>— Jennifer K., VP Operations, GrowthLabs</small>
+    </div>
+  </div>
 </section>
 
 <section id="cta-block">
-    <h2>Ready to focus? Try PrioBox now.</h2>
-    <p style="max-width: 600px; margin: 0 auto; color: #ccc;">No credit card required. Instantly visualize your priorities and get started on your highest-impact tasks today.</p>
-    <a class="btn-primary" href="Priobox.solutions/app.html" onclick="trackHeroCTA()">Launch App Instantly</a>
+  <h2>Ready to focus? Try PrioBox now.</h2>
+  <p style="max-width: 600px; margin: 0 auto; color: #ccc;">No credit card required. Instantly visualize your priorities and get started on your highest-impact tasks today.</p>
+  <a class="btn-primary" href="./app.html" onclick="trackHeroCTA()">Launch App Instantly</a>
 </section>
 
 <section id="contact-section">
-  <h2>Need Sales or Technical Support?</h2>
-  <p style="text-align:center; max-width: 500px; margin: 0 auto 2rem; color: #555;">Use the form below if you need enterprise sales inquiries, technical support, or partnership questions.</p>
+  <h2>Need Sales or Technical Support?</h2>
+  <p style="text-align:center; max-width: 500px; margin: 0 auto 2rem; color: #555;">Use the form below for enterprise sales inquiries, technical support, or partnership questions.</p>
 
-    <div id="success-box">🎉 Message sent successfully! We’ll reply soon.</div>
+  <div id="success-box">🎉 Message sent successfully! We'll reply soon.</div>
 
-    <form id="msform" action="https://formspree.io/f/xyzleapr" method="POST">
+  <form id="msform" action="https://formspree.io/f/xyzleapr" method="POST">
+    <input class="hp" type="text" name="_gotcha">
 
-    <input class="hp" type="text" name="_gotcha">
+    <fieldset class="active">
+      <div class="field-group">
+        <label>Your Name
+          <input type="text" name="name" required>
+        </label>
+        <div class="error-message">Name is required.</div>
+      </div>
+      <div class="field-group">
+        <label>Your Email
+          <input type="email" name="email" required>
+        </label>
+        <div class="error-message">Valid email is required.</div>
+      </div>
+      <button type="button" class="btn btn-next" onclick="nextStep()">Next</button>
+    </fieldset>
 
-        <fieldset class="active">
-      <div class="field-group">
-        <label>Your Name
-          <input type="text" name="name" required>
-        </label>
-        <div class="error-message">Name is required.</div>
-      </div>
-      <div class="field-group">
-        <label>Your Email
-          <input type="email" name="email" required>
-        </label>
-        <div class="error-message">Email is required.</div>
-      </div>
+    <fieldset>
+      <div class="field-group">
+        <label>What can we help you with?
+          <select name="topic" required>
+            <option value="">Choose one...</option>
+            <option>General Question</option>
+            <option>Partnership/Sales Inquiry</option>
+            <option>Request Access/Pricing</option>
+            <option>Technical Support</option>
+          </select>
+        </label>
+        <div class="error-message">Please select a topic.</div>
+      </div>
+      <button type="button" class="btn btn-back" onclick="prevStep()">Back</button>
+      <button type="button" class="btn btn-next" onclick="nextStep()">Next</button>
+    </fieldset>
 
-      <button type="button" class="btn btn-next" onclick="nextStep()">Next</button>
-    </fieldset>
-
-        <fieldset>
-      <div class="field-group">
-        <label>What can we help you with?
-          <select name="topic" required>
-            <option value="">Choose one...</option>
-            <option>General Question</option>
-            <option>Partnership/Sales Inquiry</option>
-            <option>Request Access/Pricing</option>
-            <option>Technical Support</option>
-          </select>
-        </label>
-        <div class="error-message">Please select a topic.</div>
-      </div>
-
-      <button type="button" class="btn btn-back" onclick="prevStep()">Back</button>
-      <button type="button" class="btn btn-next" onclick="nextStep()">Next</button>
-    </fieldset>
-
-        <fieldset>
-      <div class="field-group">
-        <label>Your Message
-          <textarea name="message" rows="5" required></textarea>
-        </label>
-        <div class="error-message">Message is required.</div>
-      </div>
-
-      <p style="font-size:0.85rem; color:#777; margin-top:1rem;">
-        We respect your privacy. Your email will only be used to reply to your message.
-      </p>
-
-      <button type="button" class="btn btn-back" onclick="prevStep()">Back</button>
-      <button type="submit" class="btn btn-submit">Send Message</button>
-    </fieldset>
-
-  </form>
+    <fieldset>
+      <div class="field-group">
+        <label>Your Message
+          <textarea name="message" rows="5" required></textarea>
+        </label>
+        <div class="error-message">Message is required.</div>
+      </div>
+      <p style="font-size:0.85rem; color:#777; margin-top:1rem;">
+        We respect your privacy. Your email will only be used to reply to your message.
+      </p>
+      <button type="button" class="btn btn-back" onclick="prevStep()">Back</button>
+      <button type="submit" class="btn btn-submit">Send Message</button>
+    </fieldset>
+  </form>
 </section>
 
 <footer>
-  <div class="footer-cta">
-    <p style="margin-bottom: 1rem; color: #fff; font-weight: 600;">Still evaluating? Launch PrioBox to see its power.</p>
-        <a class="btn-primary" href="Priobox.solutions/app.html" onclick="trackHeroCTA()">Launch App Now</a>
-  </div>
+  <div class="footer-cta">
+    <p style="margin-bottom: 1rem; color: #fff; font-weight: 600;">Still evaluating? Launch PrioBox to see its power.</p>
+    <a class="btn-primary" href="./app.html" onclick="trackHeroCTA()">Launch App Now</a>
+  </div>
 
-  <hr style="border:0; border-top:1px solid #333; margin: 40px 0 20px;">
+  <hr style="border:0; border-top:1px solid #333; margin: 40px 0 20px;">
 
-  <div style="font-size: 0.9rem;">
-    © 2025 PrioBox • Built by 
-    <a href="mailto:DGSConsult@consultant.com" style="color: #aaa;">DGS Consulting</a>
-    <span style="margin-left:15px">|</span>
-    <a href="#" style="color: #aaa; margin-left:15px;">Terms of Service</a>
-    <span style="margin-left:15px">|</span>
-    <a href="#" style="color: #aaa; margin-left:15px;">Privacy Policy</a>
-  </div>
+  <div style="font-size: 0.9rem;">
+    © 2025 PrioBox • Built by 
+    <a href="mailto:DGSConsult@consultant.com">DGS Consulting</a>
+    <span>|</span>
+    <a href="./terms.html">Terms of Service</a>
+    <span>|</span>
+    <a href="./privacy.html">Privacy Policy</a>
+  </div>
 </footer>
 
 <script>
 let step = 0;
 const steps = document.querySelectorAll("fieldset");
 
-// Function to check validation and display errors
 function validateStep(currentStep) {
-    const fields = currentStep.querySelectorAll('[required]');
-    let isValid = true;
+  const fields = currentStep.querySelectorAll('[required]');
+  let isValid = true;
 
-    fields.forEach(field => {
-        const fieldGroup = field.closest('.field-group');
-        const errorMessage = fieldGroup.querySelector('.error-message');
+  fields.forEach(field => {
+    const fieldGroup = field.closest('.field-group');
+    const errorMessage = fieldGroup.querySelector('.error-message');
 
-        // Check if required fields are empty or if email format is invalid
-        const isSelect = field.tagName.toLowerCase() === 'select';
-        const isInvalid = !field.value || (isSelect && field.value === "") || (field.type === 'email' && !field.checkValidity());
+    const isSelect = field.tagName.toLowerCase() === 'select';
+    const isInvalid = !field.value || (isSelect && field.value === "") || (field.type === 'email' && !field.checkValidity());
 
-        if (isInvalid) {
-            isValid = false;
-            if (errorMessage) {
-                errorMessage.style.display = 'block'; 
-            }
-        } else {
-            if (errorMessage) {
-                errorMessage.style.display = 'none'; 
-            }
-        }
-    });
-    return isValid;
+    if (isInvalid) {
+      isValid = false;
+      if (errorMessage) {
+        errorMessage.style.display = 'block'; 
+      }
+    } else {
+      if (errorMessage) {
+        errorMessage.style.display = 'none'; 
+      }
+    }
+  });
+  return isValid;
 }
 
 function showStep(n){
-  steps.forEach((fs,i)=>fs.classList.toggle("active", i===n));
+  steps.forEach((fs,i)=>fs.classList.toggle("active", i===n));
 }
 
 function nextStep(){
   const currentStepElement = steps[step];
   
-  // Use new validation function
   if (!validateStep(currentStepElement)) {
-    return; // Stop if validation fails
+    return;
   }
 
-  if(step < steps.length - 1){
-    step++;
-    showStep(step);
-    trackFormStep(step + 1); // GA tracking
-  }
+  if(step < steps.length - 1){
+    step++;
+    showStep(step);
+    trackFormStep(step + 1);
+  }
 }
 
 function prevStep(){
-  if(step > 0){
-    step--;
-    showStep(step);
-    trackFormStep(step + 1); // GA tracking backwards
-  }
+  if(step > 0){
+    step--;
+    showStep(step);
+    trackFormStep(step + 1);
+  }
 }
 
-// Contact section viewed (scroll tracking)
 const contactObserver = new IntersectionObserver(entries => {
-  if(entries[0].isIntersecting){
-    trackOpenContact();
-    contactObserver.disconnect();
-  }
+  if(entries[0].isIntersecting){
+    trackOpenContact();
+    contactObserver.disconnect();
+  }
 });
 contactObserver.observe(document.querySelector('#contact-section'));
 
-// Form submission handler
 document.getElementById("msform").addEventListener("submit", async function(e){
-  e.preventDefault();
+  e.preventDefault();
 
   const form = e.target;
   const lastStepElement = steps[steps.length - 1];
 
-  // Final validation check before submission
   if (!validateStep(lastStepElement)) {
     return;
   }
 
-  const res = await fetch(form.action, {
-    method: "POST",
-    body: new FormData(form),
-    headers: { Accept: "application/json" }
-  });
+  const res = await fetch(form.action, {
+    method: "POST",
+    body: new FormData(form),
+    headers: { Accept: "application/json" }
+  });
 
-  if(res.ok){
-    trackFormSubmitted();
-    form.style.display = "none";
-    document.getElementById("success-box").style.display = "block";
-  } else {
-    alert("There was an error. Please try again.");
-  }
+  if(res.ok){
+    trackFormSubmitted();
+    form.style.display = "none";
+    document.getElementById("success-box").style.display = "block";
+  } else {
+    alert("There was an error. Please try again.");
+  }
 });
 </script>
 
