@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Slack Integration Guide - PrioBox</title>
+<link rel="icon" type="image/png" href="images/logo-icon-t.png" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family: 'Inter', sans-serif; 
+    background:#fff;
+    color:#111;
+    line-height:1.8;
+  }
+  
+  header{
+    position:fixed;top:0;left:0;right:0;padding:1rem 2rem;
+    background:rgba(255,255,255,.95);
+    backdrop-filter:blur(8px);
+    display:flex;justify-content:space-between;align-items:center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    z-index:40;
+  }
+  .logo{font-weight:800;font-size:1.4rem;color:#2d4a22}
+  nav{display:flex;align-items:center;gap:1rem;} 
+  nav a{color:#444;text-decoration:none;font-weight:600;}
+  .btn-primary{
+    display:inline-block;
+    background:#2ea043;
+    color:#fff;
+    padding:.75rem 1.5rem;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:700;
+    transition:0.3s;
+  }
+  .btn-primary:hover{background:#268a39;}
+  
+  .guide-container{
+    max-width:800px;
+    margin:0 auto;
+    padding:140px 2rem 80px;
+  }
+  
+  .guide-header{
+    text-align:center;
+    margin-bottom:3rem;
+  }
+  .guide-header h1{
+    font-size:2.5rem;
+    font-weight:800;
+    color:#2d4a22;
+    margin-bottom:1rem;
+  }
+  .guide-header p{
+    font-size:1.1rem;
+    color:#555;
+  }
+  
+  .time-badge{
+    display:inline-block;
+    background:#e8f5e9;
+    color:#2d4a22;
+    padding:0.5rem 1rem;
+    border-radius:20px;
+    font-weight:600;
+    font-size:0.9rem;
+    margin:1rem 0;
+  }
+  
+  .section{
+    margin:3rem 0;
+  }
+  .section h2{
+    font-size:1.8rem;
+    font-weight:800;
+    color:#2d4a22;
+    margin-bottom:1.5rem;
+    padding-bottom:0.5rem;
+    border-bottom:3px solid #2ea043;
+  }
+  .section h3{
+    font-size:1.4rem;
+    font-weight:700;
+    color:#2d4a22;
+    margin:2rem 0 1rem;
+  }
+  .section h4{
+    font-size:1.1rem;
+    font-weight:700;
+    color:#444;
+    margin:1.5rem 0 0.5rem;
+  }
+  
+  .step-box{
+    background:#f9fafb;
+    padding:2rem;
+    border-radius:12px;
+    margin:1.5rem 0;
+    border-left:4px solid #2ea043;
+  }
+  .step-box h4{
+    color:#2ea043;
+    margin-top:0;
+  }
+  
+  .instruction-list{
+    margin:1rem 0;
+  }
+  .instruction-list li{
+    margin:0.75rem 0;
+    padding-left:1.5rem;
+    position:relative;
+  }
+  .instruction-list li:before{
+    content:"→";
+    position:absolute;
+    left:0;
+    color:#2ea043;
+    font-weight:bold;
+  }
+  
+  .alert{
+    background:#fff3cd;
+    border-left:4px solid:#ffc107;
+    padding:1.5rem;
+    border-radius:8px;
+    margin:1.5rem 0;
+  }
+  .alert h4{
+    color:#856404;
+    margin-top:0;
+  }
+  
+  .tip{
+    background:#e8f5e9;
+    border-left:4px solid:#2ea043;
+    padding:1.5rem;
+    border-radius:8px;
+    margin:1.5rem 0;
+  }
+  .tip h4{
+    color:#2d4a22;
+    margin-top:0;
+  }
+  
+  .code-box{
+    background:#2d2d2d;
+    color:#f8f8f2;
+    padding:1.5rem;
+    border-radius:8px;
+    overflow-x:auto;
+    font-family:'Courier New', monospace;
+    margin:1rem 0;
+  }
+  
+  .screenshot-placeholder{
+    background:#f0f4f8;
+    border:2px dashed #ccc;
+    border-radius:8px;
+    padding:3rem;
+    text-align:center;
+    color:#666;
+    margin:1.5rem 0;
+  }
+  
+  .checklist{
+    background:#fff;
+    border:1px solid #ddd;
+    border-radius:8px;
+    padding:1.5rem;
+  }
+  .checklist li{
+    list-style:none;
+    padding:0.5rem 0;
+  }
+  .checklist li:before{
+    content:"☐ ";
+    color:#2ea043;
+    font-size:1.2rem;
+    margin-right:0.5rem;
+  }
+  
+  footer {
+    padding: 40px 2rem;
+    background: #111;
+    color: #aaa;
+    text-align: center;
+    font-size:0.9rem;
+  }
+  footer a {
+    color: #ccc;
+    text-decoration: none;
+    margin:0 10px;
+  }
+  footer a:hover{color:#fff;}
+  
+  a{color:#2ea043;text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  
+  @media (max-width: 768px) {
+    header{padding:1rem;}
+    .guide-container{padding:120px 1.5rem 60px;}
+    .guide-header h1{font-size:2rem;}
+  }
+</style>
+</head>
+
+<body>
+
+<header>
+  <a href="./index.html" class="logo" style="text-decoration: none;">PrioBox</a>
+  <nav>
+    <a href="./index.html">Home</a>
+    <a href="./integrations-slack.html">Back to Setup</a>
+    <a class="btn-primary" href="./app.html">Launch App</a>
+  </nav>
+</header>
+
+<div class="guide-container">
+  
+  <div class="guide-header">
+    <h1>Complete Slack Integration Guide</h1>
+    <p>Step-by-step instructions to connect PrioBox with your Slack workspace</p>
+    <div class="time-badge">⏱️ Estimated Time: 15-20 minutes</div>
+  </div>
+
+  <div class="section">
+    <h2>What You'll Achieve</h2>
+    <p>By the end of this guide, you'll have:</p>
+    <ul class="instruction-list">
+      <li>Automatic Slack notifications when tasks are added to PrioBox</li>
+      <li>Real-time updates for your entire team</li>
+      <li>Customizable notification formats</li>
+      <li>Optional filters for high-priority items only</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Prerequisites</h2>
+    <ul class="checklist">
+      <li>Access to a Slack workspace (free or paid)</li>
+      <li>Permission to add apps to your Slack workspace</li>
+      <li>PrioBox data source (Google Sheets, Airtable, or similar)</li>
+      <li>10-20 minutes of uninterrupted time</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Part 1: Create Your Zapier Account</h2>
+    
+    <div class="step-box">
+      <h4>Step 1.1: Sign Up for Zapier</h4>
+      <ol class="instruction-list">
+        <li>Go to <a href="https://zapier.com" target="_blank">https://zapier.com</a></li>
+        <li>Click "Sign Up" in the top right corner</li>
+        <li>Enter your email address and create a password</li>
+        <li>Verify your email (check your inbox)</li>
+        <li>Sign in to your new Zapier account</li>
+      </ol>
+    </div>
+
+    <div class="tip">
+      <h4>💡 Tip: Use Your Work Email</h4>
+      <p>Sign up with the same email you use for Slack and Google Workspace. This makes connecting accounts easier later.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Part 2: Set Up Your First Zap</h2>
+    
+    <div class="step-box">
+      <h4>Step 2.1: Create a New Zap</h4>
+      <ol class="instruction-list">
+        <li>Click the orange "+ Create" button (left sidebar or top right)</li>
+        <li>You'll see the Zap editor with two main sections: Trigger and Action</li>
+        <li>At the top, rename your Zap to "PrioBox → Slack Notifications"</li>
+      </ol>
+    </div>
+
+    <div class="screenshot-placeholder">
+      📸 Screenshot: Zapier dashboard with "+ Create" button highlighted
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Part 3: Configure the Trigger (When This Happens...)</h2>
+    
+    <div class="step-box">
+      <h4>Step 3.1: Choose Trigger App</h4>
+      <ol class="instruction-list">
+        <li>Click on the "Trigger" section</li>
+        <li>Search for "Google Sheets" (or your data source)</li>
+        <li>Click on "Google Sheets"</li>
+      </ol>
+    </div>
+
+    <div class="step-box">
+      <h4>Step 3.2: Choose Trigger Event</h4>
+      <ol class="instruction-list">
+        <li>Select "New Spreadsheet Row" from the dropdown</li>
+        <li>Click "Continue"</li>
+      </ol>
+    </div>
+
+    <div class="step-box">
+      <h4>Step 3.3: Connect Google Account</h4>
+      <ol class="instruction-list">
+        <li>Click "Sign in to Google Sheets"</li>
+        <li>A popup window will appear</li>
+        <li>Choose your Google account</li>
+        <li>Click "Allow" to give Zapier permission to access your sheets</li>
+        <li>The popup closes and you return to Zapier</li>
+      </ol>
+    </div>
+
+    <div class="step-box">
+      <h4>Step 3.4: Configure Trigger Settings</h4>
+      <ol class="instruction-list">
+        <li><strong>Drive:</strong> Select "My Google Drive"</li>
+        <li><strong>Spreadsheet:</strong> Find and select your PrioBox spreadsheet</li>
+        <li><strong>Worksheet:</strong> Select the sheet tab (usually "Sheet1")</li>
+        <li><strong>Trigger Column:</strong> Leave blank (optional field)</li>
+        <li>Click "Continue"</li>
+      </ol>
+    </div>
+
+    <div class="alert">
+      <h4>⚠️ Important: Make Sure You Have Data</h4>
+      <p>Your Google Sheet should have at least one row of sample data before testing. Zapier needs to see your column structure.</p>
+    </div>
+
+    <div class="step-box">
+      <h4>Step 3.5: Test the Trigger</h4>
+      <ol class="instruction-list">
+        <li>Click "Test trigger"</li>
+        <li>Zapier will pull the most recent row from your sheet</li>
+        <li>You should see all your columns displayed (Task Name, Priority, etc.)</li>
+        <li>If successful, click "Continue"</li>
+      </ol>
+    </div>
+
+    <div class="screenshot-placeholder">
+      📸 Screenshot: Successful trigger test showing sample data
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Part 4: Configure the Action (Do This...)</h2>
+    
+    <div class="step-box">
+      <h4>Step 4.1: Choose Action App</h4>
+      <ol class="instruction-list">
+        <li>Click the "+" button or "Action" section</li>
+        <li>Search for "Slack"</li>
+        <li>Click on "Slack"</li>
+      </ol>
+    </div>
+
+    <div class="step-box">
+      <h4>Step 4.2: Choose Action Event</h4>
+      <ol class="instruction-list">
+        <li>Select "Send Channel Message"</li>
+        <li>Click "Continue"</li>
+      </ol>
+    </div>
+
+    <div class="step-box">
+      <h4>Step 4.3: Connect Slack Account</h4>
+      <ol class="instruction-list">
+        <li>Click "Sign in to Slack"</li>
+        <li>A popup appears showing your Slack workspaces</li>
+        <li>Choose the workspace where you want notifications</li>
+        <li>Click "Allow" to give Zapier permission</li>
+        <li>Return to Zapier</li>
+      </ol>
+    </div>
+
+    <div class="step-box">
+      <h4>Step 4.4: Design Your Notification Message</h4>
+      <p>This is where you customize what appears in Slack:</p>
+      
+      <ol class="instruction-list">
+        <li><strong>Channel:</strong> Select the channel (e.g., #priorities or #team-updates)</li>
+        <li><strong>Message Text:</strong> Use the template below</li>
+      </ol>
+
+      <h4>Recommended Message Template:</h4>
+      <div class="code-box">
+🎯 New Priority Task Added!
+
+*Task:* [Click to insert "Task Name"]
+*Description:* [Insert "Description"]
+*Priority Level:* [Insert "Priority Level"]
+*Impact Score:* [Insert "Impact Score"] / 10
+*Effort Score:* [Insert "Effort Score"] / 10
+*Assigned To:* [Insert "Assigned To"]
+
+📅 Created: [Insert "Date Created"]
+      </div>
+
+      <p><strong>How to insert data from your sheet:</strong></p>
+      <ol class="instruction-list">
+        <li>Click in the "Message Text" field</li>
+        <li>You'll see a "+ Insert Data" button appear</li>
+        <li>Click it to see all your Google Sheets columns</li>
+        <li>Click on a column name to insert it</li>
+        <li>It appears as a bubble/pill (e.g., "1. Task Name")</li>
+        <li>Repeat for each piece of data you want to include</li>
+      </ol>
+    </div>
+
+    <div class="tip">
+      <h4>💡 Customization Ideas</h4>
+      <ul class="instruction-list">
+        <li>Add emojis to make messages more visual (🔴 for high priority)</li>
+        <li>Use Slack markdown: *bold*, _italic_, `code`</li>
+        <li>Include links to PrioBox if you have a web app</li>
+        <li>@mention specific users with their Slack handles</li>
+      </ul>
+    </div>
+
+    <div class="step-box">
+      <h4>Step 4.5: Optional Settings</h4>
+      <ol class="instruction-list">
+        <li><strong>Bot Name:</strong> Enter "PrioBox" (this appears as the sender)</li>
+        <li><strong>Bot Icon:</strong> Enter an emoji like :dart: or :chart_with_upwards_trend:</li>
+        <li>Leave other settings as default</li>
+        <li>Click "Continue"</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Part 5: Test and Activate</h2>
+    
+    <div class="step-box">
+      <h4>Step 5.1: Send Test Notification</h4>
+      <ol class="instruction-list">
+        <li>Click "Test action" button</li>
+        <li>Zapier sends a test message to your Slack channel</li>
+        <li>Go to Slack and check the channel - you should see it!</li>
+        <li>If you see the message, click "Continue"</li>
+      </ol>
+    </div>
+
+    <div class="alert">
+      <h4>⚠️ Troubleshooting: No Message in Slack?</h4>
+      <ul class="instruction-list">
+        <li>Check you selected the correct channel</li>
+        <li>Verify you're looking at the right Slack workspace</li>
+        <li>Refresh Slack or check desktop app (not just browser)</li>
+        <li>Make sure the channel is public or you've invited the bot</li>
+      </ul>
+    </div>
+
+    <div class="step-box">
+      <h4>Step 5.2: Activate Your Zap</h4>
+      <ol class="instruction-list">
+        <li>Look for the toggle switch in the top right corner</li>
+        <li>Click it to turn your Zap "ON"</li>
+        <li>You'll see a confirmation message</li>
+        <li>Your Zap is now live! 🎉</li>
+      </ol>
+    </div>
+
+    <div class="step-box">
+      <h4>Step 5.3: Test with Real Data</h4>
+      <ol class="instruction-list">
+        <li>Go to your Google Sheet</li>
+        <li>Add a new row with test task data</li>
+        <li>Wait 1-5 minutes (Zapier checks every 15 minutes on free tier)</li>
+        <li>Check Slack - you should receive a notification!</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Part 6: Advanced Customization (Optional)</h2>
+    
+    <h3>Option 1: Filter for High-Priority Only</h3>
+    <div class="step-box">
+      <h4>Add a Filter Step</h4>
+      <ol class="instruction-list">
+        <li>In your Zap editor, click the "+" between Trigger and Action</li>
+        <li>Choose "Filter"</li>
+        <li>Set condition: "Priority Level" → "Equals" → "High"</li>
+        <li>Save and test</li>
+        <li>Now only high-priority tasks trigger notifications!</li>
+      </ol>
+    </div>
+
+    <h3>Option 2: Different Channels for Different Priorities</h3>
+    <div class="tip">
+      <h4>💡 Pro Setup</h4>
+      <p>Create multiple Zaps:</p>
+      <ul class="instruction-list">
+        <li><strong>Zap 1:</strong> High priority → #urgent channel</li>
+        <li><strong>Zap 2:</strong> Medium priority → #priorities channel</li>
+        <li><strong>Zap 3:</strong> Low priority → #backlog channel</li>
+      </ul>
+    </div>
+
+    <h3>Option 3: Enhanced Message Format</h3>
+    <div class="code-box">
+:rotating_light: HIGH PRIORITY ALERT :rotating_light:
+
+*━━━━━━━━━━━━━━━━━━━*
+*Task:* [Task Name]
+*Impact:* [Impact]/10 | *Effort:* [Effort]/10
+*Owner:* @[Assigned To]
+*━━━━━━━━━━━━━━━━━━━*
+
+[Description]
+
+_Added [Date] • Status: [Status]_
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Troubleshooting Common Issues</h2>
+    
+    <h3>Issue: Zap isn't triggering</h3>
+    <ul class="instruction-list">
+      <li>Verify your Zap is turned ON (toggle in top right)</li>
+      <li>Check that new rows are actually being added to your sheet</li>
+      <li>Remember: Free tier checks every 15 minutes, not instantly</li>
+      <li>Look at "Zap History" in Zapier dashboard for error logs</li>
+    </ul>
+
+    <h3>Issue: Messages not formatting correctly</h3>
+    <ul class="instruction-list">
+      <li>Make sure you're inserting data fields, not typing column names</li>
+      <li>Test the trigger again to refresh available fields</li>
+      <li>Check for typos in your message template</li>
+      <li>Use Slack markdown syntax (*bold*, _italic_)</li>
+    </ul>
+
+    <h3>Issue: Too many notifications</h3>
+    <ul class="instruction-list">
+      <li>Add a Filter step to limit when notifications are sent</li>
+      <li>Consider batching: send daily digest instead of each task</li>
+      <li>Use different channels for different priority levels</li>
+    </ul>
+
+    <h3>Issue: Running out of Zapier tasks</h3>
+    <ul class="instruction-list">
+      <li>Free tier: 100 tasks/month</li>
+      <li>Each notification = 1 task</li>
+      <li>If you exceed: Upgrade to Starter plan ($19.99/month)</li>
+      <li>Or: Be more selective with filters</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Next Steps</h2>
+    
+    <h3>Once Your Integration is Running:</h3>
+    <ul class="checklist">
+      <li>Share the Slack channel with your team</li>
+      <li>Gather feedback on notification format</li>
+      <li>Adjust message template based on team preferences</li>
+      <li>Consider adding more Zaps for updates or completions</li>
+      <li>Set up filters to reduce noise</li>
+      <li>Explore other PrioBox integrations (Google Calendar, Email)</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Need More Help?</h2>
+    <p>If you're stuck or have questions:</p>
+    <ul class="instruction-list">
+      <li>Check <a href="https://help.zapier.com" target="_blank">Zapier's Help Center</a></li>
+      <li>Watch <a href="https://www.youtube.com/results?search_query=zapier+google+sheets+to+slack" target="_blank">video tutorials on YouTube</a></li>
+      <li>Contact <a href="./support.html">PrioBox Support</a> - we're happy to help!</li>
+      <li>Join the Zapier Community for peer support</li>
+    </ul>
+  </div>
+
+  <div class="section" style="background:#e8f5e9;padding:2rem;border-radius:12px;text-align:center;">
+    <h2 style="color:#2d4a22;">Congratulations! 🎉</h2>
+    <p style="font-size:1.1rem;color:#2d4a22;">You've successfully connected PrioBox to Slack. Your team will now stay aligned on priorities without constant check-ins.</p>
+    <a href="./integrations-slack.html" class="btn-primary" style="margin-top:1rem;">Back to Integration Page</a>
+  </div>
+
+</div>
+
+<footer>
+  <div>
+    © 2025 PrioBox • Built by 
+    <a href="mailto:DGSConsult@consultant.com">DGS Consulting</a>
+    <span>|</span>
+    <a href="./terms.html">Terms of Service</a>
+    <span>|</span>
+    <a href="./privacy.html">Privacy Policy</a>
+  </div>
+</footer>
+
+</body>
+</html>
