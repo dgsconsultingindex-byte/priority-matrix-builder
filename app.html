@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-3TQ4METDYF"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -13,7 +12,6 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="theme-color" content="#0969da" />
-  <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiUHJpb0JveCIsInNob3J0X25hbWUiOiJQcmlvQm94IiwiZGVzY3JpcHRpb24iOiJGb2N1cyB3aGF0IG1hdHRlcnMiLCJzdGFydF91cmwiOiIvIiwiZGlzcGxheSI6InN0YW5kYWxvbmUiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiI2Y2ZjhmYSIsInRoZW1lX2NvbG9yIjoiIzA5NjlkYSIsImljb25zIjpbeyJzcmMiOiJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUI0Yld4dWN6MGlhSFIwY0RvdkwzZDNkeTUzTXk1dmNtY3ZNakF3TUM5emRtY2lJSFpwWlhkQ2IzZzlJakFnTUNBeE1EQWdNVEF3SWo0OGNtVmpkQ0I0UFNJeE1DSWdlVDBpTVRBaUlIZHBaSFJvUFNJek5TSWdhR1ZwWjJoMFBTSXpOU0lnY25nOUlqVWlJR1pwYkd3OUlpTXlaV0V3TkRNaUx6NDhjbVZqZENCNFBTSTFOU0lnZVQwaU1UQWlJSGRwWkhSb1BTSXpOU0lnYUdWcFoyaDBQU0l6TlNJZ2NuZzlJalVpSUdacGJHdzlJaU0wWTJGbU5UQWlMejQ4Y21WamRDQjRQU0l4TUNJZ2VUMGlOVFVpSUhkcFpIUm9QU0l6TlNJZ2FHVnBaMmgwUFNJek5TSWdjbmc5SWpVaUlHWnBiR3c5SWlNMk5tSmlObUVpTHo0OGNtVmpkQ0I0UFNJMU5TSWdlVDBpTlRVaUlIZHBaSFJvUFNJek5TSWdhR1ZwWjJoMFBTSXpOU0lnY25nOUlqVWlJR1pwYkd3OUlpTTRNV00zT0RRaUx6NDhMM04yWno0PSIsInNpemVzIjoiNTEyeDUxMiIsInR5cGUiOiJpbWFnZS9zdmcreG1sIn1dfQ==" />
   <title>PrioBox — Focus What Matters</title>
   <meta name="description" content="PrioBox — Enhanced productivity app with focus timer, recurring tasks, dark mode, and integrations." />
   <style>
@@ -42,9 +40,6 @@
     .stat-card:hover{box-shadow:0 4px 16px var(--shadow-md);transform:translateY(-2px)}
     .stat-value{font-size:2.5rem;font-weight:700;color:var(--accent-1);line-height:1}
     .stat-label{font-size:0.95rem;color:var(--text-secondary);font-weight:500;text-transform:uppercase;letter-spacing:0.05em}
-    .stat-trend{font-size:0.9rem;color:var(--text-secondary)}
-    .chart-bar{height:6px;background:var(--muted);border-radius:999px;overflow:hidden;margin-top:8px}
-    .chart-fill{height:100%;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));transition:width .4s cubic-bezier(0.4,0,0.2,1)}
     .daily-hero{background:linear-gradient(135deg,var(--accent-1),var(--accent-2));color:white;padding:32px;border-radius:var(--radius-lg);margin:20px 0;box-shadow:0 8px 24px var(--shadow-lg)}
     .daily-hero h2{margin:0 0 8px 0;font-size:2rem;font-weight:700;letter-spacing:-0.02em}
     .daily-hero p{margin:0;opacity:0.95;font-size:1.1rem}
@@ -59,14 +54,8 @@
     .timer-mode button{padding:10px 20px;border-radius:20px;border:1px solid var(--border);background:var(--panel);cursor:pointer;font-size:0.95rem;transition:var(--transition);color:var(--text);font-weight:500}
     .timer-mode button.active{background:var(--accent-1);color:white;border-color:var(--accent-1)}
     .timer-status{margin-top:16px;font-size:0.95rem;color:var(--text-secondary);font-weight:500}
-    .subtasks{margin-top:8px;padding-left:8px;border-left:2px solid var(--muted)}
-    .subtask{display:flex;gap:8px;align-items:center;padding:4px 0;font-size:0.9rem}
-    .subtask input[type="checkbox"]{cursor:pointer;width:16px;height:16px}
-    .subtask.completed{opacity:0.6;text-decoration:line-through}
-    .subtask-add{color:var(--accent-1);cursor:pointer;font-size:0.85rem;margin-top:4px;padding:4px 0}
-    .subtask-add:hover{text-decoration:underline}
     .controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;margin:20px 0}
-    .controls input[type="text"],.controls input[type="date"],.controls input[type="email"],.controls select{height:var(--ui-h);padding:0 14px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--panel);color:var(--text);font-size:0.95rem;box-shadow:0 2px 4px var(--shadow-sm);min-width:160px;transition:var(--transition)}
+    .controls input[type="text"],.controls input[type="date"],.controls select{height:var(--ui-h);padding:0 14px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--panel);color:var(--text);font-size:0.95rem;box-shadow:0 2px 4px var(--shadow-sm);min-width:160px;transition:var(--transition)}
     .controls input:focus,.controls select:focus{outline:none;border-color:var(--accent-1);box-shadow:0 0 0 3px var(--accent-light)}
     .controls .btn{height:var(--ui-h);padding:0 20px;border-radius:24px;border:none;background:var(--accent-1);color:white;font-weight:600;cursor:pointer;white-space:nowrap;transition:0.3s cubic-bezier(0.215,0.61,0.355,1);box-shadow:0 2px 8px rgba(39,94,254,0.32)}
     .controls .btn:hover{transform:scale(1.05);box-shadow:0 4px 16px rgba(39,94,254,0.48)}
@@ -105,50 +94,12 @@
     .tag-client{background:var(--tag-client-bg);color:var(--tag-client)}
     .tag-personal{background:var(--tag-personal-bg);color:var(--tag-personal)}
     .tag-urgent{background:var(--tag-urgent-bg);color:var(--tag-urgent)}
-    .panel-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.25);display:none;z-index:120}
-    .panel{position:fixed;right:0;top:0;height:100%;width:420px;max-width:94%;background:var(--panel);box-shadow:-20px 0 60px rgba(0,0,0,0.3);transform:translateX(108%);transition:transform .28s ease;z-index:130;padding:18px;display:flex;flex-direction:column;gap:12px;overflow-y:auto}
-    .panel.show{transform:translateX(0)}
-    .panel-backdrop.show{display:block}
-    .panel input[type="text"],.panel input[type="date"],.panel input[type="number"],.panel input[type="email"],.panel select,.panel textarea{width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--muted);background:var(--panel);color:var(--text);box-sizing:border-box;font-size:0.95rem}
-    .panel textarea{min-height:100px;resize:vertical;font-family:inherit}
-    .panel .row{display:flex;gap:8px;flex-wrap:wrap}
-    .panel .row>*{flex:1;min-width:140px}
-    .panel button{padding:12px 24px;border-radius:24px;border:none;font-weight:600;cursor:pointer;font-size:0.95rem;transition:0.3s cubic-bezier(0.215,0.61,0.355,1)}
-    .panel .btn{background:var(--accent-1);color:white;filter:drop-shadow(0 2px 8px rgba(39,94,254,0.32))}
-    .panel .btn:hover{transform:scale(1.05)}
-    .panel .btn.ghost{background:var(--panel);border:1px solid var(--border);color:var(--text);box-shadow:0 2px 4px var(--shadow-sm)}
-    .panel .btn.ghost:hover{background:var(--panel-hover);border-color:var(--accent-1)}
-    .templates-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-top:12px}
-    .template-card{background:var(--panel);border:1px solid var(--border);padding:16px;border-radius:var(--radius);cursor:pointer;transition:var(--transition);text-align:center}
-    .template-card:hover{border-color:var(--accent-1);box-shadow:0 4px 12px var(--shadow-md);transform:translateY(-2px)}
-    .template-icon{font-size:2rem;margin-bottom:8px}
-    .template-name{font-weight:600;font-size:0.9rem;color:var(--text)}
-    .template-desc{font-size:0.8rem;color:var(--text-secondary);margin-top:4px}
-    .integration-item{background:var(--panel);border:1px solid var(--border);padding:16px;border-radius:var(--radius);margin-bottom:12px;transition:var(--transition)}
-    .integration-item:hover{box-shadow:0 4px 12px var(--shadow-md)}
-    .integration-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-    .integration-name{font-weight:600;font-size:1rem;color:var(--text)}
-    .integration-status{font-size:0.85rem;padding:4px 8px;border-radius:12px;background:var(--muted);color:var(--text-secondary)}
-    .integration-status.connected{background:var(--on-time-bg);color:var(--on-time)}
-    .integration-desc{font-size:0.9rem;color:var(--text-secondary);margin-bottom:12px}
-    .onboard{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:140;pointer-events:none;opacity:0;background:rgba(0,0,0,0.3);transition:opacity .3s ease}
-    .onboard.show{pointer-events:auto;opacity:1}
-    .onboard-card{background:var(--panel);padding:20px;border-radius:12px;width:min(760px,94%);box-shadow:0 30px 70px rgba(0,0,0,0.28);max-height:90vh;overflow-y:auto}
-    .onboard-card h2{color:var(--text)}
-    .onboard-card button{padding:12px 28px;border-radius:24px;border:none;font-weight:600;cursor:pointer;font-size:0.95rem;transition:0.3s cubic-bezier(0.215,0.61,0.355,1)}
-    .onboard-card .btn{background:var(--accent-1);color:white;filter:drop-shadow(0 2px 8px rgba(39,94,254,0.32))}
-    .onboard-card .btn:hover{transform:scale(1.05)}
-    .onboard-card .btn.ghost{background:var(--panel);border:1px solid var(--border);color:var(--text);box-shadow:0 2px 4px var(--shadow-sm)}
-    .onboard-card .btn.ghost:hover{background:var(--panel-hover);border-color:var(--accent-1)}
-    .shortcuts-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:12px}
-    .shortcut-item{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--muted);border-radius:var(--radius-sm);font-size:0.9rem}
-    .shortcut-key{background:var(--panel);padding:4px 8px;border-radius:4px;border:1px solid var(--border);font-family:monospace;font-size:0.85rem;color:var(--text)}
     .empty-state{text-align:center;padding:60px 20px;color:var(--text-secondary)}
     .empty-state svg{width:80px;height:80px;margin-bottom:16px;opacity:0.5}
     .empty-state h3{margin:16px 0 8px 0;font-size:1.3rem;color:var(--text)}
     .empty-state p{margin:0;font-size:0.95rem}
     footer{text-align:center;color:var(--text-secondary);margin-top:32px;font-size:0.9rem;padding-bottom:20px}
-    @media(max-width:900px){.matrix{grid-template-columns:1fr}.controls input[type="text"]{min-width:130px}.panel{width:100%}header{justify-content:center}.stats-grid{grid-template-columns:1fr}.templates-grid{grid-template-columns:1fr}.timer-display{font-size:2.5rem}.shortcuts-list{grid-template-columns:1fr}}
+    @media(max-width:900px){.matrix{grid-template-columns:1fr}.controls input[type="text"]{min-width:130px}.timer-display{font-size:2.5rem}}
   </style>
 </head>
 <body>
@@ -171,9 +122,7 @@
 
       <div class="header-actions">
         <button id="themeToggle" class="icon-btn" title="Toggle dark mode">🌓</button>
-        <button id="shortcutsBtn" class="icon-btn" title="Keyboard shortcuts (K)">⌨️</button>
-        <button id="integrationsBtn" class="icon-btn" title="Integrations">🔗</button>
-        <button id="templatesBtn" class="icon-btn" title="Task templates (T)">📋</button>
+        <button id="templatesBtn" class="icon-btn" title="Task templates">📋</button>
       </div>
     </header>
 
@@ -183,7 +132,6 @@
           <button id="viewDaily" class="active">Daily Focus</button>
           <button id="viewTimer">Focus Timer</button>
           <button id="viewMatrix">Full Matrix</button>
-          <button id="viewStats">Analytics</button>
         </div>
       </div>
 
@@ -233,63 +181,6 @@
         </div>
       </div>
 
-      <!-- Stats View -->
-      <div id="statsView" style="display:none">
-        <h2 style="text-align:center;margin:16px 0">Your Productivity Analytics</h2>
-        
-        <div class="stats-grid">
-          <div class="stat-card">
-            <div class="stat-value" id="totalTasks">0</div>
-            <div class="stat-label">Total Tasks</div>
-            <div class="stat-trend" id="completionRate"></div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-value" id="completedTasks">0</div>
-            <div class="stat-label">Completed</div>
-            <div class="chart-bar"><div class="chart-fill" id="completedBar"></div></div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-value" id="activeTasks">0</div>
-            <div class="stat-label">In Progress</div>
-            <div class="chart-bar"><div class="chart-fill" id="activeBar"></div></div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-value" id="overdueStats">0</div>
-            <div class="stat-label">Overdue Items</div>
-            <div class="stat-trend">Need attention</div>
-          </div>
-        </div>
-
-        <h3 style="margin:24px 0 12px 0">Focus Distribution</h3>
-        <div class="stats-grid">
-          <div class="stat-card">
-            <div class="stat-label">Do First</div>
-            <div class="stat-value" style="font-size:1.5rem" id="doFirstStat">0</div>
-            <div class="chart-bar"><div class="chart-fill" id="doFirstBar"></div></div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-label">Schedule</div>
-            <div class="stat-value" style="font-size:1.5rem" id="scheduleStat">0</div>
-            <div class="chart-bar"><div class="chart-fill" id="scheduleBar"></div></div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-label">Delegate</div>
-            <div class="stat-value" style="font-size:1.5rem" id="delegateStat">0</div>
-            <div class="chart-bar"><div class="chart-fill" id="delegateBar"></div></div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-label">Eliminate</div>
-            <div class="stat-value" style="font-size:1.5rem" id="eliminateStat">0</div>
-            <div class="chart-bar"><div class="chart-fill" id="eliminateBar"></div></div>
-          </div>
-        </div>
-
-        <div style="background:var(--panel);padding:20px;border-radius:var(--radius);margin-top:20px;box-shadow:0 2px 8px var(--shadow-sm);border:1px solid var(--border)">
-          <h3>Insights</h3>
-          <ul id="insightsList" style="line-height:1.8;color:var(--text-secondary)"></ul>
-        </div>
-      </div>
-
       <!-- Matrix View -->
       <div id="matrixView" style="display:none">
         <section class="controls" aria-label="Task controls">
@@ -302,26 +193,16 @@
             <option value="delegate">Delegate</option>
             <option value="eliminate">Eliminate</option>
           </select>
-          <select id="taskLabel">
-            <option value="">No label</option>
-            <option value="client">Client</option>
-            <option value="personal">Personal</option>
-            <option value="urgent">Urgent</option>
-          </select>
           <button class="btn" id="addBtn">Add Task</button>
-          <button class="btn ghost" id="clearBtn">Clear All</button>
           <button class="btn ghost" id="demoBtn">Demo Data</button>
-          <button id="exportBtn" class="btn ghost" title="Export JSON">Export</button>
-          <button id="importBtn" class="btn ghost" title="Import JSON">Import</button>
         </section>
 
         <div class="search-row">
-          <input id="searchInput" type="search" placeholder="Search tasks by title, description, due date, label..." />
+          <input id="searchInput" type="search" placeholder="Search tasks..." />
         </div>
 
         <div class="filters">
           <button id="toggleCompletedBtn" style="height:36px;padding:8px 12px;border-radius:8px;background:var(--panel);border:1px solid var(--border);cursor:pointer">Hide Completed</button>
-          <div style="font-size:0.9rem;color:var(--text-secondary)">Double-click to edit • Drag between quadrants</div>
         </div>
 
         <section class="matrix" aria-label="Priority matrix">
@@ -333,7 +214,7 @@
                 <div class="progress-bar"><div id="do-first-fill" class="progress-fill"></div></div>
               </div>
             </div>
-            <div class="tasks" id="do-first-tasks" aria-live="polite"></div>
+            <div class="tasks" id="do-first-tasks"></div>
           </div>
 
           <div class="quadrant schedule" data-q="schedule">
@@ -371,268 +252,50 @@
         </section>
       </div>
 
-      <footer>© 2025 PrioBox — Built by DGS Consulting • <a href="#" id="installBtn" style="color:var(--accent-1);display:none">Install as App</a></footer>
+      <footer>© 2025 PrioBox — Built by DGS Consulting</footer>
     </div>
   </div>
-
-  <!-- Edit Panel -->
-  <div id="panelBackdrop" class="panel-backdrop"></div>
-  <aside id="slidePanel" class="panel" role="dialog" aria-hidden="true">
-    <h3 id="panelTitle">Edit task</h3>
-    <div class="row">
-      <input id="pTitle" type="text" placeholder="Task title" />
-    </div>
-    <div class="row">
-      <input id="pDue" type="date" />
-      <select id="pQuadrant">
-        <option value="do-first">Do First</option>
-        <option value="schedule">Schedule</option>
-        <option value="delegate">Delegate</option>
-        <option value="eliminate">Eliminate</option>
-      </select>
-    </div>
-    <div class="row">
-      <select id="pLabel">
-        <option value="">No label</option>
-        <option value="client">Client</option>
-        <option value="personal">Personal</option>
-        <option value="urgent">Urgent</option>
-      </select>
-      <label style="display:flex;align-items:center;gap:8px;padding:8px"><input id="pCompleted" type="checkbox"> Completed</label>
-    </div>
-    <div class="row">
-      <label style="display:flex;align-items:center;gap:8px;padding:8px">
-        <input id="pRecurring" type="checkbox"> Recurring
-      </label>
-      <select id="pRecurringInterval" style="display:none">
-        <option value="daily">Daily</option>
-        <option value="weekly">Weekly</option>
-        <option value="monthly">Monthly</option>
-      </select>
-    </div>
-    <div class="row">
-      <textarea id="pDesc" placeholder="Description"></textarea>
-    </div>
-
-    <h4>Subtasks</h4>
-    <div id="subtasksList"></div>
-    <div class="subtask-add" id="addSubtaskBtn">+ Add subtask</div>
-
-    <div style="display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-top:12px">
-      <button id="panelCancel" class="btn ghost">Cancel</button>
-      <button id="panelSave" class="btn">Save</button>
-    </div>
-
-    <hr style="border:none;border-top:1px solid var(--muted);margin:12px 0" />
-    <div style="display:flex;gap:8px;flex-direction:column">
-      <button id="addToCalendarBtn" class="btn ghost">Open Google Calendar</button>
-      <button id="downloadICSBtn" class="btn ghost">Download .ics</button>
-      <button id="deleteFromPanelBtn" class="btn ghost" style="color:var(--overdue)">Delete Task</button>
-    </div>
-  </aside>
-
-  <!-- Modals -->
-  <div id="onboard" class="onboard" aria-hidden="true">
-    <div class="onboard-card">
-      <h2>Welcome to PrioBox Enhanced! 🎉</h2>
-      <p><strong>New Features:</strong></p>
-      <ul style="line-height:1.8">
-        <li><strong>🎯 Daily Focus</strong> - See today's priorities at a glance</li>
-        <li><strong>⏱️ Focus Timer</strong> - Pomodoro timer with breaks for better productivity</li>
-        <li><strong>📊 Analytics</strong> - Track your productivity and completion rates</li>
-        <li><strong>✅ Subtasks</strong> - Break down big tasks into manageable steps</li>
-        <li><strong>🔁 Recurring Tasks</strong> - Set tasks to repeat daily, weekly, or monthly</li>
-        <li><strong>🌙 Dark Mode</strong> - Easy on the eyes, especially at night</li>
-        <li><strong>⌨️ Keyboard Shortcuts</strong> - Navigate faster with hotkeys</li>
-        <li><strong>📋 Templates</strong> - Quick-start common task types</li>
-        <li><strong>📱 PWA Support</strong> - Install as a standalone app on your device</li>
-      </ul>
-      <p style="margin-top:12px"><strong>Quick Tips:</strong></p>
-      <ol style="line-height:1.8">
-        <li>Start with Daily Focus to see what needs attention today</li>
-        <li>Use the Focus Timer (25min work, 5min break) for deep work</li>
-        <li>Press <kbd>K</kbd> to see all keyboard shortcuts</li>
-        <li>Try templates (<kbd>T</kbd>) for quick task creation</li>
-        <li>Enable dark mode with the 🌓 button</li>
-      </ol>
-      <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:16px;flex-wrap:wrap">
-        <button id="onboardSkip" class="btn ghost">Skip</button>
-        <button id="onboardDone" class="btn">Got it!</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Shortcuts Modal -->
-  <div id="shortcutsModal" class="onboard" aria-hidden="true">
-    <div class="onboard-card">
-      <h2>Keyboard Shortcuts ⌨️</h2>
-      <div class="shortcuts-list">
-        <div class="shortcut-item"><span>New Task</span><span class="shortcut-key">Ctrl/⌘ + N</span></div>
-        <div class="shortcut-item"><span>Search</span><span class="shortcut-key">Ctrl/⌘ + F</span></div>
-        <div class="shortcut-item"><span>Templates</span><span class="shortcut-key">T</span></div>
-        <div class="shortcut-item"><span>Shortcuts</span><span class="shortcut-key">K</span></div>
-        <div class="shortcut-item"><span>Daily View</span><span class="shortcut-key">1</span></div>
-        <div class="shortcut-item"><span>Timer View</span><span class="shortcut-key">2</span></div>
-        <div class="shortcut-item"><span>Matrix View</span><span class="shortcut-key">3</span></div>
-        <div class="shortcut-item"><span>Analytics</span><span class="shortcut-key">4</span></div>
-        <div class="shortcut-item"><span>Toggle Dark Mode</span><span class="shortcut-key">D</span></div>
-        <div class="shortcut-item"><span>Close Modal</span><span class="shortcut-key">Esc</span></div>
-      </div>
-      <div style="display:flex;justify-content:flex-end;margin-top:16px">
-        <button id="shortcutsClose" class="btn">Close</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Templates Modal -->
-  <div id="templatesModal" class="onboard" aria-hidden="true">
-    <div class="onboard-card">
-      <h2>Task Templates 📋</h2>
-      <p style="color:var(--text-secondary);margin-bottom:16px">Quickly create common task types</p>
-      <div class="templates-grid">
-        <div class="template-card" data-template="meeting">
-          <div class="template-icon">📅</div>
-          <div class="template-name">Team Meeting</div>
-          <div class="template-desc">Schedule & prepare</div>
-        </div>
-        <div class="template-card" data-template="client">
-          <div class="template-icon">👤</div>
-          <div class="template-name">Client Work</div>
-          <div class="template-desc">Urgent client task</div>
-        </div>
-        <div class="template-card" data-template="review">
-          <div class="template-icon">📝</div>
-          <div class="template-name">Code Review</div>
-          <div class="template-desc">Review PR or code</div>
-        </div>
-        <div class="template-card" data-template="research">
-          <div class="template-icon">🔍</div>
-          <div class="template-name">Research</div>
-          <div class="template-desc">Deep dive topic</div>
-        </div>
-        <div class="template-card" data-template="email">
-          <div class="template-icon">📧</div>
-          <div class="template-name">Email Tasks</div>
-          <div class="template-desc">Process inbox</div>
-        </div>
-        <div class="template-card" data-template="planning">
-          <div class="template-icon">🗺️</div>
-          <div class="template-name">Planning</div>
-          <div class="template-desc">Strategy & roadmap</div>
-        </div>
-      </div>
-      <div style="display:flex;justify-content:flex-end;margin-top:16px">
-        <button id="templatesClose" class="btn ghost">Close</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Integrations Modal -->
-  <div id="integrationsModal" class="onboard" aria-hidden="true">
-    <div class="onboard-card">
-      <h2>Integrations 🔗</h2>
-      <p style="color:var(--text-secondary);margin-bottom:16px">Connect PrioBox with your favorite tools</p>
-      
-      <div class="integration-item">
-        <div class="integration-header">
-          <div class="integration-name">📨 Email to Task</div>
-          <div class="integration-status">Available</div>
-        </div>
-        <div class="integration-desc">Forward emails to create tasks automatically</div>
-        <input type="email" placeholder="Your task email address" style="width:100%;padding:8px;border-radius:8px;border:1px solid var(--border);background:var(--panel);color:var(--text);margin-bottom:8px" id="emailTaskAddress" />
-        <button class="btn ghost" id="setupEmailBtn">Generate Email Address</button>
-      </div>
-
-    
-
-      <div class="integration-item">
-        <div class="integration-header">
-          <div class="integration-name">✅ Google Tasks Sync</div>
-          <div class="integration-status">Coming Soon</div>
-        </div>
-        <div class="integration-desc">Sync your tasks with Google Tasks automatically</div>
-        <button class="btn ghost" disabled>Connect Google Tasks</button>
-      </div>
-
-      <div class="integration-item">
-        <div class="integration-header">
-          <div class="integration-name">⚡ Zapier Integration</div>
-          <div class="integration-status">Available</div>
-        </div>
-        <div class="integration-desc">Connect with 5000+ apps via Zapier webhooks</div>
-        <input type="text" placeholder="Zapier webhook URL" style="width:100%;padding:8px;border-radius:8px;border:1px solid var(--border);background:var(--panel);color:var(--text);margin-bottom:8px" id="zapierWebhook" />
-        <button class="btn ghost" id="connectZapierBtn">Connect Zapier</button>
-      </div>
-
-      <div style="margin-top:20px;padding:16px;background:var(--muted);border-radius:var(--radius)">
-        <strong>Note:</strong> Integrations are stored locally. Your credentials stay on your device.
-      </div>
-
-      <div style="display:flex;justify-content:flex-end;margin-top:16px">
-        <button id="integrationsClose" class="btn">Close</button>
-      </div>
-    </div>
-  </div>
-
-  <input id="importFileInput" type="file" accept="application/json" style="display:none" />
 
   <script>
     'use strict';
 
-    // Task Store with recurring tasks support
+    console.log('Script starting...');
+
+    // Task Store
     class TaskStore {
       constructor() {
-        this.STORAGE_KEY = 'priobox_tasks_v2';
-        this.PREFS_KEY = 'priobox_prefs_v2';
-        this.TIMER_KEY = 'priobox_timer';
-        this.INTEGRATIONS_KEY = 'priobox_integrations';
+        this.STORAGE_KEY = 'priobox_tasks_v3';
+        this.PREFS_KEY = 'priobox_prefs_v3';
         this.tasks = {};
         this.prefs = { 
           showCompleted: true, 
           theme: 'light', 
-          currentView: 'daily', 
-          onboardingSeen: false,
+          currentView: 'daily',
           timerSessions: 0,
           timerSessionsDate: new Date().toDateString()
         };
-        this.integrations = {
-          emailTask: '',
-          slackWebhook: '',
-          zapierWebhook: ''
-        };
         this.listeners = [];
+        console.log('TaskStore initialized');
       }
 
       load() {
         try {
           const rawTasks = localStorage.getItem(this.STORAGE_KEY);
           const rawPrefs = localStorage.getItem(this.PREFS_KEY);
-          const rawIntegrations = localStorage.getItem(this.INTEGRATIONS_KEY);
           
           if (rawTasks) {
             const data = JSON.parse(rawTasks);
             this.tasks = data.tasks || {};
-            Object.values(this.tasks).forEach(t => {
-              if (!t.subtasks) t.subtasks = [];
-              if (!t.createdAt) t.createdAt = Date.now();
-              if (!t.recurring) t.recurring = { enabled: false, interval: 'daily' };
-            });
           }
           
-          if (rawPrefs) this.prefs = { ...this.prefs, ...JSON.parse(rawPrefs) };
-          if (rawIntegrations) this.integrations = { ...this.integrations, ...JSON.parse(rawIntegrations) };
-          
-          // Reset daily timer sessions
-          const today = new Date().toDateString();
-          if (this.prefs.timerSessionsDate !== today) {
-            this.prefs.timerSessions = 0;
-            this.prefs.timerSessionsDate = today;
-            this.savePrefs();
+          if (rawPrefs) {
+            this.prefs = { ...this.prefs, ...JSON.parse(rawPrefs) };
           }
           
-          // Process recurring tasks
-          this.processRecurringTasks();
-        } catch(e) { console.error('Load error:', e); }
+          console.log('Loaded tasks:', Object.keys(this.tasks).length);
+        } catch(e) { 
+          console.error('Load error:', e); 
+        }
       }
 
       save() {
@@ -648,69 +311,26 @@
         } catch(e) { console.error('Save prefs error:', e); }
       }
 
-      saveIntegrations() {
-        try {
-          localStorage.setItem(this.INTEGRATIONS_KEY, JSON.stringify(this.integrations));
-        } catch(e) { console.error('Save integrations error:', e); }
-      }
-
-      processRecurringTasks() {
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        
-        Object.values(this.tasks).forEach(task => {
-          if (task.recurring && task.recurring.enabled && task.due) {
-            const dueDate = new Date(task.due);
-            dueDate.setHours(0, 0, 0, 0);
-            
-            if (task.completed && dueDate < today) {
-              const newDue = new Date(dueDate);
-              switch(task.recurring.interval) {
-                case 'daily':
-                  newDue.setDate(newDue.getDate() + 1);
-                  break;
-                case 'weekly':
-                  newDue.setDate(newDue.getDate() + 7);
-                  break;
-                case 'monthly':
-                  newDue.setMonth(newDue.getMonth() + 1);
-                  break;
-              }
-              
-              if (newDue <= today) {
-                task.completed = false;
-                task.due = newDue.toISOString().slice(0, 10);
-                this.save();
-              }
-            }
-          }
-        });
-      }
-
       subscribe(callback) {
         this.listeners.push(callback);
-        return () => { this.listeners = this.listeners.filter(l => l !== callback); };
       }
 
-      notify() { this.listeners.forEach(cb => cb()); }
+      notify() { 
+        this.listeners.forEach(cb => cb()); 
+      }
 
       addTask(task) {
-        const id = this.generateId();
+        const id = `t-${Date.now()}-${Math.floor(Math.random() * 9000 + 1000)}`;
         this.tasks[id] = { 
           id, 
           title: task.title || 'Untitled', 
           description: task.description || '', 
           due: task.due || '', 
           quadrant: task.quadrant || 'do-first', 
-          label: task.label || '', 
           completed: false, 
-          subtasks: task.subtasks || [], 
-          recurring: task.recurring || { enabled: false, interval: 'daily' },
-          createdAt: Date.now(), 
-          ...task 
+          createdAt: Date.now()
         };
         this.save();
-        this.sendWebhookNotification('task_created', this.tasks[id]);
         return id;
       }
 
@@ -718,7 +338,6 @@
         if (!this.tasks[id]) return false;
         this.tasks[id] = { ...this.tasks[id], ...updates };
         this.save();
-        this.sendWebhookNotification('task_updated', this.tasks[id]);
         return true;
       }
 
@@ -729,7 +348,6 @@
         return true;
       }
 
-      getTask(id) { return this.tasks[id]; }
       getAllTasks() { return Object.values(this.tasks); }
       getTasksByQuadrant(quadrant) { return this.getAllTasks().filter(t => t.quadrant === quadrant); }
 
@@ -741,7 +359,6 @@
         return true;
       }
 
-      generateId() { return `t-${Date.now()}-${Math.floor(Math.random() * 9000 + 1000)}`; }
       setPref(key, value) { this.prefs[key] = value; this.savePrefs(); }
       getPref(key) { return this.prefs[key]; }
 
@@ -749,24 +366,6 @@
         this.prefs.timerSessions++;
         this.savePrefs();
         this.notify();
-      }
-
-      async sendWebhookNotification(event, task) {
-        const webhooks = [];
-        if (this.integrations.slackWebhook) webhooks.push(this.integrations.slackWebhook);
-        if (this.integrations.zapierWebhook) webhooks.push(this.integrations.zapierWebhook);
-        
-        for (const webhook of webhooks) {
-          try {
-            await fetch(webhook, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ event, task, timestamp: Date.now() })
-            });
-          } catch(e) {
-            console.log('Webhook notification failed:', e);
-          }
-        }
       }
     }
 
@@ -808,32 +407,6 @@
       }
     };
 
-    // Calendar integration
-    const Calendar = {
-      openGoogleCalendar(task) {
-        if (!task || !task.due) { alert('Task must have a due date'); return; }
-        const start = new Date(task.due + 'T09:00:00');
-        const end = new Date(start.getTime() + 60 * 60 * 1000);
-        const formatDate = (dt) => dt.toISOString().slice(0, 19).replace(/-|:/g, '') + 'Z';
-        const dates = `${formatDate(start)}/${formatDate(end)}`;
-        const text = encodeURIComponent(task.title || 'Task');
-        const details = encodeURIComponent(task.description || '');
-        window.open(`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${text}&dates=${dates}&details=${details}`, '_blank');
-      },
-      downloadICS(task) {
-        if (!task || !task.due) { alert('Task must have a due date'); return; }
-        const start = new Date(task.due + 'T09:00:00');
-        const end = new Date(start.getTime() + 60 * 60 * 1000);
-        const formatDate = (dt) => dt.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
-        const ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//PrioBox//EN', 'BEGIN:VEVENT', `UID:${task.id}@priobox`, `DTSTAMP:${formatDate(new Date())}`, `DTSTART:${formatDate(start)}`, `DTEND:${formatDate(end)}`, `SUMMARY:${(task.title || '').replace(/[,;]/g, '')}`, `DESCRIPTION:${(task.description||'').replace(/\n/g,'\\n').replace(/[,;]/g, '')}`, 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
-        const blob = new Blob([ics], { type: 'text/calendar' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url; a.download = `${(task.title || 'task').slice(0, 40)}.ics`;
-        document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
-      }
-    };
-
     // Focus Timer
     class FocusTimer {
       constructor(store) {
@@ -843,6 +416,7 @@
         this.timeLeft = this.modes.focus;
         this.isRunning = false;
         this.interval = null;
+        console.log('FocusTimer initialized');
       }
 
       setMode(mode) {
@@ -882,9 +456,6 @@
         this.pause();
         if (this.currentMode === 'focus') {
           this.store.incrementTimerSessions();
-          if (Notification.permission === 'granted') {
-            new Notification('Focus session complete!', { body: 'Time for a break 🎉' });
-          }
         }
         alert(`${this.currentMode === 'focus' ? 'Focus' : 'Break'} complete!`);
       }
@@ -892,22 +463,17 @@
       updateDisplay() {
         const mins = Math.floor(this.timeLeft / 60);
         const secs = this.timeLeft % 60;
-        document.getElementById('timerDisplay').textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-        document.getElementById('timerStatus').textContent = this.isRunning ? 'Focus time...' : 'Paused';
-        document.getElementById('timerStart').textContent = this.isRunning ? 'Pause' : 'Start';
-        document.getElementById('sessionsToday').textContent = this.store.getPref('timerSessions') || 0;
+        const display = document.getElementById('timerDisplay');
+        const status = document.getElementById('timerStatus');
+        const startBtn = document.getElementById('timerStart');
+        const sessions = document.getElementById('sessionsToday');
+        
+        if (display) display.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        if (status) status.textContent = this.isRunning ? 'Focus time...' : 'Paused';
+        if (startBtn) startBtn.textContent = this.isRunning ? 'Pause' : 'Start';
+        if (sessions) sessions.textContent = this.store.getPref('timerSessions') || 0;
       }
     }
-
-    // Task Templates
-    const Templates = {
-      meeting: { title: 'Team Meeting', description: 'Prepare agenda and materials', quadrant: 'schedule', label: 'client' },
-      client: { title: 'Client Work', description: 'Urgent client deliverable', quadrant: 'do-first', label: 'client' },
-      review: { title: 'Code Review', description: 'Review pull request', quadrant: 'delegate', label: '' },
-      research: { title: 'Research', description: 'Deep dive into topic', quadrant: 'schedule', label: '' },
-      email: { title: 'Process Emails', description: 'Clear inbox', quadrant: 'delegate', label: '' },
-      planning: { title: 'Strategic Planning', description: 'Quarterly roadmap', quadrant: 'schedule', label: '' }
-    };
 
     // Task Renderer
     class TaskRenderer {
@@ -915,253 +481,210 @@
         this.store = store;
         this.searchTerm = '';
       }
-      setSearchTerm(term) { this.searchTerm = term.toLowerCase().trim(); }
+      
+      setSearchTerm(term) { 
+        this.searchTerm = term.toLowerCase().trim(); 
+      }
+      
       matchesSearch(task) {
         if (!this.searchTerm) return true;
-        const searchStr = (task.title + ' ' + (task.description || '') + ' ' + (task.due || '') + ' ' + (task.label || '')).toLowerCase();
+        const searchStr = (task.title + ' ' + (task.description || '') + ' ' + (task.due || '')).toLowerCase();
         return searchStr.includes(this.searchTerm);
       }
+      
       createTaskElement(task) {
         const div = document.createElement('div');
         div.className = 'task'; 
         div.dataset.id = task.id;
         if (task.completed) div.classList.add('completed');
-        if (task.recurring && task.recurring.enabled) div.classList.add('task-recurring');
         const urgencyClass = Utils.getUrgencyClass(task.due);
         if (urgencyClass) div.classList.add(urgencyClass);
         
         const left = document.createElement('div'); 
         left.className = 'task-left';
-        let titleHtml = `<div class="task-title">${Utils.escapeHtml(task.title)}`;
-        if (task.label) {
-          const labelClass = `tag-${task.label}`;
-          titleHtml += ` <span class="tag ${labelClass}">${task.label.charAt(0).toUpperCase() + task.label.slice(1)}</span>`;
-        }
-        if (task.recurring && task.recurring.enabled) {
-          titleHtml += ` <span style="font-size:0.85rem;opacity:0.7">🔁</span>`;
-        }
-        titleHtml += `</div>`;
         
-        let contentHtml = titleHtml;
-        if (task.description) contentHtml += `<div class="task-desc">${Utils.escapeHtml(task.description)}</div>`;
-        if (task.subtasks && task.subtasks.length > 0) {
-          const completedSubs = task.subtasks.filter(s => s.completed).length;
-          contentHtml += `<div style="font-size:0.85rem;color:var(--text-secondary);margin-top:4px">✓ ${completedSubs}/${task.subtasks.length} subtasks</div>`;
+        let contentHtml = `<div class="task-title">${Utils.escapeHtml(task.title)}</div>`;
+        if (task.description) {
+          contentHtml += `<div class="task-desc">${Utils.escapeHtml(task.description)}</div>`;
         }
-        if (task.due) contentHtml += `<div class="task-due">${Utils.escapeHtml(task.due)}</div>`;
+        if (task.due) {
+          contentHtml += `<div class="task-due">${Utils.escapeHtml(task.due)}</div>`;
+        }
         left.innerHTML = contentHtml;
         
         const controls = document.createElement('div'); 
         controls.className = 'task-controls';
-        controls.appendChild(this.createButton(task.completed ? '↺' : '✔', task.completed ? 'Mark incomplete' : 'Mark complete', () => app.toggleComplete(task.id)));
-        controls.appendChild(this.createButton('✎', 'Edit', () => app.openEditPanel(task.id)));
-        controls.appendChild(this.createButton('📅', 'Add to calendar', () => { if (task.due) { Calendar.openGoogleCalendar(task); } else { alert('Please add a due date first'); } }));
-        controls.appendChild(this.createButton('✕', 'Delete', () => app.deleteTask(task.id)));
+        controls.appendChild(this.createButton(
+          task.completed ? '↺' : '✔', 
+          task.completed ? 'Mark incomplete' : 'Mark complete', 
+          () => app.toggleComplete(task.id)
+        ));
+        controls.appendChild(this.createButton(
+          '✕', 
+          'Delete', 
+          () => app.deleteTask(task.id)
+        ));
         
         div.appendChild(controls); 
         div.appendChild(left);
         this.setupDrag(div);
-        div.addEventListener('dblclick', () => app.openEditPanel(task.id));
         return div;
       }
+      
       createButton(text, title, onClick) {
         const btn = document.createElement('button');
         btn.className = 'small-btn'; 
         btn.textContent = text; 
         btn.title = title;
-        btn.onclick = (e) => { e.stopPropagation(); onClick(); };
+        btn.onclick = (e) => { 
+          e.stopPropagation(); 
+          onClick(); 
+        };
         return btn;
       }
+      
       setupDrag(element) {
         element.draggable = true;
-        element.addEventListener('dragstart', (e) => { element.classList.add('dragging'); e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text/plain', element.dataset.id); });
-        element.addEventListener('dragend', () => { element.classList.remove('dragging'); });
+        element.addEventListener('dragstart', (e) => { 
+          element.classList.add('dragging'); 
+          e.dataTransfer.effectAllowed = 'move'; 
+          e.dataTransfer.setData('text/plain', element.dataset.id); 
+        });
+        element.addEventListener('dragend', () => { 
+          element.classList.remove('dragging'); 
+        });
       }
     }
 
     // Main App
     class PrioBoxApp {
       constructor() {
+        console.log('App constructor starting...');
         this.store = new TaskStore();
         this.renderer = new TaskRenderer(this.store);
         this.timer = new FocusTimer(this.store);
         this.currentView = 'daily';
-        this.editingTaskId = null;
         this.quadrants = ['do-first', 'schedule', 'delegate', 'eliminate'];
         this.initializeElements();
         this.setupEventListeners();
         this.store.subscribe(() => this.render());
+        console.log('App constructor complete');
       }
 
       initializeElements() {
+        console.log('Initializing elements...');
         this.loadingEl = document.getElementById('loading');
         this.appArea = document.getElementById('appArea');
         this.themeToggle = document.getElementById('themeToggle');
-        this.shortcutsBtn = document.getElementById('shortcutsBtn');
-        this.integrationsBtn = document.getElementById('integrationsBtn');
         this.templatesBtn = document.getElementById('templatesBtn');
         this.viewDaily = document.getElementById('viewDaily');
         this.viewMatrix = document.getElementById('viewMatrix');
-        this.viewStats = document.getElementById('viewStats');
         this.viewTimer = document.getElementById('viewTimer');
         this.dailyView = document.getElementById('dailyView');
         this.matrixView = document.getElementById('matrixView');
-        this.statsView = document.getElementById('statsView');
         this.timerView = document.getElementById('timerView');
         this.addBtn = document.getElementById('addBtn');
-        this.clearBtn = document.getElementById('clearBtn');
         this.demoBtn = document.getElementById('demoBtn');
-        this.exportBtn = document.getElementById('exportBtn');
-        this.importBtn = document.getElementById('importBtn');
-        this.importFileInput = document.getElementById('importFileInput');
         this.taskTitle = document.getElementById('taskTitle');
         this.taskDescription = document.getElementById('taskDescription');
         this.taskDue = document.getElementById('taskDue');
         this.taskQuadrant = document.getElementById('taskQuadrant');
-        this.taskLabel = document.getElementById('taskLabel');
         this.searchInput = document.getElementById('searchInput');
         this.toggleCompletedBtn = document.getElementById('toggleCompletedBtn');
-        this.panelBackdrop = document.getElementById('panelBackdrop');
-        this.slidePanel = document.getElementById('slidePanel');
-        this.pTitle = document.getElementById('pTitle');
-        this.pDesc = document.getElementById('pDesc');
-        this.pDue = document.getElementById('pDue');
-        this.pQuadrant = document.getElementById('pQuadrant');
-        this.pLabel = document.getElementById('pLabel');
-        this.pCompleted = document.getElementById('pCompleted');
-        this.pRecurring = document.getElementById('pRecurring');
-        this.pRecurringInterval = document.getElementById('pRecurringInterval');
-        this.panelSave = document.getElementById('panelSave');
-        this.panelCancel = document.getElementById('panelCancel');
-        this.subtasksList = document.getElementById('subtasksList');
-        this.addSubtaskBtn = document.getElementById('addSubtaskBtn');
-        this.addToCalendarBtn = document.getElementById('addToCalendarBtn');
-        this.downloadICSBtn = document.getElementById('downloadICSBtn');
-        this.deleteFromPanelBtn = document.getElementById('deleteFromPanelBtn');
-        this.onboard = document.getElementById('onboard');
-        this.onboardDone = document.getElementById('onboardDone');
-        this.onboardSkip = document.getElementById('onboardSkip');
-        this.shortcutsModal = document.getElementById('shortcutsModal');
-        this.shortcutsClose = document.getElementById('shortcutsClose');
-        this.templatesModal = document.getElementById('templatesModal');
-        this.templatesClose = document.getElementById('templatesClose');
-        this.integrationsModal = document.getElementById('integrationsModal');
-        this.integrationsClose = document.getElementById('integrationsClose');
-        this.installBtn = document.getElementById('installBtn');
+        console.log('Elements initialized');
       }
 
       setupEventListeners() {
-        this.themeToggle.addEventListener('click', () => this.toggleTheme());
-        this.shortcutsBtn.addEventListener('click', () => this.showShortcuts());
-        this.integrationsBtn.addEventListener('click', () => this.showIntegrations());
-        this.templatesBtn.addEventListener('click', () => this.showTemplates());
-        this.viewDaily.addEventListener('click', () => this.switchView('daily'));
-        this.viewMatrix.addEventListener('click', () => this.switchView('matrix'));
-        this.viewStats.addEventListener('click', () => this.switchView('stats'));
-        this.viewTimer.addEventListener('click', () => this.switchView('timer'));
-        this.addBtn.addEventListener('click', () => this.handleAddTask());
-        this.clearBtn.addEventListener('click', () => this.handleClearAll());
-        this.demoBtn.addEventListener('click', () => this.loadDemoData());
-        this.exportBtn.addEventListener('click', () => this.exportTasks());
-        this.importBtn.addEventListener('click', () => this.importFileInput.click());
-        this.importFileInput.addEventListener('change', (e) => this.importTasks(e));
-        this.searchInput.addEventListener('input', Utils.debounce(() => { this.renderer.setSearchTerm(this.searchInput.value); this.render(); }, 300));
-        this.toggleCompletedBtn.addEventListener('click', () => this.toggleCompletedVisibility());
-        this.panelBackdrop.addEventListener('click', () => this.closePanel());
-        this.panelCancel.addEventListener('click', () => this.closePanel());
-        this.panelSave.addEventListener('click', () => this.savePanel());
-        this.addSubtaskBtn.addEventListener('click', () => this.addSubtask());
-        this.addToCalendarBtn.addEventListener('click', () => { if (this.editingTaskId) { const task = this.store.getTask(this.editingTaskId); if (task) Calendar.openGoogleCalendar(task); } });
-        this.downloadICSBtn.addEventListener('click', () => { if (this.editingTaskId) { const task = this.store.getTask(this.editingTaskId); if (task) Calendar.downloadICS(task); } });
-        this.deleteFromPanelBtn.addEventListener('click', () => { if (this.editingTaskId) { this.deleteTask(this.editingTaskId); this.closePanel(); } });
-        this.pRecurring.addEventListener('change', () => { this.pRecurringInterval.style.display = this.pRecurring.checked ? 'block' : 'none'; });
-        this.onboardDone.addEventListener('click', () => this.closeOnboarding());
-        this.onboardSkip.addEventListener('click', () => this.closeOnboarding());
-        this.shortcutsClose.addEventListener('click', () => this.hideShortcuts());
-        this.templatesClose.addEventListener('click', () => this.hideTemplates());
-        this.integrationsClose.addEventListener('click', () => this.hideIntegrations());
+        console.log('Setting up event listeners...');
+        
+        if (this.themeToggle) {
+          this.themeToggle.addEventListener('click', () => this.toggleTheme());
+        }
+        
+        if (this.viewDaily) {
+          this.viewDaily.addEventListener('click', () => this.switchView('daily'));
+        }
+        if (this.viewMatrix) {
+          this.viewMatrix.addEventListener('click', () => this.switchView('matrix'));
+        }
+        if (this.viewTimer) {
+          this.viewTimer.addEventListener('click', () => this.switchView('timer'));
+        }
+        
+        if (this.addBtn) {
+          this.addBtn.addEventListener('click', () => this.handleAddTask());
+        }
+        if (this.demoBtn) {
+          this.demoBtn.addEventListener('click', () => this.loadDemoData());
+        }
+        
+        if (this.searchInput) {
+          this.searchInput.addEventListener('input', Utils.debounce(() => { 
+            this.renderer.setSearchTerm(this.searchInput.value); 
+            this.render(); 
+          }, 300));
+        }
+        
+        if (this.toggleCompletedBtn) {
+          this.toggleCompletedBtn.addEventListener('click', () => this.toggleCompletedVisibility());
+        }
         
         // Timer controls
-        document.getElementById('timerFocus').addEventListener('click', () => { this.timer.setMode('focus'); this.updateTimerModeButtons('focus'); });
-        document.getElementById('timerShortBreak').addEventListener('click', () => { this.timer.setMode('shortBreak'); this.updateTimerModeButtons('shortBreak'); });
-        document.getElementById('timerLongBreak').addEventListener('click', () => { this.timer.setMode('longBreak'); this.updateTimerModeButtons('longBreak'); });
-        document.getElementById('timerStart').addEventListener('click', () => { this.timer.isRunning ? this.timer.pause() : this.timer.start(); });
-        document.getElementById('timerReset').addEventListener('click', () => this.timer.reset());
-
-        // Template cards
-        document.querySelectorAll('.template-card').forEach(card => {
-          card.addEventListener('click', () => {
-            const template = Templates[card.dataset.template];
-            if (template) {
-              this.store.addTask(template);
-              this.hideTemplates();
-              this.switchView('matrix');
-            }
+        const timerFocus = document.getElementById('timerFocus');
+        const timerShortBreak = document.getElementById('timerShortBreak');
+        const timerLongBreak = document.getElementById('timerLongBreak');
+        const timerStart = document.getElementById('timerStart');
+        const timerReset = document.getElementById('timerReset');
+        
+        if (timerFocus) {
+          timerFocus.addEventListener('click', () => { 
+            this.timer.setMode('focus'); 
+            this.updateTimerModeButtons('focus'); 
           });
-        });
-
-        // Integration buttons
-        document.getElementById('setupEmailBtn').addEventListener('click', () => {
-          const email = `tasks-${Math.random().toString(36).substr(2, 9)}@priobox.app`;
-          document.getElementById('emailTaskAddress').value = email;
-          this.store.integrations.emailTask = email;
-          this.store.saveIntegrations();
-          alert('Email address generated! Forward emails to this address to create tasks.');
-        });
-        
-        document.getElementById('connectSlackBtn').addEventListener('click', () => {
-          const webhook = document.getElementById('slackWebhook').value.trim();
-          if (webhook) {
-            this.store.integrations.slackWebhook = webhook;
-            this.store.saveIntegrations();
-            alert('Slack connected! You\'ll receive notifications for due tasks.');
-          }
-        });
-        
-        document.getElementById('connectZapierBtn').addEventListener('click', () => {
-          const webhook = document.getElementById('zapierWebhook').value.trim();
-          if (webhook) {
-            this.store.integrations.zapierWebhook = webhook;
-            this.store.saveIntegrations();
-            alert('Zapier connected! Tasks will be sent to your webhook.');
-          }
-        });
-
-        document.addEventListener('keydown', (e) => this.handleKeyboard(e));
-        this.setupDragTargets();
-        this.setupPWA();
-      }
-
-      setupPWA() {
-        let deferredPrompt;
-        window.addEventListener('beforeinstallprompt', (e) => {
-          e.preventDefault();
-          deferredPrompt = e;
-          this.installBtn.style.display = 'inline';
-        });
-
-        this.installBtn.addEventListener('click', async () => {
-          if (deferredPrompt) {
-            deferredPrompt.prompt();
-            const { outcome } = await deferredPrompt.userChoice;
-            if (outcome === 'accepted') {
-              this.installBtn.style.display = 'none';
-            }
-            deferredPrompt = null;
-          }
-        });
-
-        // Request notification permission
-        if ('Notification' in window && Notification.permission === 'default') {
-          Notification.requestPermission();
         }
+        if (timerShortBreak) {
+          timerShortBreak.addEventListener('click', () => { 
+            this.timer.setMode('shortBreak'); 
+            this.updateTimerModeButtons('shortBreak'); 
+          });
+        }
+        if (timerLongBreak) {
+          timerLongBreak.addEventListener('click', () => { 
+            this.timer.setMode('longBreak'); 
+            this.updateTimerModeButtons('longBreak'); 
+          });
+        }
+        if (timerStart) {
+          timerStart.addEventListener('click', () => { 
+            this.timer.isRunning ? this.timer.pause() : this.timer.start(); 
+          });
+        }
+        if (timerReset) {
+          timerReset.addEventListener('click', () => this.timer.reset());
+        }
+
+        this.setupDragTargets();
+        console.log('Event listeners set up');
       }
 
       setupDragTargets() {
         document.querySelectorAll('.quadrant').forEach(qEl => {
-          qEl.addEventListener('dragover', (e) => { e.preventDefault(); qEl.style.background = 'rgba(46, 160, 67, 0.05)'; });
-          qEl.addEventListener('dragleave', () => { qEl.style.background = ''; });
-          qEl.addEventListener('drop', (e) => { e.preventDefault(); qEl.style.background = ''; const taskId = e.dataTransfer.getData('text/plain'); const targetQuadrant = qEl.dataset.q; if (taskId && targetQuadrant) this.store.updateTask(taskId, { quadrant: targetQuadrant }); });
+          qEl.addEventListener('dragover', (e) => { 
+            e.preventDefault(); 
+            qEl.style.background = 'rgba(46, 160, 67, 0.05)'; 
+          });
+          qEl.addEventListener('dragleave', () => { 
+            qEl.style.background = ''; 
+          });
+          qEl.addEventListener('drop', (e) => { 
+            e.preventDefault(); 
+            qEl.style.background = ''; 
+            const taskId = e.dataTransfer.getData('text/plain'); 
+            const targetQuadrant = qEl.dataset.q; 
+            if (taskId && targetQuadrant) {
+              this.store.updateTask(taskId, { quadrant: targetQuadrant }); 
+            }
+          });
         });
       }
 
@@ -1172,89 +695,91 @@
         this.store.setPref('theme', newTheme);
       }
 
-      showShortcuts() {
-        this.shortcutsModal.classList.add('show');
-        this.shortcutsModal.setAttribute('aria-hidden', 'false');
-      }
-
-      hideShortcuts() {
-        this.shortcutsModal.classList.remove('show');
-        this.shortcutsModal.setAttribute('aria-hidden', 'true');
-      }
-
-      showTemplates() {
-        this.templatesModal.classList.add('show');
-        this.templatesModal.setAttribute('aria-hidden', 'false');
-      }
-
-      hideTemplates() {
-        this.templatesModal.classList.remove('show');
-        this.templatesModal.setAttribute('aria-hidden', 'true');
-      }
-
-      showIntegrations() {
-        document.getElementById('emailTaskAddress').value = this.store.integrations.emailTask || '';
-        document.getElementById('slackWebhook').value = this.store.integrations.slackWebhook || '';
-        document.getElementById('zapierWebhook').value = this.store.integrations.zapierWebhook || '';
-        this.integrationsModal.classList.add('show');
-        this.integrationsModal.setAttribute('aria-hidden', 'false');
-      }
-
-      hideIntegrations() {
-        this.integrationsModal.classList.remove('show');
-        this.integrationsModal.setAttribute('aria-hidden', 'true');
-      }
-
       updateTimerModeButtons(mode) {
         ['timerFocus', 'timerShortBreak', 'timerLongBreak'].forEach(id => {
-          document.getElementById(id).classList.remove('active');
+          const btn = document.getElementById(id);
+          if (btn) btn.classList.remove('active');
         });
         const modeMap = { focus: 'timerFocus', shortBreak: 'timerShortBreak', longBreak: 'timerLongBreak' };
-        document.getElementById(modeMap[mode]).classList.add('active');
+        const activeBtn = document.getElementById(modeMap[mode]);
+        if (activeBtn) activeBtn.classList.add('active');
       }
 
       switchView(view) {
+        console.log('Switching to view:', view);
         this.currentView = view;
         this.store.setPref('currentView', view);
-        [this.viewDaily, this.viewMatrix, this.viewStats, this.viewTimer].forEach(btn => btn.classList.remove('active'));
-        this.dailyView.style.display = 'none';
-        this.matrixView.style.display = 'none';
-        this.statsView.style.display = 'none';
-        this.timerView.style.display = 'none';
         
-        if (view === 'daily') { this.viewDaily.classList.add('active'); this.dailyView.style.display = 'block'; this.renderDailyView(); }
-        else if (view === 'matrix') { this.viewMatrix.classList.add('active'); this.matrixView.style.display = 'block'; this.renderMatrixView(); }
-        else if (view === 'stats') { this.viewStats.classList.add('active'); this.statsView.style.display = 'block'; this.renderStatsView(); }
-        else if (view === 'timer') { this.viewTimer.classList.add('active'); this.timerView.style.display = 'block'; this.timer.updateDisplay(); }
+        [this.viewDaily, this.viewMatrix, this.viewTimer].forEach(btn => {
+          if (btn) btn.classList.remove('active');
+        });
+        
+        if (this.dailyView) this.dailyView.style.display = 'none';
+        if (this.matrixView) this.matrixView.style.display = 'none';
+        if (this.timerView) this.timerView.style.display = 'none';
+        
+        if (view === 'daily') { 
+          if (this.viewDaily) this.viewDaily.classList.add('active'); 
+          if (this.dailyView) this.dailyView.style.display = 'block'; 
+          this.renderDailyView(); 
+        }
+        else if (view === 'matrix') { 
+          if (this.viewMatrix) this.viewMatrix.classList.add('active'); 
+          if (this.matrixView) this.matrixView.style.display = 'block'; 
+          this.renderMatrixView(); 
+        }
+        else if (view === 'timer') { 
+          if (this.viewTimer) this.viewTimer.classList.add('active'); 
+          if (this.timerView) this.timerView.style.display = 'block'; 
+          this.timer.updateDisplay(); 
+        }
       }
 
       render() {
         if (this.currentView === 'daily') this.renderDailyView();
         else if (this.currentView === 'matrix') this.renderMatrixView();
-        else if (this.currentView === 'stats') this.renderStatsView();
         else if (this.currentView === 'timer') this.timer.updateDisplay();
       }
 
       renderDailyView() {
         const today = new Date();
-        document.getElementById('dailyDate').textContent = Utils.formatDateFull(today);
-        const allTasks = this.store.getAllTasks();
-        const todayTasks = allTasks.filter(t => { const diff = Utils.getDaysDiff(t.due); return diff === 0 && !t.completed; });
-        const overdueTasks = allTasks.filter(t => { const diff = Utils.getDaysDiff(t.due); return diff !== null && diff < 0 && !t.completed; });
-        const upcomingTasks = allTasks.filter(t => { const diff = Utils.getDaysDiff(t.due); return diff !== null && diff > 0 && diff <= 7 && !t.completed; });
+        const dailyDate = document.getElementById('dailyDate');
+        if (dailyDate) {
+          dailyDate.textContent = Utils.formatDateFull(today);
+        }
         
-        document.getElementById('todayDue').textContent = todayTasks.length;
-        document.getElementById('overdueCount').textContent = overdueTasks.length;
-        document.getElementById('upcomingCount').textContent = upcomingTasks.length;
+        const allTasks = this.store.getAllTasks();
+        const todayTasks = allTasks.filter(t => { 
+          const diff = Utils.getDaysDiff(t.due); 
+          return diff === 0 && !t.completed; 
+        });
+        const overdueTasks = allTasks.filter(t => { 
+          const diff = Utils.getDaysDiff(t.due); 
+          return diff !== null && diff < 0 && !t.completed; 
+        });
+        const upcomingTasks = allTasks.filter(t => { 
+          const diff = Utils.getDaysDiff(t.due); 
+          return diff !== null && diff > 0 && diff <= 7 && !t.completed; 
+        });
+        
+        const todayDueEl = document.getElementById('todayDue');
+        const overdueCountEl = document.getElementById('overdueCount');
+        const upcomingCountEl = document.getElementById('upcomingCount');
+        
+        if (todayDueEl) todayDueEl.textContent = todayTasks.length;
+        if (overdueCountEl) overdueCountEl.textContent = overdueTasks.length;
+        if (upcomingCountEl) upcomingCountEl.textContent = upcomingTasks.length;
         
         const container = document.getElementById('dailyTasks');
-        container.innerHTML = '';
-        if (overdueTasks.length > 0) this.renderTaskSection(container, 'Overdue', overdueTasks, 'var(--overdue)');
-        if (todayTasks.length > 0) this.renderTaskSection(container, 'Due Today', todayTasks, 'var(--accent-1)');
-        if (upcomingTasks.length > 0) this.renderTaskSection(container, 'This Week', upcomingTasks, 'var(--approach)');
-        
-        if (overdueTasks.length === 0 && todayTasks.length === 0 && upcomingTasks.length === 0) {
-          container.innerHTML = '<div class="empty-state"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="10" width="35" height="35" rx="5" fill="currentColor"/><rect x="55" y="10" width="35" height="35" rx="5" fill="currentColor"/><rect x="10" y="55" width="35" height="35" rx="5" fill="currentColor"/><rect x="55" y="55" width="35" height="35" rx="5" fill="currentColor"/></svg><h3>All caught up!</h3><p>No urgent tasks. Great job staying organized.</p></div>';
+        if (container) {
+          container.innerHTML = '';
+          if (overdueTasks.length > 0) this.renderTaskSection(container, 'Overdue', overdueTasks, 'var(--overdue)');
+          if (todayTasks.length > 0) this.renderTaskSection(container, 'Due Today', todayTasks, 'var(--accent-1)');
+          if (upcomingTasks.length > 0) this.renderTaskSection(container, 'This Week', upcomingTasks, 'var(--approach)');
+          
+          if (overdueTasks.length === 0 && todayTasks.length === 0 && upcomingTasks.length === 0) {
+            container.innerHTML = '<div class="empty-state"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="10" width="35" height="35" rx="5" fill="currentColor"/><rect x="55" y="10" width="35" height="35" rx="5" fill="currentColor"/><rect x="10" y="55" width="35" height="35" rx="5" fill="currentColor"/><rect x="55" y="55" width="35" height="35" rx="5" fill="currentColor"/></svg><h3>All caught up!</h3><p>No urgent tasks. Great job staying organized.</p></div>';
+          }
         }
       }
 
@@ -1262,7 +787,12 @@
         const section = document.createElement('div');
         section.innerHTML = `<h3 style="color:${color};margin:16px 0 8px 0">${title}</h3>`;
         container.appendChild(section);
-        tasks.sort((a, b) => { if (a.due && b.due) return new Date(a.due) - new Date(b.due); return 0; }).forEach(task => { container.appendChild(this.renderer.createTaskElement(task)); });
+        tasks.sort((a, b) => { 
+          if (a.due && b.due) return new Date(a.due) - new Date(b.due); 
+          return 0; 
+        }).forEach(task => { 
+          container.appendChild(this.renderer.createTaskElement(task)); 
+        });
       }
 
       renderMatrixView() {
@@ -1271,11 +801,18 @@
           if (!container) return;
           container.innerHTML = '';
           const tasks = this.store.getTasksByQuadrant(q);
-          tasks.sort((a, b) => { if (a.due && b.due) return new Date(a.due) - new Date(b.due); if (a.due) return -1; if (b.due) return 1; return (a.createdAt || 0) - (b.createdAt || 0); });
+          tasks.sort((a, b) => { 
+            if (a.due && b.due) return new Date(a.due) - new Date(b.due); 
+            if (a.due) return -1; 
+            if (b.due) return 1; 
+            return (a.createdAt || 0) - (b.createdAt || 0); 
+          });
           tasks.forEach(task => {
             if (!this.renderer.matchesSearch(task)) return;
             const node = this.renderer.createTaskElement(task);
-            if (!this.store.getPref('showCompleted') && task.completed) node.style.display = 'none';
+            if (!this.store.getPref('showCompleted') && task.completed) {
+              node.style.display = 'none';
+            }
             container.appendChild(node);
           });
         });
@@ -1295,246 +832,49 @@
         });
       }
 
-      renderStatsView() {
-        const allTasks = this.store.getAllTasks();
-        const total = allTasks.length;
-        const completed = allTasks.filter(t => t.completed).length;
-        const active = total - completed;
-        const overdue = allTasks.filter(t => { const diff = Utils.getDaysDiff(t.due); return diff !== null && diff < 0 && !t.completed; }).length;
-        
-        document.getElementById('totalTasks').textContent = total;
-        document.getElementById('completedTasks').textContent = completed;
-        document.getElementById('activeTasks').textContent = active;
-        document.getElementById('overdueStats').textContent = overdue;
-        
-        const completionRate = total > 0 ? Math.round((completed / total) * 100) : 0;
-        document.getElementById('completionRate').textContent = `${completionRate}% completion rate`;
-        document.getElementById('completedBar').style.width = completionRate + '%';
-        document.getElementById('activeBar').style.width = (total > 0 ? (active / total) * 100 : 0) + '%';
-        
-        this.quadrants.forEach(q => {
-          const count = allTasks.filter(t => t.quadrant === q).length;
-          const pct = total > 0 ? Math.round((count / total) * 100) : 0;
-          const label = q.replace('-', '');
-          const statEl = document.getElementById(`${label}Stat`);
-          const barEl = document.getElementById(`${label}Bar`);
-          if (statEl) statEl.textContent = count;
-          if (barEl) barEl.style.width = pct + '%';
-        });
-        
-        this.renderInsights(allTasks, total, completed, overdue, completionRate);
-      }
-
-      renderInsights(allTasks, total, completed, overdue, completionRate) {
-        const insights = [];
-        if (overdue > 0) insights.push(`You have ${overdue} overdue task${overdue > 1 ? 's' : ''} that need immediate attention.`);
-        if (completionRate >= 70) insights.push(`Great job! You're completing ${completionRate}% of your tasks.`);
-        else if (completionRate < 30 && total > 5) insights.push(`Consider breaking down tasks into smaller, more manageable pieces.`);
-        
-        const doFirstCount = allTasks.filter(t => t.quadrant === 'do-first').length;
-        const eliminateCount = allTasks.filter(t => t.quadrant === 'eliminate').length;
-        
-        if (doFirstCount > total * 0.5 && total > 5) insights.push(`Over half your tasks are in "Do First". Consider if some could be scheduled or delegated.`);
-        if (eliminateCount > 5) insights.push(`You have ${eliminateCount} tasks in "Eliminate". Consider removing low-value items.`);
-        if (total === completed && total > 0) insights.push(`All tasks completed! Time to set new goals.`);
-        if (insights.length === 0) insights.push(`Keep adding tasks and tracking your progress to see personalized insights.`);
-        
-        document.getElementById('insightsList').innerHTML = insights.map(i => `<li>${i}</li>`).join('');
-      }
-
       handleAddTask() {
         const title = this.taskTitle.value.trim();
-        if (!title) { this.taskTitle.focus(); return; }
+        if (!title) { 
+          if (this.taskTitle) this.taskTitle.focus(); 
+          return; 
+        }
         this.store.addTask({ 
           title, 
-          description: this.taskDescription.value.trim(), 
-          due: this.taskDue.value || '', 
-          quadrant: this.taskQuadrant.value || 'do-first', 
-          label: this.taskLabel.value || '' 
+          description: this.taskDescription ? this.taskDescription.value.trim() : '', 
+          due: this.taskDue ? this.taskDue.value || '' : '', 
+          quadrant: this.taskQuadrant ? this.taskQuadrant.value || 'do-first' : 'do-first'
         });
-        this.taskTitle.value = ''; 
-        this.taskDescription.value = ''; 
-        this.taskDue.value = ''; 
-        this.taskQuadrant.value = 'do-first'; 
-        this.taskLabel.value = '';
+        if (this.taskTitle) this.taskTitle.value = ''; 
+        if (this.taskDescription) this.taskDescription.value = ''; 
+        if (this.taskDue) this.taskDue.value = ''; 
+        if (this.taskQuadrant) this.taskQuadrant.value = 'do-first';
       }
 
-      toggleComplete(taskId) { this.store.toggleComplete(taskId); }
+      toggleComplete(taskId) { 
+        this.store.toggleComplete(taskId); 
+      }
       
       deleteTask(taskId) { 
         if (!confirm('Delete this task?')) return; 
         this.store.deleteTask(taskId); 
       }
-      
-      handleClearAll() { 
-        if (!confirm('Clear all tasks? This cannot be undone.')) return; 
-        this.store.tasks = {}; 
-        this.store.save(); 
-      }
-
-      openEditPanel(taskId) {
-        this.editingTaskId = taskId;
-        const task = this.store.getTask(taskId);
-        if (!task) return;
-        
-        this.pTitle.value = task.title || '';
-        this.pDesc.value = task.description || '';
-        this.pDue.value = task.due || '';
-        this.pQuadrant.value = task.quadrant || 'do-first';
-        this.pLabel.value = task.label || '';
-        this.pCompleted.checked = !!task.completed;
-        this.pRecurring.checked = task.recurring && task.recurring.enabled;
-        this.pRecurringInterval.value = task.recurring && task.recurring.interval || 'daily';
-        this.pRecurringInterval.style.display = this.pRecurring.checked ? 'block' : 'none';
-        
-        document.getElementById('panelTitle').textContent = 'Edit task';
-        this.renderSubtasks();
-        this.showPanel(true);
-      }
-
-      showPanel(show) {
-        if (show) {
-          this.slidePanel.classList.add('show');
-          this.panelBackdrop.classList.add('show');
-          this.slidePanel.setAttribute('aria-hidden', 'false');
-        } else {
-          this.slidePanel.classList.remove('show');
-          this.panelBackdrop.classList.remove('show');
-          this.slidePanel.setAttribute('aria-hidden', 'true');
-          this.editingTaskId = null;
-        }
-      }
-
-      closePanel() { this.showPanel(false); }
-
-      savePanel() {
-        if (!this.editingTaskId) return;
-        const task = this.store.getTask(this.editingTaskId);
-        if (!task) { this.closePanel(); return; }
-        
-        this.store.updateTask(this.editingTaskId, {
-          title: this.pTitle.value.trim() || task.title,
-          description: this.pDesc.value.trim(),
-          due: this.pDue.value || '',
-          quadrant: this.pQuadrant.value,
-          label: this.pLabel.value || '',
-          completed: !!this.pCompleted.checked,
-          recurring: {
-            enabled: !!this.pRecurring.checked,
-            interval: this.pRecurringInterval.value
-          }
-        });
-        this.closePanel();
-      }
-
-      renderSubtasks() {
-        if (!this.editingTaskId) return;
-        const task = this.store.getTask(this.editingTaskId);
-        if (!task) return;
-        const subtasks = task.subtasks || [];
-        this.subtasksList.innerHTML = '';
-        
-        subtasks.forEach((st, idx) => {
-          const div = document.createElement('div');
-          div.className = 'subtask' + (st.completed ? ' completed' : '');
-          
-          const checkbox = document.createElement('input');
-          checkbox.type = 'checkbox';
-          checkbox.checked = st.completed;
-          checkbox.addEventListener('change', () => {
-            task.subtasks[idx].completed = checkbox.checked;
-            this.store.save();
-            this.renderSubtasks();
-          });
-          
-          const text = document.createElement('span');
-          text.textContent = st.text;
-          text.style.flex = '1';
-          
-          const delBtn = document.createElement('button');
-          delBtn.textContent = '✕';
-          delBtn.className = 'small-btn';
-          delBtn.onclick = () => {
-            task.subtasks.splice(idx, 1);
-            this.store.save();
-            this.renderSubtasks();
-          };
-          
-          div.appendChild(checkbox);
-          div.appendChild(text);
-          div.appendChild(delBtn);
-          this.subtasksList.appendChild(div);
-        });
-      }
-
-      addSubtask() {
-        if (!this.editingTaskId) return;
-        const task = this.store.getTask(this.editingTaskId);
-        if (!task) return;
-        const text = prompt('Subtask:');
-        if (!text || !text.trim()) return;
-        if (!task.subtasks) task.subtasks = [];
-        task.subtasks.push({ text: text.trim(), completed: false });
-        this.store.save();
-        this.renderSubtasks();
-      }
-
-      exportTasks() {
-        const data = JSON.stringify({ tasks: this.store.tasks }, null, 2);
-        const blob = new Blob([data], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'priobox-tasks.json';
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        URL.revokeObjectURL(url);
-      }
-
-      importTasks(event) {
-        const file = event.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = () => {
-          try {
-            const obj = JSON.parse(reader.result);
-            if (obj.tasks) {
-              Object.values(obj.tasks).forEach(t => {
-                let id = t.id;
-                if (!id || this.store.tasks[id]) id = this.store.generateId();
-                this.store.tasks[id] = { ...t, id };
-              });
-              this.store.save();
-              alert('Imported tasks successfully');
-            } else {
-              alert('No tasks found in file');
-            }
-          } catch(e) {
-            alert('Invalid JSON file');
-            console.error(e);
-          }
-        };
-        reader.readAsText(file);
-        this.importFileInput.value = '';
-      }
 
       loadDemoData() {
         if (Object.keys(this.store.tasks).length > 0) {
-          if (!confirm('This will replace your current tasks. Continue?')) return;
+          if (!confirm('This will add demo tasks. Continue?')) return;
         }
-        this.store.tasks = {};
+        
         const today = new Date();
         const tomorrow = new Date(today.getTime() + 86400000);
         const nextWeek = new Date(today.getTime() + 7 * 86400000);
         const yesterday = new Date(today.getTime() - 86400000);
         
         const samples = [
-          { title: 'Fix critical signup bug', quadrant: 'do-first', due: Utils.formatDate(tomorrow), label: 'client', description: 'Users cannot complete registration', subtasks: [{ text: 'Reproduce the bug', completed: true }, { text: 'Identify root cause', completed: true }, { text: 'Write fix', completed: false }, { text: 'Test solution', completed: false }, { text: 'Deploy to production', completed: false }] },
-          { title: 'Plan Q2 roadmap', quadrant: 'schedule', due: Utils.formatDate(nextWeek), label: '', description: 'Strategic planning session with team', subtasks: [{ text: 'Review Q1 results', completed: false }, { text: 'Gather team input', completed: false }, { text: 'Draft objectives', completed: false }], recurring: { enabled: true, interval: 'monthly' } },
-          { title: 'Review social media posts', quadrant: 'delegate', due: '', label: 'personal', description: 'Quick 15-minute task', subtasks: [] },
-          { title: 'Clean old email subscriptions', quadrant: 'eliminate', due: '', label: '', description: 'Low priority cleanup', subtasks: [] },
-          { title: 'Submit quarterly report', quadrant: 'do-first', due: Utils.formatDate(yesterday), label: 'client', description: 'Overdue - needs immediate attention', subtasks: [] }
+          { title: 'Fix critical signup bug', quadrant: 'do-first', due: Utils.formatDate(tomorrow), description: 'Users cannot complete registration' },
+          { title: 'Plan Q2 roadmap', quadrant: 'schedule', due: Utils.formatDate(nextWeek), description: 'Strategic planning session with team' },
+          { title: 'Review social media posts', quadrant: 'delegate', due: '', description: 'Quick 15-minute task' },
+          { title: 'Clean old email subscriptions', quadrant: 'eliminate', due: '', description: 'Low priority cleanup' },
+          { title: 'Submit quarterly report', quadrant: 'do-first', due: Utils.formatDate(yesterday), description: 'Overdue - needs immediate attention' }
         ];
         samples.forEach(s => this.store.addTask(s));
       }
@@ -1542,102 +882,59 @@
       toggleCompletedVisibility() {
         const showCompleted = !this.store.getPref('showCompleted');
         this.store.setPref('showCompleted', showCompleted);
-        this.toggleCompletedBtn.textContent = showCompleted ? 'Hide Completed' : 'Show Completed';
+        if (this.toggleCompletedBtn) {
+          this.toggleCompletedBtn.textContent = showCompleted ? 'Hide Completed' : 'Show Completed';
+        }
         this.render();
       }
 
-      showOnboarding() {
-        this.onboard.classList.add('show');
-        this.onboard.setAttribute('aria-hidden', 'false');
-      }
-
-      closeOnboarding() {
-        this.onboard.classList.remove('show');
-        this.onboard.setAttribute('aria-hidden', 'true');
-        this.store.setPref('onboardingSeen', true);
-      }
-
-      handleKeyboard(e) {
-        // Close modals with Escape
-        if (e.key === 'Escape') {
-          this.closePanel();
-          this.closeOnboarding();
-          this.hideShortcuts();
-          this.hideTemplates();
-          this.hideIntegrations();
-        }
-        
-        // New task with Ctrl/Cmd + N
-        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'n') {
-          e.preventDefault();
-          if (this.taskTitle) this.taskTitle.focus();
-        }
-        
-        // Search with Ctrl/Cmd + F
-        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'f') {
-          e.preventDefault();
-          if (this.searchInput) this.searchInput.focus();
-        }
-        
-        // Quick view switching
-        if (e.key === '1') this.switchView('daily');
-        if (e.key === '2') this.switchView('timer');
-        if (e.key === '3') this.switchView('matrix');
-        if (e.key === '4') this.switchView('stats');
-        
-        // Shortcuts modal
-        if (e.key.toLowerCase() === 'k' && !e.ctrlKey && !e.metaKey) {
-          e.preventDefault();
-          this.showShortcuts();
-        }
-        
-        // Templates modal
-        if (e.key.toLowerCase() === 't' && !e.ctrlKey && !e.metaKey) {
-          e.preventDefault();
-          this.showTemplates();
-        }
-        
-        // Dark mode toggle
-        if (e.key.toLowerCase() === 'd' && !e.ctrlKey && !e.metaKey) {
-          e.preventDefault();
-          this.toggleTheme();
-        }
-        
-        // Enter to add task
-        if (e.key === 'Enter' && (document.activeElement === this.taskTitle || document.activeElement === this.taskDescription || document.activeElement === this.taskDue)) {
-          this.handleAddTask();
-        }
-      }
-
       async init() {
-        this.loadingEl.classList.remove('loading-hidden');
+        console.log('Initializing app...');
+        if (this.loadingEl) {
+          this.loadingEl.classList.remove('loading-hidden');
+        }
+        
         this.store.load();
         
-        // Apply saved theme
         const theme = this.store.getPref('theme') || 'light';
         document.documentElement.setAttribute('data-theme', theme);
         
-        if (!this.store.getPref('onboardingSeen')) {
-          setTimeout(() => this.showOnboarding(), 700);
+        if (this.appArea) {
+          this.appArea.style.display = 'block';
         }
         
-        this.appArea.style.display = 'block';
-        this.toggleCompletedBtn.textContent = this.store.getPref('showCompleted') ? 'Hide Completed' : 'Show Completed';
+        if (this.toggleCompletedBtn) {
+          this.toggleCompletedBtn.textContent = this.store.getPref('showCompleted') ? 'Hide Completed' : 'Show Completed';
+        }
+        
         this.switchView(this.store.getPref('currentView') || 'daily');
         
         setTimeout(() => {
-          this.loadingEl.classList.add('loading-hidden');
-          setTimeout(() => this.loadingEl.style.display = 'none', 300);
+          if (this.loadingEl) {
+            this.loadingEl.classList.add('loading-hidden');
+            setTimeout(() => {
+              if (this.loadingEl) {
+                this.loadingEl.style.display = 'none';
+              }
+            }, 300);
+          }
         }, 500);
+        
+        console.log('App initialized successfully');
       }
     }
 
     // Initialize app
-    const app = new PrioBoxApp();
-    app.init();
-
-    // Expose to window for debugging
-    window.priobox = { app, store: app.store, utils: Utils, timer: app.timer };
+    try {
+      console.log('Creating app instance...');
+      const app = new PrioBoxApp();
+      app.init();
+      window.priobox = { app, store: app.store, utils: Utils, timer: app.timer };
+      console.log('App ready!');
+    } catch (error) {
+      console.error('Error initializing app:', error);
+      alert('Error loading PrioBox. Please check the console for details.');
+    }
   </script>
 </body>
 </html>
