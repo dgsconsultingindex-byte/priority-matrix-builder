@@ -1,42 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3TQ4METDYF"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-3TQ4METDYF');
-  </script>
-  
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="theme-color" content="#0969da" />
   <title>PrioBox — Focus What Matters</title>
-  <link rel="stylesheet" href="style2.css">
-  <meta name="description" content="PrioBox — Enhanced productivity app with focus timer, recurring tasks, dark mode, and integrations." />
- </head>
+  <link rel="stylesheet" href="style2.css" />
+</head>
 <body>
   <div id="loading" class="loading-overlay">Loading PrioBox...</div>
 
   <div class="wrap">
     <header>
       <div class="brand">
-        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-          <rect x="10" y="10" width="35" height="35" rx="5" fill="#2ea043"/>
-          <rect x="55" y="10" width="35" height="35" rx="5" fill="#4caf50"/>
-          <rect x="10" y="55" width="35" height="35" rx="5" fill="#66bb6a"/>
-          <rect x="55" y="55" width="35" height="35" rx="5" fill="#81c784"/>
-        </svg>
-        <div>
-          <h1>PrioBox</h1>
-          <p>Focus what matters</p>
-        </div>
+        <h1>PrioBox</h1>
+        <p>Focus what matters</p>
       </div>
-
       <div class="header-actions">
         <button id="themeToggle" class="icon-btn" title="Toggle dark mode">🌓</button>
-        <button id="templatesBtn" class="icon-btn" title="Task templates">📋</button>
       </div>
     </header>
 
@@ -48,839 +29,230 @@
           <button id="viewMatrix">Full Matrix</button>
         </div>
       </div>
-<!-- Daily View -->
-<div id="dailyView">
-  <div class="daily-hero">
-    <h2>Today's Focus</h2>
-    <p id="dailyDate"></p>
-  </div>
 
-  <div id="dailyStats" class="stats-grid" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr))">
-    <div class="stat-card">
-      <div class="stat-value" id="todayDue">0</div>
-      <div class="stat-label">Due Today</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-value" id="overdueCount">0</div>
-      <div class="stat-label">Overdue</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-value" id="upcomingCount">0</div>
-      <div class="stat-label">This Week</div>
-    </div>
-  </div>
-
-  <div class="focus-list" id="dailyTasks">
-    <!-- Example task -->
-    <!-- <div class="task">Finish report</div> -->
-  </div>
-</div>
-
-<!-- Focus Timer View -->
-<div id="timerView" style="display:none">
-  <div class="focus-timer-widget">
-    <h2 style="margin:0 0 16px 0">Focus Timer</h2>
-
-    <div class="timer-mode">
-      <button id="timerFocus" class="active">Focus (25 min)</button>
-      <button id="timerShortBreak">Short Break (5 min)</button>
-      <button id="timerLongBreak">Long Break (15 min)</button>
-    </div>
-
-    <div class="timer-display" id="timerDisplay">25:00</div>
-    <div class="timer-status" id="timerStatus">Ready to focus</div>
-
-    <div class="timer-controls">
-      <button id="timerStart">Start</button>
-      <button id="timerReset" class="ghost">Reset</button>
-    </div>
-
-    <div style="margin-top:24px;padding-top:24px;border-top:1px solid var(--muted)">
-      <div style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:8px">
-        Sessions completed today: <strong id="sessionsToday">0</strong>
-      </div>
-    </div>
-  </div>
-</div>
-    <!-- Matrix View -->
-<div id="matrixView" style="display:block">
-  <section class="controls" aria-label="Task controls">
-    <input id="taskTitle" type="text" placeholder="Task title (required)" />
-    <input id="taskDescription" type="text" placeholder="Description (optional)" />
-    <input id="taskDue" type="date" />
-    <select id="taskQuadrant">
-      <option value="do-first">Do First</option>
-      <option value="schedule">Schedule</option>
-      <option value="delegate">Delegate</option>
-      <option value="eliminate">Eliminate</option>
-    </select>
-    <button class="btn" id="addBtn">Add Task</button>
-    <button class="btn ghost" id="demoBtn">Demo Data</button>
-  </section>
-
-  <div class="search-row">
-    <input id="searchInput" type="search" placeholder="Search tasks..." />
-  </div>
-
-  <div class="filters">
-    <button id="toggleCompletedBtn" class="btn ghost" style="height:36px;padding:8px 12px;border-radius:8px;">Hide Completed</button>
-  </div>
-
-  <section class="matrix" aria-label="Priority matrix">
-    <!-- Do First -->
-    <div class="quadrant do-first" data-q="do-first">
-      <div class="quad-head">
-        <div>
-          <div class="quad-title">Do First</div>
-          <div class="quad-sub">Urgent & Important</div>
+      <!-- Daily View -->
+      <div id="dailyView">
+        <div class="daily-hero">
+          <h2>Today's Focus</h2>
+          <p id="dailyDate"></p>
         </div>
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
-          <div id="do-first-count">(1/2 done)</div>
-          <div class="progress-bar"><div id="do-first-fill" class="progress-fill" style="width:50%;"></div></div>
+        <div id="dailyStats" class="stats-grid">
+          <div class="stat-card"><div class="stat-value" id="todayDue">0</div><div class="stat-label">Due Today</div></div>
+          <div class="stat-card"><div class="stat-value" id="overdueCount">0</div><div class="stat-label">Overdue</div></div>
+          <div class="stat-card"><div class="stat-value" id="upcomingCount">0</div><div class="stat-label">This Week</div></div>
+        </div>
+        <div class="focus-list" id="dailyTasks"></div>
+      </div>
+
+      <!-- Focus Timer View -->
+      <div id="timerView" style="display:none">
+        <div class="focus-timer-widget">
+          <h2>Focus Timer</h2>
+          <div class="timer-mode">
+            <button id="timerFocus" class="active">Focus (25 min)</button>
+            <button id="timerShortBreak">Short Break (5 min)</button>
+            <button id="timerLongBreak">Long Break (15 min)</button>
+          </div>
+          <div class="timer-display" id="timerDisplay">25:00</div>
+          <div class="timer-status" id="timerStatus">Ready to focus</div>
+          <div class="timer-controls">
+            <button id="timerStart">Start</button>
+            <button id="timerReset" class="ghost">Reset</button>
+          </div>
+          <div style="margin-top:24px;padding-top:24px;border-top:1px solid var(--muted)">
+            <div style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:8px">
+              Sessions completed today: <strong id="sessionsToday">0</strong>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="tasks" id="do-first-tasks">
-        <div class="task">Finish report</div>
-        <div class="task completed">Reply to urgent email</div>
-      </div>
-    </div>
 
-    <!-- Schedule -->
-    <div class="quadrant schedule" data-q="schedule">
-      <div class="quad-head">
-        <div>
-          <div class="quad-title">Schedule</div>
-          <div class="quad-sub">Not Urgent but Important</div>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
-          <div id="schedule-count">(0/1 done)</div>
-          <div class="progress-bar"><div id="schedule-fill" class="progress-fill" style="width:0%;"></div></div>
-        </div>
-      </div>
-      <div class="tasks" id="schedule-tasks">
-        <div class="task">Plan next week</div>
-      </div>
-    </div>
+      <!-- Matrix View -->
+      <div id="matrixView" style="display:none">
+        <section class="controls" aria-label="Task controls">
+          <input id="taskTitle" type="text" placeholder="Task title (required)" />
+          <input id="taskDescription" type="text" placeholder="Description (optional)" />
+          <input id="taskDue" type="date" />
+          <select id="taskQuadrant">
+            <option value="do-first">Do First</option>
+            <option value="schedule">Schedule</option>
+            <option value="delegate">Delegate</option>
+            <option value="eliminate">Eliminate</option>
+          </select>
+          <button class="btn" id="addBtn">Add Task</button>
+          <button class="btn ghost" id="demoBtn">Demo Data</button>
+        </section>
 
-    <!-- Delegate -->
-    <div class="quadrant delegate" data-q="delegate">
-      <div class="quad-head">
-        <div>
-          <div class="quad-title">Delegate</div>
-          <div class="quad-sub">Urgent but Not Important</div>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
-          <div id="delegate-count">(0/0 done)</div>
-          <div class="progress-bar"><div id="delegate-fill" class="progress-fill"></div></div>
-        </div>
+        <section class="matrix" aria-label="Priority matrix">
+          <div class="quadrant do-first" data-q="do-first">
+            <div class="quad-head">
+              <div><div class="quad-title">Do First</div><div class="quad-sub">Urgent & Important</div></div>
+              <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+                <div id="do-first-count">(0/0 done)</div>
+                <div class="progress-bar"><div id="do-first-fill" class="progress-fill" style="width:0%;"></div></div>
+              </div>
+            </div>
+            <div class="tasks" id="do-first-tasks"></div>
+          </div>
+          <div class="quadrant schedule" data-q="schedule">
+            <div class="quad-head">
+              <div><div class="quad-title">Schedule</div><div class="quad-sub">Not Urgent but Important</div></div>
+              <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+                <div id="schedule-count">(0/0 done)</div>
+                <div class="progress-bar"><div id="schedule-fill" class="progress-fill"></div></div>
+              </div>
+            </div>
+            <div class="tasks" id="schedule-tasks"></div>
+          </div>
+          <div class="quadrant delegate" data-q="delegate">
+            <div class="quad-head">
+              <div><div class="quad-title">Delegate</div><div class="quad-sub">Urgent but Not Important</div></div>
+              <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+                <div id="delegate-count">(0/0 done)</div>
+                <div class="progress-bar"><div id="delegate-fill" class="progress-fill"></div></div>
+              </div>
+            </div>
+            <div class="tasks" id="delegate-tasks"></div>
+          </div>
+          <div class="quadrant eliminate" data-q="eliminate">
+            <div class="quad-head">
+              <div><div class="quad-title">Eliminate</div><div class="quad-sub">Not Urgent & Not Important</div></div>
+              <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+                <div id="eliminate-count">(0/0 done)</div>
+                <div class="progress-bar"><div id="eliminate-fill" class="progress-fill"></div></div>
+              </div>
+            </div>
+            <div class="tasks" id="eliminate-tasks"></div>
+          </div>
+        </section>
       </div>
-      <div class="tasks" id="delegate-tasks">
-        <div class="task">Assign client follow-up</div>
-      </div>
-    </div>
 
-    <!-- Eliminate -->
-    <div class="quadrant eliminate" data-q="eliminate">
-      <div class="quad-head">
-        <div>
-          <div class="quad-title">Eliminate</div>
-          <div class="quad-sub">Not Urgent & Not Important</div>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
-          <div id="eliminate-count">(0/0 done)</div>
-          <div class="progress-bar"><div id="eliminate-fill" class="progress-fill"></div></div>
-        </div>
-      </div>
-      <div class="tasks" id="eliminate-tasks">
-        <div class="task">Check social media</div>
-      </div>
-    </div>
-  </section>
-</div>
-      
       <footer>© 2025 PrioBox — Built by DGS Consulting</footer>
     </div>
   </div>
 
   <script>
-    'use strict';
+    (() => {
+      const loading = document.getElementById('loading');
+      const appArea = document.getElementById('appArea');
 
-    console.log('Script starting...');
+      // Theme toggle
+      const themeToggle = document.getElementById('themeToggle');
+      themeToggle.addEventListener('click', () => {
+        if(document.documentElement.getAttribute('data-theme')==='dark'){
+          document.documentElement.removeAttribute('data-theme');
+        } else {document.documentElement.setAttribute('data-theme','dark');}
+      });
 
-    // Task Store
-    class TaskStore {
-      constructor() {
-        this.STORAGE_KEY = 'priobox_tasks_v3';
-        this.PREFS_KEY = 'priobox_prefs_v3';
-        this.tasks = {};
-        this.prefs = { 
-          showCompleted: true, 
-          theme: 'light', 
-          currentView: 'daily',
-          timerSessions: 0,
-          timerSessionsDate: new Date().toDateString()
-        };
-        this.listeners = [];
-        console.log('TaskStore initialized');
-      }
+      // Views
+      const dailyView = document.getElementById('dailyView');
+      const timerView = document.getElementById('timerView');
+      const matrixView = document.getElementById('matrixView');
+      document.getElementById('viewDaily').addEventListener('click',()=>{dailyView.style.display='block';timerView.style.display='none';matrixView.style.display='none';setActiveView('viewDaily');});
+      document.getElementById('viewTimer').addEventListener('click',()=>{dailyView.style.display='none';timerView.style.display='block';matrixView.style.display='none';setActiveView('viewTimer');});
+      document.getElementById('viewMatrix').addEventListener('click',()=>{dailyView.style.display='none';timerView.style.display='none';matrixView.style.display='block';setActiveView('viewMatrix');});
+      function setActiveView(id){document.querySelectorAll('.view-toggle button').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active');}
 
-      load() {
-        try {
-          const rawTasks = localStorage.getItem(this.STORAGE_KEY);
-          const rawPrefs = localStorage.getItem(this.PREFS_KEY);
-          
-          if (rawTasks) {
-            const data = JSON.parse(rawTasks);
-            this.tasks = data.tasks || {};
-          }
-          
-          if (rawPrefs) {
-            this.prefs = { ...this.prefs, ...JSON.parse(rawPrefs) };
-          }
-          
-          console.log('Loaded tasks:', Object.keys(this.tasks).length);
-        } catch(e) { 
-          console.error('Load error:', e); 
-        }
+      // Task storage
+      let tasks=[];
+      function addTask(title,desc,due,quad){
+        const task={id:Date.now(),title,desc,due,done:false,quad};
+        tasks.push(task);renderMatrix();renderDaily();
       }
 
-      save() {
-        try {
-          localStorage.setItem(this.STORAGE_KEY, JSON.stringify({ tasks: this.tasks }));
-          this.notify();
-        } catch(e) { console.error('Save error:', e); }
-      }
-
-      savePrefs() {
-        try {
-          localStorage.setItem(this.PREFS_KEY, JSON.stringify(this.prefs));
-        } catch(e) { console.error('Save prefs error:', e); }
-      }
-
-      subscribe(callback) {
-        this.listeners.push(callback);
-      }
-
-      notify() { 
-        this.listeners.forEach(cb => cb()); 
-      }
-
-      addTask(task) {
-        const id = `t-${Date.now()}-${Math.floor(Math.random() * 9000 + 1000)}`;
-        this.tasks[id] = { 
-          id, 
-          title: task.title || 'Untitled', 
-          description: task.description || '', 
-          due: task.due || '', 
-          quadrant: task.quadrant || 'do-first', 
-          completed: false, 
-          createdAt: Date.now()
-        };
-        this.save();
-        return id;
-      }
-
-      updateTask(id, updates) {
-        if (!this.tasks[id]) return false;
-        this.tasks[id] = { ...this.tasks[id], ...updates };
-        this.save();
-        return true;
-      }
-
-      deleteTask(id) {
-        if (!this.tasks[id]) return false;
-        delete this.tasks[id];
-        this.save();
-        return true;
-      }
-
-      getAllTasks() { return Object.values(this.tasks); }
-      getTasksByQuadrant(quadrant) { return this.getAllTasks().filter(t => t.quadrant === quadrant); }
-
-      toggleComplete(id) {
-        const task = this.tasks[id];
-        if (!task) return false;
-        task.completed = !task.completed;
-        this.save();
-        return true;
-      }
-
-      setPref(key, value) { this.prefs[key] = value; this.savePrefs(); }
-      getPref(key) { return this.prefs[key]; }
-
-      incrementTimerSessions() {
-        this.prefs.timerSessions++;
-        this.savePrefs();
-        this.notify();
-      }
-    }
-
-    // Utility functions
-    const Utils = {
-      escapeHtml(text) {
-        if (!text) return '';
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
-      },
-      formatDate(dateStr) {
-        if (!dateStr) return '';
-        try { return new Date(dateStr).toISOString().slice(0, 10); } catch { return dateStr; }
-      },
-      getDaysDiff(dateStr) {
-        if (!dateStr) return null;
-        const today = new Date(); today.setHours(0,0,0,0);
-        const date = new Date(dateStr); date.setHours(0,0,0,0);
-        return Math.round((date - today) / (1000 * 60 * 60 * 24));
-      },
-      getUrgencyClass(dateStr) {
-        const diff = this.getDaysDiff(dateStr);
-        if (diff === null) return '';
-        if (diff < 0) return 'due-overdue';
-        if (diff <= 2) return 'due-approach';
-        return 'due-on-time';
-      },
-      debounce(func, wait) {
-        let timeout;
-        return function(...args) {
-          clearTimeout(timeout);
-          timeout = setTimeout(() => func(...args), wait);
-        };
-      },
-      formatDateFull(date) {
-        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        return date.toLocaleDateString('en-US', options);
-      }
-    };
-
-    // Focus Timer
-    class FocusTimer {
-      constructor(store) {
-        this.store = store;
-        this.modes = { focus: 25 * 60, shortBreak: 5 * 60, longBreak: 15 * 60 };
-        this.currentMode = 'focus';
-        this.timeLeft = this.modes.focus;
-        this.isRunning = false;
-        this.interval = null;
-        console.log('FocusTimer initialized');
-      }
-
-      setMode(mode) {
-        this.currentMode = mode;
-        this.timeLeft = this.modes[mode];
-        this.isRunning = false;
-        if (this.interval) clearInterval(this.interval);
-        this.updateDisplay();
-      }
-
-      start() {
-        this.isRunning = true;
-        this.interval = setInterval(() => {
-          this.timeLeft--;
-          this.updateDisplay();
-          if (this.timeLeft <= 0) {
-            this.complete();
-          }
-        }, 1000);
-        this.updateDisplay();
-      }
-
-      pause() {
-        this.isRunning = false;
-        if (this.interval) clearInterval(this.interval);
-        this.updateDisplay();
-      }
-
-      reset() {
-        this.isRunning = false;
-        if (this.interval) clearInterval(this.interval);
-        this.timeLeft = this.modes[this.currentMode];
-        this.updateDisplay();
-      }
-
-      complete() {
-        this.pause();
-        if (this.currentMode === 'focus') {
-          this.store.incrementTimerSessions();
-        }
-        alert(`${this.currentMode === 'focus' ? 'Focus' : 'Break'} complete!`);
-      }
-
-      updateDisplay() {
-        const mins = Math.floor(this.timeLeft / 60);
-        const secs = this.timeLeft % 60;
-        const display = document.getElementById('timerDisplay');
-        const status = document.getElementById('timerStatus');
-        const startBtn = document.getElementById('timerStart');
-        const sessions = document.getElementById('sessionsToday');
-        
-        if (display) display.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-        if (status) status.textContent = this.isRunning ? 'Focus time...' : 'Paused';
-        if (startBtn) startBtn.textContent = this.isRunning ? 'Pause' : 'Start';
-        if (sessions) sessions.textContent = this.store.getPref('timerSessions') || 0;
-      }
-    }
-
-    // Task Renderer
-    class TaskRenderer {
-      constructor(store) {
-        this.store = store;
-        this.searchTerm = '';
-      }
-      
-      setSearchTerm(term) { 
-        this.searchTerm = term.toLowerCase().trim(); 
-      }
-      
-      matchesSearch(task) {
-        if (!this.searchTerm) return true;
-        const searchStr = (task.title + ' ' + (task.description || '') + ' ' + (task.due || '')).toLowerCase();
-        return searchStr.includes(this.searchTerm);
-      }
-      
-      createTaskElement(task) {
-        const div = document.createElement('div');
-        div.className = 'task'; 
-        div.dataset.id = task.id;
-        if (task.completed) div.classList.add('completed');
-        const urgencyClass = Utils.getUrgencyClass(task.due);
-        if (urgencyClass) div.classList.add(urgencyClass);
-        
-        const left = document.createElement('div'); 
-        left.className = 'task-left';
-        
-        let contentHtml = `<div class="task-title">${Utils.escapeHtml(task.title)}</div>`;
-        if (task.description) {
-          contentHtml += `<div class="task-desc">${Utils.escapeHtml(task.description)}</div>`;
-        }
-        if (task.due) {
-          contentHtml += `<div class="task-due">${Utils.escapeHtml(task.due)}</div>`;
-        }
-        left.innerHTML = contentHtml;
-        
-        const controls = document.createElement('div'); 
-        controls.className = 'task-controls';
-        controls.appendChild(this.createButton(
-          task.completed ? '↺' : '✔', 
-          task.completed ? 'Mark incomplete' : 'Mark complete', 
-          () => app.toggleComplete(task.id)
-        ));
-        controls.appendChild(this.createButton(
-          '✕', 
-          'Delete', 
-          () => app.deleteTask(task.id)
-        ));
-        
-        div.appendChild(controls); 
-        div.appendChild(left);
-        this.setupDrag(div);
-        return div;
-      }
-      
-      createButton(text, title, onClick) {
-        const btn = document.createElement('button');
-        btn.className = 'small-btn'; 
-        btn.textContent = text; 
-        btn.title = title;
-        btn.onclick = (e) => { 
-          e.stopPropagation(); 
-          onClick(); 
-        };
-        return btn;
-      }
-      
-      setupDrag(element) {
-        element.draggable = true;
-        element.addEventListener('dragstart', (e) => { 
-          element.classList.add('dragging'); 
-          e.dataTransfer.effectAllowed = 'move'; 
-          e.dataTransfer.setData('text/plain', element.dataset.id); 
-        });
-        element.addEventListener('dragend', () => { 
-          element.classList.remove('dragging'); 
-        });
-      }
-    }
-
-    // Main App
-    class PrioBoxApp {
-      constructor() {
-        console.log('App constructor starting...');
-        this.store = new TaskStore();
-        this.renderer = new TaskRenderer(this.store);
-        this.timer = new FocusTimer(this.store);
-        this.currentView = 'daily';
-        this.quadrants = ['do-first', 'schedule', 'delegate', 'eliminate'];
-        this.initializeElements();
-        this.setupEventListeners();
-        this.store.subscribe(() => this.render());
-        console.log('App constructor complete');
-      }
-
-      initializeElements() {
-        console.log('Initializing elements...');
-        this.loadingEl = document.getElementById('loading');
-        this.appArea = document.getElementById('appArea');
-        this.themeToggle = document.getElementById('themeToggle');
-        this.templatesBtn = document.getElementById('templatesBtn');
-        this.viewDaily = document.getElementById('viewDaily');
-        this.viewMatrix = document.getElementById('viewMatrix');
-        this.viewTimer = document.getElementById('viewTimer');
-        this.dailyView = document.getElementById('dailyView');
-        this.matrixView = document.getElementById('matrixView');
-        this.timerView = document.getElementById('timerView');
-        this.addBtn = document.getElementById('addBtn');
-        this.demoBtn = document.getElementById('demoBtn');
-        this.taskTitle = document.getElementById('taskTitle');
-        this.taskDescription = document.getElementById('taskDescription');
-        this.taskDue = document.getElementById('taskDue');
-        this.taskQuadrant = document.getElementById('taskQuadrant');
-        this.searchInput = document.getElementById('searchInput');
-        this.toggleCompletedBtn = document.getElementById('toggleCompletedBtn');
-        console.log('Elements initialized');
-      }
-
-      setupEventListeners() {
-        console.log('Setting up event listeners...');
-        
-        if (this.themeToggle) {
-          this.themeToggle.addEventListener('click', () => this.toggleTheme());
-        }
-        
-        if (this.viewDaily) {
-          this.viewDaily.addEventListener('click', () => this.switchView('daily'));
-        }
-        if (this.viewMatrix) {
-          this.viewMatrix.addEventListener('click', () => this.switchView('matrix'));
-        }
-        if (this.viewTimer) {
-          this.viewTimer.addEventListener('click', () => this.switchView('timer'));
-        }
-        
-        if (this.addBtn) {
-          this.addBtn.addEventListener('click', () => this.handleAddTask());
-        }
-        if (this.demoBtn) {
-          this.demoBtn.addEventListener('click', () => this.loadDemoData());
-        }
-        
-        if (this.searchInput) {
-          this.searchInput.addEventListener('input', Utils.debounce(() => { 
-            this.renderer.setSearchTerm(this.searchInput.value); 
-            this.render(); 
-          }, 300));
-        }
-        
-        if (this.toggleCompletedBtn) {
-          this.toggleCompletedBtn.addEventListener('click', () => this.toggleCompletedVisibility());
-        }
-        
-        // Timer controls
-        const timerFocus = document.getElementById('timerFocus');
-        const timerShortBreak = document.getElementById('timerShortBreak');
-        const timerLongBreak = document.getElementById('timerLongBreak');
-        const timerStart = document.getElementById('timerStart');
-        const timerReset = document.getElementById('timerReset');
-        
-        if (timerFocus) {
-          timerFocus.addEventListener('click', () => { 
-            this.timer.setMode('focus'); 
-            this.updateTimerModeButtons('focus'); 
-          });
-        }
-        if (timerShortBreak) {
-          timerShortBreak.addEventListener('click', () => { 
-            this.timer.setMode('shortBreak'); 
-            this.updateTimerModeButtons('shortBreak'); 
-          });
-        }
-        if (timerLongBreak) {
-          timerLongBreak.addEventListener('click', () => { 
-            this.timer.setMode('longBreak'); 
-            this.updateTimerModeButtons('longBreak'); 
-          });
-        }
-        if (timerStart) {
-          timerStart.addEventListener('click', () => { 
-            this.timer.isRunning ? this.timer.pause() : this.timer.start(); 
-          });
-        }
-        if (timerReset) {
-          timerReset.addEventListener('click', () => this.timer.reset());
-        }
-
-        this.setupDragTargets();
-        console.log('Event listeners set up');
-      }
-
-      setupDragTargets() {
-        document.querySelectorAll('.quadrant').forEach(qEl => {
-          qEl.addEventListener('dragover', (e) => { 
-            e.preventDefault(); 
-            qEl.style.background = 'rgba(46, 160, 67, 0.05)'; 
-          });
-          qEl.addEventListener('dragleave', () => { 
-            qEl.style.background = ''; 
-          });
-          qEl.addEventListener('drop', (e) => { 
-            e.preventDefault(); 
-            qEl.style.background = ''; 
-            const taskId = e.dataTransfer.getData('text/plain'); 
-            const targetQuadrant = qEl.dataset.q; 
-            if (taskId && targetQuadrant) {
-              this.store.updateTask(taskId, { quadrant: targetQuadrant }); 
-            }
-          });
-        });
-      }
-
-      toggleTheme() {
-        const current = this.store.getPref('theme') || 'light';
-        const newTheme = current === 'light' ? 'dark' : 'light';
-        document.documentElement.setAttribute('data-theme', newTheme);
-        this.store.setPref('theme', newTheme);
-      }
-
-      updateTimerModeButtons(mode) {
-        ['timerFocus', 'timerShortBreak', 'timerLongBreak'].forEach(id => {
-          const btn = document.getElementById(id);
-          if (btn) btn.classList.remove('active');
-        });
-        const modeMap = { focus: 'timerFocus', shortBreak: 'timerShortBreak', longBreak: 'timerLongBreak' };
-        const activeBtn = document.getElementById(modeMap[mode]);
-        if (activeBtn) activeBtn.classList.add('active');
-      }
-
-      switchView(view) {
-        console.log('Switching to view:', view);
-        this.currentView = view;
-        this.store.setPref('currentView', view);
-        
-        [this.viewDaily, this.viewMatrix, this.viewTimer].forEach(btn => {
-          if (btn) btn.classList.remove('active');
-        });
-        
-        if (this.dailyView) this.dailyView.style.display = 'none';
-        if (this.matrixView) this.matrixView.style.display = 'none';
-        if (this.timerView) this.timerView.style.display = 'none';
-        
-        if (view === 'daily') { 
-          if (this.viewDaily) this.viewDaily.classList.add('active'); 
-          if (this.dailyView) this.dailyView.style.display = 'block'; 
-          this.renderDailyView(); 
-        }
-        else if (view === 'matrix') { 
-          if (this.viewMatrix) this.viewMatrix.classList.add('active'); 
-          if (this.matrixView) this.matrixView.style.display = 'block'; 
-          this.renderMatrixView(); 
-        }
-        else if (view === 'timer') { 
-          if (this.viewTimer) this.viewTimer.classList.add('active'); 
-          if (this.timerView) this.timerView.style.display = 'block'; 
-          this.timer.updateDisplay(); 
-        }
-      }
-
-      render() {
-        if (this.currentView === 'daily') this.renderDailyView();
-        else if (this.currentView === 'matrix') this.renderMatrixView();
-        else if (this.currentView === 'timer') this.timer.updateDisplay();
-      }
-
-      renderDailyView() {
-        const today = new Date();
-        const dailyDate = document.getElementById('dailyDate');
-        if (dailyDate) {
-          dailyDate.textContent = Utils.formatDateFull(today);
-        }
-        
-        const allTasks = this.store.getAllTasks();
-        const todayTasks = allTasks.filter(t => { 
-          const diff = Utils.getDaysDiff(t.due); 
-          return diff === 0 && !t.completed; 
-        });
-        const overdueTasks = allTasks.filter(t => { 
-          const diff = Utils.getDaysDiff(t.due); 
-          return diff !== null && diff < 0 && !t.completed; 
-        });
-        const upcomingTasks = allTasks.filter(t => { 
-          const diff = Utils.getDaysDiff(t.due); 
-          return diff !== null && diff > 0 && diff <= 7 && !t.completed; 
-        });
-        
-        const todayDueEl = document.getElementById('todayDue');
-        const overdueCountEl = document.getElementById('overdueCount');
-        const upcomingCountEl = document.getElementById('upcomingCount');
-        
-        if (todayDueEl) todayDueEl.textContent = todayTasks.length;
-        if (overdueCountEl) overdueCountEl.textContent = overdueTasks.length;
-        if (upcomingCountEl) upcomingCountEl.textContent = upcomingTasks.length;
-        
-        const container = document.getElementById('dailyTasks');
-        if (container) {
-          container.innerHTML = '';
-          if (overdueTasks.length > 0) this.renderTaskSection(container, 'Overdue', overdueTasks, 'var(--overdue)');
-          if (todayTasks.length > 0) this.renderTaskSection(container, 'Due Today', todayTasks, 'var(--accent-1)');
-          if (upcomingTasks.length > 0) this.renderTaskSection(container, 'This Week', upcomingTasks, 'var(--approach)');
-          
-          if (overdueTasks.length === 0 && todayTasks.length === 0 && upcomingTasks.length === 0) {
-            container.innerHTML = '<div class="empty-state"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="10" width="35" height="35" rx="5" fill="currentColor"/><rect x="55" y="10" width="35" height="35" rx="5" fill="currentColor"/><rect x="10" y="55" width="35" height="35" rx="5" fill="currentColor"/><rect x="55" y="55" width="35" height="35" rx="5" fill="currentColor"/></svg><h3>All caught up!</h3><p>No urgent tasks. Great job staying organized.</p></div>';
-          }
-        }
-      }
-
-      renderTaskSection(container, title, tasks, color) {
-        const section = document.createElement('div');
-        section.innerHTML = `<h3 style="color:${color};margin:16px 0 8px 0">${title}</h3>`;
-        container.appendChild(section);
-        tasks.sort((a, b) => { 
-          if (a.due && b.due) return new Date(a.due) - new Date(b.due); 
-          return 0; 
-        }).forEach(task => { 
-          container.appendChild(this.renderer.createTaskElement(task)); 
-        });
-      }
-
-      renderMatrixView() {
-        this.quadrants.forEach(q => {
-          const container = document.getElementById(`${q}-tasks`);
-          if (!container) return;
-          container.innerHTML = '';
-          const tasks = this.store.getTasksByQuadrant(q);
-          tasks.sort((a, b) => { 
-            if (a.due && b.due) return new Date(a.due) - new Date(b.due); 
-            if (a.due) return -1; 
-            if (b.due) return 1; 
-            return (a.createdAt || 0) - (b.createdAt || 0); 
-          });
-          tasks.forEach(task => {
-            if (!this.renderer.matchesSearch(task)) return;
-            const node = this.renderer.createTaskElement(task);
-            if (!this.store.getPref('showCompleted') && task.completed) {
-              node.style.display = 'none';
-            }
-            container.appendChild(node);
-          });
-        });
-        this.updateQuadrantStats();
-      }
-
-      updateQuadrantStats() {
-        this.quadrants.forEach(q => {
-          const tasks = this.store.getTasksByQuadrant(q);
-          const total = tasks.length;
-          const done = tasks.filter(t => t.completed).length;
-          const pct = total === 0 ? 0 : Math.round((done / total) * 100);
-          const countEl = document.getElementById(`${q}-count`);
-          const fillEl = document.getElementById(`${q}-fill`);
-          if (countEl) countEl.textContent = `(${done}/${total} done)`;
-          if (fillEl) fillEl.style.width = pct + '%';
-        });
-      }
-
-      handleAddTask() {
-        const title = this.taskTitle.value.trim();
-        if (!title) { 
-          if (this.taskTitle) this.taskTitle.focus(); 
-          return; 
-        }
-        this.store.addTask({ 
-          title, 
-          description: this.taskDescription ? this.taskDescription.value.trim() : '', 
-          due: this.taskDue ? this.taskDue.value || '' : '', 
-          quadrant: this.taskQuadrant ? this.taskQuadrant.value || 'do-first' : 'do-first'
-        });
-        if (this.taskTitle) this.taskTitle.value = ''; 
-        if (this.taskDescription) this.taskDescription.value = ''; 
-        if (this.taskDue) this.taskDue.value = ''; 
-        if (this.taskQuadrant) this.taskQuadrant.value = 'do-first';
-      }
-
-      toggleComplete(taskId) { 
-        this.store.toggleComplete(taskId); 
-      }
-      
-      deleteTask(taskId) { 
-        if (!confirm('Delete this task?')) return; 
-        this.store.deleteTask(taskId); 
-      }
-
-      loadDemoData() {
-        if (Object.keys(this.store.tasks).length > 0) {
-          if (!confirm('This will add demo tasks. Continue?')) return;
-        }
-        
-        const today = new Date();
-        const tomorrow = new Date(today.getTime() + 86400000);
-        const nextWeek = new Date(today.getTime() + 7 * 86400000);
-        const yesterday = new Date(today.getTime() - 86400000);
-        
-        const samples = [
-          { title: 'Fix critical signup bug', quadrant: 'do-first', due: Utils.formatDate(tomorrow), description: 'Users cannot complete registration' },
-          { title: 'Plan Q2 roadmap', quadrant: 'schedule', due: Utils.formatDate(nextWeek), description: 'Strategic planning session with team' },
-          { title: 'Review social media posts', quadrant: 'delegate', due: '', description: 'Quick 15-minute task' },
-          { title: 'Clean old email subscriptions', quadrant: 'eliminate', due: '', description: 'Low priority cleanup' },
-          { title: 'Submit quarterly report', quadrant: 'do-first', due: Utils.formatDate(yesterday), description: 'Overdue - needs immediate attention' }
+      // Demo data
+      document.getElementById('demoBtn').addEventListener('click',()=>{
+        tasks=[
+          {id:1,title:'Finish report',desc:'Q4 report',due:'2025-11-24',done:false,quad:'do-first'},
+          {id:2,title:'Call supplier',desc:'Schedule meeting',due:'2025-11-25',done:false,quad:'schedule'},
+          {id:3,title:'Delegate emails',desc:'Forward to assistant',due:'2025-11-24',done:true,quad:'delegate'},
+          {id:4,title:'Clean inbox',desc:'Delete spam',due:'2025-11-26',done:false,quad:'eliminate'}
         ];
-        samples.forEach(s => this.store.addTask(s));
+        renderMatrix();renderDaily();
+      });
+
+      document.getElementById('addBtn').addEventListener('click',()=>{
+        const t=document.getElementById('taskTitle').value;
+        const d=document.getElementById('taskDescription').value;
+        const due=document.getElementById('taskDue').value;
+        const q=document.getElementById('taskQuadrant').value;
+        if(t){addTask(t,due,due,q);document.getElementById('taskTitle').value='';}
+      });
+
+      function renderMatrix(){
+        ['do-first','schedule','delegate','eliminate'].forEach(q=>{
+          const container=document.getElementById(q+'-tasks');
+          container.innerHTML='';
+          const qTasks=tasks.filter(t=>t.quad===q);
+          qTasks.forEach(t=>{
+            const div=document.createElement('div');
+            div.className='task-item'+(t.done?' done':'');
+            div.textContent=t.title;
+            div.addEventListener('click',()=>{t.done=!t.done;renderMatrix();renderDaily();});
+            container.appendChild(div);
+          });
+          const countDone=qTasks.filter(t=>t.done).length;
+          const countElem=document.getElementById(q+'-count');
+          countElem.textContent=`(${countDone}/${qTasks.length} done)`;
+          const fillElem=document.getElementById(q+'-fill');
+          fillElem.style.width=qTasks.length?Math.round(countDone/qTasks.length*100)+'%':'0';
+        });
       }
 
-      toggleCompletedVisibility() {
-        const showCompleted = !this.store.getPref('showCompleted');
-        this.store.setPref('showCompleted', showCompleted);
-        if (this.toggleCompletedBtn) {
-          this.toggleCompletedBtn.textContent = showCompleted ? 'Hide Completed' : 'Show Completed';
-        }
-        this.render();
+      function renderDaily(){
+        const today=new Date().toISOString().split('T')[0];
+        document.getElementById('dailyDate').textContent=today;
+        const todayTasks=tasks.filter(t=>t.due===today);
+        document.getElementById('todayDue').textContent=todayTasks.length;
+        const overdue=tasks.filter(t=>t.due<today && !t.done).length;
+        document.getElementById('overdueCount').textContent=overdue;
+        const upcoming=tasks.filter(t=>t.due>today && !t.done).length;
+        document.getElementById('upcomingCount').textContent=upcoming;
+        const dailyTasks=document.getElementById('dailyTasks');
+        dailyTasks.innerHTML='';
+        todayTasks.forEach(t=>{
+          const div=document.createElement('div');
+          div.className='task-item'+(t.done?' done':'');
+          div.textContent=t.title;
+          div.addEventListener('click',()=>{t.done=!t.done;renderDaily();renderMatrix();});
+          dailyTasks.appendChild(div);
+        });
       }
 
-      async init() {
-        console.log('Initializing app...');
-        if (this.loadingEl) {
-          this.loadingEl.classList.remove('loading-hidden');
-        }
-        
-        this.store.load();
-        
-        const theme = this.store.getPref('theme') || 'light';
-        document.documentElement.setAttribute('data-theme', theme);
-        
-        if (this.appArea) {
-          this.appArea.style.display = 'block';
-        }
-        
-        if (this.toggleCompletedBtn) {
-          this.toggleCompletedBtn.textContent = this.store.getPref('showCompleted') ? 'Hide Completed' : 'Show Completed';
-        }
-        
-        this.switchView(this.store.getPref('currentView') || 'daily');
-        
-        setTimeout(() => {
-          if (this.loadingEl) {
-            this.loadingEl.classList.add('loading-hidden');
-            setTimeout(() => {
-              if (this.loadingEl) {
-                this.loadingEl.style.display = 'none';
-              }
-            }, 300);
-          }
-        }, 500);
-        
-        console.log('App initialized successfully');
+      // Focus Timer
+      let timer=null;
+      let timerSeconds=25*60;
+      let sessionsToday=0;
+      let timerInterval=null;
+      const timerDisplay=document.getElementById('timerDisplay');
+      const timerStatus=document.getElementById('timerStatus');
+      function updateTimerDisplay(){
+        const m=Math.floor(timerSeconds/60).toString().padStart(2,'0');
+        const s=(timerSeconds%60).toString().padStart(2,'0');
+        timerDisplay.textContent=`${m}:${s}`;
       }
-    }
+      function startTimer(){
+        if(timerInterval)return;
+        timerStatus.textContent='Running...';
+        timerInterval=setInterval(()=>{
+          timerSeconds--;
+          updateTimerDisplay();
+          if(timerSeconds<=0){clearInterval(timerInterval);timerInterval=null;sessionsToday++;document.getElementById('sessionsToday').textContent=sessionsToday;timerStatus.textContent='Done';}
+        },1000);
+      }
+      function resetTimer(){
+        clearInterval(timerInterval);timerInterval=null;timerSeconds=25*60;updateTimerDisplay();timerStatus.textContent='Ready';
+      }
+      document.getElementById('timerStart').addEventListener('click',startTimer);
+      document.getElementById('timerReset').addEventListener('click',resetTimer);
 
-    // Initialize app
-    try {
-      console.log('Creating app instance...');
-      const app = new PrioBoxApp();
-      app.init();
-      window.priobox = { app, store: app.store, utils: Utils, timer: app.timer };
-      console.log('App ready!');
-    } catch (error) {
-      console.error('Error initializing app:', error);
-      alert('Error loading PrioBox. Please check the console for details.');
-    }
+      // Init
+      setTimeout(()=>{
+        loading.style.display='none';
+        appArea.style.display='block';
+      },500);
+
+    })();
   </script>
 </body>
 </html>
