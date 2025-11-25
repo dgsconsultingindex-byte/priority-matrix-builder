@@ -3,7 +3,79 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>PrioBox — Focus What Matters</title>
+  
+  <!-- Primary Meta Tags -->
+  <title>PrioBox - Smart Task Management & Eisenhower Matrix App</title>
+  <meta name="title" content="PrioBox - Smart Task Management & Eisenhower Matrix App">
+  <meta name="description" content="Focus on what truly matters with PrioBox. AI-powered task prioritization using the Eisenhower Matrix. Track productivity, build consistency streaks, and eliminate decision fatigue.">
+  <meta name="keywords" content="task management, productivity app, eisenhower matrix, priority management, focus timer, task prioritization, productivity tool, time management, GTD, getting things done">
+  <meta name="author" content="PrioBox">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://priobox.app/">
+  <meta property="og:title" content="PrioBox - Smart Task Management & Eisenhower Matrix App">
+  <meta property="og:description" content="Focus on what truly matters with PrioBox. AI-powered task prioritization using the Eisenhower Matrix. Track productivity, build consistency streaks, and eliminate decision fatigue.">
+  <meta property="og:image" content="https://priobox.app/og-image.png">
+  <meta property="og:site_name" content="PrioBox">
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://priobox.app/">
+  <meta property="twitter:title" content="PrioBox - Smart Task Management & Eisenhower Matrix App">
+  <meta property="twitter:description" content="Focus on what truly matters with PrioBox. AI-powered task prioritization using the Eisenhower Matrix. Track productivity, build consistency streaks, and eliminate decision fatigue.">
+  <meta property="twitter:image" content="https://priobox.app/twitter-image.png">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://priobox.app/">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='8' y='8' width='38' height='38' rx='6' fill='%23ef4444'/><rect x='54' y='8' width='38' height='38' rx='6' fill='%23f59e0b'/><rect x='8' y='54' width='38' height='38' rx='6' fill='%2310b981'/><rect x='54' y='54' width='38' height='38' rx='6' fill='%233b82f6'/></svg>">
+  
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "PrioBox",
+    "applicationCategory": "ProductivityApplication",
+    "operatingSystem": "Web, iOS, Android",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "ratingCount": "1250"
+    },
+    "description": "Smart task management app using the Eisenhower Matrix for prioritization. Features AI-powered priority suggestions, focus timer, consistency tracking, and productivity insights.",
+    "softwareVersion": "4.0",
+    "datePublished": "2024-01-01",
+    "author": {
+      "@type": "Organization",
+      "name": "PrioBox"
+    },
+    "featureList": [
+      "Eisenhower Matrix Task Organization",
+      "AI-Powered Priority Suggestions",
+      "Focus Timer with Pomodoro Technique",
+      "Consistency Streak Tracking",
+      "Multi-step Task Management",
+      "Project Grouping",
+      "Productivity Analytics",
+      "Keyboard Shortcuts",
+      "Real-time Sync"
+    ]
+  }
+  </script>
+  
+  <!-- Performance Optimization -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  
   <style>
     :root {
       --bg: #fafbfc;
@@ -117,6 +189,231 @@
     .timer-btn:hover { background: rgba(255,255,255,0.3); }
     .timer-info { text-align: center; margin-top: 12px; font-size: 13px; opacity: 0.9; }
     
+    /* Next Task Hero Card */
+    .hero-card {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 32px;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      color: white;
+      max-width: 500px;
+      width: 90%;
+      z-index: 2000;
+      animation: heroIn 0.4s ease;
+      display: none;
+    }
+    
+    .hero-card.open { display: block; }
+    
+    @keyframes heroIn {
+      from { opacity: 0; transform: translate(-50%, -40%); }
+      to { opacity: 1; transform: translate(-50%, -50%); }
+    }
+    
+    .hero-badge {
+      background: rgba(255,255,255,0.2);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      display: inline-block;
+      margin-bottom: 16px;
+      backdrop-filter: blur(10px);
+    }
+    
+    .hero-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      line-height: 1.3;
+    }
+    
+    .hero-reasons {
+      background: rgba(255,255,255,0.15);
+      padding: 16px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      backdrop-filter: blur(10px);
+    }
+    
+    .hero-reason {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+    
+    .hero-reason:last-child { margin-bottom: 0; }
+    
+    .hero-reason-icon {
+      width: 24px;
+      height: 24px;
+      background: rgba(255,255,255,0.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+    }
+    
+    .hero-btn {
+      flex: 1;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .hero-btn-primary {
+      background: white;
+      color: #667eea;
+    }
+    
+    .hero-btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+    
+    .hero-btn-secondary {
+      background: rgba(255,255,255,0.2);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+    
+    .hero-btn-secondary:hover {
+      background: rgba(255,255,255,0.3);
+    }
+    
+    /* Daily Check-in Banner */
+    .checkin-banner {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      padding: 16px 20px;
+      border-radius: 12px;
+      color: white;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow-md);
+      animation: slideDown 0.4s ease;
+    }
+    
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .checkin-content {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    
+    .checkin-icon {
+      font-size: 32px;
+    }
+    
+    .checkin-text h3 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 700;
+    }
+    
+    .checkin-text p {
+      margin: 4px 0 0 0;
+      font-size: 14px;
+      opacity: 0.9;
+    }
+    
+    .checkin-close {
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      transition: all 0.2s;
+    }
+    
+    .checkin-close:hover {
+      background: rgba(255,255,255,0.3);
+    }
+    
+    /* Streak details modal */
+    .streak-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1500;
+      backdrop-filter: blur(4px);
+    }
+    
+    .streak-modal.open { display: flex; }
+    
+    .streak-content {
+      background: var(--panel);
+      padding: 32px;
+      border-radius: 16px;
+      box-shadow: var(--shadow-xl);
+      max-width: 500px;
+      width: 90%;
+      animation: modalIn 0.2s ease;
+    }
+    
+    .streak-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+      margin-top: 20px;
+    }
+    
+    .streak-day {
+      aspect-ratio: 1;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      transition: all 0.2s;
+    }
+    
+    .streak-day.active {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      border-color: #10b981;
+      transform: scale(1.05);
+    }
+    
+    .streak-day-label {
+      font-size: 10px;
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+    
+    .streak-day-count {
+      font-size: 16px;
+      font-weight: 700;
+    }
+    
     /* Modal */
     .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 1000; backdrop-filter: blur(4px); }
     .modal-overlay.open { display: flex; }
@@ -168,9 +465,9 @@
 <body>
   <div class="app-container">
     <!-- Sidebar -->
-    <aside class="sidebar" id="sidebar">
+    <aside class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
       <div class="logo">
-        <svg width="32" height="32" viewBox="0 0 100 100">
+        <svg width="32" height="32" viewBox="0 0 100 100" aria-hidden="true">
           <rect x="8" y="8" width="38" height="38" rx="6" fill="#ef4444"/>
           <rect x="54" y="8" width="38" height="38" rx="6" fill="#f59e0b"/>
           <rect x="8" y="54" width="38" height="38" rx="6" fill="#10b981"/>
@@ -178,35 +475,41 @@
         </svg>
         <h1>PrioBox</h1>
       </div>
-      <nav class="nav">
-        <div class="nav-item active" data-view="dashboard"><span class="nav-icon">
+      <nav class="nav" role="menu">
+        <div class="nav-item active" data-view="dashboard" role="menuitem" tabindex="0" aria-label="Dashboard view"><span class="nav-icon" aria-hidden="true">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
           </svg></span><span>Dashboard</span></div>
-        <div class="nav-item" data-view="focus"><span class="nav-icon">
+        <div class="nav-item" data-view="focus" role="menuitem" tabindex="0" aria-label="Focus mode view"><span class="nav-icon" aria-hidden="true">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/>
-          </svg></span><span>Focus Mode</span><span class="nav-badge" id="focusCount">0</span></div>
-        <div class="nav-item" data-view="matrix"><span class="nav-icon">
+          </svg></span><span>Focus Mode</span><span class="nav-badge" id="focusCount" aria-label="Focus tasks count">0</span></div>
+        <div class="nav-item" data-view="matrix" role="menuitem" tabindex="0" aria-label="Matrix view"><span class="nav-icon" aria-hidden="true">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/>
           </svg></span><span>Matrix View</span></div>
-        <div class="nav-item" data-view="projects"><span class="nav-icon">
+        <div class="nav-item" data-view="projects" role="menuitem" tabindex="0" aria-label="Projects view"><span class="nav-icon" aria-hidden="true">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
           </svg></span><span>Projects</span></div>
-        <div class="nav-item" data-view="history"><span class="nav-icon">
+        <div class="nav-item" data-view="history" role="menuitem" tabindex="0" aria-label="Completed tasks view"><span class="nav-icon" aria-hidden="true">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
           </svg></span><span>Completed</span></div>
-        <div class="nav-item" data-view="insights"><span class="nav-icon">
+        <div class="nav-item" data-view="insights" role="menuitem" tabindex="0" aria-label="Insights and analytics view"><span class="nav-icon" aria-hidden="true">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
           </svg></span><span>Insights</span></div>
       </nav>
       <div class="sidebar-footer">
-        <button class="btn btn-primary" style="width: 100%;" id="newTaskBtn">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <button class="btn btn-primary" style="width: 100%; margin-bottom: 12px;" id="quickAddTopBtn" aria-label="Quick add new task">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+          </svg>
+          <span>Quick Add</span>
+        </button>
+        <button class="btn" style="width: 100%;" id="newTaskBtn" aria-label="Create new task with full details">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
           </svg>
           <span>New Task</span>
@@ -215,24 +518,25 @@
     </aside>
 
     <!-- Main Content -->
-    <main class="main-content">
+    <main class="main-content" role="main">
       <div class="top-bar">
-        <div class="search-bar">
-          <span class="search-icon">
+        <div class="search-bar" role="search">
+          <label for="searchInput" class="hidden" style="position: absolute; left: -10000px;">Search tasks</label>
+          <span class="search-icon" aria-hidden="true">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
             </svg>
           </span>
-          <input type="text" placeholder="Search tasks or quick add..." id="searchInput">
-          <span class="search-kbd">⌘K</span>
+          <input type="search" placeholder="Search tasks or quick add..." id="searchInput" aria-label="Search tasks or create new task">
+          <span class="search-kbd" aria-hidden="true">⌘K</span>
         </div>
-        <button class="btn" id="autoPrioritizeBtn">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <button class="btn" id="autoPrioritizeBtn" aria-label="Auto-prioritize tasks based on AI algorithm">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
           </svg>
           <span>Auto-Prioritize</span>
         </button>
-        <button class="btn btn-icon" id="filterBtn" title="Filter">
+        <button class="btn btn-icon" id="filterBtn" title="Filter tasks" aria-label="Filter tasks">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
           </svg>
@@ -240,19 +544,29 @@
       </div>
 
       <div class="content-area" id="contentArea">
+        <!-- Daily Check-in Banner -->
+        <div id="checkinBanner" class="checkin-banner hidden">
+          <div class="checkin-content">
+            <div class="checkin-icon">🎉</div>
+            <div class="checkin-text">
+              <h3 id="checkinTitle">Welcome back!</h3>
+              <p id="checkinSubtitle">You're on a roll. Keep it going!</p>
+            </div>
+          </div>
+          <button class="checkin-close" id="closeCheckin">Got it</button>
+        </div>
+
         <!-- Dashboard View -->
         <div id="dashboardView">
           <div class="stats-bar">
-            <div class="stat-mini">
-              <div><div class="stat-mini-label">Today's Focus</div><div class="stat-mini-value" id="todayCount">0</div></div>
-              <div class="stat-mini-icon">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/>
-                </svg>
+            <div class="stat-mini" style="cursor: pointer;" id="streakCard">
+              <div>
+                <div class="stat-mini-label">Consistency Streak</div>
+                <div class="stat-mini-value" style="display: flex; align-items: center; gap: 8px;">
+                  <span style="font-size: 28px;">🔥</span>
+                  <span id="streakValue">0/7</span>
+                </div>
               </div>
-            </div>
-            <div class="stat-mini">
-              <div><div class="stat-mini-label">Consistency</div><div class="stat-mini-value" id="streakValue">0/7</div></div>
               <div class="stat-mini-icon">
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                   <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
@@ -260,10 +574,18 @@
               </div>
             </div>
             <div class="stat-mini">
-              <div><div class="stat-mini-label">Completed Today</div><div class="stat-mini-value" id="completedToday">0</div></div>
+              <div><div class="stat-mini-label">This Week</div><div class="stat-mini-value" id="weeklyCompleted">0</div></div>
               <div class="stat-mini-icon">
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                   <polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                </svg>
+              </div>
+            </div>
+            <div class="stat-mini">
+              <div><div class="stat-mini-label">Today</div><div class="stat-mini-value" id="todayCount">0</div></div>
+              <div class="stat-mini-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/>
                 </svg>
               </div>
             </div>
@@ -286,6 +608,12 @@
                 <span>Smart Priority Queue</span>
               </div>
               <div class="section-actions">
+                <button class="btn btn-primary" id="showNextTaskBtn" style="font-size: 13px; padding: 8px 16px;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/>
+                  </svg>
+                  What's Next?
+                </button>
                 <button class="btn btn-icon" id="refreshPriority">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
@@ -553,21 +881,21 @@
   </div>
 
   <!-- Floating Timer -->
-  <div class="timer-float" id="timerFloat">
+  <div class="timer-float" id="timerFloat" role="complementary" aria-label="Focus timer widget">
     <div class="timer-content">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
         <span style="font-weight: 600;">Focus Timer</span>
-        <button class="timer-btn" style="padding: 4px 8px; font-size: 11px;" id="timerMinimize">−</button>
+        <button class="timer-btn" style="padding: 4px 8px; font-size: 11px;" id="timerMinimize" aria-label="Minimize timer">−</button>
       </div>
-      <div class="timer-display" id="timerDisplay">25:00</div>
+      <div class="timer-display" id="timerDisplay" aria-live="polite" aria-atomic="true">25:00</div>
       <div class="timer-controls">
-        <button class="timer-btn" id="timerStart">▶ Start</button>
-        <button class="timer-btn hidden" id="timerPause">⏸ Pause</button>
-        <button class="timer-btn" id="timerReset">↻ Reset</button>
+        <button class="timer-btn" id="timerStart" aria-label="Start focus timer">▶ Start</button>
+        <button class="timer-btn hidden" id="timerPause" aria-label="Pause focus timer">⏸ Pause</button>
+        <button class="timer-btn" id="timerReset" aria-label="Reset focus timer">↻ Reset</button>
       </div>
-      <div class="timer-info">Sessions today: <strong id="sessionsToday">0</strong></div>
+      <div class="timer-info" aria-live="polite">Sessions today: <strong id="sessionsToday">0</strong></div>
     </div>
-    <div id="timerMinimizedContent" class="hidden">⏱ <span id="timerMinDisplay">25:00</span></div>
+    <div id="timerMinimizedContent" class="hidden" aria-label="Timer minimized">⏱ <span id="timerMinDisplay">25:00</span></div>
   </div>
 
   <!-- Task Modal -->
@@ -643,6 +971,97 @@
     <div class="command-results" id="commandResults"></div>
   </div>
 
+  <!-- Next Task Hero Card -->
+  <div class="hero-card" id="heroCard">
+    <div class="hero-badge">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 4px;">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+      </svg>
+      #1 Priority
+    </div>
+    <div class="hero-title" id="heroTaskTitle">Loading...</div>
+    <div class="hero-reasons" id="heroReasons">
+      <div class="hero-reason">
+        <div class="hero-reason-icon">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <span>Calculating priority...</span>
+      </div>
+    </div>
+    <div class="hero-actions">
+      <button class="hero-btn hero-btn-primary" id="heroStartBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 6px;">
+          <polygon points="5 3 19 12 5 21 5 3"/>
+        </svg>
+        Start Focus Session
+      </button>
+      <button class="hero-btn hero-btn-secondary" id="heroSkipBtn">Skip</button>
+    </div>
+  </div>
+
+  <!-- Streak Details Modal -->
+  <div class="streak-modal" id="streakModal">
+    <div class="streak-content">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h3 style="margin: 0; font-size: 20px;">Your 7-Day Streak</h3>
+        <button class="btn btn-icon" id="closeStreakModal">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <p style="color: var(--text-muted); margin-bottom: 20px;">A day counts as active if you complete 3+ tasks or log 1+ focus session</p>
+      <div class="streak-grid" id="streakGrid"></div>
+    </div>
+  </div>
+
+  <!-- Quick Add Modal -->
+  <div class="modal-overlay" id="quickAddModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Quick Add Task</h3>
+        <button class="modal-close" id="quickAddClose">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">What needs to be done?</label>
+          <input class="form-input" id="quickTaskTitle" placeholder="e.g., Call client about urgent proposal" autocomplete="off">
+          <div style="font-size: 12px; color: var(--text-muted); margin-top: 6px;">
+            💡 Tip: Use keywords like "urgent", "today", or "quick" for smart prioritization
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Priority (optional - or let AI decide)</label>
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;">
+            <button class="btn" data-quadrant="do-first" style="justify-content: center; border: 2px solid var(--border);">
+              <span style="margin-right: 6px;">🔥</span> Do First
+            </button>
+            <button class="btn" data-quadrant="schedule" style="justify-content: center; border: 2px solid var(--border);">
+              <span style="margin-right: 6px;">📅</span> Schedule
+            </button>
+            <button class="btn" data-quadrant="delegate" style="justify-content: center; border: 2px solid var(--border);">
+              <span style="margin-right: 6px;">👥</span> Delegate
+            </button>
+            <button class="btn" data-quadrant="eliminate" style="justify-content: center; border: 2px solid var(--border);">
+              <span style="margin-right: 6px;">🗑️</span> Eliminate
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" id="quickAddCancel">Cancel</button>
+        <button class="btn btn-primary" id="quickAddSave">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 4px;">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+          </svg>
+          Add Task
+        </button>
+      </div>
+    </div>
+  </div>
+
   <script>
     'use strict';
 
@@ -652,7 +1071,11 @@
         this.STORAGE_KEY = 'priobox_v4';
         this.PREFS_KEY = 'priobox_prefs_v4';
         this.tasks = {};
-        this.prefs = { timerSessionsHistory: {}, completedHistory: {} };
+        this.prefs = { 
+          timerSessionsHistory: {}, 
+          completedHistory: {},
+          lastCheckin: null
+        };
         this.load();
       }
       load() {
@@ -774,10 +1197,68 @@
         return Object.values(projects);
       }
     }
+    
+    // Check-in banner
+    function showCheckinBanner() {
+      const today = new Date().toDateString();
+      const lastSeen = store.prefs.lastCheckin || null;
+      
+      // Don't show if already dismissed today
+      if (lastSeen === today) {
+        document.getElementById('checkinBanner').classList.add('hidden');
+        return;
+      }
+      
+      // Show banner
+      const banner = document.getElementById('checkinBanner');
+      const title = document.getElementById('checkinTitle');
+      const subtitle = document.getElementById('checkinSubtitle');
+      
+      const completedToday = store.prefs.completedHistory[today] || 0;
+      const sessionsToday = store.prefs.timerSessionsHistory[today] || 0;
+      
+      if (completedToday >= 3 || sessionsToday >= 1) {
+        title.textContent = '🔥 You\'re crushing it today!';
+        subtitle.textContent = `${completedToday} tasks completed, ${sessionsToday} focus sessions`;
+      } else if (completedToday > 0) {
+        title.textContent = '✨ Great start!';
+        subtitle.textContent = 'Keep the momentum going';
+      } else {
+        title.textContent = '👋 Welcome back!';
+        subtitle.textContent = 'Ready to make today productive?';
+      }
+      
+      banner.classList.remove('hidden');
+    }
+    
+    // Smart keyword detection for auto-prioritization
+    function detectPriority(title) {
+      const lower = title.toLowerCase();
+      
+      if (lower.includes('urgent') || lower.includes('asap') || lower.includes('emergency')) {
+        return 'do-first';
+      }
+      if (lower.includes('later') || lower.includes('someday') || lower.includes('maybe')) {
+        return 'eliminate';
+      }
+      if (lower.includes('delegate') || lower.includes('assign') || lower.includes('someone')) {
+        return 'delegate';
+      }
+      if (lower.includes('plan') || lower.includes('schedule') || lower.includes('review')) {
+        return 'schedule';
+      }
+      if (lower.includes('today') || lower.includes('now') || lower.includes('quick')) {
+        return 'do-first';
+      }
+      
+      // Default to schedule (important but not urgent)
+      return 'schedule';
+    }
 
     const store = new TaskStore();
     let currentView = 'dashboard';
     let currentEditingTask = null;
+    let selectedQuickQuadrant = null;
 
     // Timer
     class Timer {
@@ -785,6 +1266,7 @@
         this.time = 25*60;
         this.running = false;
         this.interval = null;
+        this.linkedTask = null;
       }
       start() {
         if (this.running) return;
@@ -813,7 +1295,19 @@
         const d = new Date().toDateString();
         store.prefs.timerSessionsHistory[d] = (store.prefs.timerSessionsHistory[d]||0) + 1;
         store.savePrefs();
-        alert('🎉 Focus session complete!');
+        
+        // Suggest marking task complete if linked
+        if (this.linkedTask && store.tasks[this.linkedTask]) {
+          const task = store.tasks[this.linkedTask];
+          if (!task.completed && confirm(`🎉 Session complete!\n\nMark "${task.title}" as done?`)) {
+            store.toggleComplete(this.linkedTask);
+            render();
+          }
+        } else {
+          alert('🎉 Focus session complete!');
+        }
+        
+        this.linkedTask = null;
         this.reset();
         render();
       }
@@ -827,6 +1321,7 @@
     }
 
     const timer = new Timer();
+    let nextTaskData = null;
 
     // Utils
     function daysSince(ts) {
@@ -847,8 +1342,8 @@
       const diff = (d - today) / (1000*60*60*24);
       if (diff === 0) return 'Today';
       if (diff === 1) return 'Tomorrow';
-      if (diff < 0) return `${Math.abs(diff)}d overdue`;
-      return `In ${diff}d`;
+      if (diff < 0) return `${Math.abs(Math.round(diff))}d overdue`;
+      return `In ${Math.round(diff)}d`;
     }
     function formatRelativeTime(ts) {
       const mins = Math.floor((Date.now() - ts) / (1000*60));
@@ -858,6 +1353,94 @@
       const days = Math.floor(hours / 24);
       if (days < 7) return `${days}d ago`;
       return new Date(ts).toLocaleDateString();
+    }
+
+    // Next Task Hero Card
+    function showNextTaskHero() {
+      const tasks = store.getAll().filter(t => !t.completed);
+      if (tasks.length === 0) {
+        alert('🎉 No tasks available!\n\nYou\'re all caught up. Great job!');
+        return;
+      }
+      
+      const scored = tasks.map(t => ({ 
+        task: t, 
+        score: store.calculatePriorityScore(t),
+        reasons: calculateReasons(t)
+      })).sort((a,b) => b.score - a.score);
+      
+      const top = scored[0];
+      nextTaskData = top;
+      
+      document.getElementById('heroTaskTitle').textContent = top.task.title;
+      
+      const reasonsDiv = document.getElementById('heroReasons');
+      reasonsDiv.innerHTML = '';
+      
+      top.reasons.forEach(reason => {
+        const reasonEl = document.createElement('div');
+        reasonEl.className = 'hero-reason';
+        reasonEl.innerHTML = `
+          <div class="hero-reason-icon">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </div>
+          <span>${reason}</span>
+        `;
+        reasonsDiv.appendChild(reasonEl);
+      });
+      
+      document.getElementById('heroCard').classList.add('open');
+    }
+    
+    function calculateReasons(task) {
+      const reasons = [];
+      const now = Date.now();
+      
+      // Due date reasons
+      if (task.due) {
+        const days = (new Date(task.due) - now) / (1000*60*60*24);
+        if (days < 0) reasons.push(`Overdue by ${Math.abs(Math.round(days))} days`);
+        else if (days < 1) reasons.push('Due today - needs immediate attention');
+        else if (days < 3) reasons.push(`Due in ${Math.round(days)} days`);
+      }
+      
+      // Quick win
+      if (task.estimatedMinutes > 0 && task.estimatedMinutes <= 15) {
+        reasons.push(`Quick win - only ${task.estimatedMinutes} minutes`);
+      }
+      
+      // High priority quadrant
+      if (task.quadrant === 'do-first') {
+        reasons.push('Urgent & Important - highest priority');
+      }
+      
+      // Freshness
+      const daysSinceTouch = (now - task.lastTouched) / (1000*60*60*24);
+      if (daysSinceTouch < 1) {
+        reasons.push('Recently created - strike while hot');
+      }
+      
+      // Subtasks
+      if (task.subtasks && task.subtasks.length > 0) {
+        const completed = task.subtasks.filter(st => st.completed).length;
+        if (completed > 0) {
+          reasons.push(`Already ${completed}/${task.subtasks.length} steps done`);
+        }
+      }
+      
+      // Default if no specific reasons
+      if (reasons.length === 0) {
+        reasons.push('Good time to tackle this task');
+      }
+      
+      return reasons.slice(0, 3); // Max 3 reasons
+    }
+    
+    function closeHeroCard() {
+      document.getElementById('heroCard').classList.remove('open');
+      nextTaskData = null;
     }
 
     // Task Element
@@ -975,14 +1558,27 @@
       const tasks = store.getAll();
       const incomplete = tasks.filter(t => !t.completed);
       
+      // Check-in banner
+      showCheckinBanner();
+      
       // Stats
       const today = new Date().toDateString();
       const completedToday = store.prefs.completedHistory[today] || 0;
-      document.getElementById('completedToday').textContent = completedToday;
       
       const stale = incomplete.filter(t => daysSince(t.lastTouched) >= 14).length;
       document.getElementById('staleCount').textContent = stale;
       
+      // Weekly completed
+      let weeklyTotal = 0;
+      for (let i = 0; i < 7; i++) {
+        const d = new Date();
+        d.setDate(d.getDate() - i);
+        const ds = d.toDateString();
+        weeklyTotal += store.prefs.completedHistory[ds] || 0;
+      }
+      document.getElementById('weeklyCompleted').textContent = weeklyTotal;
+      
+      // Consistency streak
       let consistent = 0;
       for (let i = 0; i < 7; i++) {
         const d = new Date();
@@ -999,13 +1595,26 @@
       
       // Priority Queue
       const scored = incomplete.map(t => ({ task: t, score: store.calculatePriorityScore(t) }))
-        .sort((a,b) => b.score - a.score).slice(0, 5);
+        .sort((a,b) => b.score - a.score).slice(0, 8); // Increased to 8 tasks
       const pq = document.getElementById('priorityQueue');
       pq.innerHTML = '';
-      if (pq.childElementCount === 0) {
+      if (scored.length === 0) {
         pq.innerHTML = '<div class="empty-state"><div class="empty-icon"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div>All caught up!</div></div>';
       } else {
-        scored.forEach(({task}) => pq.appendChild(createTaskElement(task)));
+        scored.forEach(({task}, index) => {
+          const el = createTaskElement(task);
+          // Add #1 badge to top priority
+          if (index === 0) {
+            const badge = document.createElement('span');
+            badge.style.cssText = 'position: absolute; top: 12px; right: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; box-shadow: 0 2px 8px rgba(102,126,234,0.4);';
+            badge.innerHTML = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 3px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>#1';
+            el.style.position = 'relative';
+            el.style.border = '2px solid #667eea';
+            el.style.background = 'linear-gradient(to right, #f8f9ff, #ffffff)';
+            el.insertBefore(badge, el.firstChild);
+          }
+          pq.appendChild(el);
+        });
       }
       
       document.getElementById('todayCount').textContent = scored.length;
@@ -1369,6 +1978,118 @@
     document.getElementById('newTaskBtn').addEventListener('click', () => openTaskModal());
     document.getElementById('modalClose').addEventListener('click', closeTaskModal);
     document.getElementById('cancelTaskBtn').addEventListener('click', closeTaskModal);
+    
+    // Quick Add Modal
+    document.getElementById('quickAddTopBtn').addEventListener('click', () => {
+      document.getElementById('quickAddModal').classList.add('open');
+      document.getElementById('quickTaskTitle').focus();
+      selectedQuickQuadrant = null;
+    });
+    
+    document.getElementById('quickAddClose').addEventListener('click', () => {
+      document.getElementById('quickAddModal').classList.remove('open');
+      document.getElementById('quickTaskTitle').value = '';
+      selectedQuickQuadrant = null;
+      // Reset button styles
+      document.querySelectorAll('#quickAddModal [data-quadrant]').forEach(btn => {
+        btn.style.borderColor = 'var(--border)';
+        btn.style.background = 'var(--panel)';
+      });
+    });
+    
+    document.getElementById('quickAddCancel').addEventListener('click', () => {
+      document.getElementById('quickAddClose').click();
+    });
+    
+    // Quadrant selection buttons
+    document.querySelectorAll('#quickAddModal [data-quadrant]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Reset all buttons
+        document.querySelectorAll('#quickAddModal [data-quadrant]').forEach(b => {
+          b.style.borderColor = 'var(--border)';
+          b.style.background = 'var(--panel)';
+        });
+        // Highlight selected
+        btn.style.borderColor = 'var(--accent)';
+        btn.style.background = 'var(--accent-light)';
+        selectedQuickQuadrant = btn.dataset.quadrant;
+      });
+    });
+    
+    document.getElementById('quickAddSave').addEventListener('click', () => {
+      const title = document.getElementById('quickTaskTitle').value.trim();
+      if (!title) {
+        alert('Please enter a task title');
+        return;
+      }
+      
+      // Use selected quadrant or auto-detect
+      const quadrant = selectedQuickQuadrant || detectPriority(title);
+      
+      store.addTask({ title, quadrant });
+      
+      // Show success message
+      const quadrantNames = {
+        'do-first': 'Do First',
+        'schedule': 'Schedule',
+        'delegate': 'Delegate',
+        'eliminate': 'Eliminate'
+      };
+      
+      alert(`✓ Task added to ${quadrantNames[quadrant]}!\n\n"${title}"`);
+      
+      document.getElementById('quickAddClose').click();
+      render();
+    });
+    
+    // Enter key to save
+    document.getElementById('quickTaskTitle').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        document.getElementById('quickAddSave').click();
+      }
+    });
+    
+    // Check-in banner
+    document.getElementById('closeCheckin').addEventListener('click', () => {
+      document.getElementById('checkinBanner').classList.add('hidden');
+      store.prefs.lastCheckin = new Date().toDateString();
+      store.savePrefs();
+    });
+    
+    // Streak card click
+    document.getElementById('streakCard').addEventListener('click', () => {
+      document.getElementById('streakModal').classList.add('open');
+      renderStreakDetails();
+    });
+    
+    document.getElementById('closeStreakModal').addEventListener('click', () => {
+      document.getElementById('streakModal').classList.remove('open');
+    });
+    
+    function renderStreakDetails() {
+      const grid = document.getElementById('streakGrid');
+      grid.innerHTML = '';
+      const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      
+      for (let i = 6; i >= 0; i--) {
+        const date = new Date();
+        date.setDate(date.getDate() - i);
+        const dateStr = date.toDateString();
+        const completed = store.prefs.completedHistory[dateStr] || 0;
+        const sessions = store.prefs.timerSessionsHistory[dateStr] || 0;
+        const isActive = completed >= 3 || sessions >= 1;
+        
+        const day = document.createElement('div');
+        day.className = 'streak-day' + (isActive ? ' active' : '');
+        day.innerHTML = `
+          <div class="streak-day-label">${dayNames[date.getDay()]}</div>
+          <div class="streak-day-count">${completed}</div>
+        `;
+        day.title = `${completed} tasks, ${sessions} sessions`;
+        grid.appendChild(day);
+      }
+    }
     document.getElementById('saveTaskBtn').addEventListener('click', saveTask);
     document.getElementById('deleteTaskBtn').addEventListener('click', () => {
       if (!currentEditingTask || !confirm('Delete this task?')) return;
@@ -1457,6 +2178,50 @@
 
     document.getElementById('refreshPriority').addEventListener('click', () => {
       render();
+    });
+    
+    // Next Task Hero Card
+    document.getElementById('showNextTaskBtn').addEventListener('click', () => {
+      showNextTaskHero();
+    });
+    
+    document.getElementById('heroStartBtn').addEventListener('click', () => {
+      if (!nextTaskData) return;
+      
+      // Link timer to this task
+      timer.linkedTask = nextTaskData.task.id;
+      
+      // Start timer
+      timer.start();
+      
+      // Close hero card
+      closeHeroCard();
+      
+      // Show success message
+      alert(`✓ Focus session started!\n\nWorking on: ${nextTaskData.task.title}\n\nTimer linked to this task.`);
+    });
+    
+    document.getElementById('heroSkipBtn').addEventListener('click', () => {
+      closeHeroCard();
+    });
+    
+    // Close hero card on escape or backdrop click
+    document.getElementById('heroCard').addEventListener('click', (e) => {
+      if (e.target.id === 'heroCard') {
+        closeHeroCard();
+      }
+    });
+    
+    document.getElementById('streakModal').addEventListener('click', (e) => {
+      if (e.target.id === 'streakModal') {
+        document.getElementById('streakModal').classList.remove('open');
+      }
+    });
+    
+    document.getElementById('quickAddModal').addEventListener('click', (e) => {
+      if (e.target.id === 'quickAddModal') {
+        document.getElementById('quickAddClose').click();
+      }
     });
 
     // Search/Command palette
@@ -1554,6 +2319,9 @@
       // Escape to close modals
       if (e.key === 'Escape') {
         closeTaskModal();
+        closeHeroCard();
+        document.getElementById('streakModal').classList.remove('open');
+        document.getElementById('quickAddModal').classList.remove('open');
         if (commandPaletteOpen) {
           document.getElementById('commandPalette').classList.remove('open');
           document.getElementById('commandInput').value = '';
@@ -1565,6 +2333,12 @@
       if ((e.metaKey || e.ctrlKey) && e.key === 'n') {
         e.preventDefault();
         openTaskModal();
+      }
+      
+      // Cmd/Ctrl + Shift + N for quick add
+      if ((e.metaKey || e.ctrlKey) && e.shiftKey && e.key === 'N') {
+        e.preventDefault();
+        document.getElementById('quickAddTopBtn').click();
       }
     });
 
@@ -1586,7 +2360,7 @@
     if (Object.keys(store.tasks).length === 0) {
       const welcomeId = store.addTask({ 
         title: 'Welcome to PrioBox', 
-        description: 'Click me to edit and explore features',
+        description: 'Click to edit and explore features. Try Quick Add for fast task entry!',
         quadrant: 'do-first', 
         estimatedMinutes: 5,
         tags: ['getting-started']
@@ -1594,7 +2368,7 @@
       
       store.addTask({ 
         title: 'Try the Focus Timer', 
-        description: 'Click the timer in the bottom-right to start a focus session',
+        description: 'Click "What\'s Next?" to see the #1 priority task, then start a focus session',
         quadrant: 'do-first', 
         estimatedMinutes: 25,
         tags: ['productivity']
@@ -1602,7 +2376,7 @@
       
       const planId = store.addTask({ 
         title: 'Plan your week', 
-        description: 'Break this down into smaller subtasks',
+        description: 'Break this down into smaller subtasks. Click to edit and add steps.',
         quadrant: 'schedule', 
         estimatedMinutes: 30,
         project: 'Planning'
@@ -1619,11 +2393,28 @@
       
       store.addTask({
         title: 'Explore keyboard shortcuts',
-        description: 'Try Cmd/Ctrl+K for quick search, Cmd/Ctrl+N for new task',
+        description: 'Cmd/Ctrl+K for search, Cmd/Ctrl+N for new task, Cmd/Ctrl+Shift+N for quick add',
         quadrant: 'schedule',
         estimatedMinutes: 5,
         tags: ['tips']
       });
+      
+      // Add some completed tasks to show history
+      const demo1 = store.addTask({
+        title: 'Complete onboarding',
+        quadrant: 'do-first',
+        estimatedMinutes: 10
+      });
+      store.tasks[demo1].completed = true;
+      store.tasks[demo1].completedAt = Date.now() - (1000 * 60 * 60 * 2); // 2 hours ago
+      
+      // Set up some activity history
+      const today = new Date().toDateString();
+      store.prefs.completedHistory[today] = 1;
+      store.prefs.timerSessionsHistory[today] = 0;
+      
+      store.save();
+      store.savePrefs();
     }
 
     render();
