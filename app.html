@@ -179,15 +179,38 @@
         <h1>PrioBox</h1>
       </div>
       <nav class="nav">
-        <div class="nav-item active" data-view="dashboard"><span class="nav-icon">📊</span><span>Dashboard</span></div>
-        <div class="nav-item" data-view="focus"><span class="nav-icon">🎯</span><span>Focus Mode</span><span class="nav-badge" id="focusCount">0</span></div>
-        <div class="nav-item" data-view="matrix"><span class="nav-icon">📈</span><span>Matrix View</span></div>
-        <div class="nav-item" data-view="projects"><span class="nav-icon">📁</span><span>Projects</span></div>
-        <div class="nav-item" data-view="history"><span class="nav-icon">🏆</span><span>Completed</span></div>
-        <div class="nav-item" data-view="insights"><span class="nav-icon">📉</span><span>Insights</span></div>
+        <div class="nav-item active" data-view="dashboard"><span class="nav-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+          </svg></span><span>Dashboard</span></div>
+        <div class="nav-item" data-view="focus"><span class="nav-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/>
+          </svg></span><span>Focus Mode</span><span class="nav-badge" id="focusCount">0</span></div>
+        <div class="nav-item" data-view="matrix"><span class="nav-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/>
+          </svg></span><span>Matrix View</span></div>
+        <div class="nav-item" data-view="projects"><span class="nav-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+          </svg></span><span>Projects</span></div>
+        <div class="nav-item" data-view="history"><span class="nav-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+          </svg></span><span>Completed</span></div>
+        <div class="nav-item" data-view="insights"><span class="nav-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+          </svg></span><span>Insights</span></div>
       </nav>
       <div class="sidebar-footer">
-        <button class="btn btn-primary" style="width: 100%;" id="newTaskBtn"><span>➕</span><span>New Task</span></button>
+        <button class="btn btn-primary" style="width: 100%;" id="newTaskBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+          <span>New Task</span>
+        </button>
       </div>
     </aside>
 
@@ -195,12 +218,25 @@
     <main class="main-content">
       <div class="top-bar">
         <div class="search-bar">
-          <span class="search-icon">🔍</span>
+          <span class="search-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+            </svg>
+          </span>
           <input type="text" placeholder="Search tasks or quick add..." id="searchInput">
           <span class="search-kbd">⌘K</span>
         </div>
-        <button class="btn" id="autoPrioritizeBtn"><span>✨</span><span>Auto-Prioritize</span></button>
-        <button class="btn btn-icon" id="filterBtn" title="Filter">🔽</button>
+        <button class="btn" id="autoPrioritizeBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+          </svg>
+          <span>Auto-Prioritize</span>
+        </button>
+        <button class="btn btn-icon" id="filterBtn" title="Filter">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+          </svg>
+        </button>
       </div>
 
       <div class="content-area" id="contentArea">
@@ -209,48 +245,114 @@
           <div class="stats-bar">
             <div class="stat-mini">
               <div><div class="stat-mini-label">Today's Focus</div><div class="stat-mini-value" id="todayCount">0</div></div>
-              <div class="stat-mini-icon">🎯</div>
+              <div class="stat-mini-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/>
+                </svg>
+              </div>
             </div>
             <div class="stat-mini">
               <div><div class="stat-mini-label">Consistency</div><div class="stat-mini-value" id="streakValue">0/7</div></div>
-              <div class="stat-mini-icon">🔥</div>
+              <div class="stat-mini-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
+                </svg>
+              </div>
             </div>
             <div class="stat-mini">
               <div><div class="stat-mini-label">Completed Today</div><div class="stat-mini-value" id="completedToday">0</div></div>
-              <div class="stat-mini-icon">✅</div>
+              <div class="stat-mini-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                </svg>
+              </div>
             </div>
             <div class="stat-mini">
               <div><div class="stat-mini-label">Stale Tasks</div><div class="stat-mini-value" id="staleCount">0</div></div>
-              <div class="stat-mini-icon">⚠️</div>
+              <div class="stat-mini-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+              </div>
             </div>
           </div>
 
           <div class="section">
             <div class="section-header">
-              <div class="section-title"><span>⚡</span><span>Smart Priority Queue</span></div>
-              <div class="section-actions"><button class="btn btn-icon" id="refreshPriority">↻</button></div>
+              <div class="section-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                </svg>
+                <span>Smart Priority Queue</span>
+              </div>
+              <div class="section-actions">
+                <button class="btn btn-icon" id="refreshPriority">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="section-content"><div class="task-list" id="priorityQueue"></div></div>
           </div>
 
           <div class="section">
-            <div class="section-header"><div class="section-title"><span>📊</span><span>Matrix Overview</span></div></div>
+            <div class="section-header">
+              <div class="section-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+                </svg>
+                <span>Matrix Overview</span>
+              </div>
+            </div>
             <div class="section-content">
               <div class="matrix-grid">
                 <div class="quadrant do-first">
-                  <div class="quadrant-header"><span>🔥 Do First</span><span class="quadrant-count" id="countDoFirst">0</span></div>
+                  <div class="quadrant-header">
+                    <span>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 6px;">
+                        <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
+                      </svg>
+                      Do First
+                    </span>
+                    <span class="quadrant-count" id="countDoFirst">0</span>
+                  </div>
                   <div class="quadrant-content"><div class="task-list" id="quickDoFirst"></div></div>
                 </div>
                 <div class="quadrant schedule">
-                  <div class="quadrant-header"><span>📅 Schedule</span><span class="quadrant-count" id="countSchedule">0</span></div>
+                  <div class="quadrant-header">
+                    <span>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 6px;">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                      </svg>
+                      Schedule
+                    </span>
+                    <span class="quadrant-count" id="countSchedule">0</span>
+                  </div>
                   <div class="quadrant-content"><div class="task-list" id="quickSchedule"></div></div>
                 </div>
                 <div class="quadrant delegate">
-                  <div class="quadrant-header"><span>👥 Delegate</span><span class="quadrant-count" id="countDelegate">0</span></div>
+                  <div class="quadrant-header">
+                    <span>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 6px;">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                      </svg>
+                      Delegate
+                    </span>
+                    <span class="quadrant-count" id="countDelegate">0</span>
+                  </div>
                   <div class="quadrant-content"><div class="task-list" id="quickDelegate"></div></div>
                 </div>
                 <div class="quadrant eliminate">
-                  <div class="quadrant-header"><span>🗑️ Eliminate</span><span class="quadrant-count" id="countEliminate">0</span></div>
+                  <div class="quadrant-header">
+                    <span>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 6px;">
+                        <polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                      </svg>
+                      Eliminate
+                    </span>
+                    <span class="quadrant-count" id="countEliminate">0</span>
+                  </div>
                   <div class="quadrant-content"><div class="task-list" id="quickEliminate"></div></div>
                 </div>
               </div>
@@ -261,7 +363,14 @@
         <!-- Focus Mode -->
         <div id="focusView" class="hidden">
           <div class="section">
-            <div class="section-header"><div class="section-title"><span>🎯</span><span>Today's Focus</span></div></div>
+            <div class="section-header">
+              <div class="section-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/>
+                </svg>
+                <span>Today's Focus</span>
+              </div>
+            </div>
             <div class="section-content"><div class="task-list" id="focusList"></div></div>
           </div>
         </div>
@@ -270,19 +379,51 @@
         <div id="matrixView" class="hidden">
           <div class="matrix-grid">
             <div class="quadrant do-first">
-              <div class="quadrant-header"><span>🔥 Do First</span><span class="quadrant-count" id="fullCountDoFirst">0</span></div>
+              <div class="quadrant-header">
+                <span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 6px;">
+                    <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
+                  </svg>
+                  Do First
+                </span>
+                <span class="quadrant-count" id="fullCountDoFirst">0</span>
+              </div>
               <div class="quadrant-content"><div class="task-list" id="fullDoFirst"></div></div>
             </div>
             <div class="quadrant schedule">
-              <div class="quadrant-header"><span>📅 Schedule</span><span class="quadrant-count" id="fullCountSchedule">0</span></div>
+              <div class="quadrant-header">
+                <span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 6px;">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                  </svg>
+                  Schedule
+                </span>
+                <span class="quadrant-count" id="fullCountSchedule">0</span>
+              </div>
               <div class="quadrant-content"><div class="task-list" id="fullSchedule"></div></div>
             </div>
             <div class="quadrant delegate">
-              <div class="quadrant-header"><span>👥 Delegate</span><span class="quadrant-count" id="fullCountDelegate">0</span></div>
+              <div class="quadrant-header">
+                <span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 6px;">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                  </svg>
+                  Delegate
+                </span>
+                <span class="quadrant-count" id="fullCountDelegate">0</span>
+              </div>
               <div class="quadrant-content"><div class="task-list" id="fullDelegate"></div></div>
             </div>
             <div class="quadrant eliminate">
-              <div class="quadrant-header"><span>🗑️ Eliminate</span><span class="quadrant-count" id="fullCountEliminate">0</span></div>
+              <div class="quadrant-header">
+                <span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 6px;">
+                    <polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                  </svg>
+                  Eliminate
+                </span>
+                <span class="quadrant-count" id="fullCountEliminate">0</span>
+              </div>
               <div class="quadrant-content"><div class="task-list" id="fullEliminate"></div></div>
             </div>
           </div>
@@ -291,7 +432,14 @@
         <!-- Projects View -->
         <div id="projectsView" class="hidden">
           <div class="section">
-            <div class="section-header"><div class="section-title"><span>📁</span><span>Projects</span></div></div>
+            <div class="section-header">
+              <div class="section-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+                </svg>
+                <span>Projects</span>
+              </div>
+            </div>
             <div class="section-content" id="projectsList"></div>
           </div>
         </div>
@@ -299,7 +447,14 @@
         <!-- History View -->
         <div id="historyView" class="hidden">
           <div class="section">
-            <div class="section-header"><div class="section-title"><span>🏆</span><span>Completed Tasks</span></div></div>
+            <div class="section-header">
+              <div class="section-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                </svg>
+                <span>Completed Tasks</span>
+              </div>
+            </div>
             <div class="section-content" id="historyList"></div>
           </div>
         </div>
@@ -307,7 +462,14 @@
         <!-- Insights View -->
         <div id="insightsView" class="hidden">
           <div class="section">
-            <div class="section-header"><div class="section-title"><span>📉</span><span>Productivity Insights</span></div></div>
+            <div class="section-header">
+              <div class="section-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+                </svg>
+                <span>Productivity Insights</span>
+              </div>
+            </div>
             <div class="section-content"><p style="text-align: center; color: var(--text-muted); padding: 40px;">Insights coming soon...</p></div>
           </div>
         </div>
@@ -662,7 +824,7 @@
       if (task.project) {
         const badge = document.createElement('span');
         badge.className = 'task-badge project';
-        badge.textContent = '📁 ' + task.project;
+        badge.innerHTML = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 4px;"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>' + task.project;
         meta.appendChild(badge);
       }
       
@@ -678,19 +840,19 @@
       if (task.subtasks && task.subtasks.length > 0) {
         const completed = task.subtasks.filter(st => st.completed).length;
         const span = document.createElement('span');
-        span.textContent = `✓ ${completed}/${task.subtasks.length}`;
+        span.innerHTML = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 4px;"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>' + `${completed}/${task.subtasks.length}`;
         meta.appendChild(span);
       }
       
       if (task.estimatedMinutes) {
         const span = document.createElement('span');
-        span.textContent = `⏱ ${task.estimatedMinutes}m`;
+        span.innerHTML = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 4px;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>' + task.estimatedMinutes + 'm';
         meta.appendChild(span);
       }
       
       if (task.due) {
         const span = document.createElement('span');
-        span.textContent = '📅 ' + formatDate(task.due);
+        span.innerHTML = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 4px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>' + formatDate(task.due);
         const isOverdue = new Date(task.due) < new Date() && !task.completed;
         if (isOverdue) {
           span.style.color = 'var(--danger)';
@@ -719,7 +881,7 @@
       
       const editBtn = document.createElement('button');
       editBtn.className = 'task-action-btn';
-      editBtn.textContent = '✎';
+      editBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>';
       editBtn.title = 'Edit';
       editBtn.onclick = (e) => { 
         e.stopPropagation(); 
@@ -765,8 +927,8 @@
         .sort((a,b) => b.score - a.score).slice(0, 5);
       const pq = document.getElementById('priorityQueue');
       pq.innerHTML = '';
-      if (scored.length === 0) {
-        pq.innerHTML = '<div class="empty-state"><div class="empty-icon">🎉</div><div>All caught up!</div></div>';
+      if (pq.childElementCount === 0) {
+        pq.innerHTML = '<div class="empty-state"><div class="empty-icon"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div>All caught up!</div></div>';
       } else {
         scored.forEach(({task}) => pq.appendChild(createTaskElement(task)));
       }
@@ -815,7 +977,7 @@
       const focusList = document.getElementById('focusList');
       focusList.innerHTML = '';
       if (scored.length === 0) {
-        focusList.innerHTML = '<div class="empty-state"><div class="empty-icon">🎯</div><div>No focus tasks. Great job!</div></div>';
+        focusList.innerHTML = '<div class="empty-state"><div class="empty-icon"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg></div><div>No focus tasks. Great job!</div></div>';
       } else {
         scored.forEach(({task}) => focusList.appendChild(createTaskElement(task)));
       }
@@ -825,7 +987,7 @@
       const projList = document.getElementById('projectsList');
       projList.innerHTML = '';
       if (projects.length === 0) {
-        projList.innerHTML = '<div class="empty-state"><div class="empty-icon">📁</div><div>No projects yet</div></div>';
+        projList.innerHTML = '<div class="empty-state"><div class="empty-icon"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></div><div>No projects yet</div></div>';
       } else {
         projects.forEach(p => {
           const card = document.createElement('div');
@@ -848,7 +1010,7 @@
       const histList = document.getElementById('historyList');
       histList.innerHTML = '';
       if (completed.length === 0) {
-        histList.innerHTML = '<div class="empty-state"><div class="empty-icon">🏆</div><div>No completed tasks yet</div></div>';
+        histList.innerHTML = '<div class="empty-state"><div class="empty-icon"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div>No completed tasks yet</div></div>';
       } else {
         completed.forEach(t => {
           const item = document.createElement('div');
@@ -1063,7 +1225,7 @@
     document.getElementById('autoPrioritizeBtn').addEventListener('click', () => {
       const tasks = store.getAll().filter(t => !t.completed);
       if (tasks.length === 0) {
-        alert('🎉 No active tasks to prioritize!\n\nYou\'re all caught up.');
+        alert('✓ No active tasks to prioritize!\n\nYou\'re all caught up.');
         return;
       }
       const scored = tasks.map(t => ({
@@ -1072,7 +1234,7 @@
       })).sort((a, b) => b.score - a.score);
       
       const top3 = scored.slice(0, 3);
-      const message = '✨ Auto-Prioritized!\n\nTop 3 priorities:\n\n' + 
+      const message = 'Auto-Prioritized Successfully\n\nTop 3 priorities:\n\n' + 
         top3.map((item, i) => `${i + 1}. ${item.task.title} (score: ${item.score})`).join('\n');
       
       alert(message);
@@ -1116,7 +1278,7 @@
           const item = document.createElement('div');
           item.className = 'command-item';
           item.innerHTML = `
-            <span style="font-size: 20px;">${task.completed ? '✓' : '○'}</span>
+            <span style="font-size: 20px;">${task.completed ? '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>' : '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>'}</span>
             <div style="flex: 1;">
               <div style="font-weight: 600; font-size: 14px;">${task.title}</div>
               <div style="font-size: 12px; color: var(--text-muted);">${task.project || task.quadrant}</div>
@@ -1135,7 +1297,7 @@
       const createItem = document.createElement('div');
       createItem.className = 'command-item';
       createItem.innerHTML = `
-        <span style="font-size: 20px;">➕</span>
+        <span style="font-size: 20px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
         <div style="flex: 1;">
           <div style="font-weight: 600; font-size: 14px;">Create: "${query}"</div>
           <div style="font-size: 12px; color: var(--text-muted);">Press Enter to create new task</div>
@@ -1209,7 +1371,7 @@
     // Init with better demo data
     if (Object.keys(store.tasks).length === 0) {
       const welcomeId = store.addTask({ 
-        title: 'Welcome to PrioBox! 👋', 
+        title: 'Welcome to PrioBox', 
         description: 'Click me to edit and explore features',
         quadrant: 'do-first', 
         estimatedMinutes: 5,
