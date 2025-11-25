@@ -1,648 +1,312 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>PrioBox – Focus What Matters</title>
-<link rel="stylesheet" href="Style/style1.css">
-<link rel="icon" type="image/png" href="images/logo-icon-t.png" />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PrioBox — Focus What Matters</title>
+  <meta name="description" content="PrioBox is a simple, calm priority system that helps teams cut through noise, focus on high-impact work, and finish what matters. Try a lightweight approach to task prioritization." />
+  <meta name="keywords" content="priority management, productivity tool, task management, team alignment, focus, SaaS productivity" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://priobox.solutions/" />
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-3TQ4METDYF"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){ dataLayer.push(arguments); }
-  gtag('js', new Date());
-  gtag('config', 'G-3TQ4METDYF');
-</script>
+  <!-- Fav / icons -->
+  <link rel="icon" type="image/png" href="images/PrioBox%20-%20Icon.png" />
 
-<script>
-  function trackHeroCTA() {
-    gtag('event', 'cta_clicked', {
-      event_category: 'engagement',
-      event_label: 'Hero – Launch App' 
-    });
-  }
+  <!-- Open Graph -->
+  <meta property="og:title" content="PrioBox — Focus What Matters" />
+  <meta property="og:description" content="A simple, calm priority system that helps teams cut noise, focus on high-impact work, and finish what matters." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://priobox.solutions/" />
+  <meta property="og:site_name" content="PrioBox" />
+  <meta property="og:image" content="images/PrioBox-%20Wordmark.png" />
+  <meta property="og:image:alt" content="PrioBox — clarity in your work. One task. One focus." />
 
-  function trackOpenContact() {
-    gtag('event', 'contact_opened', {
-      event_category: 'engagement',
-      event_label: 'Contact Section Viewed'
-    });
-  }
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@your_twitter_handle" />
+  <meta name="twitter:creator" content="@your_twitter_handle" />
+  <meta name="twitter:title" content="PrioBox — Focus What Matters" />
+  <meta name="twitter:description" content="A simple, calm priority system that helps teams cut noise, focus on high-impact work, and finish what matters." />
+  <meta name="twitter:image" content="images/PrioBox-%20Wordmark.png" />
 
-  function trackFormStep(stepNumber) {
-    gtag('event', 'contact_form_step', {
-      event_category: 'form_progress',
-      event_label: 'Step ' + stepNumber
-    });
-  }
+  <!-- Preconnect & fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
 
-  function trackFormSubmitted() {
-    gtag('event', 'contact_form_submitted', {
-      event_category: 'lead',
-      event_label: 'Formspree Submission Success'
-    });
+  <!-- Structured data (Organization + WebSite) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://priobox.solutions/#organization",
+        "name": "PrioBox",
+        "url": "https://priobox.solutions/",
+        "logo": "images/PrioBox-%20Wordmark.png",
+        "sameAs": [
+          "https://www.linkedin.com/company/priobox"
+        ],
+        "description": "PrioBox is a simple prioritization system for teams that helps reduce noise, align work, and focus on high-impact tasks."
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://priobox.solutions/#website",
+        "url": "https://priobox.solutions/",
+        "name": "PrioBox",
+        "description": "A simple, calm priority system for teams that helps reduce noise and increase focus.",
+        "publisher": {
+          "@id": "https://priobox.solutions/#organization"
+        },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://priobox.solutions/?s={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      }
+    ]
   }
-</script>
+  </script>
 
-<style>
-  /* BASE STYLES */
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{
-    font-family: 'Inter', sans-serif; 
-    background:#fff;
-    color:#111;
-    line-height:1.6;
-    overflow-x: hidden;
-  }
-  
-  /* HEADER */
-  header{
-    position:fixed;top:0;left:0;right:0;padding:1rem 2rem;
-    background:rgba(255,255,255,.95);
-    backdrop-filter:blur(8px);
-    display:flex;justify-content:space-between;align-items:center;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-    z-index:40;
-  }
-  .logo{font-weight:800;font-size:1.4rem;color:#2d4a22}
-  nav{display:flex;align-items:center;gap:1rem;} 
-  nav a{color:#444;text-decoration:none;font-weight:600;white-space:nowrap;}
-  
-  /* HERO SECTION */
-  .hero{
-    padding:160px 2rem 100px;
-    max-width:1200px;
-    margin:0 auto;
-    display:flex;
-    gap:4rem;
-    align-items:center;
-  }
-  .hero-text h1{
-    font-size:3.5rem;
-    font-weight: 800;
-    line-height: 1.1;
-    margin-bottom:1rem;
-  }
-  .hero-text p {
-    font-size: 1.25rem;
-    color: #555;
-    max-width: 60ch;
-    margin-bottom: 2rem;
-  }
-  .btn-primary{
-    display:inline-block;
-    background:#2ea043;
-    color:#fff;
-    padding:.9rem 1.8rem;
-    border-radius:10px;
-    text-decoration:none;
-    font-weight:700;
-    transition:0.3s;
-    white-space: nowrap;
-    box-shadow: 0 4px 12px rgba(46, 160, 67, 0.3);
-    border:none;
-    cursor:pointer;
-  }
-  .btn-primary:hover{background:#268a39; box-shadow: 0 6px 18px rgba(46, 160, 67, 0.4);}
-  
-  /* FEATURES SECTION */
-  #features{
-    padding:80px 2rem;
-    background:#f9fafb;
-    border-top: 1px solid #eee;
-  }
-  #features h2{
-    text-align:center;
-    font-size:2.5rem;
-    margin-bottom:3rem;
-    font-weight:800;
-    color:#222;
-  }
-  .features-grid{
-    max-width:1200px;
-    margin:0 auto;
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
-    gap:2rem;
-  }
-  .feature-card{
-    background:#fff;
-    padding:2rem;
-    border-radius:12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-    transition:0.3s;
-  }
-  .feature-card:hover{
-    transform:translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-  }
-  .feature-icon{
-    font-size:2.5rem;
-    margin-bottom:1rem;
-  }
-  .feature-card h3{
-    font-size:1.3rem;
-    margin-bottom:0.75rem;
-    color:#2d4a22;
-    font-weight:700;
-  }
-  .feature-card p{
-    color:#666;
-    line-height:1.7;
-  }
-  
-  /* TESTIMONIALS */
-  #testimonials{
-    padding:80px 2rem;
-    text-align:center;
-    background:#fff;
-    border-top: 1px solid #eee;
-  }
-  #testimonials h3{
-    font-size:1.3rem;
-    color:#2d4a22;
-    margin-bottom:3rem;
-    font-weight:700;
-  }
-  .testimonials-grid{
-    max-width:1200px;
-    margin:0 auto;
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));
-    gap:2rem;
-  }
-  .testimonial-box{
-    padding: 2rem;
-    background: #f9fafb;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-    transition:0.3s;
-  }
-  .testimonial-box:hover{
-    transform:translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-  }
-  .testimonial-box p{
-    font-style:italic;
-    font-size: 1rem;
-    color:#333;
-    line-height:1.7;
-  }
-  .testimonial-box small{
-    display: block;
-    margin-top: 1rem;
-    font-weight: 600;
-    color: #2d4a22;
-  }
-  
-  /* CTA BLOCK */
-  #cta-block {
-    padding: 80px 2rem;
-    text-align: center;
-    background: #2d4a22;
-    color: #fff;
-  }
-  #cta-block h2 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    font-weight: 800;
-  }
-  #cta-block .btn-primary {
-    background: #fff; 
-    color: #2d4a22; 
-    box-shadow: none; 
-    margin-top: 2rem;
-    padding: 1rem 2rem;
-  }
-  #cta-block .btn-primary:hover {
-    background: #eee;
-    color: #2d4a22;
-  }
+  <!-- Inline CSS (brand + responsive) -->
+  <style>
+    :root{
+      --color-primary:#0969DA;
+      --color-accent:#2EA043;
+      --color-bg:#F6F8FA;
+      --color-surface:#ffffff;
+      --color-border:#D0D7DE;
+      --text-primary:#1F2328;
+      --text-secondary:#57606A;
+      --muted:#666;
+      --radius:12px;
+      --shadow-1: 0 6px 18px rgba(16,24,40,0.06);
+      --shadow-2: 0 12px 36px rgba(16,24,40,0.08);
+      --header-h:72px;
+      --max-w:1200px;
+      --pad:1.5rem;
+    }
 
-  /* CONTACT SECTION */
-  #contact-section {
-    padding:80px 2rem;
-    background:#fff;
-    border-top: 1px solid #eee;
-  } 
-  #contact-section h2{
-    text-align:center;
-    margin-bottom:1rem;
-    font-size:2rem;
-    font-weight: 700;
-    color: #222;
-  }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;
+      color:var(--text-primary);
+      background:var(--color-surface);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding-top:var(--header-h);
+      line-height:1.55;
+    }
+    img{max-width:100%;height:auto;display:block}
 
-  /* SUCCESS BOX */
-  #success-box {
-    display: none;
-    background: #d4edda;
-    border: 1px solid #c3e6cb;
-    color: #155724;
-    padding: 1.5rem;
-    border-radius: 12px;
-    max-width: 480px;
-    margin: 0 auto 2rem;
-    text-align: center;
-    font-weight: 600;
-    font-size: 1.1rem;
-  }
+    .container{max-width:var(--max-w);margin:0 auto;padding:0 var(--pad)}
 
-  /* FORM STYLING */
-  #msform{
-    max-width:480px;
-    margin:0 auto;
-    background:#f9fafb;
-    padding:2rem;
-    border-radius:16px;
-    box-shadow:0 10px 28px rgba(0,0,0,.04);
-  }
-  fieldset{
-    border:0;
-    padding:0;
-    display:none;
-  }
-  fieldset.active{
-    display:block;
-  }
-  .field-group{
-    margin-bottom:1.5rem;
-  }
-  label{
-    display:block;
-    font-weight:600;
-    margin-bottom:0.5rem;
-    color:#333;
-  }
-  input, textarea, select{
-    width:100%;
-    padding:0.75rem;
-    border:1px solid #ddd;
-    border-radius:6px;
-    background: #fff;
-    font-family:inherit;
-    font-size:1rem;
-    transition:0.2s;
-  }
-  input:focus, textarea:focus, select:focus{
-    outline:none;
-    border-color:#2ea043;
-    box-shadow:0 0 0 3px rgba(46,160,67,0.1);
-  }
-  .error-message {
-    color: #e3342f;
-    font-size: 0.85rem;
-    margin-top: 0.5rem;
-    display: none;
-  }
-  .btn{
-    padding:0.75rem 1.5rem;
-    border:none;
-    border-radius:8px;
-    font-weight:600;
-    cursor:pointer;
-    transition:0.3s;
-    font-size:1rem;
-  }
-  .btn-next, .btn-submit{
-    background:#2ea043;
-    color:#fff;
-    width:100%;
-    margin-top:1rem;
-  }
-  .btn-next:hover, .btn-submit:hover{
-    background:#268a39;
-  }
-  .btn-back{
-    background:#e0e0e0;
-    color:#333;
-    margin-right:0.5rem;
-  }
-  .btn-back:hover{
-    background:#d0d0d0;
-  }
-  
-  /* FOOTER */
-  footer {
-    padding: 60px 2rem 30px;
-    background: #111;
-    color: #aaa;
-    text-align: center;
-  }
-  footer a {
-    color: #ccc;
-    text-decoration: none;
-    margin:0 10px;
-    transition:0.3s;
-  }
-  footer a:hover{
-    color:#fff;
-  }
-  .footer-cta {
-    margin-bottom: 40px;
-  }
-  .footer-cta p {
-    color: #fff;
-  }
-
-  /* UTILITY */
-  .hp{display:none !important}
-  
-  /* MOBILE RESPONSIVENESS */
-  @media (max-width: 768px) {
+    /* Header */
     header{
-      padding:1rem;
-      flex-wrap:wrap;
+      position:fixed;top:0;left:0;right:0;height:var(--header-h);
+      display:flex;align-items:center;justify-content:space-between;
+      padding:0 1.25rem;background:rgba(255,255,255,0.98);backdrop-filter:blur(6px);
+      box-shadow:0 1px 4px rgba(0,0,0,0.04);z-index:1000;
     }
-    nav{
-      gap:0.5rem;
+    .brand{display:flex;align-items:center;gap:.75rem}
+    .brand img{height:34px;width:auto;display:block}
+    nav{display:flex;gap:.75rem;align-items:center}
+    nav a{color:var(--text-secondary);text-decoration:none;font-weight:600;padding:.35rem .6rem;border-radius:8px}
+    nav a:hover{color:var(--text-primary)}
+
+    /* Hero */
+    .hero{display:flex;align-items:center;gap:2.5rem;padding:calc(var(--header-h)+2.75rem) var(--pad) 3.5rem}
+    .hero .left{flex:1;min-width:280px}
+    .hero h1{font-size:clamp(1.8rem,4.2vw,3.2rem);margin:0 0 .75rem;font-weight:800;line-height:1.02}
+    .hero p{max-width:60ch;color:var(--text-secondary);margin:0 0 1.25rem;font-size:1.05rem}
+    .hero .cta{display:inline-flex;gap:.6rem;align-items:center}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;border:0;padding:.8rem 1.25rem;border-radius:10px;font-weight:700;cursor:pointer;text-decoration:none
     }
-    nav a{
-      font-size:0.9rem;
+    .btn-primary{background:var(--color-primary);color:#fff;box-shadow:var(--shadow-1)}
+    .btn-primary:hover{transform:translateY(-3px);box-shadow:var(--shadow-2)}
+    .btn-secondary{background:#fff;color:var(--text-primary);border:1px solid var(--color-border)}
+
+    .hero .media{flex:0 0 520px;max-width:48%}
+    .hero .card{
+      background:var(--color-surface);border-radius:14px;padding:18px;border:1px solid #f0f3f6;box-shadow:0 8px 30px rgba(15,23,42,0.04)
     }
-    
-    .hero {
-      flex-direction: column;
-      padding: 120px 1.5rem 60px;
-      gap: 2rem;
-      text-align:center;
+
+    /* Features */
+    section.features{background:var(--color-bg);padding:3.5rem var(--pad)}
+    .features h2{text-align:center;font-size:clamp(1.4rem,2.6vw,2.4rem);margin:0 0 1.5rem;font-weight:800}
+    .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.25rem;max-width:var(--max-w);margin:0 auto}
+
+    .feature{
+      text-align:center;padding:1.4rem;border-radius:12px;background:#fff;box-shadow:var(--shadow-1)
     }
-    
-    .hero-text h1 {
-      font-size: 2.2rem;
+    .feature svg, .feature .icon{height:56px;margin-bottom:.6rem;color:var(--color-primary)}
+    .feature h3{margin:.5rem 0;font-size:1.05rem}
+    .feature p{margin:0;color:var(--text-secondary)}
+
+    /* CTA */
+    .cta-block{background:var(--color-primary);color:#fff;padding:3rem var(--pad);text-align:center}
+    .cta-block h2{margin:0 0 .5rem;font-size:clamp(1.2rem,2.4vw,2rem);font-weight:800}
+    .cta-block p{margin:0 0 1rem;color:rgba(255,255,255,0.95)}
+
+    /* Contact */
+    #contact{padding:3.5rem var(--pad)}
+    .success{display:none;background:#dff3e8;border:1px solid #cfead4;color:#155724;padding:12px;border-radius:10px;margin-bottom:14px;font-weight:700;text-align:center}
+
+    .form-wrap{max-width:560px;margin:0 auto}
+    .pb-form{background:#fff;padding:20px;border-radius:12px;border:1px solid var(--color-border);box-shadow:var(--shadow-1)}
+    .pb-form label{display:block;font-weight:700;margin-bottom:6px}
+    .pb-form input,.pb-form textarea{width:100%;padding:12px;border-radius:10px;border:1px solid var(--color-border);margin-bottom:12px;background:var(--color-bg)}
+    .pb-form input:focus,.pb-form textarea:focus{outline:none;box-shadow:0 0 0 4px rgba(9,105,218,0.12);border-color:var(--color-primary)}
+    .pb-form textarea{min-height:130px;resize:vertical}
+    .pb-form button{width:100%;background:var(--color-primary);color:#fff;border:0;padding:12px;border-radius:10px;font-weight:800;cursor:pointer}
+
+    footer{background:#070707;color:#cfcfcf;padding:2.5rem 1rem;text-align:center}
+    footer a{color:inherit;text-decoration:underline}
+
+    /* Responsive */
+    @media (max-width:1100px){
+      .hero{flex-direction:column;text-align:center}
+      .hero .media{max-width:80%}
     }
-    
-    .hero-text p{
-      font-size:1.1rem;
+    @media (max-width:680px){
+      nav a{display:none}
     }
-    
-    #features h2,
-    #cta-block h2 {
-      font-size: 1.8rem;
-    }
-    
-    .features-grid{
-      grid-template-columns:1fr;
-    }
-    
-    .testimonials-grid{
-      grid-template-columns:1fr;
-    }
-    
-    #msform{
-      padding:1.5rem;
-    }
-  }
-  
-  @media (max-width: 480px){
-    .hero-text h1{
-      font-size:1.8rem;
-    }
-    .btn-primary{
-      padding:0.75rem 1.5rem;
-      font-size:0.95rem;
-    }
-  }
-</style>
+  </style>
 </head>
 
 <body>
-
-<header>
-  <a href="./app.html" class="logo" style="text-decoration: none;">
-    <img src="images/PrioBox- Wordmark.png" alt="PrioBox" style="height:32px;vertical-align:middle;">
-  </a>
-  <nav>
-    <a href="#features">Features</a>
-    <a class="btn-primary" href="https://priobox.solutions/app.html" onclick="trackHeroCTA()">Launch App</a>
-  </nav>
-</header>
-
-<section class="hero">
-  <div class="hero-text">
-    <h1>Stop Prioritizing. Start Executing.</h1>
-    <p>PrioBox is the simple, powerful SaaS tool that cuts through noise, visualizes true impact, and drives your team toward mission-critical goals.</p>
-    <a class="btn-primary" href="./app.html" onclick="trackHeroCTA()">Start for Free →</a>
-  </div>
-  <img src="images/hero-illustration.svg" alt="PrioBox Hero Illustration" style="max-width:480px;width:100%" onerror="this.style.display='none'" />
-</section>
-
-<section id="features">
-  <h2>Built for High-Performance Teams</h2>
-  <div class="features-grid">
-    <div class="feature-card">
-      <div class="feature-icon">🎯</div>
-      <h3>Visual Priority Matrix</h3>
-      <p>Instantly see what matters most with our intuitive impact vs. effort visualization. No more guesswork.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">📊</div>
-      <h3>Data-Driven Insights</h3>
-      <p>Track completion rates and measure impact over time. Make better decisions with clear analytics.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🚀</div>
-      <h3>Zero Learning Curve</h3>
-      <p>Start prioritizing in minutes, not hours. Clean interface designed for speed and simplicity.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🔒</div>
-      <h3>Enterprise Security</h3>
-      <p>Bank-level encryption, SOC 2 compliant, and GDPR ready. Your data stays secure, always.</p>
-    </div>
-  </div>
-</section>
-
-<section id="testimonials">
-  <h3>Join the high-performing teams already maximizing their output.</h3>
-  <div class="testimonials-grid">
-    <div class="testimonial-box">
-      <p>"PrioBox cut our distraction time by 30% and brought instant clarity to our roadmap. It's the only tool we trust for high-impact prioritization."</p>
-      <small>— Sarah L., Product Manager, TechCorp</small>
-    </div>
-    <div class="testimonial-box">
-      <p>"We went from endless meetings to clear action in days. PrioBox helped us ship our biggest feature 3 weeks ahead of schedule."</p>
-      <small>— Marcus T., Engineering Lead, DataFlow</small>
-    </div>
-    <div class="testimonial-box">
-      <p>"Finally, a tool that our entire executive team actually uses daily. PrioBox transformed how we allocate resources and make strategic decisions."</p>
-      <small>— Jennifer K., VP Operations, GrowthLabs</small>
-    </div>
-  </div>
-</section>
-
-<section id="cta-block">
-  <h2>Ready to focus? Try PrioBox now.</h2>
-  <p style="max-width: 600px; margin: 0 auto; color: #ccc;">No credit card required. Instantly visualize your priorities and get started on your highest-impact tasks today.</p>
-  <a class="btn-primary" href="./app.html" onclick="trackHeroCTA()">Launch App Instantly</a>
-</section>
-
-<section id="contact-section">
-  <h2>Need Sales or Technical Support?</h2>
-  <p style="text-align:center; max-width: 500px; margin: 0 auto 2rem; color: #555;">Use the form below for enterprise sales inquiries, technical support, or partnership questions.</p>
-
-  <div id="success-box">🎉 Message sent successfully! We'll reply soon.</div>
-
-  <form id="msform" action="https://formspree.io/f/xyzleapr" method="POST">
-    <input class="hp" type="text" name="_gotcha">
-
-    <fieldset class="active">
-      <div class="field-group">
-        <label>Your Name
-          <input type="text" name="name" required>
-        </label>
-        <div class="error-message">Name is required.</div>
+  <header>
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between">
+      <div class="brand">
+        <!-- header logo (Primary) -->
+        <img src="images/PrioBox%20-%20Primary.png" alt="PrioBox logo" style="height:36px">
       </div>
-      <div class="field-group">
-        <label>Your Email
-          <input type="email" name="email" required>
-        </label>
-        <div class="error-message">Valid email is required.</div>
+
+      <nav aria-label="Site navigation">
+        <a href="#features">Features</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero container" aria-labelledby="hero-heading">
+      <div class="left">
+        <h1 id="hero-heading">Focus on what actually moves the needle.</h1>
+        <p>PrioBox is a simple, powerful priority system that helps teams cut noise, stay aligned, and make better decisions—fast.</p>
+        <p class="cta">
+          <a class="btn btn-primary" href="#contact">Get Early Access</a>
+          <a class="btn btn-secondary" href="app.html" style="margin-left:10px">Launch App</a>
+        </p>
       </div>
-      <button type="button" class="btn btn-next" onclick="nextStep()">Next</button>
-    </fieldset>
 
-    <fieldset>
-      <div class="field-group">
-        <label>What can we help you with?
-          <select name="topic" required>
-            <option value="">Choose one...</option>
-            <option>General Question</option>
-            <option>Partnership/Sales Inquiry</option>
-            <option>Request Access/Pricing</option>
-            <option>Technical Support</option>
-          </select>
-        </label>
-        <div class="error-message">Please select a topic.</div>
+      <div class="media">
+        <div class="card" role="img" aria-label="PrioBox product preview">
+          <!-- hero mockup (generated) -->
+          <img src="images/hero-illustration.svg" alt="PrioBox interface preview" />
+        </div>
       </div>
-      <button type="button" class="btn btn-back" onclick="prevStep()">Back</button>
-      <button type="button" class="btn btn-next" onclick="nextStep()">Next</button>
-    </fieldset>
+    </section>
 
-    <fieldset>
-      <div class="field-group">
-        <label>Your Message
-          <textarea name="message" rows="5" required></textarea>
-        </label>
-        <div class="error-message">Message is required.</div>
+    <!-- FEATURES -->
+    <section class="features" id="features">
+      <div class="container">
+        <h2>Why teams choose PrioBox</h2>
+
+        <div class="features-grid" role="list">
+          <div class="feature" role="listitem">
+            <div class="icon" aria-hidden="true">
+              <!-- simple icon (inline SVG) -->
+              <svg width="56" height="56" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            </div>
+            <h3>Clarity</h3>
+            <p>Instant visibility on what matters most.</p>
+          </div>
+
+          <div class="feature" role="listitem">
+            <div class="icon" aria-hidden="true">
+              <svg width="56" height="56" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="4" width="18" height="16" rx="3" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M8 9h8M8 13h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <h3>Alignment</h3>
+            <p>Teams stay synchronized and focused.</p>
+          </div>
+
+          <div class="feature" role="listitem">
+            <div class="icon" aria-hidden="true">
+              <svg width="56" height="56" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 17l6-6 6 6 4-8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            </div>
+            <h3>Impact</h3>
+            <p>Work that moves the business forward.</p>
+          </div>
+        </div>
       </div>
-      <p style="font-size:0.85rem; color:#777; margin-top:1rem;">
-        We respect your privacy. Your email will only be used to reply to your message.
-      </p>
-      <button type="button" class="btn btn-back" onclick="prevStep()">Back</button>
-      <button type="submit" class="btn btn-submit">Send Message</button>
-    </fieldset>
-  </form>
-</section>
+    </section>
 
-<footer>
-  <div class="footer-cta">
-    <p style="margin-bottom: 1rem; color: #fff; font-weight: 600;">Still evaluating? Launch PrioBox to see its power.</p>
-    <a class="btn-primary" href="./app.html" onclick="trackHeroCTA()">Launch App Now</a>
-  </div>
+    <!-- CTA -->
+    <section class="cta-block">
+      <div class="container">
+        <h2>Ready to bring clarity to your work?</h2>
+        <p>PrioBox helps teams focus, align, and deliver what truly matters.</p>
+        <a class="btn btn-primary" href="#contact">Get Early Access</a>
+      </div>
+    </section>
 
-  <hr style="border:0; border-top:1px solid #333; margin: 40px 0 20px;">
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="container">
+        <div id="success" class="success" role="status" aria-live="polite" style="display:none;">🎉 Message sent — we'll be in touch shortly.</div>
 
-  <div style="font-size: 0.9rem;">
-    © 2025 PrioBox • Built by 
-    <a href="mailto:DGSConsult@consultant.com">DGS Consulting</a>
-    <span>|</span>
-    <a href="./terms.html">Terms of Service</a>
-    <span>|</span>
-    <a href="./privacy.html">Privacy Policy</a>
-  </div>
-</footer>
+        <div class="form-wrap">
+          <!-- Formspree form -->
+          <form class="pb-form" action="https://formspree.io/f/xyzleapr" method="POST" id="contactForm" novalidate>
+            <label for="name">Your Name</label>
+            <input id="name" name="name" type="text" placeholder="Your name" required>
 
-<script>
-let step = 0;
-const steps = document.querySelectorAll("fieldset");
+            <label for="email">Your Email</label>
+            <input id="email" name="email" type="email" placeholder="you@example.com" required>
 
-function validateStep(currentStep) {
-  const fields = currentStep.querySelectorAll('[required]');
-  let isValid = true;
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="How can I help?" required></textarea>
 
-  fields.forEach(field => {
-    const fieldGroup = field.closest('.field-group');
-    const errorMessage = fieldGroup.querySelector('.error-message');
+            <button type="submit">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
 
-    const isSelect = field.tagName.toLowerCase() === 'select';
-    const isInvalid = !field.value || (isSelect && field.value === "") || (field.type === 'email' && !field.checkValidity());
+  <footer>
+    <div class="container">
+      <p>© 2025 PrioBox • Built with clarity</p>
+      <p><a href="/privacy.html">Privacy</a> • <a href="/terms.html">Terms</a></p>
+    </div>
+  </footer>
 
-    if (isInvalid) {
-      isValid = false;
-      if (errorMessage) {
-        errorMessage.style.display = 'block'; 
-      }
-    } else {
-      if (errorMessage) {
-        errorMessage.style.display = 'none'; 
-      }
-    }
-  });
-  return isValid;
-}
+  <!-- Minimal JS to handle Formspree success UI without page reload -->
+  <script>
+    (function(){
+      const form = document.getElementById('contactForm');
+      const success = document.getElementById('success');
 
-function showStep(n){
-  steps.forEach((fs,i)=>fs.classList.toggle("active", i===n));
-}
-
-function nextStep(){
-  const currentStepElement = steps[step];
-  
-  if (!validateStep(currentStepElement)) {
-    return;
-  }
-
-  if(step < steps.length - 1){
-    step++;
-    showStep(step);
-    trackFormStep(step + 1);
-  }
-}
-
-function prevStep(){
-  if(step > 0){
-    step--;
-    showStep(step);
-    trackFormStep(step + 1);
-  }
-}
-
-const contactObserver = new IntersectionObserver(entries => {
-  if(entries[0].isIntersecting){
-    trackOpenContact();
-    contactObserver.disconnect();
-  }
-});
-contactObserver.observe(document.querySelector('#contact-section'));
-
-document.getElementById("msform").addEventListener("submit", async function(e){
-  e.preventDefault();
-
-  const form = e.target;
-  const lastStepElement = steps[steps.length - 1];
-
-  if (!validateStep(lastStepElement)) {
-    return;
-  }
-
-  const res = await fetch(form.action, {
-    method: "POST",
-    body: new FormData(form),
-    headers: { Accept: "application/json" }
-  });
-
-  if(res.ok){
-    trackFormSubmitted();
-    form.style.display = "none";
-    document.getElementById("success-box").style.display = "block";
-  } else {
-    alert("There was an error. Please try again.");
-  }
-});
-</script>
-
+      form.addEventListener('submit', async function(e){
+        e.preventDefault();
+        const data = new FormData(form);
+        const resp = await fetch(form.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } });
+        if (resp.ok) {
+          form.reset();
+          success.style.display = 'block';
+          form.style.display = 'none';
+        } else {
+          // show a simple alert on error — you can replace with nicer UI
+          alert('Sorry — there was an error sending the message. Please try again later.');
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
