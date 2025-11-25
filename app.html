@@ -464,19 +464,35 @@
           <div class="stats-bar">
             <div class="stat-mini">
               <div><div class="stat-mini-label">Total Tasks</div><div class="stat-mini-value" id="insightTotalTasks">0</div></div>
-              <div class="stat-mini-icon">📊</div>
+              <div class="stat-mini-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+                </svg>
+              </div>
             </div>
             <div class="stat-mini">
               <div><div class="stat-mini-label">Completion Rate</div><div class="stat-mini-value" id="insightCompletionRate">0%</div></div>
-              <div class="stat-mini-icon">✅</div>
+              <div class="stat-mini-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                </svg>
+              </div>
             </div>
             <div class="stat-mini">
               <div><div class="stat-mini-label">Avg. Time to Complete</div><div class="stat-mini-value" id="insightAvgTime">0d</div></div>
-              <div class="stat-mini-icon">⏱️</div>
+              <div class="stat-mini-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                </svg>
+              </div>
             </div>
             <div class="stat-mini">
-              <div><div class="stat-mini-label">Most Productive Day</div><div class="stat-mini-value" id="insightBestDay">-</div></div>
-              <div class="stat-mini-icon">🔥</div>
+              <div><div class="stat-mini-label">Most Productive Day</div><div class="stat-mini-value" id="insightBestDay">—</div></div>
+              <div class="stat-mini-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
+                </svg>
+              </div>
             </div>
           </div>
 
@@ -490,7 +506,7 @@
               </div>
             </div>
             <div class="section-content">
-              <div id="activityChart" style="display: flex; align-items: flex-end; gap: 12px; height: 200px; padding: 20px;"></div>
+              <div id="activityChart" style="display: flex; align-items: flex-end; justify-content: space-around; gap: 12px; height: 200px; padding: 20px;"></div>
             </div>
           </div>
 
@@ -532,6 +548,9 @@
             <div class="section-content" id="agingTasks"></div>
           </div>
         </div>
+      </div>
+    </main>
+  </div>
 
   <!-- Floating Timer -->
   <div class="timer-float" id="timerFloat">
@@ -1078,6 +1097,140 @@
           histList.appendChild(item);
         });
       }
+      
+      // Insights View
+      if (currentView === 'insights') {
+        renderInsights();
+      }
+    }
+    
+    function renderInsights() {
+      const tasks = store.getAll();
+      const completed = tasks.filter(t => t.completed);
+      
+      // Total tasks
+      document.getElementById('insightTotalTasks').textContent = tasks.length;
+      
+      // Completion rate
+      const completionRate = tasks.length > 0 ? Math.round((completed.length / tasks.length) * 100) : 0;
+      document.getElementById('insightCompletionRate').textContent = completionRate + '%';
+      
+      // Avg time to complete
+      if (completed.length > 0) {
+        const avgDays = completed.reduce((sum, t) => {
+          const days = (t.completedAt - t.createdAt) / (1000*60*60*24);
+          return sum + days;
+        }, 0) / completed.length;
+        document.getElementById('insightAvgTime').textContent = Math.round(avgDays) + 'd';
+      } else {
+        document.getElementById('insightAvgTime').textContent = '0d';
+      }
+      
+      // Most productive day
+      const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      const dayCounts = {};
+      Object.entries(store.prefs.completedHistory).forEach(([dateStr, count]) => {
+        const day = new Date(dateStr).getDay();
+        dayCounts[day] = (dayCounts[day] || 0) + count;
+      });
+      const maxDay = Object.entries(dayCounts).sort((a,b) => b[1] - a[1])[0];
+      document.getElementById('insightBestDay').textContent = maxDay ? dayNames[maxDay[0]] : '—';
+      
+      // 7-day activity chart
+      const chartDiv = document.getElementById('activityChart');
+      chartDiv.innerHTML = '';
+      const maxCount = 10;
+      for (let i = 6; i >= 0; i--) {
+        const date = new Date();
+        date.setDate(date.getDate() - i);
+        const dateStr = date.toDateString();
+        const count = store.prefs.completedHistory[dateStr] || 0;
+        const height = Math.max(20, (count / maxCount) * 160);
+        
+        const bar = document.createElement('div');
+        bar.style.cssText = `
+          flex: 1;
+          background: var(--accent);
+          border-radius: 4px 4px 0 0;
+          height: ${height}px;
+          position: relative;
+          transition: all 0.2s;
+          cursor: pointer;
+        `;
+        bar.onmouseenter = () => { bar.style.background = 'var(--accent-hover)'; };
+        bar.onmouseleave = () => { bar.style.background = 'var(--accent)'; };
+        bar.title = `${dayNames[date.getDay()]}: ${count} tasks`;
+        
+        const label = document.createElement('div');
+        label.style.cssText = 'position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%); font-size: 11px; color: var(--text-muted);';
+        label.textContent = dayNames[date.getDay()];
+        bar.appendChild(label);
+        
+        chartDiv.appendChild(bar);
+      }
+      
+      // Quadrant breakdown
+      const quadBreakdown = document.getElementById('quadrantBreakdown');
+      quadBreakdown.innerHTML = '';
+      const quadCounts = { 'do-first': 0, 'schedule': 0, 'delegate': 0, 'eliminate': 0 };
+      tasks.forEach(t => quadCounts[t.quadrant]++);
+      const quadNames = { 'do-first': 'Do First', 'schedule': 'Schedule', 'delegate': 'Delegate', 'eliminate': 'Eliminate' };
+      const quadColors = { 'do-first': '#ef4444', 'schedule': '#f59e0b', 'delegate': '#10b981', 'eliminate': '#3b82f6' };
+      
+      Object.entries(quadCounts).forEach(([quad, count]) => {
+        const item = document.createElement('div');
+        item.style.cssText = 'display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border);';
+        item.innerHTML = `
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <div style="width: 12px; height: 12px; border-radius: 3px; background: ${quadColors[quad]};"></div>
+            <span>${quadNames[quad]}</span>
+          </div>
+          <strong>${count}</strong>
+        `;
+        quadBreakdown.appendChild(item);
+      });
+      
+      // Top projects
+      const topProj = document.getElementById('topProjects');
+      topProj.innerHTML = '';
+      const projects = store.getProjects().sort((a,b) => b.total - a.total).slice(0, 5);
+      if (projects.length === 0) {
+        topProj.innerHTML = '<div style="text-align: center; padding: 20px; color: var(--text-muted);">No projects yet</div>';
+      } else {
+        projects.forEach(p => {
+          const item = document.createElement('div');
+          item.style.cssText = 'padding: 8px 0; border-bottom: 1px solid var(--border);';
+          item.innerHTML = `
+            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+              <strong>${p.name}</strong>
+              <span style="color: var(--text-muted);">${p.completed}/${p.total}</span>
+            </div>
+            <div class="progress-bar" style="height: 6px;">
+              <div class="progress-fill" style="width: ${p.total ? (p.completed/p.total*100) : 0}%"></div>
+            </div>
+          `;
+          topProj.appendChild(item);
+        });
+      }
+      
+      // Aging tasks
+      const agingDiv = document.getElementById('agingTasks');
+      agingDiv.innerHTML = '';
+      const agingTasks = tasks.filter(t => !t.completed && daysSince(t.lastTouched) >= 14);
+      if (agingTasks.length === 0) {
+        agingDiv.innerHTML = '<div style="text-align: center; padding: 20px; color: var(--success);">✓ No stale tasks! Great job staying on top of things.</div>';
+      } else {
+        agingTasks.forEach(t => {
+          const item = document.createElement('div');
+          item.style.cssText = 'padding: 12px; background: var(--warning-light); border-radius: 8px; margin-bottom: 8px; border-left: 3px solid var(--warning); cursor: pointer;';
+          item.innerHTML = `
+            <div style="font-weight: 600;">${t.title}</div>
+            <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Untouched for ${daysSince(t.lastTouched)} days</div>
+          `;
+          item.onclick = () => openTaskModal(t);
+          agingDiv.appendChild(item);
+        });
+      }
     }
 
     // Modal
@@ -1205,6 +1358,11 @@
         currentView = item.dataset.view;
         document.querySelectorAll('#contentArea > div').forEach(v => v.classList.add('hidden'));
         document.getElementById(currentView + 'View').classList.remove('hidden');
+        
+        // Render insights when switching to that view
+        if (currentView === 'insights') {
+          renderInsights();
+        }
       });
     });
 
