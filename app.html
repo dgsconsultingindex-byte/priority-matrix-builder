@@ -515,6 +515,12 @@
           </svg>
           <span>New Task</span>
         </button>
+         <button class="btn" style="width: 100%;" id="exportBtn" aria-label="Export all tasks and data">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          <span>Export Data</span>
+        </button>
       </div>
     </aside>
 
@@ -1017,7 +1023,67 @@
       <div class="streak-grid" id="streakGrid"></div>
     </div>
   </div>
-
+<!-- Export Modal -->
+  <div class="modal-overlay" id="exportModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Export Your Data</h3>
+        <button class="modal-close" id="exportModalClose">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Export Format</label>
+          <select class="form-input" id="exportFormat">
+            <option value="json">JSON (Full backup with all data)</option>
+            <option value="csv">CSV (Tasks only, for spreadsheets)</option>
+            <option value="markdown">Markdown (Readable format)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">What to Export</label>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+              <input type="checkbox" id="exportTasks" checked>
+              <span>Tasks (all active and completed)</span>
+            </label>
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+              <input type="checkbox" id="exportHistory" checked>
+              <span>Activity History (streaks, sessions)</span>
+            </label>
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+              <input type="checkbox" id="exportProjects" checked>
+              <span>Projects</span>
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Filter Tasks</label>
+          <select class="form-input" id="exportFilter">
+            <option value="all">All Tasks</option>
+            <option value="active">Active Tasks Only</option>
+            <option value="completed">Completed Tasks Only</option>
+            <option value="do-first">Do First Quadrant</option>
+            <option value="schedule">Schedule Quadrant</option>
+            <option value="delegate">Delegate Quadrant</option>
+            <option value="eliminate">Eliminate Quadrant</option>
+          </select>
+        </div>
+        <div style="background: var(--accent-light); padding: 12px; border-radius: 8px; font-size: 13px; color: var(--text);">
+          <strong>💡 Tip:</strong> JSON format is best for backups and importing data later. CSV is great for Excel/Google Sheets. Markdown is perfect for reading and sharing.
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" id="exportCancel">Cancel</button>
+        <button class="btn btn-primary" id="exportConfirm">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 4px;">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Export
+        </button>
+      </div>
+    </div>
+  </div>
+  
   <!-- Quick Add Modal -->
   <div class="modal-overlay" id="quickAddModal">
     <div class="modal">
@@ -2356,7 +2422,156 @@
         closeTaskModal();
       }
     });
+document.getElementById('taskModal').addEventListener('click', (e) => {
+      if (e.target.id === 'taskModal') {
+        closeTaskModal();
+      }
+    });
 
+    // Export functionality
+    document.getElementById('exportBtn').addEventListener('click', () => {
+      document.getElementById('exportModal').classList.add('open');
+    });
+
+    document.getElementById('exportModalClose').addEventListener('click', () => {
+      document.getElementById('exportModal').classList.remove('open');
+    });
+
+    document.getElementById('exportCancel').addEventListener('click', () => {
+      document.getElementById('exportModal').classList.remove('open');
+    });
+
+    document.getElementById('exportConfirm').addEventListener('click', () => {
+      const format = document.getElementById('exportFormat').value;
+      const filter = document.getElementById('exportFilter').value;
+      const includeTasks = document.getElementById('exportTasks').checked;
+      const includeHistory = document.getElementById('exportHistory').checked;
+      const includeProjects = document.getElementById('exportProjects').checked;
+
+      let tasks = Object.values(store.tasks);
+      if (filter === 'active') tasks = tasks.filter(t => !t.completed);
+      else if (filter === 'completed') tasks = tasks.filter(t => t.completed);
+      else if (['do-first', 'schedule', 'delegate', 'eliminate'].includes(filter)) {
+        tasks = tasks.filter(t => t.quadrant === filter);
+      }
+
+      let dataStr = '';
+      let filename = `priobox-export-${new Date().toISOString().split('T')[0]}`;
+      let mimeType = 'text/plain';
+
+      if (format === 'json') {
+        const exportData = { version: '4.0', exportDate: new Date().toISOString() };
+        if (includeTasks) exportData.tasks = tasks.reduce((obj, t) => { obj[t.id] = t; return obj; }, {});
+        if (includeHistory) exportData.preferences = store.prefs;
+        if (includeProjects) exportData.projects = store.getProjects();
+        exportData.stats = {
+          totalTasks: tasks.length,
+          completedTasks: tasks.filter(t => t.completed).length,
+          projects: store.getProjects().length
+        };
+        dataStr = JSON.stringify(exportData, null, 2);
+        filename += '.json';
+        mimeType = 'application/json';
+      } else if (format === 'csv') {
+        const headers = ['Title', 'Description', 'Quadrant', 'Project', 'Tags', 'Estimated Minutes', 'Due Date', 'Completed', 'Created At', 'Completed At'];
+        const rows = tasks.map(t => [
+          `"${(t.title || '').replace(/"/g, '""')}"`,
+          `"${(t.description || '').replace(/"/g, '""')}"`,
+          t.quadrant || '',
+          t.project || '',
+          (t.tags || []).join('; '),
+          t.estimatedMinutes || '',
+          t.due || '',
+          t.completed ? 'Yes' : 'No',
+          new Date(t.createdAt).toLocaleString(),
+          t.completedAt ? new Date(t.completedAt).toLocaleString() : ''
+        ].join(','));
+        dataStr = [headers.join(','), ...rows].join('\n');
+        filename += '.csv';
+        mimeType = 'text/csv';
+      } else if (format === 'markdown') {
+        dataStr = `# PrioBox Export\n\nExported on: ${new Date().toLocaleString()}\n\n`;
+        
+        if (includeTasks) {
+          const quadrants = {
+            'do-first': '🔥 Do First (Urgent & Important)',
+            'schedule': '📅 Schedule (Important, Not Urgent)',
+            'delegate': '👥 Delegate (Urgent, Not Important)',
+            'eliminate': '🗑️ Eliminate (Neither)'
+          };
+          
+          ['do-first', 'schedule', 'delegate', 'eliminate'].forEach(q => {
+            const qTasks = tasks.filter(t => t.quadrant === q);
+            if (qTasks.length > 0) {
+              dataStr += `## ${quadrants[q]}\n\n`;
+              qTasks.forEach(t => {
+                dataStr += `### ${t.completed ? '✓' : '☐'} ${t.title}\n\n`;
+                if (t.description) dataStr += `${t.description}\n\n`;
+                if (t.project) dataStr += `**Project:** ${t.project}\n\n`;
+                if (t.tags && t.tags.length > 0) dataStr += `**Tags:** ${t.tags.map(tag => `#${tag}`).join(', ')}\n\n`;
+                if (t.estimatedMinutes) dataStr += `**Estimated Time:** ${t.estimatedMinutes} minutes\n\n`;
+                if (t.due) dataStr += `**Due:** ${new Date(t.due).toLocaleDateString()}\n\n`;
+                if (t.subtasks && t.subtasks.length > 0) {
+                  dataStr += `**Subtasks:**\n`;
+                  t.subtasks.forEach(st => {
+                    dataStr += `- [${st.completed ? 'x' : ' '}] ${st.title}\n`;
+                  });
+                  dataStr += '\n';
+                }
+                dataStr += '---\n\n';
+              });
+            }
+          });
+        }
+        
+        if (includeProjects) {
+          const projects = store.getProjects();
+          if (projects.length > 0) {
+            dataStr += `## Projects\n\n`;
+            projects.forEach(p => {
+              dataStr += `### ${p.name}\n\n`;
+              dataStr += `Progress: ${p.completed}/${p.total} tasks completed (${Math.round(p.completed/p.total*100)}%)\n\n`;
+            });
+          }
+        }
+        
+        if (includeHistory) {
+          dataStr += `## Activity Summary\n\n`;
+          const weeklyTotal = Object.entries(store.prefs.completedHistory)
+            .reduce((sum, [date, count]) => sum + count, 0);
+          dataStr += `**Total Completed Tasks:** ${weeklyTotal}\n\n`;
+          
+          const sessionTotal = Object.entries(store.prefs.timerSessionsHistory)
+            .reduce((sum, [date, count]) => sum + count, 0);
+          dataStr += `**Total Focus Sessions:** ${sessionTotal}\n\n`;
+        }
+        
+        filename += '.md';
+        mimeType = 'text/markdown';
+      }
+
+      const dataBlob = new Blob([dataStr], { type: mimeType });
+      const url = URL.createObjectURL(dataBlob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+
+      document.getElementById('exportModal').classList.remove('open');
+      alert(`✓ Export successful!\n\nYour data has been downloaded as ${filename}`);
+    });
+
+    document.getElementById('exportModal').addEventListener('click', (e) => {
+      if (e.target.id === 'exportModal') {
+        document.getElementById('exportModal').classList.remove('open');
+      }
+    });
+
+    // Init with better demo data
+    if (Object.keys(store.tasks).length === 0) {
     // Init with better demo data
     if (Object.keys(store.tasks).length === 0) {
       const welcomeId = store.addTask({ 
