@@ -453,12 +453,42 @@
         t.completed = !t.completed;
         t.completedAt = t.completed ? Date.now() : null;
         t.lastTouched = Date.now();
+        
+        // Auto-complete parent if all subtasks done
+        if (t.subtasks && t.subtasks.length > 0 && t.subtasks.every(st => st.completed)) {
+          t.completed = true;
+          t.completedAt = Date.now();
+        }
+        
         if (t.completed) {
           const d = new Date().toDateString();
           this.prefs.completedHistory[d] = (this.prefs.completedHistory[d]||0) + 1;
           this.savePrefs();
         }
         this.save();
+      }
+      toggleSubtask(taskId, subtaskId) {
+        const t = this.tasks[taskId];
+        if (!t || !t.subtasks) return false;
+        const st = t.subtasks.find(s => s.id === subtaskId);
+        if (!st) return false;
+        st.completed = !st.completed;
+        
+        // Auto-complete parent if all subtasks done
+        if (t.subtasks.every(s => s.completed) && !t.completed) {
+          t.completed = true;
+          t.completedAt = Date.now();
+          const d = new Date().toDateString();
+          this.prefs.completedHistory[d] = (this.prefs.completedHistory[d]||0) + 1;
+          this.savePrefs();
+        } else if (t.completed && t.subtasks.some(s => !s.completed)) {
+          t.completed = false;
+          t.completedAt = null;
+        }
+        
+        t.lastTouched = Date.now();
+        this.save();
+        return true;
       }
       getAll() {
         return Object.values(this.tasks).sort((a,b) => {
@@ -601,7 +631,11 @@
       const checkbox = document.createElement('div');
       checkbox.className = 'task-checkbox' + (task.completed ? ' checked' : '');
       if (task.completed) checkbox.textContent = '✓';
-      checkbox.onclick = (e) => { e.stopPropagation(); store.toggleComplete(task.id); render(); };
+      checkbox.onclick = (e) => { 
+        e.stopPropagation(); 
+        store.toggleComplete(task.id); 
+        render(); 
+      };
       el.appendChild(checkbox);
       
       const main = document.createElement('div');
@@ -612,6 +646,7 @@
       
       const dot = document.createElement('span');
       dot.className = 'aging-dot ' + getAgingStatus(task.lastTouched);
+      dot.title = `Last touched: ${formatRelativeTime(task.lastTouched)}`;
       titleRow.appendChild(dot);
       
       const title = document.createElement('span');
@@ -657,7 +692,10 @@
         const span = document.createElement('span');
         span.textContent = '📅 ' + formatDate(task.due);
         const isOverdue = new Date(task.due) < new Date() && !task.completed;
-        if (isOverdue) span.style.color = 'var(--danger)';
+        if (isOverdue) {
+          span.style.color = 'var(--danger)';
+          span.style.fontWeight = '600';
+        }
         meta.appendChild(span);
       }
       
@@ -683,7 +721,10 @@
       editBtn.className = 'task-action-btn';
       editBtn.textContent = '✎';
       editBtn.title = 'Edit';
-      editBtn.onclick = (e) => { e.stopPropagation(); openTaskModal(task); };
+      editBtn.onclick = (e) => { 
+        e.stopPropagation(); 
+        openTaskModal(task); 
+      };
       actions.appendChild(editBtn);
       
       el.appendChild(actions);
@@ -736,19 +777,37 @@
       // Matrix
       ['do-first', 'schedule', 'delegate', 'eliminate'].forEach(q => {
         const qTasks = incomplete.filter(t => t.quadrant === q);
-        document.getElementById('count' + q.split('-').map(w => w[0].toUpperCase() + w.slice(1)).join('')).textContent = qTasks.length;
-        document.getElementById('fullCount' + q.split('-').map(w => w[0].toUpperCase() + w.slice(1)).join('')).textContent = qTasks.length;
+        const qName = q.split('-').map(w => w[0].toUpperCase() + w.slice(1)).join('');
         
-        const quickList = document.getElementById('quick' + q.split('-').map(w => w[0].toUpperCase() + w.slice(1)).join(''));
-        quickList.innerHTML = '';
-        qTasks.slice(0, 3).forEach(t => quickList.appendChild(createTaskElement(t)));
+        // Dashboard quick view counts
+        const countEl = document.getElementById('count' + qName);
+        if (countEl) countEl.textContent = qTasks.length;
         
-        const fullList = document.getElementById('full' + q.split('-').map(w => w[0].toUpperCase() + w.slice(1)).join(''));
-        fullList.innerHTML = '';
-        if (qTasks.length === 0) {
-          fullList.innerHTML = '<div class="empty-state" style="padding: 20px;"><div style="opacity: 0.5;">No tasks</div></div>';
-        } else {
-          qTasks.forEach(t => fullList.appendChild(createTaskElement(t)));
+        // Matrix full view counts
+        const fullCountEl = document.getElementById('fullCount' + qName);
+        if (fullCountEl) fullCountEl.textContent = qTasks.length;
+        
+        // Dashboard quick lists (top 3)
+        const quickList = document.getElementById('quick' + qName);
+        if (quickList) {
+          quickList.innerHTML = '';
+          const tasksToShow = qTasks.slice(0, 3);
+          if (tasksToShow.length === 0) {
+            quickList.innerHTML = '<div style="text-align: center; padding: 20px; color: var(--text-muted); font-size: 13px;">No tasks</div>';
+          } else {
+            tasksToShow.forEach(t => quickList.appendChild(createTaskElement(t)));
+          }
+        }
+        
+        // Matrix full view lists (all tasks)
+        const fullList = document.getElementById('full' + qName);
+        if (fullList) {
+          fullList.innerHTML = '';
+          if (qTasks.length === 0) {
+            fullList.innerHTML = '<div class="empty-state" style="padding: 20px;"><div style="opacity: 0.5;">No tasks</div></div>';
+          } else {
+            qTasks.forEach(t => fullList.appendChild(createTaskElement(t)));
+          }
         }
       });
       
@@ -815,49 +874,73 @@
       document.getElementById('taskQuadrant').value = task ? task.quadrant : 'do-first';
       document.getElementById('taskProject').value = task ? task.project : '';
       
+      // Clear inputs
+      document.getElementById('newTag').value = '';
+      document.getElementById('newSubtask').value = '';
+      
       const tagsContainer = document.getElementById('taskTags');
       tagsContainer.innerHTML = '';
-      if (task && task.tags) {
+      if (task && task.tags && task.tags.length > 0) {
         task.tags.forEach(tag => {
           const chip = document.createElement('span');
           chip.className = 'tag-chip';
-          chip.innerHTML = `${tag} <button>×</button>`;
-          chip.querySelector('button').onclick = () => {
-            task.tags = task.tags.filter(t => t !== tag);
-            store.updateTask(task.id, { tags: task.tags });
-            openTaskModal(task);
+          const btn = document.createElement('button');
+          btn.textContent = '×';
+          btn.onclick = () => {
+            const updatedTags = task.tags.filter(t => t !== tag);
+            store.updateTask(task.id, { tags: updatedTags });
+            currentEditingTask.tags = updatedTags;
+            openTaskModal(currentEditingTask);
           };
+          chip.textContent = tag + ' ';
+          chip.appendChild(btn);
           tagsContainer.appendChild(chip);
         });
       }
       
       const subtasksList = document.getElementById('subtasksList');
       subtasksList.innerHTML = '';
-      if (task && task.subtasks) {
+      if (task && task.subtasks && task.subtasks.length > 0) {
         task.subtasks.forEach(st => {
           const item = document.createElement('div');
           item.className = 'subtask-item';
-          item.innerHTML = `
-            <input type="checkbox" ${st.completed ? 'checked' : ''}>
-            <input type="text" value="${st.title}" readonly>
-            <button>×</button>
-          `;
-          item.querySelector('input[type="checkbox"]').onchange = (e) => {
-            st.completed = e.target.checked;
-            store.updateTask(task.id, { subtasks: task.subtasks });
-            openTaskModal(task);
+          
+          const checkbox = document.createElement('input');
+          checkbox.type = 'checkbox';
+          checkbox.checked = st.completed;
+          checkbox.onchange = (e) => {
+            store.toggleSubtask(task.id, st.id);
+            const updatedTask = store.tasks[task.id];
+            currentEditingTask = updatedTask;
+            openTaskModal(updatedTask);
           };
-          item.querySelector('button').onclick = () => {
-            task.subtasks = task.subtasks.filter(s => s.id !== st.id);
-            store.updateTask(task.id, { subtasks: task.subtasks });
-            openTaskModal(task);
+          item.appendChild(checkbox);
+          
+          const input = document.createElement('input');
+          input.type = 'text';
+          input.value = st.title;
+          input.readOnly = true;
+          item.appendChild(input);
+          
+          const btn = document.createElement('button');
+          btn.textContent = '×';
+          btn.onclick = () => {
+            const updatedSubtasks = task.subtasks.filter(s => s.id !== st.id);
+            store.updateTask(task.id, { subtasks: updatedSubtasks });
+            currentEditingTask.subtasks = updatedSubtasks;
+            openTaskModal(currentEditingTask);
           };
+          item.appendChild(btn);
+          
           subtasksList.appendChild(item);
         });
       }
       
       document.getElementById('deleteTaskBtn').style.display = task ? 'block' : 'none';
       document.getElementById('taskModal').classList.add('open');
+      
+      // Focus title input
+      setTimeout(() => document.getElementById('taskTitle').focus(), 100);
     }
 
     function closeTaskModal() {
@@ -867,11 +950,15 @@
 
     function saveTask() {
       const title = document.getElementById('taskTitle').value.trim();
-      if (!title) { alert('Title required'); return; }
+      if (!title) { 
+        alert('⚠️ Task title is required');
+        document.getElementById('taskTitle').focus();
+        return; 
+      }
       
       const data = {
         title,
-        description: document.getElementById('taskDescription').value,
+        description: document.getElementById('taskDescription').value.trim(),
         estimatedMinutes: parseInt(document.getElementById('taskEstimate').value) || 0,
         due: document.getElementById('taskDue').value,
         quadrant: document.getElementById('taskQuadrant').value,
@@ -879,8 +966,10 @@
       };
       
       if (currentEditingTask) {
+        // Preserve existing tags and subtasks
         data.tags = currentEditingTask.tags || [];
         data.subtasks = currentEditingTask.subtasks || [];
+        data.totalMinutes = currentEditingTask.totalMinutes || 0;
         store.updateTask(currentEditingTask.id, data);
       } else {
         store.addTask(data);
@@ -913,24 +1002,52 @@
     });
 
     document.getElementById('addTagBtn').addEventListener('click', () => {
-      if (!currentEditingTask) return;
+      if (!currentEditingTask) {
+        alert('⚠️ Please save the task first before adding tags');
+        return;
+      }
       const tag = document.getElementById('newTag').value.trim();
-      if (!tag) return;
-      currentEditingTask.tags = [...(currentEditingTask.tags || []), tag];
-      store.updateTask(currentEditingTask.id, { tags: currentEditingTask.tags });
+      if (!tag) {
+        alert('⚠️ Please enter a tag name');
+        return;
+      }
+      const updatedTags = [...(currentEditingTask.tags || []), tag];
+      store.updateTask(currentEditingTask.id, { tags: updatedTags });
+      currentEditingTask.tags = updatedTags;
       document.getElementById('newTag').value = '';
       openTaskModal(currentEditingTask);
     });
 
+    document.getElementById('newTag').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        document.getElementById('addTagBtn').click();
+      }
+    });
+
     document.getElementById('addSubtaskBtn').addEventListener('click', () => {
-      if (!currentEditingTask) return;
+      if (!currentEditingTask) {
+        alert('⚠️ Please save the task first before adding subtasks');
+        return;
+      }
       const title = document.getElementById('newSubtask').value.trim();
-      if (!title) return;
-      const st = { id: 'st-' + Date.now(), title, completed: false };
-      currentEditingTask.subtasks = [...(currentEditingTask.subtasks || []), st];
-      store.updateTask(currentEditingTask.id, { subtasks: currentEditingTask.subtasks });
+      if (!title) {
+        alert('⚠️ Please enter a subtask title');
+        return;
+      }
+      const st = { id: 'st-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9), title, completed: false };
+      const updatedSubtasks = [...(currentEditingTask.subtasks || []), st];
+      store.updateTask(currentEditingTask.id, { subtasks: updatedSubtasks });
+      currentEditingTask.subtasks = updatedSubtasks;
       document.getElementById('newSubtask').value = '';
       openTaskModal(currentEditingTask);
+    });
+
+    document.getElementById('newSubtask').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        document.getElementById('addSubtaskBtn').click();
+      }
     });
 
     document.getElementById('timerStart').addEventListener('click', () => timer.start());
@@ -944,7 +1061,21 @@
     });
 
     document.getElementById('autoPrioritizeBtn').addEventListener('click', () => {
-      alert('✨ Tasks auto-prioritized!\n\nCheck the Smart Priority Queue for your top priorities.');
+      const tasks = store.getAll().filter(t => !t.completed);
+      if (tasks.length === 0) {
+        alert('🎉 No active tasks to prioritize!\n\nYou\'re all caught up.');
+        return;
+      }
+      const scored = tasks.map(t => ({
+        task: t,
+        score: store.calculatePriorityScore(t)
+      })).sort((a, b) => b.score - a.score);
+      
+      const top3 = scored.slice(0, 3);
+      const message = '✨ Auto-Prioritized!\n\nTop 3 priorities:\n\n' + 
+        top3.map((item, i) => `${i + 1}. ${item.task.title} (score: ${item.score})`).join('\n');
+      
+      alert(message);
       render();
     });
 
@@ -953,34 +1084,170 @@
     });
 
     // Search/Command palette
-    document.getElementById('searchInput').addEventListener('focus', () => {
+    let commandPaletteOpen = false;
+    
+    document.getElementById('searchInput').addEventListener('focus', (e) => {
+      e.target.blur(); // Don't keep focus on search bar
       document.getElementById('commandPalette').classList.add('open');
       document.getElementById('commandInput').focus();
+      commandPaletteOpen = true;
+    });
+
+    document.getElementById('commandInput').addEventListener('input', (e) => {
+      const query = e.target.value.trim().toLowerCase();
+      const results = document.getElementById('commandResults');
+      results.innerHTML = '';
+      
+      if (!query) {
+        results.innerHTML = '<div style="padding: 20px; text-align: center; color: var(--text-muted);">Type to search tasks or create new...</div>';
+        return;
+      }
+      
+      // Search tasks
+      const tasks = store.getAll();
+      const matches = tasks.filter(t => 
+        t.title.toLowerCase().includes(query) || 
+        (t.description && t.description.toLowerCase().includes(query)) ||
+        (t.project && t.project.toLowerCase().includes(query))
+      ).slice(0, 5);
+      
+      if (matches.length > 0) {
+        matches.forEach(task => {
+          const item = document.createElement('div');
+          item.className = 'command-item';
+          item.innerHTML = `
+            <span style="font-size: 20px;">${task.completed ? '✓' : '○'}</span>
+            <div style="flex: 1;">
+              <div style="font-weight: 600; font-size: 14px;">${task.title}</div>
+              <div style="font-size: 12px; color: var(--text-muted);">${task.project || task.quadrant}</div>
+            </div>
+          `;
+          item.onclick = () => {
+            document.getElementById('commandPalette').classList.remove('open');
+            commandPaletteOpen = false;
+            openTaskModal(task);
+          };
+          results.appendChild(item);
+        });
+      }
+      
+      // Option to create new task
+      const createItem = document.createElement('div');
+      createItem.className = 'command-item';
+      createItem.innerHTML = `
+        <span style="font-size: 20px;">➕</span>
+        <div style="flex: 1;">
+          <div style="font-weight: 600; font-size: 14px;">Create: "${query}"</div>
+          <div style="font-size: 12px; color: var(--text-muted);">Press Enter to create new task</div>
+        </div>
+      `;
+      createItem.onclick = () => {
+        const id = store.addTask({ title: query });
+        document.getElementById('commandPalette').classList.remove('open');
+        commandPaletteOpen = false;
+        render();
+        openTaskModal(store.tasks[id]);
+      };
+      results.appendChild(createItem);
+    });
+
+    document.getElementById('commandInput').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const query = e.target.value.trim();
+        if (query) {
+          const id = store.addTask({ title: query });
+          document.getElementById('commandPalette').classList.remove('open');
+          commandPaletteOpen = false;
+          document.getElementById('commandInput').value = '';
+          render();
+          openTaskModal(store.tasks[id]);
+        }
+      }
     });
 
     document.addEventListener('keydown', (e) => {
+      // Cmd/Ctrl + K for command palette
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
         document.getElementById('commandPalette').classList.add('open');
         document.getElementById('commandInput').focus();
+        document.getElementById('commandInput').value = '';
+        commandPaletteOpen = true;
       }
+      
+      // Escape to close modals
       if (e.key === 'Escape') {
         closeTaskModal();
-        document.getElementById('commandPalette').classList.remove('open');
+        if (commandPaletteOpen) {
+          document.getElementById('commandPalette').classList.remove('open');
+          document.getElementById('commandInput').value = '';
+          commandPaletteOpen = false;
+        }
+      }
+      
+      // Cmd/Ctrl + N for new task
+      if ((e.metaKey || e.ctrlKey) && e.key === 'n') {
+        e.preventDefault();
+        openTaskModal();
       }
     });
 
     document.getElementById('commandPalette').addEventListener('click', (e) => {
       if (e.target.id === 'commandPalette') {
         document.getElementById('commandPalette').classList.remove('open');
+        document.getElementById('commandInput').value = '';
+        commandPaletteOpen = false;
       }
     });
 
-    // Init
+    document.getElementById('taskModal').addEventListener('click', (e) => {
+      if (e.target.id === 'taskModal') {
+        closeTaskModal();
+      }
+    });
+
+    // Init with better demo data
     if (Object.keys(store.tasks).length === 0) {
-      store.addTask({ title: 'Welcome to PrioBox! 👋', quadrant: 'do-first', estimatedMinutes: 5 });
-      store.addTask({ title: 'Try the Focus Timer', quadrant: 'do-first', estimatedMinutes: 25 });
-      store.addTask({ title: 'Plan your week', quadrant: 'schedule', estimatedMinutes: 30 });
+      const welcomeId = store.addTask({ 
+        title: 'Welcome to PrioBox! 👋', 
+        description: 'Click me to edit and explore features',
+        quadrant: 'do-first', 
+        estimatedMinutes: 5,
+        tags: ['getting-started']
+      });
+      
+      store.addTask({ 
+        title: 'Try the Focus Timer', 
+        description: 'Click the timer in the bottom-right to start a focus session',
+        quadrant: 'do-first', 
+        estimatedMinutes: 25,
+        tags: ['productivity']
+      });
+      
+      const planId = store.addTask({ 
+        title: 'Plan your week', 
+        description: 'Break this down into smaller subtasks',
+        quadrant: 'schedule', 
+        estimatedMinutes: 30,
+        project: 'Planning'
+      });
+      
+      // Add subtasks to demo
+      store.updateTask(planId, {
+        subtasks: [
+          { id: 'st-1', title: 'Review last week', completed: false },
+          { id: 'st-2', title: 'Set 3 main goals', completed: false },
+          { id: 'st-3', title: 'Schedule important tasks', completed: false }
+        ]
+      });
+      
+      store.addTask({
+        title: 'Explore keyboard shortcuts',
+        description: 'Try Cmd/Ctrl+K for quick search, Cmd/Ctrl+N for new task',
+        quadrant: 'schedule',
+        estimatedMinutes: 5,
+        tags: ['tips']
+      });
     }
 
     render();
