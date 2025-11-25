@@ -16,8 +16,4 @@
     <loc>https://priobox.solutions/docs/terms.html</loc>
     <priority>0.80</priority>
   </url>
-  <url>
-    <loc>https://priobox.solutions/index.html</loc>
-    <priority>0.64</priority>
-  </url>
 </urlset>
