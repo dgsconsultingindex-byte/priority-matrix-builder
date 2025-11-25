@@ -461,21 +461,77 @@
 
         <!-- Insights View -->
         <div id="insightsView" class="hidden">
+          <div class="stats-bar">
+            <div class="stat-mini">
+              <div><div class="stat-mini-label">Total Tasks</div><div class="stat-mini-value" id="insightTotalTasks">0</div></div>
+              <div class="stat-mini-icon">📊</div>
+            </div>
+            <div class="stat-mini">
+              <div><div class="stat-mini-label">Completion Rate</div><div class="stat-mini-value" id="insightCompletionRate">0%</div></div>
+              <div class="stat-mini-icon">✅</div>
+            </div>
+            <div class="stat-mini">
+              <div><div class="stat-mini-label">Avg. Time to Complete</div><div class="stat-mini-value" id="insightAvgTime">0d</div></div>
+              <div class="stat-mini-icon">⏱️</div>
+            </div>
+            <div class="stat-mini">
+              <div><div class="stat-mini-label">Most Productive Day</div><div class="stat-mini-value" id="insightBestDay">-</div></div>
+              <div class="stat-mini-icon">🔥</div>
+            </div>
+          </div>
+
           <div class="section">
             <div class="section-header">
               <div class="section-title">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
                 </svg>
-                <span>Productivity Insights</span>
+                <span>7-Day Activity</span>
               </div>
             </div>
-            <div class="section-content"><p style="text-align: center; color: var(--text-muted); padding: 40px;">Insights coming soon...</p></div>
+            <div class="section-content">
+              <div id="activityChart" style="display: flex; align-items: flex-end; gap: 12px; height: 200px; padding: 20px;"></div>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
+            <div class="section">
+              <div class="section-header">
+                <div class="section-title">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+                  </svg>
+                  <span>Tasks by Quadrant</span>
+                </div>
+              </div>
+              <div class="section-content" id="quadrantBreakdown"></div>
+            </div>
+
+            <div class="section">
+              <div class="section-header">
+                <div class="section-title">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+                  </svg>
+                  <span>Top Projects</span>
+                </div>
+              </div>
+              <div class="section-content" id="topProjects"></div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-header">
+              <div class="section-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+                <span>Aging Tasks Alert</span>
+              </div>
+            </div>
+            <div class="section-content" id="agingTasks"></div>
           </div>
         </div>
-      </div>
-    </main>
-  </div>
 
   <!-- Floating Timer -->
   <div class="timer-float" id="timerFloat">
