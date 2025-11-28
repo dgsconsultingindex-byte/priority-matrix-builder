@@ -95,6 +95,22 @@
       --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
       --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
     }
+    [data-theme="dark"] {
+      --bg: #0f172a;
+      --panel: #1e293b;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border: #334155;
+      --accent: #3b82f6;
+      --accent-hover: #60a5fa;
+      --accent-light: #1e3a5f;
+      --success: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --shadow-sm: 0 1px 2px 0 rgba(0,0,0,0.3);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.4);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.5);
+    }
     * { box-sizing: border-box; }
     html, body { height: 100%; margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow: hidden; }
     .app-container { display: flex; height: 100vh; }
@@ -146,6 +162,8 @@
     .task { background: var(--panel); padding: 14px 16px; border-radius: 8px; border: 1px solid var(--border); display: flex; align-items: flex-start; gap: 12px; transition: all 0.2s; cursor: pointer; }
     .task:hover { box-shadow: var(--shadow-md); border-color: var(--accent); transform: translateX(2px); }
     .task.completed { opacity: 0.6; }
+    .task.dragging { opacity: 0.5; cursor: grabbing; }
+    .task.drag-over { border-color: var(--accent); background: var(--accent-light); }
     .task-checkbox { width: 20px; height: 20px; border: 2px solid var(--border); border-radius: 6px; cursor: pointer; flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
     .task-checkbox:hover { border-color: var(--success); background: #d1fae5; }
     .task-checkbox.checked { background: var(--success); border-color: var(--success); color: white; }
@@ -177,7 +195,8 @@
     .quadrant.schedule { border-top: 3px solid var(--warning); }
     .quadrant.delegate { border-top: 3px solid var(--success); }
     .quadrant.eliminate { border-top: 3px solid var(--accent); }
-    .quadrant-content { padding: 12px; min-height: 200px; }
+   .quadrant-content { padding: 12px; min-height: 200px; }
+    .quadrant-content.drag-over { background: var(--accent-light); border: 2px dashed var(--accent); }
     .quadrant-count { background: var(--bg); padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; }
     
     /* Timer */
@@ -433,7 +452,73 @@
     .modal-footer { padding: 16px 24px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; gap: 10px; }
     .empty-state { text-align: center; padding: 60px 20px; color: var(--text-muted); }
     .empty-icon { font-size: 64px; opacity: 0.3; margin-bottom: 16px; }
-    .hidden { display: none !important; }
+     .hidden { display: none !important; }
+    
+    /* Undo Toast */
+    .undo-toast {
+      position: fixed;
+      bottom: 90px;
+      right: 24px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      box-shadow: var(--shadow-lg);
+      display: none;
+      align-items: center;
+      gap: 16px;
+      z-index: 1500;
+      animation: slideUp 0.3s ease;
+    }
+    
+    .undo-toast.show { display: flex; }
+    
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .undo-toast-text {
+      flex: 1;
+      font-size: 14px;
+    }
+    
+    .undo-toast-btn {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    
+    .undo-toast-btn:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+    
+    /* Theme Toggle */
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      background: var(--bg);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .theme-toggle:hover {
+      background: var(--border);
+    }
+    
+    .theme-toggle-icon {
+      font-size: 18px;
+    }
     
     /* Command Palette */
     .command-palette { position: fixed; top: 10%; left: 50%; transform: translateX(-50%); background: var(--panel); border-radius: 12px; box-shadow: var(--shadow-lg); width: 90%; max-width: 600px; z-index: 2000; display: none; }
@@ -502,8 +587,12 @@
             <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
           </svg></span><span>Insights</span></div>
       </nav>
-      <div class="sidebar-footer">
-        <button class="btn btn-primary" style="width: 100%; margin-bottom: 12px;" id="quickAddTopBtn" aria-label="Quick add new task">
+     <div class="sidebar-footer">
+        <div class="theme-toggle" id="themeToggle" title="Toggle dark mode">
+          <span class="theme-toggle-icon" id="themeIcon">🌙</span>
+          <span style="font-size: 13px; font-weight: 500;">Dark Mode</span>
+        </div>
+        <button class="btn btn-primary" style="width: 100%; margin-bottom: 12px; margin-top: 12px;" id="quickAddTopBtn" aria-label="Quick add new task">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
           </svg>
@@ -1023,6 +1112,16 @@
       <div class="streak-grid" id="streakGrid"></div>
     </div>
   </div>
+  
+  <!-- Undo Toast -->
+  <div class="undo-toast" id="undoToast">
+    <div class="undo-toast-text">
+      <strong>Task completed</strong>
+      <div style="font-size: 12px; color: var(--text-muted);" id="undoTaskName"></div>
+    </div>
+    <button class="undo-toast-btn" id="undoBtn">Undo</button>
+  </div>
+
 <!-- Export Modal -->
   <div class="modal-overlay" id="exportModal">
     <div class="modal">
@@ -1133,7 +1232,7 @@
     'use strict';
 
     // Store
-    class TaskStore {
+   class TaskStore {
       constructor() {
         this.STORAGE_KEY = 'priobox_v4';
         this.PREFS_KEY = 'priobox_prefs_v4';
@@ -1141,8 +1240,10 @@
         this.prefs = { 
           timerSessionsHistory: {}, 
           completedHistory: {},
-          lastCheckin: null
+          lastCheckin: null,
+          darkMode: false
         };
+        this.lastCompletedTask = null; // For undo
         this.load();
       }
       load() {
@@ -1322,10 +1423,28 @@
       return 'schedule';
     }
 
-    const store = new TaskStore();
+      const store = new TaskStore();
     let currentView = 'dashboard';
     let currentEditingTask = null;
     let selectedQuickQuadrant = null;
+    let undoTimeout = null;
+
+    // Dark mode
+    function applyTheme() {
+      if (store.prefs.darkMode) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.getElementById('themeIcon').textContent = '☀️';
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        document.getElementById('themeIcon').textContent = '🌙';
+      }
+    }
+    
+    function toggleTheme() {
+      store.prefs.darkMode = !store.prefs.darkMode;
+      store.savePrefs();
+      applyTheme();
+    }
 
     // Timer
     class Timer {
@@ -1514,13 +1633,32 @@
     function createTaskElement(task) {
       const el = document.createElement('div');
       el.className = 'task' + (task.completed ? ' completed' : '');
+      el.draggable = !task.completed; // Only allow dragging incomplete tasks
+      el.dataset.taskId = task.id;
+      
+      // Drag events
+      el.addEventListener('dragstart', (e) => {
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/plain', task.id);
+        el.classList.add('dragging');
+      });
+      
+      el.addEventListener('dragend', () => {
+        el.classList.remove('dragging');
+      });
       
       const checkbox = document.createElement('div');
       checkbox.className = 'task-checkbox' + (task.completed ? ' checked' : '');
       if (task.completed) checkbox.textContent = '✓';
       checkbox.onclick = (e) => { 
         e.stopPropagation(); 
-        store.toggleComplete(task.id); 
+        store.toggleComplete(task.id);
+        
+        // Show undo toast if task was just completed
+        if (store.tasks[task.id].completed) {
+          showUndoToast(task.title);
+        }
+        
         render(); 
       };
       el.appendChild(checkbox);
@@ -1617,7 +1755,28 @@
       el.appendChild(actions);
       el.onclick = () => openTaskModal(task);
       
-      return el;
+     return el;
+    }
+    
+    // Undo Toast
+    function showUndoToast(taskTitle) {
+      const toast = document.getElementById('undoToast');
+      document.getElementById('undoTaskName').textContent = taskTitle;
+      toast.classList.add('show');
+      
+      // Clear existing timeout
+      if (undoTimeout) clearTimeout(undoTimeout);
+      
+      // Auto-hide after 5 seconds
+      undoTimeout = setTimeout(() => {
+        toast.classList.remove('show');
+        store.lastCompletedTask = null;
+      }, 5000);
+    }
+    
+    function hideUndoToast() {
+      document.getElementById('undoToast').classList.remove('show');
+      if (undoTimeout) clearTimeout(undoTimeout);
     }
 
     // Render
@@ -1687,7 +1846,7 @@
       document.getElementById('todayCount').textContent = scored.length;
       document.getElementById('focusCount').textContent = scored.length;
       
-      // Matrix
+// Matrix
       ['do-first', 'schedule', 'delegate', 'eliminate'].forEach(q => {
         const qTasks = incomplete.filter(t => t.quadrant === q);
         const qName = q.split('-').map(w => w[0].toUpperCase() + w.slice(1)).join('');
@@ -1704,6 +1863,7 @@
         const quickList = document.getElementById('quick' + qName);
         if (quickList) {
           quickList.innerHTML = '';
+          setupDropZone(quickList, q);
           const tasksToShow = qTasks.slice(0, 3);
           if (tasksToShow.length === 0) {
             quickList.innerHTML = '<div style="text-align: center; padding: 20px; color: var(--text-muted); font-size: 13px;">No tasks</div>';
@@ -1716,6 +1876,7 @@
         const fullList = document.getElementById('full' + qName);
         if (fullList) {
           fullList.innerHTML = '';
+          setupDropZone(fullList, q);
           if (qTasks.length === 0) {
             fullList.innerHTML = '<div class="empty-state" style="padding: 20px;"><div style="opacity: 0.5;">No tasks</div></div>';
           } else {
@@ -1773,7 +1934,54 @@
           histList.appendChild(item);
         });
       }
+       // Drag and Drop
+    function setupDropZone(element, targetQuadrant) {
+      element.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        element.classList.add('drag-over');
+      });
       
+      element.addEventListener('dragleave', (e) => {
+        if (e.target === element) {
+          element.classList.remove('drag-over');
+        }
+      });
+      
+      element.addEventListener('drop', (e) => {
+        e.preventDefault();
+        element.classList.remove('drag-over');
+        
+        const taskId = e.dataTransfer.getData('text/plain');
+        const task = store.tasks[taskId];
+        
+        if (task && task.quadrant !== targetQuadrant) {
+          const quadrantNames = {
+            'do-first': 'Do First',
+            'schedule': 'Schedule',
+            'delegate': 'Delegate',
+            'eliminate': 'Eliminate'
+          };
+          
+          store.updateTask(taskId, { quadrant: targetQuadrant });
+          render();
+          
+          // Show feedback
+          const toast = document.createElement('div');
+          toast.style.cssText = 'position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: var(--success); color: white; padding: 12px 24px; border-radius: 8px; box-shadow: var(--shadow-lg); z-index: 2000; animation: slideDown 0.3s ease;';
+          toast.textContent = `✓ Moved to ${quadrantNames[targetQuadrant]}`;
+          document.body.appendChild(toast);
+          
+          setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transition = 'opacity 0.3s';
+            setTimeout(() => toast.remove(), 300);
+          }, 2000);
+        }
+      });
+    }
+    
+    function renderInsights() {
       // Insights View
       if (currentView === 'insights') {
         renderInsights();
@@ -2062,6 +2270,17 @@
         btn.style.borderColor = 'var(--border)';
         btn.style.background = 'var(--panel)';
       });
+    });
+    
+    // Theme toggle
+    document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+    
+    // Undo button
+    document.getElementById('undoBtn').addEventListener('click', () => {
+      if (store.undoComplete()) {
+        hideUndoToast();
+        render();
+      }
     });
     
     document.getElementById('quickAddCancel').addEventListener('click', () => {
@@ -2633,6 +2852,7 @@ document.getElementById('taskModal').addEventListener('click', (e) => {
 
     render();
     timer.updateDisplay();
+    applyTheme(); // Apply saved theme on load
   </script>
 </body>
 </html>
