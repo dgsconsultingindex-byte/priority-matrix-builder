@@ -1934,7 +1934,9 @@
           histList.appendChild(item);
         });
       }
-       // Drag and Drop
+    }
+
+    // Drag and Drop
     function setupDropZone(element, targetQuadrant) {
       element.addEventListener('dragover', (e) => {
         e.preventDefault();
@@ -1979,13 +1981,6 @@
           }, 2000);
         }
       });
-    }
-    
-    function renderInsights() {
-      // Insights View
-      if (currentView === 'insights') {
-        renderInsights();
-      }
     }
     
     function renderInsights() {
