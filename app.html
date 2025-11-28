@@ -1319,9 +1319,12 @@
     };
   })();
   </script>
-  <script>
-// Backup direct event handler
+<script>
+// Complete export functionality
 document.addEventListener('DOMContentLoaded', function() {
+  console.log('Export script loaded');
+  
+  // Export button click
   const exportBtn = document.getElementById('exportBtn');
   if (exportBtn) {
     exportBtn.addEventListener('click', function(e) {
@@ -1331,9 +1334,80 @@ document.addEventListener('DOMContentLoaded', function() {
       if (modal) {
         modal.classList.remove('hidden');
         modal.setAttribute('aria-hidden', 'false');
+        console.log('Modal opened');
       }
     });
   }
+  
+  // Close modal button
+  const closeBtn = document.getElementById('exportModalClose');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      const modal = document.getElementById('exportModal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.setAttribute('aria-hidden', 'true');
+      }
+    });
+  }
+  
+  // Cancel button
+  const cancelBtn = document.getElementById('exportCancelBtn');
+  if (cancelBtn) {
+    cancelBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      const modal = document.getElementById('exportModal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.setAttribute('aria-hidden', 'true');
+      }
+    });
+  }
+  
+  // Run export button
+  const runBtn = document.getElementById('exportRunBtn');
+  if (runBtn) {
+    runBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      console.log('Running export...');
+      
+      // Call the export function from the main script
+      if (typeof window.prioboxExport === 'function') {
+        const fmt = document.getElementById('exportFormat').value;
+        const includeCompleted = document.getElementById('exportIncludeCompleted').checked;
+        const includeSubtasks = document.getElementById('exportIncludeSubtasks').checked;
+        const includeMeta = document.getElementById('exportIncludeMeta').checked;
+        const scope = document.getElementById('exportScope').value;
+        
+        window.prioboxExport({
+          format: fmt,
+          includeCompleted: includeCompleted,
+          includeSubtasks: includeSubtasks,
+          includeMeta: includeMeta,
+          scope: scope
+        });
+        
+        // Close modal after export
+        const modal = document.getElementById('exportModal');
+        if (modal) {
+          modal.classList.add('hidden');
+          modal.setAttribute('aria-hidden', 'true');
+        }
+      }
+    });
+  }
+  
+  // ESC key to close modal
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      const modal = document.getElementById('exportModal');
+      if (modal && !modal.classList.contains('hidden')) {
+        modal.classList.add('hidden');
+        modal.setAttribute('aria-hidden', 'true');
+      }
+    }
+  });
 });
 </script>
 </body>
