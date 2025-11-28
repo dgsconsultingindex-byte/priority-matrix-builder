@@ -1319,5 +1319,22 @@
     };
   })();
   </script>
+  <script>
+// Backup direct event handler
+document.addEventListener('DOMContentLoaded', function() {
+  const exportBtn = document.getElementById('exportBtn');
+  if (exportBtn) {
+    exportBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      console.log('Export button clicked!');
+      const modal = document.getElementById('exportModal');
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.setAttribute('aria-hidden', 'false');
+      }
+    });
+  }
+});
+</script>
 </body>
 </html>
