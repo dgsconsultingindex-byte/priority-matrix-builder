@@ -31,7 +31,7 @@
   <link rel="canonical" href="https://priobox.app/">
   
   <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='8' y='8' width='38' height='38' rx='6' fill='%23ef4444'/><rect x='54' y='8' width='38' height='38' rx='6' fill='%23f59e0b'/><rect x='8' y='54' width='38' height='38' rx='6' fill='%2310b981'/><rect x='54' y='54' width='38' height='38' rx='6' fill='%233b82f6'/></svg>">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='8' y='8' width='38' height='38' rx='6' fill='%23ef4444'/><rect x='54' y='8' width='38' height='38' rx='6' fill='%23f59e0b'/><rect x='8' y='54' width='38' height='38' rx='6' fill='%2310b981'/><rect x='54' y='54' width='38' height='38' rx='6' fill='%233b82f6'/></svg>'>
   
   <!-- Structured Data (JSON-LD) -->
   <script type="application/ld+json">
@@ -377,7 +377,7 @@
       background: rgba(255,255,255,0.3);
     }
     
-    /* Streak details modal */
+    /* Streak details modal */ 
     .streak-modal {
       position: fixed;
       inset: 0;
@@ -564,6 +564,16 @@
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
           </svg>
+        </button>
+
+        <!-- Export button inserted by feature -->
+        <button class="btn" id="exportBtn" aria-label="Export tasks" title="Export tasks">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Export
         </button>
 
         <!-- Theme toggle button -->
@@ -1037,7 +1047,46 @@
     </div>
   </div>
 
-  <!-- Streak modal, etc. would continue... -->
+  <!-- Export modal inserted by feature -->
+  <div class="modal-overlay hidden" id="exportModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="exportModalTitle">
+    <div class="modal" style="max-width:420px;">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exportModalTitle">Export Tasks</h3>
+        <button class="modal-close" id="exportModalClose" aria-label="Close export dialog">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Format</label>
+          <select class="form-input" id="exportFormat">
+            <option value="json">JSON (.json)</option>
+            <option value="csv">CSV (.csv)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Include</label>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <label><input type="checkbox" id="exportIncludeCompleted" checked> Completed tasks</label>
+            <label><input type="checkbox" id="exportIncludeSubtasks" checked> Subtasks</label>
+            <label><input type="checkbox" id="exportIncludeMeta" checked> Tags & Project</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Scope</label>
+          <select class="form-input" id="exportScope">
+            <option value="all">All tasks</option>
+            <option value="visible">Visible list(s)</option>
+            <option value="priority">Priority queue only</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" id="exportCancelBtn">Cancel</button>
+        <button class="btn btn-primary" id="exportRunBtn">Export</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Theme toggle script (persists selection and respects system preference) -->
   <script>
@@ -1088,6 +1137,204 @@
       // initialize on load
       init();
     })();
+  </script>
+
+  <!-- Inline export script (client-side JSON + CSV export) -->
+  <script>
+  (function() {
+    function downloadFile(filename, content, mime) {
+      const blob = new Blob([content], { type: mime || 'application/octet-stream' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    function gatherTasks({ includeCompleted, includeSubtasks, scope }) {
+      const containers = [];
+      if (scope === 'priority') {
+        containers.push(document.getElementById('priorityQueue'));
+      } else if (scope === 'visible') {
+        document.querySelectorAll('.task-list').forEach(el => { if (el && el.offsetParent !== null) containers.push(el); });
+      } else {
+        document.querySelectorAll('.task-list').forEach(el => containers.push(el));
+      }
+
+      const seen = new Set();
+      const tasks = [];
+
+      containers.forEach(container => {
+        if (!container) return;
+        container.querySelectorAll('.task').forEach(taskEl => {
+          if (seen.has(taskEl)) return;
+          seen.add(taskEl);
+
+          const dataId = taskEl.getAttribute('data-id') || taskEl.dataset.id || '';
+          const titleEl = taskEl.querySelector('.task-title');
+          const title = titleEl ? titleEl.textContent.trim() : (taskEl.getAttribute('data-title') || taskEl.dataset.title || '').trim();
+          const completed = taskEl.classList.contains('completed') || taskEl.getAttribute('data-completed') === 'true' || taskEl.dataset.completed === 'true';
+          if (!includeCompleted && completed) return;
+
+          const projectEl = taskEl.querySelector('.task-badge.project');
+          const project = projectEl ? projectEl.textContent.trim() : (taskEl.dataset.project || '').trim();
+          const tagEls = taskEl.querySelectorAll('.task-badge.tag');
+          const tags = tagEls.length ? Array.from(tagEls).map(t => t.textContent.trim()) : (taskEl.dataset.tags ? String(taskEl.dataset.tags).split(',').map(s => s.trim()).filter(Boolean) : []);
+
+          const descEl = taskEl.querySelector('.task-description') || taskEl.querySelector('.description') || null;
+          const description = descEl ? descEl.textContent.trim() : (taskEl.getAttribute('data-description') || taskEl.dataset.description || '');
+
+          let subtasks = [];
+          if (includeSubtasks) {
+            const subEls = taskEl.querySelectorAll('.subtask-item, .subtask');
+            if (subEls && subEls.length) {
+              subtasks = Array.from(subEls).map(s => {
+                const title = s.textContent.trim();
+                const completed = s.classList.contains('completed') || (s.querySelector('input[type="checkbox"]') && s.querySelector('input[type="checkbox"]').checked) || false;
+                return { title, completed };
+              });
+            } else if (taskEl.dataset.subtasks) {
+              try { subtasks = JSON.parse(taskEl.dataset.subtasks); } catch (e) { subtasks = []; }
+            }
+          }
+
+          let quadrant = '';
+          const quadr = taskEl.closest('.quadrant');
+          if (quadr) {
+            const header = quadr.querySelector('.quadrant-header');
+            if (header) {
+              const titleSpan = header.querySelector('span') || header;
+              quadrant = titleSpan ? titleSpan.textContent.trim() : '';
+            }
+          } else {
+            const c = taskEl.closest('#priorityQueue, #quickDoFirst, #quickSchedule, #quickDelegate, #quickEliminate, #fullDoFirst, #fullSchedule, #fullDelegate, #fullEliminate, #focusList, #historyList');
+            if (c && c.id) quadrant = c.id;
+          }
+
+          const metaEl = taskEl.querySelector('.task-meta');
+          const meta = metaEl ? metaEl.textContent.trim() : '';
+
+          tasks.push({
+            id: dataId || '',
+            title: title || '',
+            description: description || '',
+            completed: !!completed,
+            quadrant: quadrant || '',
+            project: project || '',
+            tags: tags || [],
+            meta: meta || '',
+            subtasks: subtasks || []
+          });
+        });
+      });
+
+      return tasks;
+    }
+
+    function tasksToCSV(tasks) {
+      const escape = v => {
+        if (v === null || v === undefined) return '';
+        const s = typeof v === 'string' ? v : String(v);
+        return '"' + s.replace(/"/g, '""') + '"';
+      };
+
+      const headers = ['id','title','description','completed','quadrant','project','tags','meta','subtasks'];
+      const rows = [headers.join(',')];
+
+      tasks.forEach(t => {
+        const row = [
+          escape(t.id),
+          escape(t.title),
+          escape(t.description),
+          escape(t.completed ? 'true' : 'false'),
+          escape(t.quadrant),
+          escape(t.project),
+          escape(t.tags.join('|')),
+          escape(t.meta),
+          escape(JSON.stringify(t.subtasks || []))
+        ];
+        rows.push(row.join(','));
+      });
+
+      return rows.join('\n');
+    }
+
+    function openExportModal() {
+      const modal = document.getElementById('exportModal');
+      if (!modal) { runExport(); return; }
+      modal.classList.remove('hidden');
+      modal.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeExportModal() {
+      const modal = document.getElementById('exportModal');
+      if (!modal) return;
+      modal.classList.add('hidden');
+      modal.setAttribute('aria-hidden', 'true');
+    }
+
+    function runExport() {
+      const fmt = document.getElementById('exportFormat') ? document.getElementById('exportFormat').value : 'json';
+      const includeCompleted = document.getElementById('exportIncludeCompleted') ? document.getElementById('exportIncludeCompleted').checked : true;
+      const includeSubtasks = document.getElementById('exportIncludeSubtasks') ? document.getElementById('exportIncludeSubtasks').checked : true;
+      const includeMeta = document.getElementById('exportIncludeMeta') ? document.getElementById('exportIncludeMeta').checked : true;
+      const scope = document.getElementById('exportScope') ? document.getElementById('exportScope').value : 'all';
+
+      const tasks = gatherTasks({ includeCompleted, includeSubtasks, scope });
+
+      if (!includeSubtasks) tasks.forEach(t => { delete t.subtasks; });
+      if (!includeMeta) tasks.forEach(t => { delete t.project; delete t.tags; delete t.meta; });
+
+      const now = new Date();
+      const stamp = now.toISOString().slice(0,19).replace(/[:T]/g,'-');
+      if (fmt === 'csv') {
+        const csv = tasksToCSV(tasks);
+        downloadFile(`priobox-tasks-${stamp}.csv`, csv, 'text/csv;charset=utf-8;');
+      } else {
+        const json = JSON.stringify({ exportedAt: new Date().toISOString(), count: tasks.length, tasks }, null, 2);
+        downloadFile(`priobox-tasks-${stamp}.json`, json, 'application/json;charset=utf-8;');
+      }
+    }
+
+    document.addEventListener('click', (e) => {
+      if (e.target.closest && e.target.closest('#exportBtn')) openExportModal();
+      if (e.target.closest && e.target.closest('#exportModalClose')) closeExportModal();
+      if (e.target.closest && e.target.closest('#exportCancelBtn')) closeExportModal();
+      if (e.target.closest && e.target.closest('#exportRunBtn')) { runExport(); closeExportModal(); }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const modal = document.getElementById('exportModal');
+        if (modal && !modal.classList.contains('hidden')) closeExportModal();
+      }
+    });
+
+    window.prioboxExport = function(options) {
+      const fmt = options && options.format ? options.format : 'json';
+      const includeCompleted = options && typeof options.includeCompleted === 'boolean' ? options.includeCompleted : true;
+      const includeSubtasks = options && typeof options.includeSubtasks === 'boolean' ? options.includeSubtasks : true;
+      const includeMeta = options && typeof options.includeMeta === 'boolean' ? options.includeMeta : true;
+      const scope = options && options.scope ? options.scope : 'all';
+
+      const tasks = gatherTasks({ includeCompleted, includeSubtasks, scope });
+      if (!includeSubtasks) tasks.forEach(t => { delete t.subtasks; });
+      if (!includeMeta) tasks.forEach(t => { delete t.project; delete t.tags; delete t.meta; });
+
+      const now = new Date();
+      const stamp = now.toISOString().slice(0,19).replace(/[:T]/g,'-');
+      if (fmt === 'csv') {
+        const csv = tasksToCSV(tasks);
+        downloadFile(`priobox-tasks-${stamp}.csv`, csv, 'text/csv;charset=utf-8;');
+      } else {
+        const json = JSON.stringify({ exportedAt: new Date().toISOString(), count: tasks.length, tasks }, null, 2);
+        downloadFile(`priobox-tasks-${stamp}.json`, json, 'application/json;charset=utf-8;');
+      }
+    };
+  })();
   </script>
 </body>
 </html>
