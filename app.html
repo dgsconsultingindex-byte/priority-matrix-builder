@@ -1410,5 +1410,850 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 </script>
+  <script>
+// ============================================================================
+// PRIOBOX - COMPLETE APPLICATION LOGIC
+// ============================================================================
+
+(function() {
+  'use strict';
+
+  // ============================================================================
+  // STATE MANAGEMENT
+  // ============================================================================
+  
+  const STATE = {
+    tasks: [],
+    currentView: 'dashboard',
+    editingTask: null,
+    timer: {
+      minutes: 25,
+      seconds: 0,
+      isRunning: false,
+      interval: null,
+      sessionsToday: 0
+    },
+    streak: {
+      current: 0,
+      lastDate: null,
+      history: []
+    }
+  };
+
+  // ============================================================================
+  // UTILITY FUNCTIONS
+  // ============================================================================
+  
+  function generateId() {
+    return 'task_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+  }
+
+  function formatDate(date) {
+    return new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  }
+
+  function getDaysAgo(date) {
+    const now = new Date();
+    const created = new Date(date);
+    const diffTime = Math.abs(now - created);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+  }
+
+  function getAgingStatus(task) {
+    if (task.completed) return 'fresh';
+    const days = getDaysAgo(task.createdAt);
+    if (days <= 2) return 'fresh';
+    if (days <= 5) return 'aging';
+    return 'stale';
+  }
+
+  // ============================================================================
+  // LOCAL STORAGE
+  // ============================================================================
+  
+  function saveToStorage() {
+    try {
+      localStorage.setItem('priobox_tasks', JSON.stringify(STATE.tasks));
+      localStorage.setItem('priobox_timer', JSON.stringify(STATE.timer.sessionsToday));
+      localStorage.setItem('priobox_streak', JSON.stringify(STATE.streak));
+    } catch (e) {
+      console.error('Failed to save to localStorage:', e);
+    }
+  }
+
+  function loadFromStorage() {
+    try {
+      const tasks = localStorage.getItem('priobox_tasks');
+      const sessions = localStorage.getItem('priobox_timer');
+      const streak = localStorage.getItem('priobox_streak');
+      
+      if (tasks) STATE.tasks = JSON.parse(tasks);
+      if (sessions) STATE.timer.sessionsToday = JSON.parse(sessions);
+      if (streak) STATE.streak = JSON.parse(streak);
+    } catch (e) {
+      console.error('Failed to load from localStorage:', e);
+    }
+  }
+
+  // ============================================================================
+  // TASK MANAGEMENT
+  // ============================================================================
+  
+  function createTask(taskData) {
+    const task = {
+      id: generateId(),
+      title: taskData.title,
+      description: taskData.description || '',
+      quadrant: taskData.quadrant || 'do-first',
+      project: taskData.project || '',
+      tags: taskData.tags || [],
+      subtasks: taskData.subtasks || [],
+      estimate: taskData.estimate || 30,
+      dueDate: taskData.dueDate || null,
+      completed: false,
+      createdAt: new Date().toISOString(),
+      completedAt: null
+    };
+    
+    STATE.tasks.push(task);
+    saveToStorage();
+    render();
+    return task;
+  }
+
+  function updateTask(id, updates) {
+    const task = STATE.tasks.find(t => t.id === id);
+    if (task) {
+      Object.assign(task, updates);
+      saveToStorage();
+      render();
+    }
+  }
+
+  function deleteTask(id) {
+    STATE.tasks = STATE.tasks.filter(t => t.id !== id);
+    saveToStorage();
+    render();
+  }
+
+  function toggleTaskComplete(id) {
+    const task = STATE.tasks.find(t => t.id === id);
+    if (task) {
+      task.completed = !task.completed;
+      task.completedAt = task.completed ? new Date().toISOString() : null;
+      
+      // Update streak
+      if (task.completed) {
+        updateStreak();
+      }
+      
+      saveToStorage();
+      render();
+    }
+  }
+
+  function getTasksByQuadrant(quadrant) {
+    return STATE.tasks.filter(t => t.quadrant === quadrant && !t.completed);
+  }
+
+  function getCompletedTasks() {
+    return STATE.tasks.filter(t => t.completed);
+  }
+
+  function getPriorityQueue() {
+    // Priority algorithm: urgent + important first, then by age
+    const incomplete = STATE.tasks.filter(t => !t.completed);
+    
+    return incomplete.sort((a, b) => {
+      const quadrantPriority = {
+        'do-first': 4,
+        'schedule': 3,
+        'delegate': 2,
+        'eliminate': 1
+      };
+      
+      const priorityA = quadrantPriority[a.quadrant] || 0;
+      const priorityB = quadrantPriority[b.quadrant] || 0;
+      
+      if (priorityA !== priorityB) return priorityB - priorityA;
+      
+      // If same quadrant, older tasks first
+      return new Date(a.createdAt) - new Date(b.createdAt);
+    });
+  }
+
+  // ============================================================================
+  // STREAK TRACKING
+  // ============================================================================
+  
+  function updateStreak() {
+    const today = new Date().toDateString();
+    const completedToday = STATE.tasks.filter(t => 
+      t.completed && new Date(t.completedAt).toDateString() === today
+    ).length;
+    
+    const sessionsToday = STATE.timer.sessionsToday;
+    const isActiveDay = completedToday >= 3 || sessionsToday >= 1;
+    
+    if (isActiveDay) {
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
+      const yesterdayStr = yesterday.toDateString();
+      
+      if (STATE.streak.lastDate === yesterdayStr || STATE.streak.lastDate === today) {
+        if (STATE.streak.lastDate !== today) {
+          STATE.streak.current++;
+        }
+      } else if (!STATE.streak.lastDate) {
+        STATE.streak.current = 1;
+      } else {
+        STATE.streak.current = 1;
+      }
+      
+      STATE.streak.lastDate = today;
+      
+      if (!STATE.streak.history.includes(today)) {
+        STATE.streak.history.push(today);
+      }
+      
+      saveToStorage();
+    }
+  }
+
+  // ============================================================================
+  // TIMER FUNCTIONALITY
+  // ============================================================================
+  
+  function startTimer() {
+    if (STATE.timer.isRunning) return;
+    
+    STATE.timer.isRunning = true;
+    STATE.timer.interval = setInterval(() => {
+      if (STATE.timer.seconds === 0) {
+        if (STATE.timer.minutes === 0) {
+          // Timer complete!
+          stopTimer();
+          STATE.timer.sessionsToday++;
+          updateStreak();
+          saveToStorage();
+          alert('Focus session complete! Great work! 🎉');
+          resetTimer();
+          return;
+        }
+        STATE.timer.minutes--;
+        STATE.timer.seconds = 59;
+      } else {
+        STATE.timer.seconds--;
+      }
+      updateTimerDisplay();
+    }, 1000);
+    
+    updateTimerButtons();
+  }
+
+  function pauseTimer() {
+    STATE.timer.isRunning = false;
+    if (STATE.timer.interval) {
+      clearInterval(STATE.timer.interval);
+      STATE.timer.interval = null;
+    }
+    updateTimerButtons();
+  }
+
+  function resetTimer() {
+    pauseTimer();
+    STATE.timer.minutes = 25;
+    STATE.timer.seconds = 0;
+    updateTimerDisplay();
+  }
+
+  function stopTimer() {
+    pauseTimer();
+  }
+
+  function updateTimerDisplay() {
+    const display = document.getElementById('timerDisplay');
+    const minDisplay = document.getElementById('timerMinDisplay');
+    const formatted = `${String(STATE.timer.minutes).padStart(2, '0')}:${String(STATE.timer.seconds).padStart(2, '0')}`;
+    
+    if (display) display.textContent = formatted;
+    if (minDisplay) minDisplay.textContent = formatted;
+    
+    const sessionsEl = document.getElementById('sessionsToday');
+    if (sessionsEl) sessionsEl.textContent = STATE.timer.sessionsToday;
+  }
+
+  function updateTimerButtons() {
+    const startBtn = document.getElementById('timerStart');
+    const pauseBtn = document.getElementById('timerPause');
+    
+    if (STATE.timer.isRunning) {
+      if (startBtn) startBtn.classList.add('hidden');
+      if (pauseBtn) pauseBtn.classList.remove('hidden');
+    } else {
+      if (startBtn) startBtn.classList.remove('hidden');
+      if (pauseBtn) pauseBtn.classList.add('hidden');
+    }
+  }
+
+  // ============================================================================
+  // VIEW MANAGEMENT
+  // ============================================================================
+  
+  function switchView(viewName) {
+    STATE.currentView = viewName;
+    
+    // Update nav
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.classList.remove('active');
+      if (item.getAttribute('data-view') === viewName) {
+        item.classList.add('active');
+      }
+    });
+    
+    // Hide all views
+    const views = ['dashboardView', 'focusView', 'matrixView', 'projectsView', 'historyView', 'insightsView'];
+    views.forEach(v => {
+      const el = document.getElementById(v);
+      if (el) el.classList.add('hidden');
+    });
+    
+    // Show current view
+    const currentViewEl = document.getElementById(viewName + 'View');
+    if (currentViewEl) currentViewEl.classList.remove('hidden');
+    
+    render();
+  }
+
+  // ============================================================================
+  // RENDERING
+  // ============================================================================
+  
+  function renderTask(task) {
+    const agingStatus = getAgingStatus(task);
+    const subtasksComplete = task.subtasks.filter(st => st.completed).length;
+    const subtasksTotal = task.subtasks.length;
+    
+    return `
+      <div class="task ${task.completed ? 'completed' : ''}" data-id="${task.id}">
+        <div class="task-checkbox ${task.completed ? 'checked' : ''}" data-action="toggle">
+          ${task.completed ? '✓' : ''}
+        </div>
+        <div class="task-main">
+          <div class="task-title-row">
+            <div class="aging-dot ${agingStatus}"></div>
+            <div class="task-title">${task.title}</div>
+          </div>
+          <div class="task-meta">
+            ${task.project ? `<span class="task-badge project">${task.project}</span>` : ''}
+            ${task.tags.map(tag => `<span class="task-badge tag">${tag}</span>`).join('')}
+            ${task.dueDate ? `<span>📅 ${formatDate(task.dueDate)}</span>` : ''}
+            ${task.estimate ? `<span>⏱ ${task.estimate}m</span>` : ''}
+          </div>
+          ${subtasksTotal > 0 ? `
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: ${(subtasksComplete / subtasksTotal * 100)}%"></div>
+            </div>
+          ` : ''}
+        </div>
+        <div class="task-actions">
+          <button class="task-action-btn" data-action="edit" title="Edit">✏️</button>
+          <button class="task-action-btn" data-action="delete" title="Delete">🗑️</button>
+        </div>
+      </div>
+    `;
+  }
+
+  function render() {
+    // Update stats
+    const incompleteTasks = STATE.tasks.filter(t => !t.completed);
+    const completedThisWeek = STATE.tasks.filter(t => {
+      if (!t.completed) return false;
+      const weekAgo = new Date();
+      weekAgo.setDate(weekAgo.getDate() - 7);
+      return new Date(t.completedAt) > weekAgo;
+    }).length;
+    
+    const staleTasks = incompleteTasks.filter(t => getAgingStatus(t) === 'stale').length;
+    
+    const todayCount = document.getElementById('todayCount');
+    const weeklyCompleted = document.getElementById('weeklyCompleted');
+    const staleCount = document.getElementById('staleCount');
+    const streakValue = document.getElementById('streakValue');
+    const focusCount = document.getElementById('focusCount');
+    
+    if (todayCount) todayCount.textContent = incompleteTasks.filter(t => t.quadrant === 'do-first').length;
+    if (weeklyCompleted) weeklyCompleted.textContent = completedThisWeek;
+    if (staleCount) staleCount.textContent = staleTasks;
+    if (streakValue) streakValue.textContent = `${STATE.streak.current}/7`;
+    if (focusCount) focusCount.textContent = incompleteTasks.filter(t => t.quadrant === 'do-first').length;
+    
+    // Render based on current view
+    if (STATE.currentView === 'dashboard') {
+      renderDashboard();
+    } else if (STATE.currentView === 'focus') {
+      renderFocus();
+    } else if (STATE.currentView === 'matrix') {
+      renderMatrix();
+    } else if (STATE.currentView === 'projects') {
+      renderProjects();
+    } else if (STATE.currentView === 'history') {
+      renderHistory();
+    } else if (STATE.currentView === 'insights') {
+      renderInsights();
+    }
+  }
+
+  function renderDashboard() {
+    const priorityQueue = getPriorityQueue().slice(0, 5);
+    const queueEl = document.getElementById('priorityQueue');
+    
+    if (queueEl) {
+      if (priorityQueue.length === 0) {
+        queueEl.innerHTML = '<div class="empty-state"><div class="empty-icon">✨</div><p>No tasks yet. Click "New Task" to get started!</p></div>';
+      } else {
+        queueEl.innerHTML = priorityQueue.map(renderTask).join('');
+      }
+    }
+    
+    // Render quick quadrants
+    ['do-first', 'schedule', 'delegate', 'eliminate'].forEach(quadrant => {
+      const tasks = getTasksByQuadrant(quadrant).slice(0, 3);
+      const container = document.getElementById('quick' + quadrant.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(''));
+      const countEl = document.getElementById('count' + quadrant.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(''));
+      
+      if (container) {
+        if (tasks.length === 0) {
+          container.innerHTML = '<div class="empty-state" style="padding: 20px;"><p style="font-size: 13px; margin: 0;">No tasks</p></div>';
+        } else {
+          container.innerHTML = tasks.map(renderTask).join('');
+        }
+      }
+      
+      if (countEl) {
+        countEl.textContent = getTasksByQuadrant(quadrant).length;
+      }
+    });
+  }
+
+  function renderFocus() {
+    const focusTasks = getTasksByQuadrant('do-first');
+    const container = document.getElementById('focusList');
+    
+    if (container) {
+      if (focusTasks.length === 0) {
+        container.innerHTML = '<div class="empty-state"><div class="empty-icon">🎯</div><p>No urgent & important tasks. Great job!</p></div>';
+      } else {
+        container.innerHTML = focusTasks.map(renderTask).join('');
+      }
+    }
+  }
+
+  function renderMatrix() {
+    ['do-first', 'schedule', 'delegate', 'eliminate'].forEach(quadrant => {
+      const tasks = getTasksByQuadrant(quadrant);
+      const container = document.getElementById('full' + quadrant.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(''));
+      const countEl = document.getElementById('fullCount' + quadrant.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(''));
+      
+      if (container) {
+        if (tasks.length === 0) {
+          container.innerHTML = '<div class="empty-state" style="padding: 20px;"><p style="font-size: 13px; margin: 0;">No tasks</p></div>';
+        } else {
+          container.innerHTML = tasks.map(renderTask).join('');
+        }
+      }
+      
+      if (countEl) {
+        countEl.textContent = tasks.length;
+      }
+    });
+  }
+
+  function renderProjects() {
+    const projects = {};
+    STATE.tasks.filter(t => t.project && !t.completed).forEach(task => {
+      if (!projects[task.project]) projects[task.project] = [];
+      projects[task.project].push(task);
+    });
+    
+    const container = document.getElementById('projectsList');
+    if (container) {
+      if (Object.keys(projects).length === 0) {
+        container.innerHTML = '<div class="empty-state"><div class="empty-icon">📁</div><p>No projects yet</p></div>';
+      } else {
+        container.innerHTML = Object.entries(projects).map(([name, tasks]) => `
+          <div class="project-card">
+            <div class="project-header">
+              <div class="project-name">${name}</div>
+              <div>${tasks.length} tasks</div>
+            </div>
+            ${tasks.map(renderTask).join('')}
+          </div>
+        `).join('');
+      }
+    }
+  }
+
+  function renderHistory() {
+    const completed = getCompletedTasks().sort((a, b) => 
+      new Date(b.completedAt) - new Date(a.completedAt)
+    );
+    
+    const container = document.getElementById('historyList');
+    if (container) {
+      if (completed.length === 0) {
+        container.innerHTML = '<div class="empty-state"><div class="empty-icon">✅</div><p>No completed tasks yet</p></div>';
+      } else {
+        container.innerHTML = completed.map(task => `
+          <div class="history-item">
+            <div style="font-weight: 600; margin-bottom: 4px;">${task.title}</div>
+            <div style="font-size: 12px; color: var(--text-muted);">Completed ${formatDate(task.completedAt)}</div>
+          </div>
+        `).join('');
+      }
+    }
+  }
+
+  function renderInsights() {
+    const total = STATE.tasks.length;
+    const completed = STATE.tasks.filter(t => t.completed).length;
+    const completionRate = total > 0 ? Math.round((completed / total) * 100) : 0;
+    
+    document.getElementById('insightTotalTasks').textContent = total;
+    document.getElementById('insightCompletionRate').textContent = completionRate + '%';
+    
+    // Average time to complete
+    const completedTasks = STATE.tasks.filter(t => t.completed && t.completedAt && t.createdAt);
+    if (completedTasks.length > 0) {
+      const avgDays = completedTasks.reduce((sum, t) => {
+        const days = Math.ceil((new Date(t.completedAt) - new Date(t.createdAt)) / (1000 * 60 * 60 * 24));
+        return sum + days;
+      }, 0) / completedTasks.length;
+      document.getElementById('insightAvgTime').textContent = Math.round(avgDays) + 'd';
+    }
+    
+    // Activity chart (simplified)
+    const chartEl = document.getElementById('activityChart');
+    if (chartEl) {
+      const last7Days = [];
+      for (let i = 6; i >= 0; i--) {
+        const date = new Date();
+        date.setDate(date.getDate() - i);
+        const dateStr = date.toDateString();
+        const count = STATE.tasks.filter(t => 
+          t.completed && new Date(t.completedAt).toDateString() === dateStr
+        ).length;
+        last7Days.push({ day: date.toLocaleDateString('en-US', { weekday: 'short' }), count });
+      }
+      
+      const maxCount = Math.max(...last7Days.map(d => d.count), 1);
+      chartEl.innerHTML = last7Days.map(d => `
+        <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+          <div style="background: var(--accent); width: 100%; border-radius: 4px 4px 0 0; height: ${(d.count / maxCount) * 100}%;"></div>
+          <div style="font-size: 11px; font-weight: 600;">${d.day}</div>
+          <div style="font-size: 10px; color: var(--text-muted);">${d.count}</div>
+        </div>
+      `).join('');
+    }
+  }
+
+  // ============================================================================
+  // MODAL MANAGEMENT
+  // ============================================================================
+  
+  function openTaskModal(taskId = null) {
+    const modal = document.getElementById('taskModal');
+    const title = document.getElementById('modalTitle');
+    const deleteBtn = document.getElementById('deleteTaskBtn');
+    
+    if (taskId) {
+      STATE.editingTask = STATE.tasks.find(t => t.id === taskId);
+      title.textContent = 'Edit Task';
+      deleteBtn.style.display = 'block';
+      
+      // Populate form
+      document.getElementById('taskTitle').value = STATE.editingTask.title;
+      document.getElementById('taskDescription').value = STATE.editingTask.description || '';
+      document.getElementById('taskEstimate').value = STATE.editingTask.estimate || '';
+      document.getElementById('taskDue').value = STATE.editingTask.dueDate || '';
+      document.getElementById('taskQuadrant').value = STATE.editingTask.quadrant;
+      document.getElementById('taskProject').value = STATE.editingTask.project || '';
+      
+      // Tags
+      const tagsContainer = document.getElementById('taskTags');
+      tagsContainer.innerHTML = STATE.editingTask.tags.map(tag => 
+        `<span class="tag-chip">${tag} <button onclick="removeTag('${tag}')">×</button></span>`
+      ).join('');
+      
+      // Subtasks
+      const subtasksContainer = document.getElementById('subtasksList');
+      subtasksContainer.innerHTML = STATE.editingTask.subtasks.map((st, i) => 
+        `<div class="subtask-item">
+          <input type="checkbox" ${st.completed ? 'checked' : ''} onchange="toggleSubtask(${i})">
+          <span>${st.title}</span>
+        </div>`
+      ).join('');
+    } else {
+      STATE.editingTask = null;
+      title.textContent = 'New Task';
+      deleteBtn.style.display = 'none';
+      
+      // Clear form
+      document.getElementById('taskTitle').value = '';
+      document.getElementById('taskDescription').value = '';
+      document.getElementById('taskEstimate').value = '';
+      document.getElementById('taskDue').value = '';
+      document.getElementById('taskQuadrant').value = 'do-first';
+      document.getElementById('taskProject').value = '';
+      document.getElementById('taskTags').innerHTML = '';
+      document.getElementById('subtasksList').innerHTML = '';
+    }
+    
+    modal.classList.add('open');
+  }
+
+  function closeTaskModal() {
+    const modal = document.getElementById('taskModal');
+    modal.classList.remove('open');
+    STATE.editingTask = null;
+  }
+
+  function saveTask() {
+    const title = document.getElementById('taskTitle').value.trim();
+    if (!title) {
+      alert('Please enter a task title');
+      return;
+    }
+    
+    const taskData = {
+      title,
+      description: document.getElementById('taskDescription').value.trim(),
+      estimate: parseInt(document.getElementById('taskEstimate').value) || 30,
+      dueDate: document.getElementById('taskDue').value || null,
+      quadrant: document.getElementById('taskQuadrant').value,
+      project: document.getElementById('taskProject').value.trim(),
+      tags: STATE.editingTask ? STATE.editingTask.tags : [],
+      subtasks: STATE.editingTask ? STATE.editingTask.subtasks : []
+    };
+    
+    if (STATE.editingTask) {
+      updateTask(STATE.editingTask.id, taskData);
+    } else {
+      createTask(taskData);
+    }
+    
+    closeTaskModal();
+  }
+
+  // ============================================================================
+  // EVENT HANDLERS
+  // ============================================================================
+  
+  function initEventListeners() {
+    // Navigation
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const view = item.getAttribute('data-view');
+        if (view) switchView(view);
+      });
+    });
+    
+    // Task buttons
+    const newTaskBtn = document.getElementById('newTaskBtn');
+    const quickAddBtn = document.getElementById('quickAddTopBtn');
+    if (newTaskBtn) newTaskBtn.addEventListener('click', () => openTaskModal());
+    if (quickAddBtn) quickAddBtn.addEventListener('click', () => openTaskModal());
+    
+    // Modal buttons
+    const modalClose = document.getElementById('modalClose');
+    const cancelBtn = document.getElementById('cancelTaskBtn');
+    const saveBtn = document.getElementById('saveTaskBtn');
+    const deleteBtn = document.getElementById('deleteTaskBtn');
+    
+    if (modalClose) modalClose.addEventListener('click', closeTaskModal);
+    if (cancelBtn) cancelBtn.addEventListener('click', closeTaskModal);
+    if (saveBtn) saveBtn.addEventListener('click', saveTask);
+    if (deleteBtn) deleteBtn.addEventListener('click', () => {
+      if (STATE.editingTask && confirm('Delete this task?')) {
+        deleteTask(STATE.editingTask.id);
+        closeTaskModal();
+      }
+    });
+    
+    // Timer buttons
+    const timerStart = document.getElementById('timerStart');
+    const timerPause = document.getElementById('timerPause');
+    const timerReset = document.getElementById('timerReset');
+    const timerMinimize = document.getElementById('timerMinimize');
+    const timerFloat = document.getElementById('timerFloat');
+    
+    if (timerStart) timerStart.addEventListener('click', startTimer);
+    if (timerPause) timerPause.addEventListener('click', pauseTimer);
+    if (timerReset) timerReset.addEventListener('click', resetTimer);
+    if (timerMinimize) timerMinimize.addEventListener('click', () => {
+      timerFloat.classList.toggle('minimized');
+    });
+    
+    // Task interactions (event delegation)
+    document.addEventListener('click', (e) => {
+      const taskEl = e.target.closest('.task');
+      if (!taskEl) return;
+      
+      const taskId = taskEl.getAttribute('data-id');
+      const action = e.target.closest('[data-action]')?.getAttribute('data-action');
+      
+      if (action === 'toggle') {
+        toggleTaskComplete(taskId);
+      } else if (action === 'edit') {
+        openTaskModal(taskId);
+      } else if (action === 'delete') {
+        if (confirm('Delete this task?')) {
+          deleteTask(taskId);
+        }
+      }
+    });
+    
+    // Tags
+    const addTagBtn = document.getElementById('addTagBtn');
+    const newTagInput = document.getElementById('newTag');
+    if (addTagBtn) {
+      addTagBtn.addEventListener('click', () => {
+        const tag = newTagInput.value.trim();
+        if (tag && STATE.editingTask) {
+          if (!STATE.editingTask.tags.includes(tag)) {
+            STATE.editingTask.tags.push(tag);
+            const tagsContainer = document.getElementById('taskTags');
+            tagsContainer.innerHTML += `<span class="tag-chip">${tag} <button onclick="removeTag('${tag}')">×</button></span>`;
+          }
+          newTagInput.value = '';
+        }
+      });
+    }
+    
+    // Subtasks
+    const addSubtaskBtn = document.getElementById('addSubtaskBtn');
+    const newSubtaskInput = document.getElementById('newSubtask');
+    if (addSubtaskBtn) {
+      addSubtaskBtn.addEventListener('click', () => {
+        const title = newSubtaskInput.value.trim();
+        if (title && STATE.editingTask) {
+          STATE.editingTask.subtasks.push({ title, completed: false });
+          const container = document.getElementById('subtasksList');
+          const i = STATE.editingTask.subtasks.length - 1;
+          container.innerHTML += `
+            <div class="subtask-item">
+              <input type="checkbox" onchange="toggleSubtask(${i})">
+              <span>${title}</span>
+            </div>`;
+          newSubtaskInput.value = '';
+        }
+      });
+    }
+    
+    // What's Next button
+    const showNextTaskBtn = document.getElementById('showNextTaskBtn');
+    if (showNextTaskBtn) {
+      showNextTaskBtn.addEventListener('click', () => {
+        const nextTask = getPriorityQueue()[0];
+        if (nextTask) {
+          const heroCard = document.getElementById('heroCard');
+          const heroTitle = document.getElementById('heroTaskTitle');
+          const heroReasons = document.getElementById('heroReasons');
+          
+          heroTitle.textContent = nextTask.title;
+          heroReasons.innerHTML = `
+            <div class="hero-reason">
+              <div class="hero-reason-icon">✓</div>
+              <span>Highest priority in your queue</span>
+            </div>
+            <div class="hero-reason">
+              <div class="hero-reason-icon">⏰</div>
+              <span>${nextTask.estimate || 30} minutes estimated</span>
+            </div>
+          `;
+          
+          heroCard.classList.add('open');
+        }
+      });
+    }
+    
+    // Hero card buttons
+    const heroStartBtn = document.getElementById('heroStartBtn');
+    const heroSkipBtn = document.getElementById('heroSkipBtn');
+    const heroCard = document.getElementById('heroCard');
+    
+    if (heroStartBtn) {
+      heroStartBtn.addEventListener('click', () => {
+        heroCard.classList.remove('open');
+        startTimer();
+      });
+    }
+    
+    if (heroSkipBtn) {
+      heroSkipBtn.addEventListener('click', () => {
+        heroCard.classList.remove('open');
+});
+}
+// Streak card
+const streakCard = document.getElementById('streakCard');
+if (streakCard) {
+  streakCard.addEventListener('click', () => {
+    const modal = document.getElementById('streakModal');
+    modal.classList.add('open');
+    
+    // Render streak grid
+    const grid = document.getElementById('streakGrid');
+    const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    grid.innerHTML = days.map(day => `
+      <div class="streak-day ${STATE.streak.current >= days.indexOf(day) + 1 ? 'active' : ''}">
+        <div class="streak-day-label">${day}</div>
+        <div class="streak-day-count">${STATE.streak.current > days.indexOf(day) ? '✓' : ''}</div>
+      </div>
+    `).join('');
+  });
+}
+
+const closeStreakModal = document.getElementById('closeStreakModal');
+if (closeStreakModal) {
+  closeStreakModal.addEventListener('click', () => {
+    document.getElementById('streakModal').classList.remove('open');
+  });
+}
+}
+// Global functions for inline handlers
+window.removeTag = function(tag) {
+if (STATE.editingTask) {
+STATE.editingTask.tags = STATE.editingTask.tags.filter(t => t !== tag);
+const tagsContainer = document.getElementById('taskTags');
+tagsContainer.innerHTML = STATE.editingTask.tags.map(t =>
+<span class="tag-chip">${t} <button onclick="removeTag('${t}')">×</button></span>
+).join('');
+}
+};
+window.toggleSubtask = function(index) {
+if (STATE.editingTask && STATE.editingTask.subtasks[index]) {
+STATE.editingTask.subtasks[index].completed = !STATE.editingTask.subtasks[index].completed;
+}
+};
+// ============================================================================
+// INITIALIZATION
+// ============================================================================
+function init() {
+console.log('🚀 PrioBox initializing...');
+loadFromStorage();
+initEventListeners();
+updateTimerDisplay();
+render();
+console.log('✅ PrioBox ready!');
+}
+// Start the app when DOM is ready
+if (document.readyState === 'loading') {
+document.addEventListener('DOMContentLoaded', init);
+} else {
+init();
+}
+})();
+</script>
 </body>
 </html>
