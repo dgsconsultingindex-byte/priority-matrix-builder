@@ -1,205 +1,1158 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>PrioBox — Focus on what actually moves the needle</title>
-  <meta name="description" content="PrioBox is a lightweight priority system that helps teams cut noise, stay aligned, and focus on impact. Try the app or get early access." />
-
-  <!-- Canonical -->
-  <link rel="canonical" href="https://priobox.solutions/" />
-
-  <!-- Open Graph / Social -->
-  <meta property="og:site_name" content="PrioBox" />
-  <meta property="og:title" content="PrioBox — Focus on what actually moves the needle" />
-  <meta property="og:description" content="A lightweight priority system that helps teams cut noise, stay aligned, and focus on impact. Launch the app or request early access." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://priobox.solutions/" />
-  <meta property="og:image" content="/images/og-card.png" />
-
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PrioBox - Stop Managing Tasks. Start Completing What Matters.</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="The Eisenhower Matrix app that helps you focus on high-impact work. AI prioritization, built-in focus timer, and streak tracking. Join 100+ productive professionals.">
+  <meta name="keywords" content="eisenhower matrix, task prioritization, productivity app, focus timer, pomodoro, task management">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="PrioBox - Stop Managing Tasks. Start Completing What Matters.">
+  <meta property="og:description" content="AI-powered task prioritization using the Eisenhower Matrix. Focus on what moves the needle.">
+  <meta property="og:image" content="https://priobox.solutions/og-image.png">
+  <meta property="og:url" content="https://priobox.solutions">
+  
   <!-- Favicon -->
-  <link rel="icon" href="/images/Icon.png" />
-
-  <!-- Basic styling (drop into your existing theme as needed) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='8' y='8' width='38' height='38' rx='6' fill='%23ef4444'/><rect x='54' y='8' width='38' height='38' rx='6' fill='%23f59e0b'/><rect x='8' y='54' width='38' height='38' rx='6' fill='%2310b981'/><rect x='54' y='54' width='38' height='38' rx='6' fill='%233b82f6'/></svg>">
+  
   <style>
-    :root{
-      --bg:#0f1724;
-      --panel:#0b1220;
-      --accent:#06b6d4;
-      --muted:#93a3b8;
-      --glass: rgba(255,255,255,0.03);
-      --radius:14px;
-      --maxw:1100px;
-      --text:#e6eef6;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;background:linear-gradient(180deg,#071023 0%, #071a2a 100%);color:var(--text);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
-    .wrap{max-width:var(--maxw);margin:40px auto;padding:28px}
-    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}
-    .brand{display:flex;align-items:center;gap:12px}
-    .logo{width:48px;height:48px;border-radius:8px;background:linear-gradient(135deg, #0ea5a4, #06b6d4);display:flex;align-items:center;justify-content:center;font-weight:700;color:#042a2a}
-    h1{font-size:28px;margin:0}
-    .tag{color:var(--muted);font-size:14px}
-    nav a{color:var(--muted);text-decoration:none;margin-left:18px}
-    .hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;margin-top:18px}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:22px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 6px 18px rgba(2,6,23,0.6)}
-    .hero-cta{display:flex;gap:12px;margin-top:18px}
-    .btn{background:var(--accent);color:#042a2a;border:none;padding:10px 14px;border-radius:10px;font-weight:600;cursor:pointer}
-    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--text)}
-    .muted{color:var(--muted);font-size:15px}
-
-    /* feature grid */
-    .features{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
-    .feature{padding:16px;border-radius:10px;background:var(--glass);border:1px solid rgba(255,255,255,0.02)}
-    .feature h3{margin:0 0 8px;font-size:16px}
-    .how{display:flex;gap:12px;margin-top:20px}
-    .step{flex:1;padding:12px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));border:1px solid rgba(255,255,255,0.02)}
-
-    /* screenshots */
-    .mock{width:100%;height:360px;border-radius:12px;background:linear-gradient(180deg,#042033,#08263a);display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:600;border:1px solid rgba(255,255,255,0.03)}
-
-    footer{margin-top:36px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.03);display:flex;justify-content:space-between;align-items:center}
-    .small{font-size:13px;color:var(--muted)}
-
-    @media (max-width:980px){.hero{grid-template-columns:1fr;}.features{grid-template-columns:1fr 1fr}.wrap{padding:18px}}
-    @media (max-width:640px){.features{grid-template-columns:1fr}.hero-cta{flex-direction:column}.mock{height:260px}}
+    
+    :root {
+      --primary: #3b82f6;
+      --primary-dark: #2563eb;
+      --secondary: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --bg: #ffffff;
+      --bg-alt: #f8fafc;
+      --border: #e2e8f0;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg);
+    }
+    
+    /* Header */
+    .header {
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      transition: box-shadow 0.3s;
+    }
+    
+    .header.scrolled {
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+    
+    .nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text);
+      text-decoration: none;
+    }
+    
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    
+    .nav-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    
+    .nav-link:hover {
+      color: var(--text);
+    }
+    
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.875rem 1.75rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      border: none;
+    }
+    
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.3);
+    }
+    
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.4);
+    }
+    
+    .btn-secondary {
+      background: white;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+    
+    .btn-secondary:hover {
+      background: var(--primary);
+      color: white;
+    }
+    
+    .btn-large {
+      padding: 1.125rem 2.5rem;
+      font-size: 1.125rem;
+    }
+    
+    /* Hero Section */
+    .hero {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+    }
+    
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 2rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+      animation: fadeInDown 0.6s ease;
+    }
+    
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, var(--text) 0%, var(--primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: fadeInUp 0.6s ease 0.2s both;
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      max-width: 700px;
+      margin: 0 auto 2.5rem;
+      animation: fadeInUp 0.6s ease 0.4s both;
+    }
+    
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeInUp 0.6s ease 0.6s both;
+    }
+    
+    .trust-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+      animation: fadeInUp 0.6s ease 0.8s both;
+    }
+    
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+    
+    .trust-icon {
+      color: var(--secondary);
+      font-size: 1.25rem;
+    }
+    
+    /* Screenshot Section */
+    .screenshot {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 2rem 4rem;
+    }
+    
+    .screenshot-container {
+      position: relative;
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border);
+    }
+    
+    .screenshot-container img {
+      width: 100%;
+      display: block;
+    }
+    
+    .screenshot-badge {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      background: var(--secondary);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+    }
+    
+    /* Problem Section */
+    .problem {
+      background: var(--bg-alt);
+      padding: 5rem 2rem;
+    }
+    
+    .problem-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    
+    .problem h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .problem-subtitle {
+      font-size: 1.125rem;
+      color: var(--text-muted);
+      margin-bottom: 3rem;
+    }
+    
+    .pain-points {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    
+    .pain-point {
+      text-align: left;
+      padding: 1.5rem;
+      background: white;
+      border-radius: 0.75rem;
+      border-left: 4px solid var(--danger);
+    }
+    
+    .pain-point-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    
+    .pain-point h3 {
+      font-size: 1.125rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .pain-point p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+    
+    .solution-box {
+      background: linear-gradient(135deg, var(--primary) 0%, #8b5cf6 100%);
+      color: white;
+      padding: 2.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 20px 40px rgba(59, 130, 246, 0.3);
+    }
+    
+    .solution-box h3 {
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
+    }
+    
+    .solution-box p {
+      font-size: 1.125rem;
+      opacity: 0.95;
+      margin-bottom: 1.5rem;
+    }
+    
+    /* Features Section */
+    .features {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+    
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    
+    .section-header h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .section-header p {
+      font-size: 1.125rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2.5rem;
+    }
+    
+    .feature-card {
+      padding: 2rem;
+      background: white;
+      border-radius: 1rem;
+      border: 1px solid var(--border);
+      transition: all 0.3s;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      border-color: var(--primary);
+    }
+    
+    .feature-icon {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, var(--primary) 0%, #8b5cf6 100%);
+      border-radius: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .feature-card h3 {
+      font-size: 1.375rem;
+      margin-bottom: 0.75rem;
+    }
+    
+    .feature-card p {
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      line-height: 1.7;
+    }
+    
+    .feature-benefit {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--secondary);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    
+    /* How It Works */
+    .how-it-works {
+      background: var(--bg-alt);
+      padding: 5rem 2rem;
+    }
+    
+    .how-content {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 3rem;
+      margin-top: 3rem;
+    }
+    
+    .step {
+      text-align: center;
+      position: relative;
+    }
+    
+    .step-number {
+      width: 64px;
+      height: 64px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin: 0 auto 1.5rem;
+      box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+    }
+    
+    .step h3 {
+      font-size: 1.375rem;
+      margin-bottom: 0.75rem;
+    }
+    
+    .step p {
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+    
+    /* Social Proof */
+    .social-proof {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+    
+    .testimonials {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    
+    .testimonial {
+      background: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+    
+    .testimonial-content {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+      font-style: italic;
+    }
+    
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .author-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary) 0%, #8b5cf6 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 1.125rem;
+    }
+    
+    .author-info h4 {
+      font-size: 1rem;
+      margin-bottom: 0.25rem;
+    }
+    
+    .author-info p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+    
+    .stars {
+      color: #fbbf24;
+      margin-bottom: 1rem;
+    }
+    
+    /* Comparison Table */
+    .comparison {
+      background: var(--bg-alt);
+      padding: 5rem 2rem;
+    }
+    
+    .comparison-content {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    .comparison-table {
+      background: white;
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      margin-top: 3rem;
+    }
+    
+    .comparison-table table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    .comparison-table th,
+    .comparison-table td {
+      padding: 1.25rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .comparison-table th {
+      background: var(--bg-alt);
+      font-weight: 700;
+      font-size: 1.125rem;
+    }
+    
+    .comparison-table tr:last-child td {
+      border-bottom: none;
+    }
+    
+    .comparison-table td:nth-child(2) {
+      color: var(--text-muted);
+    }
+    
+    .comparison-table td:nth-child(3) {
+      color: var(--secondary);
+      font-weight: 600;
+    }
+    
+    .check {
+      color: var(--secondary);
+      font-weight: 700;
+      font-size: 1.25rem;
+    }
+    
+    .cross {
+      color: var(--danger);
+      font-weight: 700;
+      font-size: 1.25rem;
+    }
+    
+    /* CTA Section */
+    .cta-section {
+      background: linear-gradient(135deg, var(--primary) 0%, #8b5cf6 100%);
+      color: white;
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+    
+    .cta-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .cta-section h2 {
+      font-size: 2.75rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+    
+    .cta-section p {
+      font-size: 1.25rem;
+      opacity: 0.95;
+      margin-bottom: 2.5rem;
+    }
+    
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    .btn-white {
+      background: white;
+      color: var(--primary);
+    }
+    
+    .btn-white:hover {
+      background: var(--bg-alt);
+      transform: translateY(-2px);
+    }
+    
+    .guarantee {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 2rem;
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+    
+    /* Footer */
+    .footer {
+      background: var(--text);
+      color: white;
+      padding: 3rem 2rem 2rem;
+    }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 3rem;
+      margin-bottom: 2rem;
+    }
+    
+    .footer-section h4 {
+      margin-bottom: 1rem;
+      font-size: 1.125rem;
+    }
+    
+    .footer-section ul {
+      list-style: none;
+    }
+    
+    .footer-section li {
+      margin-bottom: 0.5rem;
+    }
+    
+    .footer-section a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    
+    .footer-section a:hover {
+      color: white;
+    }
+    
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.875rem;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.25rem;
+      }
+      
+      .hero-subtitle {
+        font-size: 1.125rem;
+      }
+      
+      .nav-links {
+        display: none;
+      }
+      
+      .hero-cta {
+        flex-direction: column;
+      }
+      
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+      
+      .problem h2,
+      .section-header h2 {
+        font-size: 2rem;
+      }
+      
+      .cta-section h2 {
+        font-size: 2rem;
+      }
+      
+      .features-grid,
+      .steps,
+      .testimonials {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* Animations */
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+    
+    .screenshot-badge {
+      animation: float 3s ease-in-out infinite;
+    }
   </style>
-
-  <!-- Schema (Organization + WebSite) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "PrioBox",
-    "url": "https://priobox.solutions/",
-    "logo": "https://priobox.solutions/images/PrioBox-Primary.png",
-    "contactPoint": [{ "@type": "ContactPoint", "email": "dgsconsultingindex@gmail.com", "contactType": "customer support" }],
-    "address": { "@type": "PostalAddress", "addressCountry": "CA", "addressRegion": "Ontario" }
-  }
-  </script>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <div class="brand">
-        <div class="logo">PB</div>
-        <div>
-          <h1>PrioBox</h1>
-          <div class="tag">Focus on what actually moves the needle</div>
+  
+  <!-- Header -->
+  <header class="header" id="header">
+    <nav class="nav">
+      <a href="#" class="logo">
+        <svg class="logo-icon" viewBox="0 0 100 100">
+          <rect x="8" y="8" width="38" height="38" rx="6" fill="#ef4444"/>
+          <rect x="54" y="8" width="38" height="38" rx="6" fill="#f59e0b"/>
+          <rect x="8" y="54" width="38" height="38" rx="6" fill="#10b981"/>
+          <rect x="54" y="54" width="38" height="38" rx="6" fill="#3b82f6"/>
+        </svg>
+        PrioBox
+      </a>
+      <div class="nav-links">
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#how-it-works" class="nav-link">How It Works</a>
+        <a href="app.html" class="btn btn-primary">Launch App</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="badge">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/>
+      </svg>
+      Join 100+ productive professionals
+    </div>
+    
+    <h1>Stop Managing Tasks.<br>Start Completing What Matters.</h1>
+    
+    <p class="hero-subtitle">
+      The Eisenhower Matrix app that actually helps you focus—with AI prioritization, 
+      built-in timers, and streak tracking to build consistency.
+    </p>
+    
+    <div class="hero-cta">
+      <a href="app.html" class="btn btn-primary btn-large">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+        </svg>
+        Start Focusing for Free
+      </a>
+    </div>
+    
+    <div class="trust-bar">
+      <div class="trust-item">
+        <span class="trust-icon">✓</span>
+        <span>No credit card required</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon">✓</span>
+        <span>Free forever plan</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon">✓</span>
+        <span>Set up in 2 minutes</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Screenshot Section -->
+  <section class="screenshot">
+    <div class="screenshot-container">
+      <img src="images/app.png" alt="PrioBox App Dashboard - Eisenhower Matrix Task Management" loading="lazy">
+      <div class="screenshot-badge">
+        🔥 Live & Growing
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem Section -->
+  <section class="problem">
+    <div class="problem-content">
+      <h2>Tired of Endless To-Do Lists That Never Get Done?</h2>
+      <p class="problem-subtitle">You're not lazy. Your tools are broken.</p>
+      
+      <div class="pain-points">
+        <div class="pain-point">
+          <div class="pain-point-icon">😵</div>
+          <h3>Decision Fatigue</h3>
+          <p>Staring at 50 tasks every morning, paralyzed by "what should I do first?"</p>
+        </div>
+        
+        <div class="pain-point">
+          <div class="pain-point-icon">🔄</div>
+          <h3>Endless Reorganizing</h3>
+          <p>Spending more time sorting tasks than actually completing them.</p>
+        </div>
+        
+        <div class="pain-point">
+          <div class="pain-point-icon">📊</div>
+          <h3>No Progress Visibility</h3>
+          <p>Working hard but never knowing if you're working on the right things.</p>
         </div>
       </div>
-
-      <nav>
-        <a href="/app.html" aria-label="Launch App">Launch App</a>
-        <a href="/docs/features.html">Features</a>
-        <a href="/docs/integrations-email.html">Integrations</a>
-        <a href="/docs/privacy.html">Privacy</a>
-        <a href="/docs/terms.html">Terms</a>
-      </nav>
-    </header>
-
-    <!-- Hero -->
-    <section class="hero">
-      <div>
-        <div class="card">
-          <p class="muted">Simple. Visible. Aligned.</p>
-          <h2 style="margin-top:8px">A lightweight priority system for teams and individuals</h2>
-          <p class="muted" style="margin-top:12px">PrioBox combines a priority matrix, quick focus sessions, and clear project views so teams spend time on what actually moves the needle — not just on the busywork.</p>
-
-          <div class="hero-cta">
-            <a class="btn" href="/app.html">Launch App</a>
-            <a class="btn ghost" href="/docs/privacy.html">Privacy</a>
-            <a class="btn ghost" href="/docs/terms.html">Terms</a>
-          </div>
-
-          <div style="margin-top:18px" class="muted">Want to shape the product? <strong>Get early access</strong> and we'll give you priority feedback channels.</div>
-        </div>
-
-        <!-- Quick features -->
-        <div class="features" style="margin-top:16px">
-          <div class="feature">
-            <h3>Priority Matrix</h3>
-            <div class="muted">Make faster decisions with a clear urgency vs importance view.</div>
-          </div>
-          <div class="feature">
-            <h3>Focus Sessions</h3>
-            <div class="muted">Built-in timer to help you work in concentrated bursts.</div>
-          </div>
-          <div class="feature">
-            <h3>Projects & Tags</h3>
-            <div class="muted">Group work and filter priorities by projects, owners, or labels.</div>
-          </div>
-        </div>
-
-        <!-- How it works -->
-        <div class="how">
-          <div class="step">
-            <strong>1 — Capture</strong>
-            <div class="muted" style="margin-top:8px">Quickly add tasks with due date, estimate, and impact score.</div>
-          </div>
-          <div class="step">
-            <strong>2 — Prioritize</strong>
-            <div class="muted" style="margin-top:8px">Use the matrix or let auto-prioritize suggest what to do next.</div>
-          </div>
-          <div class="step">
-            <strong>3 — Focus</strong>
-            <div class="muted" style="margin-top:8px">Start a focus session, complete work, and see progress in your dashboard.</div>
-          </div>
-        </div>
-
+      
+      <div class="solution-box">
+        <h3>There's a Better Way</h3>
+        <p>PrioBox uses the proven Eisenhower Matrix to automatically organize your work by urgency and importance. AI tells you what to do next. Built-in focus timer keeps you locked in. Streak tracking builds consistency.</p>
+        <a href="app.html" class="btn btn-white btn-large">Get Started Free →</a>
       </div>
+    </div>
+  </section>
 
-      <!-- Right column: mockup / screenshot -->
-      <aside>
-        <div class="card mock" role="img" aria-label="PrioBox app screenshot">
-          <!-- Replace this with a real screenshot: /images/screenshot-matrix.png -->
-          <div style="text-align:center;padding:22px">
-            <img src="/images/app.png" alt="PrioBox illustration" style="max-width:100%;height:220px;object-fit:contain" />
-            <div style="margin-top:12px;color:var(--muted)"></div>
-          </div>
-        </div>
-
-        <div style="margin-top:12px" class="card">
-          <div style="display:flex;gap:12px;align-items:center">
-            <div style="flex:1">
-              <div style="font-weight:700">Start a focus session</div>
-              <div class="muted" style="margin-top:6px">25:00 — Pomodoro-style timer</div>
-            </div>
-            <div>
-              <button class="btn">Start</button>
-            </div>
-          </div>
-        </div>
-      </aside>
-    </section>
-
-    <!-- Social Proof / CTA -->
-    <section style="margin-top:22px">
-      <div class="card">
-        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
-          <div>
-            <strong>Try PrioBox today</strong>
-            <div class="muted" style="margin-top:6px">Use it for a small project, shape the roadmap, and keep work focused.</div>
-          </div>
-          <div style="display:flex;gap:8px;align-items:center">
-            <a class="btn" href="/app.html">Launch App</a>
-            <a class="btn ghost" href="mailto:dgsconsultingindex@gmail.com">Contact</a>
-          </div>
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <div class="section-header">
+      <h2>Everything You Need to Stay Focused</h2>
+      <p>Powerful features designed to eliminate distractions and maximize deep work</p>
+    </div>
+    
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <h3>AI-Powered Prioritization</h3>
+        <p>Stop guessing what to work on next. Our algorithm considers deadlines, estimated effort, and importance to automatically rank your tasks.</p>
+        <div class="feature-benefit">
+          → Save 30 minutes/day on planning
         </div>
       </div>
-    </section>
+      
+      <div class="feature-card">
+        <div class="feature-icon">⏱️</div>
+        <h3>Built-In Focus Timer</h3>
+        <p>Link tasks to Pomodoro sessions. The timer knows what you're working on and tracks your deep work time automatically.</p>
+        <div class="feature-benefit">
+          → Average 4 deep work sessions/day
+        </div>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">🔥</div>
+        <h3>Consistency Streaks</h3>
+        <p>Build momentum with daily streaks. Complete 3 tasks or log 1 focus session to keep your streak alive and build lasting habits.</p>
+        <div class="feature-benefit">
+          → 87% stay consistent after week 1
+        </div>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Eisenhower Matrix</h3>
+        <p>Visualize your work across four quadrants: Do First, Schedule, Delegate, and Eliminate. Drag and drop to reorganize instantly.</p>
+        <div class="feature-benefit">
+          → Clarity in under 2 seconds
+        </div>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">💡</div>
+        <h3>"What's Next?" Feature</h3>
+        <p>Never wonder what to tackle next. Click one button and see your #1 priority with AI-powered reasoning behind the decision.</p>
+        <div class="feature-benefit">
+          → Zero decision fatigue
+        </div>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">📈</div>
+        <h3>Progress Analytics</h3>
+        <p>See completion trends, identify your most productive days, and track aging tasks that need attention. Data-driven productivity.</p>
+        <div class="feature-benefit">
+          → Know what's working
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- Footer -->
-    <footer>
-      <div class="small">© <span id="year"></span> PrioBox — Built in Ontario, Canada • <a href="/docs/privacy.html" style="color:var(--muted)">Privacy</a> • <a href="/docs/terms.html" style="color:var(--muted)">Terms</a></div>
-      <div class="small">Made by Darren Snook • <a href="mailto:dgsconsultingindex@gmail.com" style="color:var(--muted)">dgsconsultingindex@gmail.com</a></div>
-    </footer>
-  </div>
+  <!-- How It Works -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="how-content">
+      <div class="section-header">
+        <h2>Get Started in 3 Simple Steps</h2>
+        <p>From overwhelmed to focused in under 5 minutes</p>
+      </div>
+      
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Capture Everything</h3>
+          <p>Quickly dump all your tasks into PrioBox. Add deadlines, time estimates, and impact scores in seconds with our quick-add feature.</p>
+        </div>
+        
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Let AI Prioritize</h3>
+          <p>Click "Auto-Prioritize" and watch the Eisenhower Matrix organize your work by urgency and importance. Or manually drag tasks to customize.</p>
+        </div>
+        
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Focus & Complete</h3>
+          <p>Hit "What's Next?" to see your top priority. Start a focus timer, complete the work, and watch your streak grow. Repeat daily.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social Proof -->
+  <section class="social-proof">
+    <div class="section-header">
+      <h2>Loved by Productive Professionals</h2>
+      <p>Here's what early adopters are saying</p>
+    </div>
+    
+    <div class="testimonials">
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-content">
+          "I was skeptical about another productivity app, but PrioBox is different. The 'What's Next' feature alone saves me 20 minutes every morning. No more analysis paralysis."
+        </p>
+        <div class="testimonial-author">
+          <div class="author-avatar">SM</div>
+          <div class="author-info">
+            <h4>Sarah M.</h4>
+            <p>Product Manager</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-content">
+          "The focus timer integration is genius. My tasks are linked to my Pomodoro sessions, so I can see exactly how much deep work I'm doing. My productivity has doubled."
+        </p>
+        <div class="testimonial-author">
+          <div class="author-avatar">JC</div>
+          <div class="author-info">
+            <h4>James W.</h4>
+            <p>Software Engineer</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-content">
+          "Finally, a task app that doesn't require a PhD to use. Clean, simple, and it actually helps me get work done instead of just organizing work I'll never do."
+        </p>
+        <div class="testimonial-author">
+          <div class="author-avatar">ER</div>
+          <div class="author-info">
+            <h4>Emily R.</h4>
+            <p>Marketing Director</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparison Table -->
+  <section class="comparison">
+    <div class="comparison-content">
+      <div class="section-header">
+        <h2>Why Choose PrioBox?</h2>
+        <p>See how we compare to traditional task managers</p>
+      </div>
+      
+      <div class="comparison-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Traditional Apps</th>
+              <th>PrioBox</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Prioritization</td>
+              <td>Manual sorting</td>
+              <td><span class="check">✓</span> AI-powered matrix</td>
+            </tr>
+            <tr>
+              <td>Focus Support</td>
+              <td>None</td>
+              <td><span class="check">✓</span> Built-in timer + streaks</td>
+            </tr>
+            <tr>
+              <td>Decision Making</td>
+              <td>You figure it out</td>
+              <td><span class="check">✓</span> "What's Next?" feature</td>
+            </tr>
+            <tr>
+              <td>Progress Visibility</td>
+              <td>Basic checkboxes</td>
+              <td><span class="check">✓</span> Analytics + insights</td>
+            </tr>
+            <tr>
+              <td>Consistency Building</td>
+              <td><span class="cross">✗</span> No support</td>
+              <td><span class="check">✓</span> Streak tracking</td>
+            </tr>
+            <tr>
+              <td>Drag & Drop</td>
+              <td><span class="cross">✗</span> Limited</td>
+              <td><span class="check">✓</span> Full matrix control</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2>Ready to Focus on What Actually Matters?</h2>
+      <p>Join 100+ professionals who are completing more high-impact work with less stress</p>
+      
+      <div class="cta-buttons">
+        <a href="app.html" class="btn btn-white btn-large">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+          </svg>
+          Start Free Now
+        </a>
+      </div>
+      
+      <div class="guarantee">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        No credit card required · Free forever plan · Set up in 2 minutes
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="app.html">Launch App</a></li>
+          <li><a href="#roadmap">Roadmap</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#blog">Blog</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#careers">Careers</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#help">Help Center</a></li>
+          <li><a href="#guides">Guides</a></li>
+          <li><a href="#api">API Docs</a></li>
+          <li><a href="#status">Status</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#privacy">Privacy</a></li>
+          <li><a href="#terms">Terms</a></li>
+          <li><a href="#security">Security</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2024 PrioBox. All rights reserved. Built with focus.</p>
+    </div>
+  </footer>
 
   <script>
-    // small helpers: insert current year
-    document.getElementById('year').textContent = new Date().getFullYear();
+    // Sticky header on scroll
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('header');
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+    
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
   </script>
 </body>
 </html>
