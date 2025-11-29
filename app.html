@@ -95,12 +95,27 @@
       --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
       --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
     }
+    
+    [data-theme="dark"] {
+      --bg: #0f172a;
+      --panel: #1e293b;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border: #334155;
+      --accent: #3b82f6;
+      --accent-hover: #60a5fa;
+      --accent-light: #1e3a8a;
+      --shadow-sm: 0 1px 2px 0 rgba(0,0,0,0.3);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.4);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.5);
+    }
+    
     * { box-sizing: border-box; }
-    html, body { height: 100%; margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow: hidden; }
+    html, body { height: 100%; margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow: hidden; transition: background-color 0.3s ease, color 0.3s ease; }
     .app-container { display: flex; height: 100vh; }
     
     /* Sidebar */
-    .sidebar { width: var(--sidebar-width); background: var(--panel); border-right: 1px solid var(--border); display: flex; flex-direction: column; box-shadow: var(--shadow-sm); }
+    .sidebar { width: var(--sidebar-width); background: var(--panel); border-right: 1px solid var(--border); display: flex; flex-direction: column; box-shadow: var(--shadow-sm); transition: background-color 0.3s ease; }
     .logo { padding: 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }
     .logo h1 { margin: 0; font-size: 20px; font-weight: 700; }
     .nav { flex: 1; padding: 12px 0; overflow-y: auto; }
@@ -111,11 +126,58 @@
     .nav-badge { margin-left: auto; background: var(--danger); color: white; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 700; }
     .sidebar-footer { padding: 16px; border-top: 1px solid var(--border); }
     
+    /* Theme Toggle */
+    .theme-toggle { 
+      display: flex; 
+      align-items: center; 
+      justify-content: space-between; 
+      padding: 12px 20px; 
+      margin: 8px 0;
+      cursor: pointer;
+      transition: all 0.2s;
+      border-radius: 8px;
+    }
+    .theme-toggle:hover {
+      background: var(--bg);
+    }
+    .theme-toggle-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+    .theme-toggle-switch {
+      width: 44px;
+      height: 24px;
+      background: var(--border);
+      border-radius: 12px;
+      position: relative;
+      transition: background-color 0.3s ease;
+    }
+    .theme-toggle-switch.active {
+      background: var(--accent);
+    }
+    .theme-toggle-slider {
+      width: 20px;
+      height: 20px;
+      background: white;
+      border-radius: 50%;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      transition: transform 0.3s ease;
+    }
+    .theme-toggle-switch.active .theme-toggle-slider {
+      transform: translateX(20px);
+    }
+    
     /* Main Content */
     .main-content { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-    .top-bar { background: var(--panel); border-bottom: 1px solid var(--border); padding: 16px 24px; display: flex; align-items: center; gap: 16px; box-shadow: var(--shadow-sm); }
+    .top-bar { background: var(--panel); border-bottom: 1px solid var(--border); padding: 16px 24px; display: flex; align-items: center; gap: 16px; box-shadow: var(--shadow-sm); transition: background-color 0.3s ease; }
     .search-bar { flex: 1; max-width: 500px; position: relative; }
-    .search-bar input { width: 100%; padding: 10px 40px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; transition: all 0.2s; }
+    .search-bar input { width: 100%; padding: 10px 40px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; transition: all 0.2s; background: var(--panel); color: var(--text); }
     .search-bar input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-light); }
     .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
     .search-kbd { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font-size: 11px; color: var(--text-muted); background: var(--bg); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--border); }
@@ -135,7 +197,7 @@
     .stat-mini-icon { font-size: 32px; opacity: 0.3; }
     
     /* Section */
-    .section { background: var(--panel); border-radius: 12px; border: 1px solid var(--border); margin-bottom: 20px; overflow: hidden; }
+    .section { background: var(--panel); border-radius: 12px; border: 1px solid var(--border); margin-bottom: 20px; overflow: hidden; transition: background-color 0.3s ease; }
     .section-header { padding: 16px 20px; background: var(--bg); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
     .section-title { font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
     .section-actions { display: flex; gap: 8px; }
@@ -143,8 +205,23 @@
     
     /* Tasks */
     .task-list { display: flex; flex-direction: column; gap: 8px; }
-    .task { background: var(--panel); padding: 14px 16px; border-radius: 8px; border: 1px solid var(--border); display: flex; align-items: flex-start; gap: 12px; transition: all 0.2s; cursor: pointer; }
+    .task { 
+      background: var(--panel); 
+      padding: 14px 16px; 
+      border-radius: 8px; 
+      border: 1px solid var(--border); 
+      display: flex; 
+      align-items: flex-start; 
+      gap: 12px; 
+      transition: all 0.2s; 
+      cursor: grab;
+    }
     .task:hover { box-shadow: var(--shadow-md); border-color: var(--accent); transform: translateX(2px); }
+    .task.dragging { 
+      opacity: 0.5; 
+      cursor: grabbing;
+      transform: rotate(2deg);
+    }
     .task.completed { opacity: 0.6; }
     .task-checkbox { width: 20px; height: 20px; border: 2px solid var(--border); border-radius: 6px; cursor: pointer; flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
     .task-checkbox:hover { border-color: var(--success); background: #d1fae5; }
@@ -162,6 +239,8 @@
     .task-badge { padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; background: var(--bg); }
     .task-badge.project { background: #e0e7ff; color: #4338ca; }
     .task-badge.tag { background: #fef3c7; color: #92400e; }
+    [data-theme="dark"] .task-badge.project { background: #312e81; color: #a5b4fc; }
+    [data-theme="dark"] .task-badge.tag { background: #78350f; color: #fde68a; }
     .task-actions { display: flex; gap: 4px; opacity: 0; transition: opacity 0.2s; }
     .task:hover .task-actions { opacity: 1; }
     .task-action-btn { padding: 6px 8px; background: transparent; border: none; cursor: pointer; border-radius: 4px; font-size: 16px; transition: all 0.2s; color: var(--text-muted); }
@@ -171,13 +250,18 @@
     
     /* Matrix */
     .matrix-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-    .quadrant { background: var(--panel); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; }
+    .quadrant { background: var(--panel); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; transition: background-color 0.3s ease; }
     .quadrant-header { padding: 14px 16px; font-weight: 700; font-size: 14px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
     .quadrant.do-first { border-top: 3px solid var(--danger); }
     .quadrant.schedule { border-top: 3px solid var(--warning); }
     .quadrant.delegate { border-top: 3px solid var(--success); }
     .quadrant.eliminate { border-top: 3px solid var(--accent); }
     .quadrant-content { padding: 12px; min-height: 200px; }
+    .quadrant-content.drag-over {
+      background: var(--accent-light);
+      border: 2px dashed var(--accent);
+      border-radius: 8px;
+    }
     .quadrant-count { background: var(--bg); padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; }
     
     /* Timer */
@@ -418,7 +502,7 @@
     /* Modal */
     .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 1000; backdrop-filter: blur(4px); }
     .modal-overlay.open { display: flex; }
-    .modal { background: var(--panel); border-radius: 16px; box-shadow: var(--shadow-lg); width: 90%; max-width: 600px; max-height: 85vh; overflow-y: auto; animation: modalIn 0.2s ease; }
+    .modal { background: var(--panel); border-radius: 16px; box-shadow: var(--shadow-lg); width: 90%; max-width: 600px; max-height: 85vh; overflow-y: auto; animation: modalIn 0.2s ease; transition: background-color 0.3s ease; }
     @keyframes modalIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
     .modal-header { padding: 24px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
     .modal-title { font-size: 20px; font-weight: 700; margin: 0; }
@@ -426,7 +510,7 @@
     .modal-body { padding: 24px; }
     .form-group { margin-bottom: 20px; }
     .form-label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 14px; }
-    .form-input { width: 100%; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; transition: all 0.2s; }
+    .form-input { width: 100%; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; transition: all 0.2s; background: var(--panel); color: var(--text); }
     .form-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-light); }
     textarea.form-input { resize: vertical; min-height: 80px; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -436,9 +520,9 @@
     .hidden { display: none !important; }
     
     /* Command Palette */
-    .command-palette { position: fixed; top: 10%; left: 50%; transform: translateX(-50%); background: var(--panel); border-radius: 12px; box-shadow: var(--shadow-lg); width: 90%; max-width: 600px; z-index: 2000; display: none; }
+    .command-palette { position: fixed; top: 10%; left: 50%; transform: translateX(-50%); background: var(--panel); border-radius: 12px; box-shadow: var(--shadow-lg); width: 90%; max-width: 600px; z-index: 2000; display: none; transition: background-color 0.3s ease; }
     .command-palette.open { display: block; animation: modalIn 0.2s ease; }
-    .command-input { width: 100%; padding: 20px; border: none; font-size: 16px; border-bottom: 1px solid var(--border); }
+    .command-input { width: 100%; padding: 20px; border: none; font-size: 16px; border-bottom: 1px solid var(--border); background: var(--panel); color: var(--text); }
     .command-input:focus { outline: none; }
     .command-results { max-height: 400px; overflow-y: auto; padding: 8px; }
     .command-item { padding: 12px 16px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 12px; transition: background 0.2s; }
@@ -447,6 +531,7 @@
     .subtask-item { display: flex; align-items: center; gap: 10px; padding: 8px; border-radius: 6px; margin-bottom: 6px; background: var(--bg); }
     .tags-container { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
     .tag-chip { background: #fef3c7; color: #92400e; padding: 4px 10px; border-radius: 12px; font-size: 12px; display: inline-flex; align-items: center; gap: 6px; }
+    [data-theme="dark"] .tag-chip { background: #78350f; color: #fde68a; }
     .tag-chip button { background: none; border: none; padding: 0; cursor: pointer; color: inherit; font-size: 14px; line-height: 1; }
     
     .project-card { background: var(--bg); padding: 16px; border-radius: 10px; margin-bottom: 12px; border: 1px solid var(--border); }
@@ -501,6 +586,19 @@
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
           </svg></span><span>Insights</span></div>
+          
+        <!-- Theme Toggle -->
+        <div class="theme-toggle" id="themeToggle">
+          <div class="theme-toggle-label">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+            <span>Dark Mode</span>
+          </div>
+          <div class="theme-toggle-switch" id="themeSwitch">
+            <div class="theme-toggle-slider"></div>
+          </div>
+        </div>
       </nav>
       <div class="sidebar-footer">
         <button class="btn btn-primary" style="width: 100%; margin-bottom: 12px;" id="quickAddTopBtn" aria-label="Quick add new task">
@@ -652,7 +750,7 @@
                     </span>
                     <span class="quadrant-count" id="countDoFirst">0</span>
                   </div>
-                  <div class="quadrant-content"><div class="task-list" id="quickDoFirst"></div></div>
+                  <div class="quadrant-content" data-quadrant="do-first"><div class="task-list" id="quickDoFirst"></div></div>
                 </div>
                 <div class="quadrant schedule">
                   <div class="quadrant-header">
@@ -664,7 +762,7 @@
                     </span>
                     <span class="quadrant-count" id="countSchedule">0</span>
                   </div>
-                  <div class="quadrant-content"><div class="task-list" id="quickSchedule"></div></div>
+                  <div class="quadrant-content" data-quadrant="schedule"><div class="task-list" id="quickSchedule"></div></div>
                 </div>
                 <div class="quadrant delegate">
                   <div class="quadrant-header">
@@ -676,7 +774,7 @@
                     </span>
                     <span class="quadrant-count" id="countDelegate">0</span>
                   </div>
-                  <div class="quadrant-content"><div class="task-list" id="quickDelegate"></div></div>
+                  <div class="quadrant-content" data-quadrant="delegate"><div class="task-list" id="quickDelegate"></div></div>
                 </div>
                 <div class="quadrant eliminate">
                   <div class="quadrant-header">
@@ -688,7 +786,7 @@
                     </span>
                     <span class="quadrant-count" id="countEliminate">0</span>
                   </div>
-                  <div class="quadrant-content"><div class="task-list" id="quickEliminate"></div></div>
+                  <div class="quadrant-content" data-quadrant="eliminate"><div class="task-list" id="quickEliminate"></div></div>
                 </div>
               </div>
             </div>
@@ -723,7 +821,7 @@
                 </span>
                 <span class="quadrant-count" id="fullCountDoFirst">0</span>
               </div>
-              <div class="quadrant-content"><div class="task-list" id="fullDoFirst"></div></div>
+              <div class="quadrant-content" data-quadrant="do-first"><div class="task-list" id="fullDoFirst"></div></div>
             </div>
             <div class="quadrant schedule">
               <div class="quadrant-header">
@@ -735,7 +833,7 @@
                 </span>
                 <span class="quadrant-count" id="fullCountSchedule">0</span>
               </div>
-              <div class="quadrant-content"><div class="task-list" id="fullSchedule"></div></div>
+              <div class="quadrant-content" data-quadrant="schedule"><div class="task-list" id="fullSchedule"></div></div>
             </div>
             <div class="quadrant delegate">
               <div class="quadrant-header">
@@ -747,7 +845,7 @@
                 </span>
                 <span class="quadrant-count" id="fullCountDelegate">0</span>
               </div>
-              <div class="quadrant-content"><div class="task-list" id="fullDelegate"></div></div>
+              <div class="quadrant-content" data-quadrant="delegate"><div class="task-list" id="fullDelegate"></div></div>
             </div>
             <div class="quadrant eliminate">
               <div class="quadrant-header">
@@ -759,7 +857,7 @@
                 </span>
                 <span class="quadrant-count" id="fullCountEliminate">0</span>
               </div>
-              <div class="quadrant-content"><div class="task-list" id="fullEliminate"></div></div>
+              <div class="quadrant-content" data-quadrant="eliminate"><div class="task-list" id="fullEliminate"></div></div>
             </div>
           </div>
         </div>
@@ -1132,1508 +1230,1723 @@
   <script>
     'use strict';
 
-    // Store
-    class TaskStore {
-      constructor() {
-        this.STORAGE_KEY = 'priobox_v4';
-        this.PREFS_KEY = 'priobox_prefs_v4';
-        this.tasks = {};
-        this.prefs = { 
-          timerSessionsHistory: {}, 
-          completedHistory: {},
-          lastCheckin: null
-        };
-        this.load();
+// Theme Management
+class ThemeManager {
+  constructor() {
+    this.THEME_KEY = 'priobox_theme';
+    this.loadTheme();
+  }
+  
+  loadTheme() {
+    const savedTheme = localStorage.getItem(this.THEME_KEY) || 'light';
+    this.setTheme(savedTheme);
+  }
+  
+  setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem(this.THEME_KEY, theme);
+    
+    // Update toggle switch
+    const themeSwitch = document.getElementById('themeSwitch');
+    if (theme === 'dark') {
+      themeSwitch.classList.add('active');
+    } else {
+      themeSwitch.classList.remove('active');
+    }
+  }
+  
+  toggleTheme() {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    this.setTheme(newTheme);
+  }
+  
+  getTheme() {
+    return document.documentElement.getAttribute('data-theme');
+  }
+}
+
+// Drag and Drop Manager
+class DragDropManager {
+  constructor(store, renderCallback) {
+    this.store = store;
+    this.renderCallback = renderCallback;
+    this.draggedTask = null;
+    this.draggedElement = null;
+  }
+  
+  setupDragAndDrop() {
+    // Will be called after tasks are rendered
+    this.attachDragListeners();
+  }
+  
+  attachDragListeners() {
+    // Attach to all task elements
+    const tasks = document.querySelectorAll('.task');
+    tasks.forEach(task => {
+      if (!task.classList.contains('completed')) {
+        task.setAttribute('draggable', 'true');
+        task.addEventListener('dragstart', this.handleDragStart.bind(this));
+        task.addEventListener('dragend', this.handleDragEnd.bind(this));
       }
-      load() {
-        try {
-          const t = localStorage.getItem(this.STORAGE_KEY);
-          const p = localStorage.getItem(this.PREFS_KEY);
-          if (t) this.tasks = JSON.parse(t);
-          if (p) this.prefs = {...this.prefs, ...JSON.parse(p)};
-        } catch(e) { console.error(e); }
-      }
-      save() { localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.tasks)); }
-      savePrefs() { localStorage.setItem(this.PREFS_KEY, JSON.stringify(this.prefs)); }
-      addTask(data) {
-        const id = 't-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
-        this.tasks[id] = {
-          id, title: data.title || 'Untitled', description: data.description || '',
-          due: data.due || '', quadrant: data.quadrant || 'do-first', completed: false,
-          createdAt: Date.now(), estimatedMinutes: data.estimatedMinutes || 0,
-          totalMinutes: 0, lastTouched: Date.now(), subtasks: data.subtasks || [],
-          tags: data.tags || [], project: data.project || '', completedAt: null
-        };
-        this.save();
-        return id;
-      }
-      updateTask(id, updates) {
-        if (!this.tasks[id]) return false;
-        this.tasks[id] = {...this.tasks[id], ...updates, lastTouched: Date.now()};
-        this.save();
-        return true;
-      }
-      deleteTask(id) { delete this.tasks[id]; this.save(); }
-      toggleComplete(id) {
-        const t = this.tasks[id];
-        if (!t) return;
-        t.completed = !t.completed;
-        t.completedAt = t.completed ? Date.now() : null;
-        t.lastTouched = Date.now();
+    });
+    
+    // Attach to all quadrant drop zones
+    const quadrants = document.querySelectorAll('.quadrant-content');
+    quadrants.forEach(quadrant => {
+      quadrant.addEventListener('dragover', this.handleDragOver.bind(this));
+      quadrant.addEventListener('dragleave', this.handleDragLeave.bind(this));
+      quadrant.addEventListener('drop', this.handleDrop.bind(this));
+    });
+  }
+  
+  handleDragStart(e) {
+    this.draggedElement = e.currentTarget;
+    this.draggedTask = this.draggedElement.dataset.taskId;
+    this.draggedElement.classList.add('dragging');
+    
+    // Set drag data
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/html', this.draggedElement.innerHTML);
+  }
+  
+  handleDragEnd(e) {
+    this.draggedElement.classList.remove('dragging');
+    
+    // Remove all drag-over states
+    document.querySelectorAll('.quadrant-content').forEach(q => {
+      q.classList.remove('drag-over');
+    });
+  }
+  
+  handleDragOver(e) {
+    if (e.preventDefault) {
+      e.preventDefault();
+    }
+    
+    e.dataTransfer.dropEffect = 'move';
+    
+    const quadrant = e.currentTarget;
+    quadrant.classList.add('drag-over');
+    
+    return false;
+  }
+  
+  handleDragLeave(e) {
+    e.currentTarget.classList.remove('drag-over');
+  }
+  
+  handleDrop(e) {
+    if (e.stopPropagation) {
+      e.stopPropagation();
+    }
+    
+    e.preventDefault();
+    
+    const dropZone = e.currentTarget;
+    const targetQuadrant = dropZone.dataset.quadrant;
+    
+    if (this.draggedTask && targetQuadrant) {
+      const task = this.store.tasks[this.draggedTask];
+      
+      if (task && task.quadrant !== targetQuadrant) {
+        // Update task quadrant
+        this.store.updateTask(this.draggedTask, { quadrant: targetQuadrant });
         
-        // Auto-complete parent if all subtasks done
-        if (t.subtasks && t.subtasks.length > 0 && t.subtasks.every(st => st.completed)) {
-          t.completed = true;
-          t.completedAt = Date.now();
-        }
+        // Show feedback
+        this.showDropFeedback(task.title, targetQuadrant);
         
-        if (t.completed) {
-          const d = new Date().toDateString();
-          this.prefs.completedHistory[d] = (this.prefs.completedHistory[d]||0) + 1;
-          this.savePrefs();
-        }
-        this.save();
-      }
-      toggleSubtask(taskId, subtaskId) {
-        const t = this.tasks[taskId];
-        if (!t || !t.subtasks) return false;
-        const st = t.subtasks.find(s => s.id === subtaskId);
-        if (!st) return false;
-        st.completed = !st.completed;
-        
-        // Auto-complete parent if all subtasks done
-        if (t.subtasks.every(s => s.completed) && !t.completed) {
-          t.completed = true;
-          t.completedAt = Date.now();
-          const d = new Date().toDateString();
-          this.prefs.completedHistory[d] = (this.prefs.completedHistory[d]||0) + 1;
-          this.savePrefs();
-        } else if (t.completed && t.subtasks.some(s => !s.completed)) {
-          t.completed = false;
-          t.completedAt = null;
-        }
-        
-        t.lastTouched = Date.now();
-        this.save();
-        return true;
-      }
-      getAll() {
-        return Object.values(this.tasks).sort((a,b) => {
-          if (a.completed !== b.completed) return a.completed ? 1 : -1;
-          return b.createdAt - a.createdAt;
-        });
-      }
-      calculatePriorityScore(task) {
-        let score = 0;
-        const now = Date.now();
-        if (task.due) {
-          const days = (new Date(task.due) - now) / (1000*60*60*24);
-          if (days < 0) score += 40;
-          else if (days < 1) score += 35;
-          else if (days < 3) score += 25;
-          else if (days < 7) score += 15;
-        }
-        if (task.estimatedMinutes > 0) {
-          if (task.estimatedMinutes <= 15) score += 20;
-          else if (task.estimatedMinutes <= 30) score += 15;
-          else if (task.estimatedMinutes <= 60) score += 10;
-          else score += 5;
-        }
-        const daysSince = (now - task.lastTouched) / (1000*60*60*24);
-        if (daysSince < 1) score += 20;
-        else if (daysSince < 3) score += 15;
-        else if (daysSince < 7) score += 10;
-        else if (daysSince >= 14) score -= 10;
-        if (task.quadrant === 'do-first') score += 20;
-        else if (task.quadrant === 'schedule') score += 10;
-        else if (task.quadrant === 'delegate') score += 5;
-        return score;
-      }
-      getProjects() {
-        const projects = {};
-        Object.values(this.tasks).forEach(t => {
-          if (t.project) {
-            if (!projects[t.project]) {
-              projects[t.project] = { name: t.project, tasks: [], completed: 0, total: 0 };
-            }
-            projects[t.project].tasks.push(t);
-            projects[t.project].total++;
-            if (t.completed) projects[t.project].completed++;
-          }
-        });
-        return Object.values(projects);
+        // Re-render
+        this.renderCallback();
       }
     }
     
-    // Check-in banner
-    function showCheckinBanner() {
-      const today = new Date().toDateString();
-      const lastSeen = store.prefs.lastCheckin || null;
-      
-      // Don't show if already dismissed today
-      if (lastSeen === today) {
-        document.getElementById('checkinBanner').classList.add('hidden');
-        return;
-      }
-      
-      // Show banner
-      const banner = document.getElementById('checkinBanner');
-      const title = document.getElementById('checkinTitle');
-      const subtitle = document.getElementById('checkinSubtitle');
-      
-      const completedToday = store.prefs.completedHistory[today] || 0;
-      const sessionsToday = store.prefs.timerSessionsHistory[today] || 0;
-      
-      if (completedToday >= 3 || sessionsToday >= 1) {
-        title.textContent = '🔥 You\'re crushing it today!';
-        subtitle.textContent = `${completedToday} tasks completed, ${sessionsToday} focus sessions`;
-      } else if (completedToday > 0) {
-        title.textContent = '✨ Great start!';
-        subtitle.textContent = 'Keep the momentum going';
-      } else {
-        title.textContent = '👋 Welcome back!';
-        subtitle.textContent = 'Ready to make today productive?';
-      }
-      
-      banner.classList.remove('hidden');
+    dropZone.classList.remove('drag-over');
+    return false;
+  }
+  
+  showDropFeedback(taskTitle, quadrant) {
+    const quadrantNames = {
+      'do-first': '🔥 Do First',
+      'schedule': '📅 Schedule',
+      'delegate': '👥 Delegate',
+      'eliminate': '🗑️ Eliminate'
+    };
+    
+    // Create temporary notification
+    const notification = document.createElement('div');
+    notification.style.cssText = `
+      position: fixed;
+      bottom: 100px;
+      right: 24px;
+      background: var(--success);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: var(--shadow-lg);
+      z-index: 9999;
+      animation: slideInRight 0.3s ease;
+      font-size: 14px;
+      font-weight: 500;
+    `;
+    notification.textContent = `Moved to ${quadrantNames[quadrant]}`;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+      notification.style.animation = 'slideOutRight 0.3s ease';
+      setTimeout(() => notification.remove(), 300);
+    }, 2000);
+  }
+}
+
+// Store
+class TaskStore {
+  constructor() {
+    this.STORAGE_KEY = 'priobox_v4';
+    this.PREFS_KEY = 'priobox_prefs_v4';
+    this.tasks = {};
+    this.prefs = { 
+      timerSessionsHistory: {}, 
+      completedHistory: {},
+      lastCheckin: null
+    };
+    this.load();
+  }
+  load() {
+    try {
+      const t = localStorage.getItem(this.STORAGE_KEY);
+      const p = localStorage.getItem(this.PREFS_KEY);
+      if (t) this.tasks = JSON.parse(t);
+      if (p) this.prefs = {...this.prefs, ...JSON.parse(p)};
+    } catch(e) { console.error(e); }
+  }
+  save() { localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.tasks)); }
+  savePrefs() { localStorage.setItem(this.PREFS_KEY, JSON.stringify(this.prefs)); }
+  addTask(data) {
+    const id = 't-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+    this.tasks[id] = {
+      id, title: data.title || 'Untitled', description: data.description || '',
+      due: data.due || '', quadrant: data.quadrant || 'do-first', completed: false,
+      createdAt: Date.now(), estimatedMinutes: data.estimatedMinutes || 0,
+      totalMinutes: 0, lastTouched: Date.now(), subtasks: data.subtasks || [],
+      tags: data.tags || [], project: data.project || '', completedAt: null
+    };
+    this.save();
+    return id;
+  }
+  updateTask(id, updates) {
+    if (!this.tasks[id]) return false;
+    this.tasks[id] = {...this.tasks[id], ...updates, lastTouched: Date.now()};
+    this.save();
+    return true;
+  }
+  deleteTask(id) { delete this.tasks[id]; this.save(); }
+  toggleComplete(id) {
+    const t = this.tasks[id];
+    if (!t) return;
+    t.completed = !t.completed;
+    t.completedAt = t.completed ? Date.now() : null;
+    t.lastTouched = Date.now();
+    
+    // Auto-complete parent if all subtasks done
+    if (t.subtasks && t.subtasks.length > 0 && t.subtasks.every(st => st.completed)) {
+      t.completed = true;
+      t.completedAt = Date.now();
     }
     
-    // Smart keyword detection for auto-prioritization
-    function detectPriority(title) {
-      const lower = title.toLowerCase();
-      
-      if (lower.includes('urgent') || lower.includes('asap') || lower.includes('emergency')) {
-        return 'do-first';
-      }
-      if (lower.includes('later') || lower.includes('someday') || lower.includes('maybe')) {
-        return 'eliminate';
-      }
-      if (lower.includes('delegate') || lower.includes('assign') || lower.includes('someone')) {
-        return 'delegate';
-      }
-      if (lower.includes('plan') || lower.includes('schedule') || lower.includes('review')) {
-        return 'schedule';
-      }
-      if (lower.includes('today') || lower.includes('now') || lower.includes('quick')) {
-        return 'do-first';
-      }
-      
-      // Default to schedule (important but not urgent)
-      return 'schedule';
+    if (t.completed) {
+      const d = new Date().toDateString();
+      this.prefs.completedHistory[d] = (this.prefs.completedHistory[d]||0) + 1;
+      this.savePrefs();
     }
-
-    const store = new TaskStore();
-    let currentView = 'dashboard';
-    let currentEditingTask = null;
-    let selectedQuickQuadrant = null;
-
-    // Timer
-    class Timer {
-      constructor() {
-        this.time = 25*60;
-        this.running = false;
-        this.interval = null;
-        this.linkedTask = null;
-      }
-      start() {
-        if (this.running) return;
-        this.running = true;
-        document.getElementById('timerStart').classList.add('hidden');
-        document.getElementById('timerPause').classList.remove('hidden');
-        this.interval = setInterval(() => {
-          this.time--;
-          this.updateDisplay();
-          if (this.time <= 0) this.complete();
-        }, 1000);
-      }
-      pause() {
-        this.running = false;
-        clearInterval(this.interval);
-        document.getElementById('timerStart').classList.remove('hidden');
-        document.getElementById('timerPause').classList.add('hidden');
-      }
-      reset() {
-        this.pause();
-        this.time = 25*60;
-        this.updateDisplay();
-      }
-      complete() {
-        this.pause();
-        const d = new Date().toDateString();
-        store.prefs.timerSessionsHistory[d] = (store.prefs.timerSessionsHistory[d]||0) + 1;
-        store.savePrefs();
-        
-        // Suggest marking task complete if linked
-        if (this.linkedTask && store.tasks[this.linkedTask]) {
-          const task = store.tasks[this.linkedTask];
-          if (!task.completed && confirm(`🎉 Session complete!\n\nMark "${task.title}" as done?`)) {
-            store.toggleComplete(this.linkedTask);
-            render();
-          }
-        } else {
-          alert('🎉 Focus session complete!');
+    this.save();
+  }
+  toggleSubtask(taskId, subtaskId) {
+    const t = this.tasks[taskId];
+    if (!t || !t.subtasks) return false;
+    const st = t.subtasks.find(s => s.id === subtaskId);
+    if (!st) return false;
+    st.completed = !st.completed;
+    
+    // Auto-complete parent if all subtasks done
+    if (t.subtasks.every(s => s.completed) && !t.completed) {
+      t.completed = true;
+      t.completedAt = Date.now();
+      const d = new Date().toDateString();
+      this.prefs.completedHistory[d] = (this.prefs.completedHistory[d]||0) + 1;
+      this.savePrefs();
+    } else if (t.completed && t.subtasks.some(s => !s.completed)) {
+      t.completed = false;
+      t.completedAt = null;
+    }
+    
+    t.lastTouched = Date.now();
+    this.save();
+    return true;
+  }
+  getAll() {
+    return Object.values(this.tasks).sort((a,b) => {
+      if (a.completed !== b.completed) return a.completed ? 1 : -1;
+      return b.createdAt - a.createdAt;
+    });
+  }
+  calculatePriorityScore(task) {
+    let score = 0;
+    const now = Date.now();
+    if (task.due) {
+      const days = (new Date(task.due) - now) / (1000*60*60*24);
+      if (days < 0) score += 40;
+      else if (days < 1) score += 35;
+      else if (days < 3) score += 25;
+      else if (days < 7) score += 15;
+    }
+    if (task.estimatedMinutes > 0) {
+      if (task.estimatedMinutes <= 15) score += 20;
+      else if (task.estimatedMinutes <= 30) score += 15;
+      else if (task.estimatedMinutes <= 60) score += 10;
+      else score += 5;
+    }
+    const daysSince = (now - task.lastTouched) / (1000*60*60*24);
+    if (daysSince < 1) score += 20;
+    else if (daysSince < 3) score += 15;
+    else if (daysSince < 7) score += 10;
+    else if (daysSince >= 14) score -= 10;
+    if (task.quadrant === 'do-first') score += 20;
+    else if (task.quadrant === 'schedule') score += 10;
+    else if (task.quadrant === 'delegate') score += 5;
+    return score;
+  }
+  getProjects() {
+    const projects = {};
+    Object.values(this.tasks).forEach(t => {
+      if (t.project) {
+        if (!projects[t.project]) {
+          projects[t.project] = { name: t.project, tasks: [], completed: 0, total: 0 };
         }
-        
-        this.linkedTask = null;
-        this.reset();
+        projects[t.project].tasks.push(t);
+        projects[t.project].total++;
+        if (t.completed) projects[t.project].completed++;
+      }
+    });
+    return Object.values(projects);
+  }
+}
+
+// Check-in banner
+function showCheckinBanner() {
+  const today = new Date().toDateString();
+  const lastSeen = store.prefs.lastCheckin || null;
+  
+  // Don't show if already dismissed today
+  if (lastSeen === today) {
+    document.getElementById('checkinBanner').classList.add('hidden');
+    return;
+  }
+  
+  // Show banner
+  const banner = document.getElementById('checkinBanner');
+  const title = document.getElementById('checkinTitle');
+  const subtitle = document.getElementById('checkinSubtitle');
+  
+  const completedToday = store.prefs.completedHistory[today] || 0;
+  const sessionsToday = store.prefs.timerSessionsHistory[today] || 0;
+  
+  if (completedToday >= 3 || sessionsToday >= 1) {
+    title.textContent = '🔥 You\'re crushing it today!';
+    subtitle.textContent = `${completedToday} tasks completed, ${sessionsToday} focus sessions`;
+  } else if (completedToday > 0) {
+    title.textContent = '✨ Great start!';
+    subtitle.textContent = 'Keep the momentum going';
+  } else {
+    title.textContent = '👋 Welcome back!';
+    subtitle.textContent = 'Ready to make today productive?';
+  }
+  
+  banner.classList.remove('hidden');
+}
+
+// Smart keyword detection for auto-prioritization
+function detectPriority(title) {
+  const lower = title.toLowerCase();
+  
+  if (lower.includes('urgent') || lower.includes('asap') || lower.includes('emergency')) {
+    return 'do-first';
+  }
+  if (lower.includes('later') || lower.includes('someday') || lower.includes('maybe')) {
+    return 'eliminate';
+  }
+  if (lower.includes('delegate') || lower.includes('assign') || lower.includes('someone')) {
+    return 'delegate';
+  }
+  if (lower.includes('plan') || lower.includes('schedule') || lower.includes('review')) {
+    return 'schedule';
+  }
+  if (lower.includes('today') || lower.includes('now') || lower.includes('quick')) {
+    return 'do-first';
+  }
+  
+  // Default to schedule (important but not urgent)
+  return 'schedule';
+}
+
+const store = new TaskStore();
+const themeManager = new ThemeManager();
+let dragDropManager;
+let currentView = 'dashboard';
+let currentEditingTask = null;
+let selectedQuickQuadrant = null;
+
+// Timer
+class Timer {
+  constructor() {
+    this.time = 25*60;
+    this.running = false;
+    this.interval = null;
+    this.linkedTask = null;
+  }
+  start() {
+    if (this.running) return;
+    this.running = true;
+    document.getElementById('timerStart').classList.add('hidden');
+    document.getElementById('timerPause').classList.remove('hidden');
+    this.interval = setInterval(() => {
+      this.time--;
+      this.updateDisplay();
+      if (this.time <= 0) this.complete();
+    }, 1000);
+  }
+  pause() {
+    this.running = false;
+    clearInterval(this.interval);
+    document.getElementById('timerStart').classList.remove('hidden');
+    document.getElementById('timerPause').classList.add('hidden');
+  }
+  reset() {
+    this.pause();
+    this.time = 25*60;
+    this.updateDisplay();
+  }
+  complete() {
+    this.pause();
+    const d = new Date().toDateString();
+    store.prefs.timerSessionsHistory[d] = (store.prefs.timerSessionsHistory[d]||0) + 1;
+    store.savePrefs();
+    
+    // Suggest marking task complete if linked
+    if (this.linkedTask && store.tasks[this.linkedTask]) {
+      const task = store.tasks[this.linkedTask];
+      if (!task.completed && confirm(`🎉 Session complete!\n\nMark "${task.title}" as done?`)) {
+        store.toggleComplete(this.linkedTask);
         render();
       }
-      updateDisplay() {
-        const m = String(Math.floor(this.time/60)).padStart(2,'0');
-        const s = String(this.time%60).padStart(2,'0');
-        const display = `${m}:${s}`;
-        document.getElementById('timerDisplay').textContent = display;
-        document.getElementById('timerMinDisplay').textContent = display;
-      }
-    }
-
-    const timer = new Timer();
-    let nextTaskData = null;
-
-    // Utils
-    function daysSince(ts) {
-      return Math.floor((Date.now() - ts) / (1000*60*60*24));
-    }
-    function getAgingStatus(ts) {
-      const d = daysSince(ts);
-      if (d < 3) return 'fresh';
-      if (d < 7) return 'aging';
-      return 'stale';
-    }
-    function formatDate(dateStr) {
-      if (!dateStr) return '';
-      const d = new Date(dateStr);
-      const today = new Date();
-      today.setHours(0,0,0,0);
-      d.setHours(0,0,0,0);
-      const diff = (d - today) / (1000*60*60*24);
-      if (diff === 0) return 'Today';
-      if (diff === 1) return 'Tomorrow';
-      if (diff < 0) return `${Math.abs(Math.round(diff))}d overdue`;
-      return `In ${Math.round(diff)}d`;
-    }
-    function formatRelativeTime(ts) {
-      const mins = Math.floor((Date.now() - ts) / (1000*60));
-      if (mins < 60) return `${mins}m ago`;
-      const hours = Math.floor(mins / 60);
-      if (hours < 24) return `${hours}h ago`;
-      const days = Math.floor(hours / 24);
-      if (days < 7) return `${days}d ago`;
-      return new Date(ts).toLocaleDateString();
-    }
-
-    // Next Task Hero Card
-    function showNextTaskHero() {
-      const tasks = store.getAll().filter(t => !t.completed);
-      if (tasks.length === 0) {
-        alert('🎉 No tasks available!\n\nYou\'re all caught up. Great job!');
-        return;
-      }
-      
-      const scored = tasks.map(t => ({ 
-        task: t, 
-        score: store.calculatePriorityScore(t),
-        reasons: calculateReasons(t)
-      })).sort((a,b) => b.score - a.score);
-      
-      const top = scored[0];
-      nextTaskData = top;
-      
-      document.getElementById('heroTaskTitle').textContent = top.task.title;
-      
-      const reasonsDiv = document.getElementById('heroReasons');
-      reasonsDiv.innerHTML = '';
-      
-      top.reasons.forEach(reason => {
-        const reasonEl = document.createElement('div');
-        reasonEl.className = 'hero-reason';
-        reasonEl.innerHTML = `
-          <div class="hero-reason-icon">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polyline points="20 6 9 17 4 12"/>
-            </svg>
-          </div>
-          <span>${reason}</span>
-        `;
-        reasonsDiv.appendChild(reasonEl);
-      });
-      
-      document.getElementById('heroCard').classList.add('open');
+    } else {
+      alert('🎉 Focus session complete!');
     }
     
-    function calculateReasons(task) {
-      const reasons = [];
-      const now = Date.now();
-      
-      // Due date reasons
-      if (task.due) {
-        const days = (new Date(task.due) - now) / (1000*60*60*24);
-        if (days < 0) reasons.push(`Overdue by ${Math.abs(Math.round(days))} days`);
-        else if (days < 1) reasons.push('Due today - needs immediate attention');
-        else if (days < 3) reasons.push(`Due in ${Math.round(days)} days`);
-      }
-      
-      // Quick win
-      if (task.estimatedMinutes > 0 && task.estimatedMinutes <= 15) {
-        reasons.push(`Quick win - only ${task.estimatedMinutes} minutes`);
-      }
-      
-      // High priority quadrant
-      if (task.quadrant === 'do-first') {
-        reasons.push('Urgent & Important - highest priority');
-      }
-      
-      // Freshness
-      const daysSinceTouch = (now - task.lastTouched) / (1000*60*60*24);
-      if (daysSinceTouch < 1) {
-        reasons.push('Recently created - strike while hot');
-      }
-      
-      // Subtasks
-      if (task.subtasks && task.subtasks.length > 0) {
-        const completed = task.subtasks.filter(st => st.completed).length;
-        if (completed > 0) {
-          reasons.push(`Already ${completed}/${task.subtasks.length} steps done`);
-        }
-      }
-      
-      // Default if no specific reasons
-      if (reasons.length === 0) {
-        reasons.push('Good time to tackle this task');
-      }
-      
-      return reasons.slice(0, 3); // Max 3 reasons
-    }
-    
-    function closeHeroCard() {
-      document.getElementById('heroCard').classList.remove('open');
-      nextTaskData = null;
-    }
+    this.linkedTask = null;
+    this.reset();
+    render();
+  }
+  updateDisplay() {
+    const m = String(Math.floor(this.time/60)).padStart(2,'0');
+    const s = String(this.time%60).padStart(2,'0');
+    const display = `${m}:${s}`;
+    document.getElementById('timerDisplay').textContent = display;
+    document.getElementById('timerMinDisplay').textContent = display;
+  }
+}
 
-    // Task Element
-    function createTaskElement(task) {
-      const el = document.createElement('div');
-      el.className = 'task' + (task.completed ? ' completed' : '');
-      
-      const checkbox = document.createElement('div');
-      checkbox.className = 'task-checkbox' + (task.completed ? ' checked' : '');
-      if (task.completed) checkbox.textContent = '✓';
-      checkbox.onclick = (e) => { 
-        e.stopPropagation(); 
-        store.toggleComplete(task.id); 
-        render(); 
-      };
-      el.appendChild(checkbox);
-      
-      const main = document.createElement('div');
-      main.className = 'task-main';
-      
-      const titleRow = document.createElement('div');
-      titleRow.className = 'task-title-row';
-      
-      const dot = document.createElement('span');
-      dot.className = 'aging-dot ' + getAgingStatus(task.lastTouched);
-      dot.title = `Last touched: ${formatRelativeTime(task.lastTouched)}`;
-      titleRow.appendChild(dot);
-      
-      const title = document.createElement('span');
-      title.className = 'task-title';
-      title.textContent = task.title;
-      titleRow.appendChild(title);
-      
-      main.appendChild(titleRow);
-      
-      const meta = document.createElement('div');
-      meta.className = 'task-meta';
-      
-      if (task.project) {
+const timer = new Timer();
+let nextTaskData = null;
+
+// Utils
+function daysSince(ts) {
+  return Math.floor((Date.now() - ts) / (1000*60*60*24));
+}
+function getAgingStatus(ts) {
+  const d = daysSince(ts);
+  if (d < 3) return 'fresh';
+  if (d < 7) return 'aging';
+  return 'stale';
+}
+function formatDate(dateStr) {
+  if (!dateStr) return '';
+  const d = new Date(dateStr);
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  d.setHours(0,0,0,0);
+  const diff = (d - today) / (1000*60*60*24);
+  if (diff === 0) return 'Today';
+  if (diff === 1) return 'Tomorrow';
+  if (diff < 0) return `${Math.abs(Math.round(diff))}d overdue`;
+  return `In ${Math.round(diff)}d`;
+}
+function formatRelativeTime(ts) {
+  const mins = Math.floor((Date.now() - ts) / (1000*60));
+  if (mins < 60) return `${mins}m ago`;
+  const hours = Math.floor(mins / 60);
+  if (hours < 24) return `${hours}h ago`;
+  const days = Math.floor(hours / 24);
+  if (days < 7) return `${days}d ago`;
+  return new Date(ts).toLocaleDateString();
+}
+
+// Next Task Hero Card
+function showNextTaskHero() {
+  const tasks = store.getAll().filter(t => !t.completed);
+  if (tasks.length === 0) {
+    alert('🎉 No tasks available!\n\nYou\'re all caught up. Great job!');
+    return;
+  }
+  
+  const scored = tasks.map(t => ({ 
+    task: t, 
+    score: store.calculatePriorityScore(t),
+    reasons: calculateReasons(t)
+  })).sort((a,b) => b.score - a.score);
+  
+  const top = scored[0];
+  nextTaskData = top;
+  
+  document.getElementById('heroTaskTitle').textContent = top.task.title;
+  
+  const reasonsDiv = document.getElementById('heroReasons');
+  reasonsDiv.innerHTML = '';
+  
+  top.reasons.forEach(reason => {
+    const reasonEl = document.createElement('div');
+    reasonEl.className = 'hero-reason';
+    reasonEl.innerHTML = `
+      <div class="hero-reason-icon">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+      </div>
+      <span>${reason}</span>
+    `;
+    reasonsDiv.appendChild(reasonEl);
+  });
+  
+  document.getElementById('heroCard').classList.add('open');
+}
+
+function calculateReasons(task) {
+  const reasons = [];
+  const now = Date.now();
+  
+  // Due date reasons
+  if (task.due) {
+    const days = (new Date(task.due) - now) / (1000*60*60*24);
+    if (days < 0) reasons.push(`Overdue by ${Math.abs(Math.round(days))} days`);
+    else if (days < 1) reasons.push('Due today - needs immediate attention');
+    else if (days < 3) reasons.push(`Due in ${Math.round(days)} days`);
+  }
+  
+  // Quick win
+  if (task.estimatedMinutes > 0 && task.estimatedMinutes <= 15) {
+    reasons.push(`Quick win - only ${task.estimatedMinutes} minutes`);
+  }
+  
+  // High priority quadrant
+  if (task.quadrant === 'do-first') {
+    reasons.push('Urgent & Important - highest priority');
+  }
+  
+  // Freshness
+  const daysSinceTouch = (now - task.lastTouched) / (1000*60*60*24);
+  if (daysSinceTouch < 1) {
+    reasons.push('Recently created - strike while hot');
+  }
+  
+  // Subtasks
+  if (task.subtasks && task.subtasks.length > 0) {
+    const completed = task.subtasks.filter(st => st.completed).length;
+    if (completed > 0) {
+      reasons.push(`Already ${completed}/${task.subtasks.length} steps done`);
+    }
+  }
+  
+  // Default if no specific reasons
+  if (reasons.length === 0) {
+    reasons.push('Good time to tackle this task');
+  }
+  
+  return reasons.slice(0, 3); // Max 3 reasons
+}
+
+function closeHeroCard() {
+  document.getElementById('heroCard').classList.remove('open');
+  nextTaskData = null;
+}
+
+// Task Element
+function createTaskElement(task) {
+  const el = document.createElement('div');
+  el.className = 'task' + (task.completed ? ' completed' : '');
+  el.dataset.taskId = task.id;
+  
+  const checkbox = document.createElement('div');
+  checkbox.className = 'task-checkbox' + (task.completed ? ' checked' : '');
+  if (task.completed) checkbox.textContent = '✓';
+  checkbox.onclick = (e) => { 
+    e.stopPropagation(); 
+    store.toggleComplete(task.id); 
+    render(); 
+  };
+  el.appendChild(checkbox);
+  
+  const main = document.createElement('div');
+  main.className = 'task-main';
+  
+  const titleRow = document.createElement('div');
+  titleRow.className = 'task-title-row';
+  
+  const dot = document.createElement('span');
+  dot.className = 'aging-dot ' + getAgingStatus(task.lastTouched);
+  dot.title = `Last touched: ${formatRelativeTime(task.lastTouched)}`;
+  titleRow.appendChild(dot);
+  
+  const title = document.createElement('span');
+  title.className = 'task-title';
+  title.textContent = task.title;
+  titleRow.appendChild(title);
+  
+  main.appendChild(titleRow);
+  
+  const meta = document.createElement('div');
+  meta.className = 'task-meta';
+  
+  if (task.project) {
+    const badge = document.createElement('span');
+    badge.className = 'task-badge project';
+    badge.innerHTML = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 4px;"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>' + task.project;
+    meta.appendChild(badge);
+  }
+  
+  if (task.tags && task.tags.length > 0) {
+    task.tags.forEach(tag => {
+      const badge = document.createElement('span');
+      badge.className = 'task-badge tag';
+      badge.textContent = '#' + tag;
+      meta.appendChild(badge);
+    });
+  }
+  
+  if (task.subtasks && task.subtasks.length > 0) {
+    const completed = task.subtasks.filter(st => st.completed).length;
+    const span = document.createElement('span');
+    span.innerHTML = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 4px;"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>' + `${completed}/${task.subtasks.length}`;
+    meta.appendChild(span);
+  }
+  
+  if (task.estimatedMinutes) {
+    const span = document.createElement('span');
+    span.innerHTML = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 4px;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>' + task.estimatedMinutes + 'm';
+    meta.appendChild(span);
+  }
+  
+  if (task.due) {
+    const span = document.createElement('span');
+    span.innerHTML = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 4px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>' + formatDate(task.due);
+    const isOverdue = new Date(task.due) < new Date() && !task.completed;
+    if (isOverdue) {
+      span.style.color = 'var(--danger)';
+      span.style.fontWeight = '600';
+    }
+    meta.appendChild(span);
+  }
+  
+  main.appendChild(meta);
+  
+  if (task.subtasks && task.subtasks.length > 0) {
+    const prog = document.createElement('div');
+    prog.className = 'progress-bar';
+    const fill = document.createElement('div');
+    fill.className = 'progress-fill';
+    const completed = task.subtasks.filter(st => st.completed).length;
+    fill.style.width = (completed / task.subtasks.length * 100) + '%';
+    prog.appendChild(fill);
+    main.appendChild(prog);
+  }
+  
+  el.appendChild(main);
+  
+  const actions = document.createElement('div');
+  actions.className = 'task-actions';
+  
+  const editBtn = document.createElement('button');
+  editBtn.className = 'task-action-btn';
+  editBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>';
+  editBtn.title = 'Edit';
+  editBtn.onclick = (e) => { 
+    e.stopPropagation(); 
+    openTaskModal(task); 
+  };
+  actions.appendChild(editBtn);
+  
+  el.appendChild(actions);
+  el.onclick = () => openTaskModal(task);
+  
+  return el;
+}
+
+// Render
+function render() {
+  const tasks = store.getAll();
+  const incomplete = tasks.filter(t => !t.completed);
+  
+  // Check-in banner
+  showCheckinBanner();
+  
+  // Stats
+  const today = new Date().toDateString();
+  const completedToday = store.prefs.completedHistory[today] || 0;
+  
+  const stale = incomplete.filter(t => daysSince(t.lastTouched) >= 14).length;
+  document.getElementById('staleCount').textContent = stale;
+  
+  // Weekly completed
+  let weeklyTotal = 0;
+  for (let i = 0; i < 7; i++) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    const ds = d.toDateString();
+    weeklyTotal += store.prefs.completedHistory[ds] || 0;
+  }
+  document.getElementById('weeklyCompleted').textContent = weeklyTotal;
+  
+  // Consistency streak
+  let consistent = 0;
+  for (let i = 0; i < 7; i++) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    const ds = d.toDateString();
+    const c = store.prefs.completedHistory[ds] || 0;
+    const s = store.prefs.timerSessionsHistory[ds] || 0;
+    if (c >= 3 || s >= 1) consistent++;
+  }
+  document.getElementById('streakValue').textContent = `${consistent}/7`;
+  
+  const sessions = store.prefs.timerSessionsHistory[today] || 0;
+  document.getElementById('sessionsToday').textContent = sessions;
+  
+  // Priority Queue
+  const scored = incomplete.map(t => ({ task: t, score: store.calculatePriorityScore(t) }))
+    .sort((a,b) => b.score - a.score).slice(0, 8); // Increased to 8 tasks
+  const pq = document.getElementById('priorityQueue');
+  pq.innerHTML = '';
+  if (scored.length === 0) {
+    pq.innerHTML = '<div class="empty-state"><div class="empty-icon"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div>All caught up!</div></div>';
+  } else {
+    scored.forEach(({task}, index) => {
+      const el = createTaskElement(task);
+      // Add #1 badge to top priority
+      if (index === 0) {
         const badge = document.createElement('span');
-        badge.className = 'task-badge project';
-        badge.innerHTML = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 4px;"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>' + task.project;
-        meta.appendChild(badge);
+        badge.style.cssText = 'position: absolute; top: 12px; right: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; box-shadow: 0 2px 8px rgba(102,126,234,0.4);';
+        badge.innerHTML = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 3px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>#1';
+        el.style.position = 'relative';
+        el.style.border = '2px solid #667eea';
+        el.style.background = 'linear-gradient(to right, #f8f9ff, #ffffff)';
+        el.insertBefore(badge, el.firstChild);
       }
-      
-      if (task.tags && task.tags.length > 0) {
-        task.tags.forEach(tag => {
-          const badge = document.createElement('span');
-          badge.className = 'task-badge tag';
-          badge.textContent = '#' + tag;
-          meta.appendChild(badge);
-        });
-      }
-      
-      if (task.subtasks && task.subtasks.length > 0) {
-        const completed = task.subtasks.filter(st => st.completed).length;
-        const span = document.createElement('span');
-        span.innerHTML = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 4px;"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>' + `${completed}/${task.subtasks.length}`;
-        meta.appendChild(span);
-      }
-      
-      if (task.estimatedMinutes) {
-        const span = document.createElement('span');
-        span.innerHTML = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 4px;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>' + task.estimatedMinutes + 'm';
-        meta.appendChild(span);
-      }
-      
-      if (task.due) {
-        const span = document.createElement('span');
-        span.innerHTML = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 4px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>' + formatDate(task.due);
-        const isOverdue = new Date(task.due) < new Date() && !task.completed;
-        if (isOverdue) {
-          span.style.color = 'var(--danger)';
-          span.style.fontWeight = '600';
-        }
-        meta.appendChild(span);
-      }
-      
-      main.appendChild(meta);
-      
-      if (task.subtasks && task.subtasks.length > 0) {
-        const prog = document.createElement('div');
-        prog.className = 'progress-bar';
-        const fill = document.createElement('div');
-        fill.className = 'progress-fill';
-        const completed = task.subtasks.filter(st => st.completed).length;
-        fill.style.width = (completed / task.subtasks.length * 100) + '%';
-        prog.appendChild(fill);
-        main.appendChild(prog);
-      }
-      
-      el.appendChild(main);
-      
-      const actions = document.createElement('div');
-      actions.className = 'task-actions';
-      
-      const editBtn = document.createElement('button');
-      editBtn.className = 'task-action-btn';
-      editBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>';
-      editBtn.title = 'Edit';
-      editBtn.onclick = (e) => { 
-        e.stopPropagation(); 
-        openTaskModal(task); 
-      };
-      actions.appendChild(editBtn);
-      
-      el.appendChild(actions);
-      el.onclick = () => openTaskModal(task);
-      
-      return el;
-    }
-
-    // Render
-    function render() {
-      const tasks = store.getAll();
-      const incomplete = tasks.filter(t => !t.completed);
-      
-      // Check-in banner
-      showCheckinBanner();
-      
-      // Stats
-      const today = new Date().toDateString();
-      const completedToday = store.prefs.completedHistory[today] || 0;
-      
-      const stale = incomplete.filter(t => daysSince(t.lastTouched) >= 14).length;
-      document.getElementById('staleCount').textContent = stale;
-      
-      // Weekly completed
-      let weeklyTotal = 0;
-      for (let i = 0; i < 7; i++) {
-        const d = new Date();
-        d.setDate(d.getDate() - i);
-        const ds = d.toDateString();
-        weeklyTotal += store.prefs.completedHistory[ds] || 0;
-      }
-      document.getElementById('weeklyCompleted').textContent = weeklyTotal;
-      
-      // Consistency streak
-      let consistent = 0;
-      for (let i = 0; i < 7; i++) {
-        const d = new Date();
-        d.setDate(d.getDate() - i);
-        const ds = d.toDateString();
-        const c = store.prefs.completedHistory[ds] || 0;
-        const s = store.prefs.timerSessionsHistory[ds] || 0;
-        if (c >= 3 || s >= 1) consistent++;
-      }
-      document.getElementById('streakValue').textContent = `${consistent}/7`;
-      
-      const sessions = store.prefs.timerSessionsHistory[today] || 0;
-      document.getElementById('sessionsToday').textContent = sessions;
-      
-      // Priority Queue
-      const scored = incomplete.map(t => ({ task: t, score: store.calculatePriorityScore(t) }))
-        .sort((a,b) => b.score - a.score).slice(0, 8); // Increased to 8 tasks
-      const pq = document.getElementById('priorityQueue');
-      pq.innerHTML = '';
-      if (scored.length === 0) {
-        pq.innerHTML = '<div class="empty-state"><div class="empty-icon"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div>All caught up!</div></div>';
+      pq.appendChild(el);
+    });
+  }
+  
+  document.getElementById('todayCount').textContent = scored.length;
+  document.getElementById('focusCount').textContent = scored.length;
+  
+  // Matrix
+  ['do-first', 'schedule', 'delegate', 'eliminate'].forEach(q => {
+    const qTasks = incomplete.filter(t => t.quadrant === q);
+    const qName = q.split('-').map(w => w[0].toUpperCase() + w.slice(1)).join('');
+    
+    // Dashboard quick view counts
+    const countEl = document.getElementById('count' + qName);
+    if (countEl) countEl.textContent = qTasks.length;
+    
+    // Matrix full view counts
+    const fullCountEl = document.getElementById('fullCount' + qName);
+    if (fullCountEl) fullCountEl.textContent = qTasks.length;
+    
+    // Dashboard quick lists (top 3)
+    const quickList = document.getElementById('quick' + qName);
+    if (quickList) {
+      quickList.innerHTML = '';
+      const tasksToShow = qTasks.slice(0, 3);
+      if (tasksToShow.length === 0) {
+        quickList.innerHTML = '<div style="text-align: center; padding: 20px; color: var(--text-muted); font-size: 13px;">No tasks</div>';
       } else {
-        scored.forEach(({task}, index) => {
-          const el = createTaskElement(task);
-          // Add #1 badge to top priority
-          if (index === 0) {
-            const badge = document.createElement('span');
-            badge.style.cssText = 'position: absolute; top: 12px; right: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; box-shadow: 0 2px 8px rgba(102,126,234,0.4);';
-            badge.innerHTML = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 3px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>#1';
-            el.style.position = 'relative';
-            el.style.border = '2px solid #667eea';
-            el.style.background = 'linear-gradient(to right, #f8f9ff, #ffffff)';
-            el.insertBefore(badge, el.firstChild);
-          }
-          pq.appendChild(el);
-        });
-      }
-      
-      document.getElementById('todayCount').textContent = scored.length;
-      document.getElementById('focusCount').textContent = scored.length;
-      
-      // Matrix
-      ['do-first', 'schedule', 'delegate', 'eliminate'].forEach(q => {
-        const qTasks = incomplete.filter(t => t.quadrant === q);
-        const qName = q.split('-').map(w => w[0].toUpperCase() + w.slice(1)).join('');
-        
-        // Dashboard quick view counts
-        const countEl = document.getElementById('count' + qName);
-        if (countEl) countEl.textContent = qTasks.length;
-        
-        // Matrix full view counts
-        const fullCountEl = document.getElementById('fullCount' + qName);
-        if (fullCountEl) fullCountEl.textContent = qTasks.length;
-        
-        // Dashboard quick lists (top 3)
-        const quickList = document.getElementById('quick' + qName);
-        if (quickList) {
-          quickList.innerHTML = '';
-          const tasksToShow = qTasks.slice(0, 3);
-          if (tasksToShow.length === 0) {
-            quickList.innerHTML = '<div style="text-align: center; padding: 20px; color: var(--text-muted); font-size: 13px;">No tasks</div>';
-          } else {
-            tasksToShow.forEach(t => quickList.appendChild(createTaskElement(t)));
-          }
-        }
-        
-        // Matrix full view lists (all tasks)
-        const fullList = document.getElementById('full' + qName);
-        if (fullList) {
-          fullList.innerHTML = '';
-          if (qTasks.length === 0) {
-            fullList.innerHTML = '<div class="empty-state" style="padding: 20px;"><div style="opacity: 0.5;">No tasks</div></div>';
-          } else {
-            qTasks.forEach(t => fullList.appendChild(createTaskElement(t)));
-          }
-        }
-      });
-      
-      // Focus view
-      const focusList = document.getElementById('focusList');
-      focusList.innerHTML = '';
-      if (scored.length === 0) {
-        focusList.innerHTML = '<div class="empty-state"><div class="empty-icon"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg></div><div>No focus tasks. Great job!</div></div>';
-      } else {
-        scored.forEach(({task}) => focusList.appendChild(createTaskElement(task)));
-      }
-      
-      // Projects
-      const projects = store.getProjects();
-      const projList = document.getElementById('projectsList');
-      projList.innerHTML = '';
-      if (projects.length === 0) {
-        projList.innerHTML = '<div class="empty-state"><div class="empty-icon"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></div><div>No projects yet</div></div>';
-      } else {
-        projects.forEach(p => {
-          const card = document.createElement('div');
-          card.className = 'project-card';
-          card.innerHTML = `
-            <div class="project-header">
-              <div class="project-name">${p.name}</div>
-              <div>${p.completed}/${p.total}</div>
-            </div>
-            <div class="progress-bar" style="margin-bottom: 12px;">
-              <div class="progress-fill" style="width: ${p.total ? p.completed/p.total*100 : 0}%"></div>
-            </div>
-          `;
-          projList.appendChild(card);
-        });
-      }
-      
-      // History
-      const completed = tasks.filter(t => t.completed && t.completedAt).sort((a,b) => b.completedAt - a.completedAt);
-      const histList = document.getElementById('historyList');
-      histList.innerHTML = '';
-      if (completed.length === 0) {
-        histList.innerHTML = '<div class="empty-state"><div class="empty-icon"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div>No completed tasks yet</div></div>';
-      } else {
-        completed.forEach(t => {
-          const item = document.createElement('div');
-          item.className = 'history-item';
-          item.innerHTML = `
-            <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 4px;">${formatRelativeTime(t.completedAt)}</div>
-            <div style="font-weight: 600;">${t.title}</div>
-          `;
-          histList.appendChild(item);
-        });
-      }
-      
-      // Insights View
-      if (currentView === 'insights') {
-        renderInsights();
+        tasksToShow.forEach(t => quickList.appendChild(createTaskElement(t)));
       }
     }
     
-    function renderInsights() {
-      const tasks = store.getAll();
-      const completed = tasks.filter(t => t.completed);
-      
-      // Total tasks
-      document.getElementById('insightTotalTasks').textContent = tasks.length;
-      
-      // Completion rate
-      const completionRate = tasks.length > 0 ? Math.round((completed.length / tasks.length) * 100) : 0;
-      document.getElementById('insightCompletionRate').textContent = completionRate + '%';
-      
-      // Avg time to complete
-      if (completed.length > 0) {
-        const avgDays = completed.reduce((sum, t) => {
-          const days = (t.completedAt - t.createdAt) / (1000*60*60*24);
-          return sum + days;
-        }, 0) / completed.length;
-        document.getElementById('insightAvgTime').textContent = Math.round(avgDays) + 'd';
+    // Matrix full view lists (all tasks)
+    const fullList = document.getElementById('full' + qName);
+    if (fullList) {
+      fullList.innerHTML = '';
+      if (qTasks.length === 0) {
+        fullList.innerHTML = '<div class="empty-state" style="padding: 20px;"><div style="opacity: 0.5;">No tasks</div></div>';
       } else {
-        document.getElementById('insightAvgTime').textContent = '0d';
-      }
-      
-      // Most productive day
-      const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-      const dayCounts = {};
-      Object.entries(store.prefs.completedHistory).forEach(([dateStr, count]) => {
-        const day = new Date(dateStr).getDay();
-        dayCounts[day] = (dayCounts[day] || 0) + count;
-      });
-      const maxDay = Object.entries(dayCounts).sort((a,b) => b[1] - a[1])[0];
-      document.getElementById('insightBestDay').textContent = maxDay ? dayNames[maxDay[0]] : '—';
-      
-      // 7-day activity chart
-      const chartDiv = document.getElementById('activityChart');
-      chartDiv.innerHTML = '';
-      const maxCount = 10;
-      for (let i = 6; i >= 0; i--) {
-        const date = new Date();
-        date.setDate(date.getDate() - i);
-        const dateStr = date.toDateString();
-        const count = store.prefs.completedHistory[dateStr] || 0;
-        const height = Math.max(20, (count / maxCount) * 160);
-        
-        const bar = document.createElement('div');
-        bar.style.cssText = `
-          flex: 1;
-          background: var(--accent);
-          border-radius: 4px 4px 0 0;
-          height: ${height}px;
-          position: relative;
-          transition: all 0.2s;
-          cursor: pointer;
-        `;
-        bar.onmouseenter = () => { bar.style.background = 'var(--accent-hover)'; };
-        bar.onmouseleave = () => { bar.style.background = 'var(--accent)'; };
-        bar.title = `${dayNames[date.getDay()]}: ${count} tasks`;
-        
-        const label = document.createElement('div');
-        label.style.cssText = 'position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%); font-size: 11px; color: var(--text-muted);';
-        label.textContent = dayNames[date.getDay()];
-        bar.appendChild(label);
-        
-        chartDiv.appendChild(bar);
-      }
-      
-      // Quadrant breakdown
-      const quadBreakdown = document.getElementById('quadrantBreakdown');
-      quadBreakdown.innerHTML = '';
-      const quadCounts = { 'do-first': 0, 'schedule': 0, 'delegate': 0, 'eliminate': 0 };
-      tasks.forEach(t => quadCounts[t.quadrant]++);
-      const quadNames = { 'do-first': 'Do First', 'schedule': 'Schedule', 'delegate': 'Delegate', 'eliminate': 'Eliminate' };
-      const quadColors = { 'do-first': '#ef4444', 'schedule': '#f59e0b', 'delegate': '#10b981', 'eliminate': '#3b82f6' };
-      
-      Object.entries(quadCounts).forEach(([quad, count]) => {
-        const item = document.createElement('div');
-        item.style.cssText = 'display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border);';
-        item.innerHTML = `
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <div style="width: 12px; height: 12px; border-radius: 3px; background: ${quadColors[quad]};"></div>
-            <span>${quadNames[quad]}</span>
-          </div>
-          <strong>${count}</strong>
-        `;
-        quadBreakdown.appendChild(item);
-      });
-      
-      // Top projects
-      const topProj = document.getElementById('topProjects');
-      topProj.innerHTML = '';
-      const projects = store.getProjects().sort((a,b) => b.total - a.total).slice(0, 5);
-      if (projects.length === 0) {
-        topProj.innerHTML = '<div style="text-align: center; padding: 20px; color: var(--text-muted);">No projects yet</div>';
-      } else {
-        projects.forEach(p => {
-          const item = document.createElement('div');
-          item.style.cssText = 'padding: 8px 0; border-bottom: 1px solid var(--border);';
-          item.innerHTML = `
-            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
-              <strong>${p.name}</strong>
-              <span style="color: var(--text-muted);">${p.completed}/${p.total}</span>
-            </div>
-            <div class="progress-bar" style="height: 6px;">
-              <div class="progress-fill" style="width: ${p.total ? (p.completed/p.total*100) : 0}%"></div>
-            </div>
-          `;
-          topProj.appendChild(item);
-        });
-      }
-      
-      // Aging tasks
-      const agingDiv = document.getElementById('agingTasks');
-      agingDiv.innerHTML = '';
-      const agingTasks = tasks.filter(t => !t.completed && daysSince(t.lastTouched) >= 14);
-      if (agingTasks.length === 0) {
-        agingDiv.innerHTML = '<div style="text-align: center; padding: 20px; color: var(--success);">✓ No stale tasks! Great job staying on top of things.</div>';
-      } else {
-        agingTasks.forEach(t => {
-          const item = document.createElement('div');
-          item.style.cssText = 'padding: 12px; background: var(--warning-light); border-radius: 8px; margin-bottom: 8px; border-left: 3px solid var(--warning); cursor: pointer;';
-          item.innerHTML = `
-            <div style="font-weight: 600;">${t.title}</div>
-            <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Untouched for ${daysSince(t.lastTouched)} days</div>
-          `;
-          item.onclick = () => openTaskModal(t);
-          agingDiv.appendChild(item);
-        });
+        qTasks.forEach(t => fullList.appendChild(createTaskElement(t)));
       }
     }
-
-    // Modal
-    function openTaskModal(task = null) {
-      currentEditingTask = task;
-      document.getElementById('modalTitle').textContent = task ? 'Edit Task' : 'New Task';
-      document.getElementById('taskId').value = task ? task.id : '';
-      document.getElementById('taskTitle').value = task ? task.title : '';
-      document.getElementById('taskDescription').value = task ? task.description : '';
-      document.getElementById('taskEstimate').value = task ? task.estimatedMinutes : '';
-      document.getElementById('taskDue').value = task ? task.due : '';
-      document.getElementById('taskQuadrant').value = task ? task.quadrant : 'do-first';
-      document.getElementById('taskProject').value = task ? task.project : '';
-      
-      // Clear inputs
-      document.getElementById('newTag').value = '';
-      document.getElementById('newSubtask').value = '';
-      
-      const tagsContainer = document.getElementById('taskTags');
-      tagsContainer.innerHTML = '';
-      if (task && task.tags && task.tags.length > 0) {
-        task.tags.forEach(tag => {
-          const chip = document.createElement('span');
-          chip.className = 'tag-chip';
-          const btn = document.createElement('button');
-          btn.textContent = '×';
-          btn.onclick = () => {
-            const updatedTags = task.tags.filter(t => t !== tag);
-            store.updateTask(task.id, { tags: updatedTags });
-            currentEditingTask.tags = updatedTags;
-            openTaskModal(currentEditingTask);
-          };
-          chip.textContent = tag + ' ';
-          chip.appendChild(btn);
-          tagsContainer.appendChild(chip);
-        });
-      }
-      
-      const subtasksList = document.getElementById('subtasksList');
-      subtasksList.innerHTML = '';
-      if (task && task.subtasks && task.subtasks.length > 0) {
-        task.subtasks.forEach(st => {
-          const item = document.createElement('div');
-          item.className = 'subtask-item';
-          
-          const checkbox = document.createElement('input');
-          checkbox.type = 'checkbox';
-          checkbox.checked = st.completed;
-          checkbox.onchange = (e) => {
-            store.toggleSubtask(task.id, st.id);
-            const updatedTask = store.tasks[task.id];
-            currentEditingTask = updatedTask;
-            openTaskModal(updatedTask);
-          };
-          item.appendChild(checkbox);
-          
-          const input = document.createElement('input');
-          input.type = 'text';
-          input.value = st.title;
-          input.readOnly = true;
-          item.appendChild(input);
-          
-          const btn = document.createElement('button');
-          btn.textContent = '×';
-          btn.onclick = () => {
-            const updatedSubtasks = task.subtasks.filter(s => s.id !== st.id);
-            store.updateTask(task.id, { subtasks: updatedSubtasks });
-            currentEditingTask.subtasks = updatedSubtasks;
-            openTaskModal(currentEditingTask);
-          };
-          item.appendChild(btn);
-          
-          subtasksList.appendChild(item);
-        });
-      }
-      
-      document.getElementById('deleteTaskBtn').style.display = task ? 'block' : 'none';
-      document.getElementById('taskModal').classList.add('open');
-      
-      // Focus title input
-      setTimeout(() => document.getElementById('taskTitle').focus(), 100);
-    }
-
-    function closeTaskModal() {
-      document.getElementById('taskModal').classList.remove('open');
-      currentEditingTask = null;
-    }
-
-    function saveTask() {
-      const title = document.getElementById('taskTitle').value.trim();
-      if (!title) { 
-        alert('⚠️ Task title is required');
-        document.getElementById('taskTitle').focus();
-        return; 
-      }
-      
-      const data = {
-        title,
-        description: document.getElementById('taskDescription').value.trim(),
-        estimatedMinutes: parseInt(document.getElementById('taskEstimate').value) || 0,
-        due: document.getElementById('taskDue').value,
-        quadrant: document.getElementById('taskQuadrant').value,
-        project: document.getElementById('taskProject').value.trim()
-      };
-      
-      if (currentEditingTask) {
-        // Preserve existing tags and subtasks
-        data.tags = currentEditingTask.tags || [];
-        data.subtasks = currentEditingTask.subtasks || [];
-        data.totalMinutes = currentEditingTask.totalMinutes || 0;
-        store.updateTask(currentEditingTask.id, data);
-      } else {
-        store.addTask(data);
-      }
-      
-      closeTaskModal();
-      render();
-    }
-
-    // Event listeners
-    document.querySelectorAll('.nav-item').forEach(item => {
-      item.addEventListener('click', () => {
-        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-        item.classList.add('active');
-        currentView = item.dataset.view;
-        document.querySelectorAll('#contentArea > div').forEach(v => v.classList.add('hidden'));
-        document.getElementById(currentView + 'View').classList.remove('hidden');
-        
-        // Render insights when switching to that view
-        if (currentView === 'insights') {
-          renderInsights();
-        }
-      });
-    });
-
-    document.getElementById('newTaskBtn').addEventListener('click', () => openTaskModal());
-    document.getElementById('modalClose').addEventListener('click', closeTaskModal);
-    document.getElementById('cancelTaskBtn').addEventListener('click', closeTaskModal);
-    
-    // Quick Add Modal
-    document.getElementById('quickAddTopBtn').addEventListener('click', () => {
-      document.getElementById('quickAddModal').classList.add('open');
-      document.getElementById('quickTaskTitle').focus();
-      selectedQuickQuadrant = null;
-    });
-    
-    document.getElementById('quickAddClose').addEventListener('click', () => {
-      document.getElementById('quickAddModal').classList.remove('open');
-      document.getElementById('quickTaskTitle').value = '';
-      selectedQuickQuadrant = null;
-      // Reset button styles
-      document.querySelectorAll('#quickAddModal [data-quadrant]').forEach(btn => {
-        btn.style.borderColor = 'var(--border)';
-        btn.style.background = 'var(--panel)';
-      });
-    });
-    
-    document.getElementById('quickAddCancel').addEventListener('click', () => {
-      document.getElementById('quickAddClose').click();
-    });
-    
-    // Quadrant selection buttons
-    document.querySelectorAll('#quickAddModal [data-quadrant]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        // Reset all buttons
-        document.querySelectorAll('#quickAddModal [data-quadrant]').forEach(b => {
-          b.style.borderColor = 'var(--border)';
-          b.style.background = 'var(--panel)';
-        });
-        // Highlight selected
-        btn.style.borderColor = 'var(--accent)';
-        btn.style.background = 'var(--accent-light)';
-        selectedQuickQuadrant = btn.dataset.quadrant;
-      });
-    });
-    
-    document.getElementById('quickAddSave').addEventListener('click', () => {
-      const title = document.getElementById('quickTaskTitle').value.trim();
-      if (!title) {
-        alert('Please enter a task title');
-        return;
-      }
-      
-      // Use selected quadrant or auto-detect
-      const quadrant = selectedQuickQuadrant || detectPriority(title);
-      
-      store.addTask({ title, quadrant });
-      
-      // Show success message
-      const quadrantNames = {
-        'do-first': 'Do First',
-        'schedule': 'Schedule',
-        'delegate': 'Delegate',
-        'eliminate': 'Eliminate'
-      };
-      
-      alert(`✓ Task added to ${quadrantNames[quadrant]}!\n\n"${title}"`);
-      
-      document.getElementById('quickAddClose').click();
-      render();
-    });
-    
-    // Enter key to save
-    document.getElementById('quickTaskTitle').addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        document.getElementById('quickAddSave').click();
-      }
-    });
-    
-    // Check-in banner
-    document.getElementById('closeCheckin').addEventListener('click', () => {
-      document.getElementById('checkinBanner').classList.add('hidden');
-      store.prefs.lastCheckin = new Date().toDateString();
-      store.savePrefs();
-    });
-    
-    // Streak card click
-    document.getElementById('streakCard').addEventListener('click', () => {
-      document.getElementById('streakModal').classList.add('open');
-      renderStreakDetails();
-    });
-    
-    document.getElementById('closeStreakModal').addEventListener('click', () => {
-      document.getElementById('streakModal').classList.remove('open');
-    });
-    
-    function renderStreakDetails() {
-      const grid = document.getElementById('streakGrid');
-      grid.innerHTML = '';
-      const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-      
-      for (let i = 6; i >= 0; i--) {
-        const date = new Date();
-        date.setDate(date.getDate() - i);
-        const dateStr = date.toDateString();
-        const completed = store.prefs.completedHistory[dateStr] || 0;
-        const sessions = store.prefs.timerSessionsHistory[dateStr] || 0;
-        const isActive = completed >= 3 || sessions >= 1;
-        
-        const day = document.createElement('div');
-        day.className = 'streak-day' + (isActive ? ' active' : '');
-        day.innerHTML = `
-          <div class="streak-day-label">${dayNames[date.getDay()]}</div>
-          <div class="streak-day-count">${completed}</div>
-        `;
-        day.title = `${completed} tasks, ${sessions} sessions`;
-        grid.appendChild(day);
-      }
-    }
-    document.getElementById('saveTaskBtn').addEventListener('click', saveTask);
-    document.getElementById('deleteTaskBtn').addEventListener('click', () => {
-      if (!currentEditingTask || !confirm('Delete this task?')) return;
-      store.deleteTask(currentEditingTask.id);
-      closeTaskModal();
-      render();
-    });
-
-    document.getElementById('addTagBtn').addEventListener('click', () => {
-      if (!currentEditingTask) {
-        alert('⚠️ Please save the task first before adding tags');
-        return;
-      }
-      const tag = document.getElementById('newTag').value.trim();
-      if (!tag) {
-        alert('⚠️ Please enter a tag name');
-        return;
-      }
-      const updatedTags = [...(currentEditingTask.tags || []), tag];
-      store.updateTask(currentEditingTask.id, { tags: updatedTags });
-      currentEditingTask.tags = updatedTags;
-      document.getElementById('newTag').value = '';
-      openTaskModal(currentEditingTask);
-    });
-
-    document.getElementById('newTag').addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        document.getElementById('addTagBtn').click();
-      }
-    });
-
-    document.getElementById('addSubtaskBtn').addEventListener('click', () => {
-      if (!currentEditingTask) {
-        alert('⚠️ Please save the task first before adding subtasks');
-        return;
-      }
-      const title = document.getElementById('newSubtask').value.trim();
-      if (!title) {
-        alert('⚠️ Please enter a subtask title');
-        return;
-      }
-      const st = { id: 'st-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9), title, completed: false };
-      const updatedSubtasks = [...(currentEditingTask.subtasks || []), st];
-      store.updateTask(currentEditingTask.id, { subtasks: updatedSubtasks });
-      currentEditingTask.subtasks = updatedSubtasks;
-      document.getElementById('newSubtask').value = '';
-      openTaskModal(currentEditingTask);
-    });
-
-    document.getElementById('newSubtask').addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        document.getElementById('addSubtaskBtn').click();
-      }
-    });
-
-    document.getElementById('timerStart').addEventListener('click', () => timer.start());
-    document.getElementById('timerPause').addEventListener('click', () => timer.pause());
-    document.getElementById('timerReset').addEventListener('click', () => timer.reset());
-    document.getElementById('timerMinimize').addEventListener('click', () => {
-      const float = document.getElementById('timerFloat');
-      float.classList.toggle('minimized');
-      document.querySelector('.timer-content').classList.toggle('hidden');
-      document.getElementById('timerMinimizedContent').classList.toggle('hidden');
-    });
-
-    document.getElementById('autoPrioritizeBtn').addEventListener('click', () => {
-      const tasks = store.getAll().filter(t => !t.completed);
-      if (tasks.length === 0) {
-        alert('✓ No active tasks to prioritize!\n\nYou\'re all caught up.');
-        return;
-      }
-      const scored = tasks.map(t => ({
-        task: t,
-        score: store.calculatePriorityScore(t)
-      })).sort((a, b) => b.score - a.score);
-      
-      const top3 = scored.slice(0, 3);
-      const message = 'Auto-Prioritized Successfully\n\nTop 3 priorities:\n\n' + 
-        top3.map((item, i) => `${i + 1}. ${item.task.title} (score: ${item.score})`).join('\n');
-      
-      alert(message);
-      render();
-    });
-
-    document.getElementById('refreshPriority').addEventListener('click', () => {
-      render();
-    });
-    
-    // Next Task Hero Card
-    document.getElementById('showNextTaskBtn').addEventListener('click', () => {
-      showNextTaskHero();
-    });
-    
-    document.getElementById('heroStartBtn').addEventListener('click', () => {
-      if (!nextTaskData) return;
-      
-      // Link timer to this task
-      timer.linkedTask = nextTaskData.task.id;
-      
-      // Start timer
-      timer.start();
-      
-      // Close hero card
-      closeHeroCard();
-      
-      // Show success message
-      alert(`✓ Focus session started!\n\nWorking on: ${nextTaskData.task.title}\n\nTimer linked to this task.`);
-    });
-    
-    document.getElementById('heroSkipBtn').addEventListener('click', () => {
-      closeHeroCard();
-    });
-    
-    // Close hero card on escape or backdrop click
-    document.getElementById('heroCard').addEventListener('click', (e) => {
-      if (e.target.id === 'heroCard') {
-        closeHeroCard();
-      }
-    });
-    
-    document.getElementById('streakModal').addEventListener('click', (e) => {
-      if (e.target.id === 'streakModal') {
-        document.getElementById('streakModal').classList.remove('open');
-      }
-    });
-    
-    document.getElementById('quickAddModal').addEventListener('click', (e) => {
-      if (e.target.id === 'quickAddModal') {
-        document.getElementById('quickAddClose').click();
-      }
-    });
-
-    // Search/Command palette
-    let commandPaletteOpen = false;
-    
-    document.getElementById('searchInput').addEventListener('focus', (e) => {
-      e.target.blur(); // Don't keep focus on search bar
-      document.getElementById('commandPalette').classList.add('open');
-      document.getElementById('commandInput').focus();
-      commandPaletteOpen = true;
-    });
-
-    document.getElementById('commandInput').addEventListener('input', (e) => {
-      const query = e.target.value.trim().toLowerCase();
-      const results = document.getElementById('commandResults');
-      results.innerHTML = '';
-      
-      if (!query) {
-        results.innerHTML = '<div style="padding: 20px; text-align: center; color: var(--text-muted);">Type to search tasks or create new...</div>';
-        return;
-      }
-      
-      // Search tasks
-      const tasks = store.getAll();
-      const matches = tasks.filter(t => 
-        t.title.toLowerCase().includes(query) || 
-        (t.description && t.description.toLowerCase().includes(query)) ||
-        (t.project && t.project.toLowerCase().includes(query))
-      ).slice(0, 5);
-      
-      if (matches.length > 0) {
-        matches.forEach(task => {
-          const item = document.createElement('div');
-          item.className = 'command-item';
-          item.innerHTML = `
-            <span style="font-size: 20px;">${task.completed ? '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>' : '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>'}</span>
-            <div style="flex: 1;">
-              <div style="font-weight: 600; font-size: 14px;">${task.title}</div>
-              <div style="font-size: 12px; color: var(--text-muted);">${task.project || task.quadrant}</div>
-            </div>
-          `;
-          item.onclick = () => {
-            document.getElementById('commandPalette').classList.remove('open');
-            commandPaletteOpen = false;
-            openTaskModal(task);
-          };
-          results.appendChild(item);
-        });
-      }
-      
-      // Option to create new task
-      const createItem = document.createElement('div');
-      createItem.className = 'command-item';
-      createItem.innerHTML = `
-        <span style="font-size: 20px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
-        <div style="flex: 1;">
-          <div style="font-weight: 600; font-size: 14px;">Create: "${query}"</div>
-          <div style="font-size: 12px; color: var(--text-muted);">Press Enter to create new task</div>
+  });
+  
+  // Focus view
+  const focusList = document.getElementById('focusList');
+  focusList.innerHTML = '';
+  if (scored.length === 0) {
+    focusList.innerHTML = '<div class="empty-state"><div class="empty-icon"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg></div><div>No focus tasks. Great job!</div></div>';
+  } else {
+    scored.forEach(({task}) => focusList.appendChild(createTaskElement(task)));
+  }
+  
+  // Projects
+  const projects = store.getProjects();
+  const projList = document.getElementById('projectsList');
+  projList.innerHTML = '';
+  if (projects.length === 0) {
+    projList.innerHTML = '<div class="empty-state"><div class="empty-icon"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></div><div>No projects yet</div></div>';
+  } else {
+    projects.forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'project-card';
+      card.innerHTML = `
+        <div class="project-header">
+          <div class="project-name">${p.name}</div>
+          <div>${p.completed}/${p.total}</div>
+        </div>
+        <div class="progress-bar" style="margin-bottom: 12px;">
+          <div class="progress-fill" style="width: ${p.total ? p.completed/p.total*100 : 0}%"></div>
         </div>
       `;
-      createItem.onclick = () => {
-        const id = store.addTask({ title: query });
-        document.getElementById('commandPalette').classList.remove('open');
-        commandPaletteOpen = false;
-        render();
-        openTaskModal(store.tasks[id]);
+      projList.appendChild(card);
+    });
+  }
+  
+  // History
+  const completed = tasks.filter(t => t.completed && t.completedAt).sort((a,b) => b.completedAt - a.completedAt);
+  const histList = document.getElementById('historyList');
+  histList.innerHTML = '';
+  if (completed.length === 0) {
+    histList.innerHTML = '<div class="empty-state"><div class="empty-icon"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div>No completed tasks yet</div></div>';
+  } else {
+    completed.forEach(t => {
+      const item = document.createElement('div');
+      item.className = 'history-item';
+      item.innerHTML = `
+        <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 4px;">${formatRelativeTime(t.completedAt)}</div>
+        <div style="font-weight: 600;">${t.title}</div>
+      `;
+      histList.appendChild(item);
+    });
+  }
+  
+  // Insights View
+  if (currentView === 'insights') {
+    renderInsights();
+  }
+  
+  // Setup drag and drop after rendering
+  if (dragDropManager) {
+    dragDropManager.setupDragAndDrop();
+  }
+}
+
+function renderInsights() {
+  const tasks = store.getAll();
+  const completed = tasks.filter(t => t.completed);
+  
+  // Total tasks
+  document.getElementById('insightTotalTasks').textContent = tasks.length;
+  
+  // Completion rate
+  const completionRate = tasks.length > 0 ? Math.round((completed.length / tasks.length) * 100) : 0;
+  document.getElementById('insightCompletionRate').textContent = completionRate + '%';
+  
+  // Avg time to complete
+  if (completed.length > 0) {
+    const avgDays = completed.reduce((sum, t) => {
+      const days = (t.completedAt - t.createdAt) / (1000*60*60*24);
+      return sum + days;
+    }, 0) / completed.length;
+    document.getElementById('insightAvgTime').textContent = Math.round(avgDays) + 'd';
+  } else {
+    document.getElementById('insightAvgTime').textContent = '0d';
+  }
+  
+  // Most productive day
+  const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const dayCounts = {};
+  Object.entries(store.prefs.completedHistory).forEach(([dateStr, count]) => {
+    const day = new Date(dateStr).getDay();
+    dayCounts[day] = (dayCounts[day] || 0) + count;
+  });
+  const maxDay = Object.entries(dayCounts).sort((a,b) => b[1] - a[1])[0];
+  document.getElementById('insightBestDay').textContent = maxDay ? dayNames[maxDay[0]] : '—';
+  
+  // 7-day activity chart
+  const chartDiv = document.getElementById('activityChart');
+  chartDiv.innerHTML = '';
+  const maxCount = 10;
+  for (let i = 6; i >= 0; i--) {
+    const date = new Date();
+    date.setDate(date.getDate() - i);
+    const dateStr = date.toDateString();
+    const count = store.prefs.completedHistory[dateStr] || 0;
+    const height = Math.max(20, (count / maxCount) * 160);
+    
+    const bar = document.createElement('div');
+    bar.style.cssText = `
+      flex: 1;
+      background: var(--accent);
+      border-radius: 4px 4px 0 0;
+      height: ${height}px;
+      position: relative;
+      transition: all 0.2s;
+      cursor: pointer;
+    `;
+    bar.onmouseenter = () => { bar.style.background = 'var(--accent-hover)'; };
+    bar.onmouseleave = () => { bar.style.background = 'var(--accent)'; };
+    bar.title = `${dayNames[date.getDay()]}: ${count} tasks`;
+    
+    const label = document.createElement('div');
+    label.style.cssText = 'position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%); font-size: 11px; color: var(--text-muted);';
+    label.textContent = dayNames[date.getDay()];
+    bar.appendChild(label);
+    
+    chartDiv.appendChild(bar);
+  }
+  
+  // Quadrant breakdown
+  const quadBreakdown = document.getElementById('quadrantBreakdown');
+  quadBreakdown.innerHTML = '';
+  const quadCounts = { 'do-first': 0, 'schedule': 0, 'delegate': 0, 'eliminate': 0 };
+  tasks.forEach(t => quadCounts[t.quadrant]++);
+  const quadNames = { 'do-first': 'Do First', 'schedule': 'Schedule', 'delegate': 'Delegate', 'eliminate': 'Eliminate' };
+  const quadColors = { 'do-first': '#ef4444', 'schedule': '#f59e0b', 'delegate': '#10b981', 'eliminate': '#3b82f6' };
+  
+  Object.entries(quadCounts).forEach(([quad, count]) => {
+    const item = document.createElement('div');
+    item.style.cssText = 'display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border);';
+    item.innerHTML = `
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <div style="width: 12px; height: 12px; border-radius: 3px; background: ${quadColors[quad]};"></div>
+        <span>${quadNames[quad]}</span>
+      </div>
+      <strong>${count}</strong>
+    `;
+    quadBreakdown.appendChild(item);
+  });
+  
+  // Top projects
+  const topProj = document.getElementById('topProjects');
+  topProj.innerHTML = '';
+  const projects = store.getProjects().sort((a,b) => b.total - a.total).slice(0, 5);
+  if (projects.length === 0) {
+    topProj.innerHTML = '<div style="text-align: center; padding: 20px; color: var(--text-muted);">No projects yet</div>';
+  } else {
+    projects.forEach(p => {
+      const item = document.createElement('div');
+      item.style.cssText = 'padding: 8px 0; border-bottom: 1px solid var(--border);';
+      item.innerHTML = `
+        <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+          <strong>${p.name}</strong>
+          <span style="color: var(--text-muted);">${p.completed}/${p.total}</span>
+        </div>
+        <div class="progress-bar" style="height: 6px;">
+          <div class="progress-fill" style="width: ${p.total ? (p.completed/p.total*100) : 0}%"></div>
+        </div>
+      `;
+      topProj.appendChild(item);
+    });
+  }
+  
+  // Aging tasks
+  const agingDiv = document.getElementById('agingTasks');
+  agingDiv.innerHTML = '';
+  const agingTasks = tasks.filter(t => !t.completed && daysSince(t.lastTouched) >= 14);
+  if (agingTasks.length === 0) {
+    agingDiv.innerHTML = '<div style="text-align: center; padding: 20px; color: var(--success);">✓ No stale tasks! Great job staying on top of things.</div>';
+  } else {
+    agingTasks.forEach(t => {
+      const item = document.createElement('div');
+      item.style.cssText = 'padding: 12px; background: var(--warning-light); border-radius: 8px; margin-bottom: 8px; border-left: 3px solid var(--warning); cursor: pointer;';
+      item.innerHTML = `
+        <div style="font-weight: 600;">${t.title}</div>
+        <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Untouched for ${daysSince(t.lastTouched)} days</div>
+      `;
+      item.onclick = () => openTaskModal(t);
+      agingDiv.appendChild(item);
+    });
+  }
+}
+
+// Modal
+function openTaskModal(task = null) {
+  currentEditingTask = task;
+  document.getElementById('modalTitle').textContent = task ? 'Edit Task' : 'New Task';
+  document.getElementById('taskId').value = task ? task.id : '';
+  document.getElementById('taskTitle').value = task ? task.title : '';
+  document.getElementById('taskDescription').value = task ? task.description : '';
+  document.getElementById('taskEstimate').value = task ? task.estimatedMinutes : '';
+  document.getElementById('taskDue').value = task ? task.due : '';
+  document.getElementById('taskQuadrant').value = task ? task.quadrant : 'do-first';
+  document.getElementById('taskProject').value = task ? task.project : '';
+  
+  // Clear inputs
+  document.getElementById('newTag').value = '';
+  document.getElementById('newSubtask').value = '';
+  
+  const tagsContainer = document.getElementById('taskTags');
+  tagsContainer.innerHTML = '';
+  if (task && task.tags && task.tags.length > 0) {
+    task.tags.forEach(tag => {
+      const chip = document.createElement('span');
+      chip.className = 'tag-chip';
+      const btn = document.createElement('button');
+      btn.textContent = '×';
+      btn.onclick = () => {
+        const updatedTags = task.tags.filter(t => t !== tag);
+        store.updateTask(task.id, { tags: updatedTags });
+        currentEditingTask.tags = updatedTags;
+        openTaskModal(currentEditingTask);
       };
-      results.appendChild(createItem);
+      chip.textContent = tag + ' ';
+      chip.appendChild(btn);
+      tagsContainer.appendChild(chip);
     });
-
-    document.getElementById('commandInput').addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        const query = e.target.value.trim();
-        if (query) {
-          const id = store.addTask({ title: query });
-          document.getElementById('commandPalette').classList.remove('open');
-          commandPaletteOpen = false;
-          document.getElementById('commandInput').value = '';
-          render();
-          openTaskModal(store.tasks[id]);
-        }
-      }
+  }
+  
+  const subtasksList = document.getElementById('subtasksList');
+  subtasksList.innerHTML = '';
+  if (task && task.subtasks && task.subtasks.length > 0) {
+    task.subtasks.forEach(st => {
+      const item = document.createElement('div');
+      item.className = 'subtask-item';
+      
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.checked = st.completed;
+      checkbox.onchange = (e) => {
+        store.toggleSubtask(task.id, st.id);
+        const updatedTask = store.tasks[task.id];
+        currentEditingTask = updatedTask;
+        openTaskModal(updatedTask);
+      };
+      item.appendChild(checkbox);
+      
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.value = st.title;
+      input.readOnly = true;
+      item.appendChild(input);
+      
+      const btn = document.createElement('button');
+      btn.textContent = '×';
+      btn.onclick = () => {
+        const updatedSubtasks = task.subtasks.filter(s => s.id !== st.id);
+        store.updateTask(task.id, { subtasks: updatedSubtasks });
+        currentEditingTask.subtasks = updatedSubtasks;
+        openTaskModal(currentEditingTask);
+      };
+      item.appendChild(btn);
+      
+      subtasksList.appendChild(item);
     });
+  }
+  
+  document.getElementById('deleteTaskBtn').style.display = task ? 'block' : 'none';
+  document.getElementById('taskModal').classList.add('open');
+  
+  // Focus title input
+  setTimeout(() => document.getElementById('taskTitle').focus(), 100);
+}
 
-    document.addEventListener('keydown', (e) => {
-      // Cmd/Ctrl + K for command palette
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-        e.preventDefault();
-        document.getElementById('commandPalette').classList.add('open');
-        document.getElementById('commandInput').focus();
-        document.getElementById('commandInput').value = '';
-        commandPaletteOpen = true;
-      }
-      
-      // Escape to close modals
-      if (e.key === 'Escape') {
-        closeTaskModal();
-        closeHeroCard();
-        document.getElementById('streakModal').classList.remove('open');
-        document.getElementById('quickAddModal').classList.remove('open');
-        if (commandPaletteOpen) {
-          document.getElementById('commandPalette').classList.remove('open');
-          document.getElementById('commandInput').value = '';
-          commandPaletteOpen = false;
-        }
-      }
-      
-      // Cmd/Ctrl + N for new task
-      if ((e.metaKey || e.ctrlKey) && e.key === 'n') {
-        e.preventDefault();
-        openTaskModal();
-      }
-      
-      // Cmd/Ctrl + Shift + N for quick add
-      if ((e.metaKey || e.ctrlKey) && e.shiftKey && e.key === 'N') {
-        e.preventDefault();
-        document.getElementById('quickAddTopBtn').click();
-      }
+function closeTaskModal() {
+  document.getElementById('taskModal').classList.remove('open');
+  currentEditingTask = null;
+}
+
+function saveTask() {
+  const title = document.getElementById('taskTitle').value.trim();
+  if (!title) { 
+    alert('⚠️ Task title is required');
+    document.getElementById('taskTitle').focus();
+    return; 
+  }
+  
+  const data = {
+    title,
+    description: document.getElementById('taskDescription').value.trim(),
+    estimatedMinutes: parseInt(document.getElementById('taskEstimate').value) || 0,
+    due: document.getElementById('taskDue').value,
+    quadrant: document.getElementById('taskQuadrant').value,
+    project: document.getElementById('taskProject').value.trim()
+  };
+  
+  if (currentEditingTask) {
+    // Preserve existing tags and subtasks
+    data.tags = currentEditingTask.tags || [];
+    data.subtasks = currentEditingTask.subtasks || [];
+    data.totalMinutes = currentEditingTask.totalMinutes || 0;
+    store.updateTask(currentEditingTask.id, data);
+  } else {
+    store.addTask(data);
+  }
+  
+  closeTaskModal();
+  render();
+}
+
+// Event listeners
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', () => {
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    item.classList.add('active');
+    currentView = item.dataset.view;
+    document.querySelectorAll('#contentArea > div').forEach(v => v.classList.add('hidden'));
+    document.getElementById(currentView + 'View').classList.remove('hidden');
+    
+    // Render insights when switching to that view
+    if (currentView === 'insights') {
+      renderInsights();
+    }
+  });
+});
+
+// Theme toggle
+document.getElementById('themeToggle').addEventListener('click', () => {
+  themeManager.toggleTheme();
+});
+
+document.getElementById('newTaskBtn').addEventListener('click', () => openTaskModal());
+document.getElementById('modalClose').addEventListener('click', closeTaskModal);
+document.getElementById('cancelTaskBtn').addEventListener('click', closeTaskModal);
+
+// Quick Add Modal
+document.getElementById('quickAddTopBtn').addEventListener('click', () => {
+  document.getElementById('quickAddModal').classList.add('open');
+  document.getElementById('quickTaskTitle').focus();
+  selectedQuickQuadrant = null;
+});
+
+document.getElementById('quickAddClose').addEventListener('click', () => {
+  document.getElementById('quickAddModal').classList.remove('open');
+  document.getElementById('quickTaskTitle').value = '';
+  selectedQuickQuadrant = null;
+  // Reset button styles
+  document.querySelectorAll('#quickAddModal [data-quadrant]').forEach(btn => {
+    btn.style.borderColor = 'var(--border)';
+    btn.style.background = 'var(--panel)';
+  });
+});
+
+document.getElementById('quickAddCancel').addEventListener('click', () => {
+  document.getElementById('quickAddClose').click();
+});
+
+// Quadrant selection buttons
+document.querySelectorAll('#quickAddModal [data-quadrant]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    // Reset all buttons
+    document.querySelectorAll('#quickAddModal [data-quadrant]').forEach(b => {
+      b.style.borderColor = 'var(--border)';
+      b.style.background = 'var(--panel)';
     });
+    // Highlight selected
+    btn.style.borderColor = 'var(--accent)';
+    btn.style.background = 'var(--accent-light)';
+    selectedQuickQuadrant = btn.dataset.quadrant;
+  });
+});
 
-    document.getElementById('commandPalette').addEventListener('click', (e) => {
-      if (e.target.id === 'commandPalette') {
+document.getElementById('quickAddSave').addEventListener('click', () => {
+  const title = document.getElementById('quickTaskTitle').value.trim();
+  if (!title) {
+    alert('Please enter a task title');
+    return;
+  }
+  
+  // Use selected quadrant or auto-detect
+  const quadrant = selectedQuickQuadrant || detectPriority(title);
+  
+  store.addTask({ title, quadrant });
+  
+  // Show success message
+  const quadrantNames = {
+    'do-first': 'Do First',
+    'schedule': 'Schedule',
+    'delegate': 'Delegate',
+    'eliminate': 'Eliminate'
+  };
+  
+  alert(`✓ Task added to ${quadrantNames[quadrant]}!\n\n"${title}"`);
+  
+  document.getElementById('quickAddClose').click();
+  render();
+});
+
+// Enter key to save
+document.getElementById('quickTaskTitle').addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    document.getElementById('quickAddSave').click();
+  }
+});
+
+// Check-in banner
+document.getElementById('closeCheckin').addEventListener('click', () => {
+  document.getElementById('checkinBanner').classList.add('hidden');
+  store.prefs.lastCheckin = new Date().toDateString();
+  store.savePrefs();
+});
+
+// Streak card click
+document.getElementById('streakCard').addEventListener('click', () => {
+  document.getElementById('streakModal').classList.add('open');
+  renderStreakDetails();
+});
+
+document.getElementById('closeStreakModal').addEventListener('click', () => {
+  document.getElementById('streakModal').classList.remove('open');
+});
+
+function renderStreakDetails() {
+  const grid = document.getElementById('streakGrid');
+  grid.innerHTML = '';
+  const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  
+  for (let i = 6; i >= 0; i--) {
+    const date = new Date();
+    date.setDate(date.getDate() - i);
+    const dateStr = date.toDateString();
+    const completed = store.prefs.completedHistory[dateStr] || 0;
+    const sessions = store.prefs.timerSessionsHistory[dateStr] || 0;
+    const isActive = completed >= 3 || sessions >= 1;
+    
+    const day = document.createElement('div');
+    day.className = 'streak-day' + (isActive ? ' active' : '');
+    day.innerHTML = `
+      <div class="streak-day-label">${dayNames[date.getDay()]}</div>
+      <div class="streak-day-count">${completed}</div>
+    `;
+    day.title = `${completed} tasks, ${sessions} sessions`;
+    grid.appendChild(day);
+  }
+}
+document.getElementById('saveTaskBtn').addEventListener('click', saveTask);
+document.getElementById('deleteTaskBtn').addEventListener('click', () => {
+  if (!currentEditingTask || !confirm('Delete this task?')) return;
+  store.deleteTask(currentEditingTask.id);
+  closeTaskModal();
+  render();
+});
+
+document.getElementById('addTagBtn').addEventListener('click', () => {
+  if (!currentEditingTask) {
+    alert('⚠️ Please save the task first before adding tags');
+    return;
+  }
+  const tag = document.getElementById('newTag').value.trim();
+  if (!tag) {
+    alert('⚠️ Please enter a tag name');
+    return;
+  }
+  const updatedTags = [...(currentEditingTask.tags || []), tag];
+  store.updateTask(currentEditingTask.id, { tags: updatedTags });
+  currentEditingTask.tags = updatedTags;
+  document.getElementById('newTag').value = '';
+  openTaskModal(currentEditingTask);
+});
+
+document.getElementById('newTag').addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    document.getElementById('addTagBtn').click();
+  }
+});
+
+document.getElementById('addSubtaskBtn').addEventListener('click', () => {
+  if (!currentEditingTask) {
+    alert('⚠️ Please save the task first before adding subtasks');
+    return;
+  }
+  const title = document.getElementById('newSubtask').value.trim();
+  if (!title) {
+    alert('⚠️ Please enter a subtask title');
+    return;
+  }
+  const st = { id: 'st-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9), title, completed: false };
+  const updatedSubtasks = [...(currentEditingTask.subtasks || []), st];
+  store.updateTask(currentEditingTask.id, { subtasks: updatedSubtasks });
+  currentEditingTask.subtasks = updatedSubtasks;
+  document.getElementById('newSubtask').value = '';
+  openTaskModal(currentEditingTask);
+});
+
+document.getElementById('newSubtask').addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    document.getElementById('addSubtaskBtn').click();
+  }
+});
+
+document.getElementById('timerStart').addEventListener('click', () => timer.start());
+document.getElementById('timerPause').addEventListener('click', () => timer.pause());
+document.getElementById('timerReset').addEventListener('click', () => timer.reset());
+document.getElementById('timerMinimize').addEventListener('click', () => {
+  const float = document.getElementById('timerFloat');
+  float.classList.toggle('minimized');
+  document.querySelector('.timer-content').classList.toggle('hidden');
+  document.getElementById('timerMinimizedContent').classList.toggle('hidden');
+});
+
+document.getElementById('autoPrioritizeBtn').addEventListener('click', () => {
+  const tasks = store.getAll().filter(t => !t.completed);
+  if (tasks.length === 0) {
+    alert('✓ No active tasks to prioritize!\n\nYou\'re all caught up.');
+    return;
+  }
+  const scored = tasks.map(t => ({
+    task: t,
+    score: store.calculatePriorityScore(t)
+  })).sort((a, b) => b.score - a.score);
+  
+  const top3 = scored.slice(0, 3);
+  const message = 'Auto-Prioritized Successfully\n\nTop 3 priorities:\n\n' + 
+    top3.map((item, i) => `${i + 1}. ${item.task.title} (score: ${item.score})`).join('\n');
+  
+  alert(message);
+  render();
+});
+
+document.getElementById('refreshPriority').addEventListener('click', () => {
+  render();
+});
+
+// Next Task Hero Card
+document.getElementById('showNextTaskBtn').addEventListener('click', () => {
+  showNextTaskHero();
+});
+
+document.getElementById('heroStartBtn').addEventListener('click', () => {
+  if (!nextTaskData) return;
+  
+  // Link timer to this task
+  timer.linkedTask = nextTaskData.task.id;
+  
+  // Start timer
+  timer.start();
+  
+  // Close hero card
+  closeHeroCard();
+  
+  // Show success message
+  alert(`✓ Focus session started!\n\nWorking on: ${nextTaskData.task.title}\n\nTimer linked to this task.`);
+});
+
+document.getElementById('heroSkipBtn').addEventListener('click', () => {
+  closeHeroCard();
+});
+
+// Close hero card on escape or backdrop click
+document.getElementById('heroCard').addEventListener('click', (e) => {
+  if (e.target.id === 'heroCard') {
+    closeHeroCard();
+  }
+});
+
+document.getElementById('streakModal').addEventListener('click', (e) => {
+  if (e.target.id === 'streakModal') {
+    document.getElementById('streakModal').classList.remove('open');
+  }
+});
+
+document.getElementById('quickAddModal').addEventListener('click', (e) => {
+  if (e.target.id === 'quickAddModal') {
+    document.getElementById('quickAddClose').click();
+  }
+});
+
+// Search/Command palette
+let commandPaletteOpen = false;
+
+document.getElementById('searchInput').addEventListener('focus', (e) => {
+  e.target.blur(); // Don't keep focus on search bar
+  document.getElementById('commandPalette').classList.add('open');
+  document.getElementById('commandInput').focus();
+  commandPaletteOpen = true;
+});
+
+document.getElementById('commandInput').addEventListener('input', (e) => {
+  const query = e.target.value.trim().toLowerCase();
+  const results = document.getElementById('commandResults');
+  results.innerHTML = '';
+  
+  if (!query) {
+    results.innerHTML = '<div style="padding: 20px; text-align: center; color: var(--text-muted);">Type to search tasks or create new...</div>';
+    return;
+  }
+  
+  // Search tasks
+  const tasks = store.getAll();
+  const matches = tasks.filter(t => 
+    t.title.toLowerCase().includes(query) || 
+    (t.description && t.description.toLowerCase().includes(query)) ||
+    (t.project && t.project.toLowerCase().includes(query))
+  ).slice(0, 5);
+  
+  if (matches.length > 0) {
+    matches.forEach(task => {
+      const item = document.createElement('div');
+      item.className = 'command-item';
+      item.innerHTML = `
+        <span style="font-size: 20px;">${task.completed ? '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>' : '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>'}</span>
+        <div style="flex: 1;">
+          <div style="font-weight: 600; font-size: 14px;">${task.title}</div>
+          <div style="font-size: 12px; color: var(--text-muted);">${task.project || task.quadrant}</div>
+        </div>
+      `;
+      item.onclick = () => {
         document.getElementById('commandPalette').classList.remove('open');
-        document.getElementById('commandInput').value = '';
         commandPaletteOpen = false;
-      }
+        openTaskModal(task);
+      };
+      results.appendChild(item);
     });
+  }
+  
+  // Option to create new task
+  const createItem = document.createElement('div');
+  createItem.className = 'command-item';
+  createItem.innerHTML = `
+    <span style="font-size: 20px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+    <div style="flex: 1;">
+      <div style="font-weight: 600; font-size: 14px;">Create: "${query}"</div>
+      <div style="font-size: 12px; color: var(--text-muted);">Press Enter to create new task</div>
+    </div>
+  `;
+  createItem.onclick = () => {
+    const id = store.addTask({ title: query });
+    document.getElementById('commandPalette').classList.remove('open');
+    commandPaletteOpen = false;
+    render();
+    openTaskModal(store.tasks[id]);
+  };
+  results.appendChild(createItem);
+});
 
-    document.getElementById('taskModal').addEventListener('click', (e) => {
-      if (e.target.id === 'taskModal') {
-        closeTaskModal();
-      }
-    });
+document.getElementById('commandInput').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    const query = e.target.value.trim();
+    if (query) {
+      const id = store.addTask({ title: query });
+      document.getElementById('commandPalette').classList.remove('open');
+      commandPaletteOpen = false;
+      document.getElementById('commandInput').value = '';
+      render();
+      openTaskModal(store.tasks[id]);
+    }
+  }
+});
+
+document.addEventListener('keydown', (e) => {
+  // Cmd/Ctrl + K for command palette
+  if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+    e.preventDefault();
+    document.getElementById('commandPalette').classList.add('open');
+    document.getElementById('commandInput').focus();
+    document.getElementById('commandInput').value = '';
+    commandPaletteOpen = true;
+  }
+  
+  // Escape to close modals
+  if (e.key === 'Escape') {
+    closeTaskModal();
+    closeHeroCard();
+    document.getElementById('streakModal').classList.remove('open');
+    document.getElementById('quickAddModal').classList.remove('open');
+    if (commandPaletteOpen) {
+      document.getElementById('commandPalette').classList.remove('open');
+      document.getElementById('commandInput').value = '';
+      commandPaletteOpen = false;
+    }
+  }
+  
+  // Cmd/Ctrl + N for new task
+  if ((e.metaKey || e.ctrlKey) && e.key === 'n') {
+    e.preventDefault();
+    openTaskModal();
+  }
+  
+  // Cmd/Ctrl + Shift + N for quick add
+  if ((e.metaKey || e.ctrlKey) && e.shiftKey && e.key === 'N') {
+    e.preventDefault();
+    document.getElementById('quickAddTopBtn').click();
+  }
+});
+
+document.getElementById('commandPalette').addEventListener('click', (e) => {
+  if (e.target.id === 'commandPalette') {
+    document.getElementById('commandPalette').classList.remove('open');
+    document.getElementById('commandInput').value = '';
+    commandPaletteOpen = false;
+  }
+});
+
 document.getElementById('taskModal').addEventListener('click', (e) => {
-      if (e.target.id === 'taskModal') {
-        closeTaskModal();
-      }
-    });
+  if (e.target.id === 'taskModal') {
+    closeTaskModal();
+  }
+});
 
-    // Export functionality
-    document.getElementById('exportBtn').addEventListener('click', () => {
-      document.getElementById('exportModal').classList.add('open');
-    });
+// Export functionality
+document.getElementById('exportBtn').addEventListener('click', () => {
+  document.getElementById('exportModal').classList.add('open');
+});
 
-    document.getElementById('exportModalClose').addEventListener('click', () => {
-      document.getElementById('exportModal').classList.remove('open');
-    });
+document.getElementById('exportModalClose').addEventListener('click', () => {
+  document.getElementById('exportModal').classList.remove('open');
+});
 
-    document.getElementById('exportCancel').addEventListener('click', () => {
-      document.getElementById('exportModal').classList.remove('open');
-    });
+document.getElementById('exportCancel').addEventListener('click', () => {
+  document.getElementById('exportModal').classList.remove('open');
+});
 
-    document.getElementById('exportConfirm').addEventListener('click', () => {
-      const format = document.getElementById('exportFormat').value;
-      const filter = document.getElementById('exportFilter').value;
-      const includeTasks = document.getElementById('exportTasks').checked;
-      const includeHistory = document.getElementById('exportHistory').checked;
-      const includeProjects = document.getElementById('exportProjects').checked;
+document.getElementById('exportConfirm').addEventListener('click', () => {
+  const format = document.getElementById('exportFormat').value;
+  const filter = document.getElementById('exportFilter').value;
+  const includeTasks = document.getElementById('exportTasks').checked;
+  const includeHistory = document.getElementById('exportHistory').checked;
+  const includeProjects = document.getElementById('exportProjects').checked;
 
-      let tasks = Object.values(store.tasks);
-      if (filter === 'active') tasks = tasks.filter(t => !t.completed);
-      else if (filter === 'completed') tasks = tasks.filter(t => t.completed);
-      else if (['do-first', 'schedule', 'delegate', 'eliminate'].includes(filter)) {
-        tasks = tasks.filter(t => t.quadrant === filter);
-      }
+  let tasks = Object.values(store.tasks);
+  if (filter === 'active') tasks = tasks.filter(t => !t.completed);
+  else if (filter === 'completed') tasks = tasks.filter(t => t.completed);
+  else if (['do-first', 'schedule', 'delegate', 'eliminate'].includes(filter)) {
+    tasks = tasks.filter(t => t.quadrant === filter);
+  }
 
-      let dataStr = '';
-      let filename = `priobox-export-${new Date().toISOString().split('T')[0]}`;
-      let mimeType = 'text/plain';
+  let dataStr = '';
+  let filename = `priobox-export-${new Date().toISOString().split('T')[0]}`;
+  let mimeType = 'text/plain';
 
-      if (format === 'json') {
-        const exportData = { version: '4.0', exportDate: new Date().toISOString() };
-        if (includeTasks) exportData.tasks = tasks.reduce((obj, t) => { obj[t.id] = t; return obj; }, {});
-        if (includeHistory) exportData.preferences = store.prefs;
-        if (includeProjects) exportData.projects = store.getProjects();
-        exportData.stats = {
-          totalTasks: tasks.length,
-          completedTasks: tasks.filter(t => t.completed).length,
-          projects: store.getProjects().length
-        };
-        dataStr = JSON.stringify(exportData, null, 2);
-        filename += '.json';
-        mimeType = 'application/json';
-      } else if (format === 'csv') {
-        const headers = ['Title', 'Description', 'Quadrant', 'Project', 'Tags', 'Estimated Minutes', 'Due Date', 'Completed', 'Created At', 'Completed At'];
-        const rows = tasks.map(t => [
-          `"${(t.title || '').replace(/"/g, '""')}"`,
-          `"${(t.description || '').replace(/"/g, '""')}"`,
-          t.quadrant || '',
-          t.project || '',
-          (t.tags || []).join('; '),
-          t.estimatedMinutes || '',
-          t.due || '',
-          t.completed ? 'Yes' : 'No',
-          new Date(t.createdAt).toLocaleString(),
-          t.completedAt ? new Date(t.completedAt).toLocaleString() : ''
-        ].join(','));
-        dataStr = [headers.join(','), ...rows].join('\n');
-        filename += '.csv';
-        mimeType = 'text/csv';
-      } else if (format === 'markdown') {
-        dataStr = `# PrioBox Export\n\nExported on: ${new Date().toLocaleString()}\n\n`;
-        
-        if (includeTasks) {
-          const quadrants = {
-            'do-first': '🔥 Do First (Urgent & Important)',
-            'schedule': '📅 Schedule (Important, Not Urgent)',
-            'delegate': '👥 Delegate (Urgent, Not Important)',
-            'eliminate': '🗑️ Eliminate (Neither)'
-          };
-          
-          ['do-first', 'schedule', 'delegate', 'eliminate'].forEach(q => {
-            const qTasks = tasks.filter(t => t.quadrant === q);
-            if (qTasks.length > 0) {
-              dataStr += `## ${quadrants[q]}\n\n`;
-              qTasks.forEach(t => {
-                dataStr += `### ${t.completed ? '✓' : '☐'} ${t.title}\n\n`;
-                if (t.description) dataStr += `${t.description}\n\n`;
-                if (t.project) dataStr += `**Project:** ${t.project}\n\n`;
-                if (t.tags && t.tags.length > 0) dataStr += `**Tags:** ${t.tags.map(tag => `#${tag}`).join(', ')}\n\n`;
-                if (t.estimatedMinutes) dataStr += `**Estimated Time:** ${t.estimatedMinutes} minutes\n\n`;
-                if (t.due) dataStr += `**Due:** ${new Date(t.due).toLocaleDateString()}\n\n`;
-                if (t.subtasks && t.subtasks.length > 0) {
-                  dataStr += `**Subtasks:**\n`;
-                  t.subtasks.forEach(st => {
-                    dataStr += `- [${st.completed ? 'x' : ' '}] ${st.title}\n`;
-                  });
-                  dataStr += '\n';
-                }
-                dataStr += '---\n\n';
+  if (format === 'json') {
+    const exportData = { version: '4.0', exportDate: new Date().toISOString() };
+    if (includeTasks) exportData.tasks = tasks.reduce((obj, t) => { obj[t.id] = t; return obj; }, {});
+    if (includeHistory) exportData.preferences = store.prefs;
+    if (includeProjects) exportData.projects = store.getProjects();
+    exportData.stats = {
+      totalTasks: tasks.length,
+      completedTasks: tasks.filter(t => t.completed).length,
+      projects: store.getProjects().length
+    };
+    dataStr = JSON.stringify(exportData, null, 2);
+    filename += '.json';
+    mimeType = 'application/json';
+  } else if (format === 'csv') {
+    const headers = ['Title', 'Description', 'Quadrant', 'Project', 'Tags', 'Estimated Minutes', 'Due Date', 'Completed', 'Created At', 'Completed At'];
+    const rows = tasks.map(t => [
+      `"${(t.title || '').replace(/"/g, '""')}"`,
+      `"${(t.description || '').replace(/"/g, '""')}"`,
+      t.quadrant || '',
+      t.project || '',
+      (t.tags || []).join('; '),
+      t.estimatedMinutes || '',
+      t.due || '',
+      t.completed ? 'Yes' : 'No',
+      new Date(t.createdAt).toLocaleString(),
+      t.completedAt ? new Date(t.completedAt).toLocaleString() : ''
+    ].join(','));
+    dataStr = [headers.join(','), ...rows].join('\n');
+    filename += '.csv';
+    mimeType = 'text/csv';
+  } else if (format === 'markdown') {
+    dataStr = `# PrioBox Export\n\nExported on: ${new Date().toLocaleString()}\n\n`;
+    
+    if (includeTasks) {
+      const quadrants = {
+        'do-first': '🔥 Do First (Urgent & Important)',
+        'schedule': '📅 Schedule (Important, Not Urgent)',
+        'delegate': '👥 Delegate (Urgent, Not Important)',
+        'eliminate': '🗑️ Eliminate (Neither)'
+      };
+      
+      ['do-first', 'schedule', 'delegate', 'eliminate'].forEach(q => {
+        const qTasks = tasks.filter(t => t.quadrant === q);
+        if (qTasks.length > 0) {
+          dataStr += `## ${quadrants[q]}\n\n`;
+          qTasks.forEach(t => {
+            dataStr += `### ${t.completed ? '✓' : '☐'} ${t.title}\n\n`;
+            if (t.description) dataStr += `${t.description}\n\n`;
+            if (t.project) dataStr += `**Project:** ${t.project}\n\n`;
+            if (t.tags && t.tags.length > 0) dataStr += `**Tags:** ${t.tags.map(tag => `#${tag}`).join(', ')}\n\n`;
+            if (t.estimatedMinutes) dataStr += `**Estimated Time:** ${t.estimatedMinutes} minutes\n\n`;
+            if (t.due) dataStr += `**Due:** ${new Date(t.due).toLocaleDateString()}\n\n`;
+            if (t.subtasks && t.subtasks.length > 0) {
+              dataStr += `**Subtasks:**\n`;
+              t.subtasks.forEach(st => {
+                dataStr += `- [${st.completed ? 'x' : ' '}] ${st.title}\n`;
               });
+              dataStr += '\n';
             }
+            dataStr += '---\n\n';
           });
         }
-        
-        if (includeProjects) {
-          const projects = store.getProjects();
-          if (projects.length > 0) {
-            dataStr += `## Projects\n\n`;
-            projects.forEach(p => {
-              dataStr += `### ${p.name}\n\n`;
-              dataStr += `Progress: ${p.completed}/${p.total} tasks completed (${Math.round(p.completed/p.total*100)}%)\n\n`;
-            });
-          }
-        }
-        
-        if (includeHistory) {
-          dataStr += `## Activity Summary\n\n`;
-          const weeklyTotal = Object.entries(store.prefs.completedHistory)
-            .reduce((sum, [date, count]) => sum + count, 0);
-          dataStr += `**Total Completed Tasks:** ${weeklyTotal}\n\n`;
-          
-          const sessionTotal = Object.entries(store.prefs.timerSessionsHistory)
-            .reduce((sum, [date, count]) => sum + count, 0);
-          dataStr += `**Total Focus Sessions:** ${sessionTotal}\n\n`;
-        }
-        
-        filename += '.md';
-        mimeType = 'text/markdown';
-      }
-
-      const dataBlob = new Blob([dataStr], { type: mimeType });
-      const url = URL.createObjectURL(dataBlob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = filename;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-
-      document.getElementById('exportModal').classList.remove('open');
-      alert(`✓ Export successful!\n\nYour data has been downloaded as ${filename}`);
-    });
-
-    document.getElementById('exportModal').addEventListener('click', (e) => {
-      if (e.target.id === 'exportModal') {
-        document.getElementById('exportModal').classList.remove('open');
-      }
-    });
-
-    // Init with better demo data
-    if (Object.keys(store.tasks).length === 0) {
-      const welcomeId = store.addTask({ 
-        title: 'Welcome to PrioBox', 
-        description: 'Click to edit and explore features. Try Quick Add for fast task entry!',
-        quadrant: 'do-first', 
-        estimatedMinutes: 5,
-        tags: ['getting-started']
       });
-      
-      store.addTask({ 
-        title: 'Try the Focus Timer', 
-        description: 'Click "What\'s Next?" to see the #1 priority task, then start a focus session',
-        quadrant: 'do-first', 
-        estimatedMinutes: 25,
-        tags: ['productivity']
-      });
-      
-      const planId = store.addTask({ 
-        title: 'Plan your week', 
-        description: 'Break this down into smaller subtasks. Click to edit and add steps.',
-        quadrant: 'schedule', 
-        estimatedMinutes: 30,
-        project: 'Planning'
-      });
-      
-      // Add subtasks to demo
-      store.updateTask(planId, {
-        subtasks: [
-          { id: 'st-1', title: 'Review last week', completed: false },
-          { id: 'st-2', title: 'Set 3 main goals', completed: false },
-          { id: 'st-3', title: 'Schedule important tasks', completed: false }
-        ]
-      });
-      
-      store.addTask({
-        title: 'Explore keyboard shortcuts',
-        description: 'Cmd/Ctrl+K for search, Cmd/Ctrl+N for new task, Cmd/Ctrl+Shift+N for quick add',
-        quadrant: 'schedule',
-        estimatedMinutes: 5,
-        tags: ['tips']
-      });
-      
-      // Add some completed tasks to show history
-      const demo1 = store.addTask({
-        title: 'Complete onboarding',
-        quadrant: 'do-first',
-        estimatedMinutes: 10
-      });
-      store.tasks[demo1].completed = true;
-      store.tasks[demo1].completedAt = Date.now() - (1000 * 60 * 60 * 2); // 2 hours ago
-      
-      // Set up some activity history
-      const today = new Date().toDateString();
-      store.prefs.completedHistory[today] = 1;
-      store.prefs.timerSessionsHistory[today] = 0;
-      
-      store.save();
-      store.savePrefs();
     }
+    
+    if (includeProjects) {
+      const projects = store.getProjects();
+      if (projects.length > 0) {
+        dataStr += `## Projects\n\n`;
+        projects.forEach(p => {
+          dataStr += `### ${p.name}\n\n`;
+          dataStr += `Progress: ${p.completed}/${p.total} tasks completed (${Math.round(p.completed/p.total*100)}%)\n\n`;
+        });
+      }
+    }
+    
+    if (includeHistory) {
+      dataStr += `## Activity Summary\n\n`;
+      const weeklyTotal = Object.entries(store.prefs.completedHistory)
+        .reduce((sum, [date, count]) => sum + count, 0);
+      dataStr += `**Total Completed Tasks:** ${weeklyTotal}\n\n`;
+      
+      const sessionTotal = Object.entries(store.prefs.timerSessionsHistory)
+        .reduce((sum, [date, count]) => sum + count, 0);
+      dataStr += `**Total Focus Sessions:** ${sessionTotal}\n\n`;
+    }
+    
+    filename += '.md';
+    mimeType = 'text/markdown';
+  }
 
-    render();
-    timer.updateDisplay();
+  const dataBlob = new Blob([dataStr], { type: mimeType });
+  const url = URL.createObjectURL(dataBlob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+
+  document.getElementById('exportModal').classList.remove('open');
+  alert(`✓ Export successful!\n\nYour data has been downloaded as ${filename}`);
+});
+
+document.getElementById('exportModal').addEventListener('click', (e) => {
+  if (e.target.id === 'exportModal') {
+    document.getElementById('exportModal').classList.remove('open');
+  }
+});
+
+// Init with better demo data
+if (Object.keys(store.tasks).length === 0) {
+  const welcomeId = store.addTask({ 
+    title: 'Welcome to PrioBox', 
+    description: 'Click to edit and explore features. Try Quick Add for fast task entry! Now with dark mode and drag-and-drop!',
+    quadrant: 'do-first', 
+    estimatedMinutes: 5,
+    tags: ['getting-started']
+  });
+  
+  store.addTask({ 
+    title: 'Try the Focus Timer', 
+    description: 'Click "What\'s Next?" to see the #1 priority task, then start a focus session',
+    quadrant: 'do-first', 
+    estimatedMinutes: 25,
+    tags: ['productivity']
+  });
+  
+  const planId = store.addTask({ 
+    title: 'Plan your week', 
+    description: 'Break this down into smaller subtasks. Click to edit and add steps.',
+    quadrant: 'schedule', 
+    estimatedMinutes: 30,
+    project: 'Planning'
+  });
+  
+  // Add subtasks to demo
+  store.updateTask(planId, {
+    subtasks: [
+      { id: 'st-1', title: 'Review last week', completed: false },
+      { id: 'st-2', title: 'Set 3 main goals', completed: false },
+      { id: 'st-3', title: 'Schedule important tasks', completed: false }
+    ]
+  });
+  
+  store.addTask({
+    title: 'Try drag and drop',
+    description: 'Drag tasks between quadrants in Matrix View to reorganize them',
+    quadrant: 'schedule',
+    estimatedMinutes: 2,
+    tags: ['tips']
+  });
+  
+  store.addTask({
+    title: 'Toggle dark mode',
+    description: 'Click the dark mode toggle in the sidebar to switch themes',
+    quadrant: 'schedule',
+    estimatedMinutes: 1,
+    tags: ['tips']
+  });
+  
+  // Add some completed tasks to show history
+  const demo1 = store.addTask({
+    title: 'Complete onboarding',
+    quadrant: 'do-first',
+    estimatedMinutes: 10
+  });
+  store.tasks[demo1].completed = true;
+  store.tasks[demo1].completedAt = Date.now() - (1000 * 60 * 60 * 2); // 2 hours ago
+  
+  // Set up some activity history
+  const today = new Date().toDateString();
+  store.prefs.completedHistory[today] = 1;
+  store.prefs.timerSessionsHistory[today] = 0;
+  
+  store.save();
+  store.savePrefs();
+}
+
+// Initialize drag and drop manager
+dragDropManager = new DragDropManager(store, render);
+
+// Initial render
+render();
+timer.updateDisplay();
+
+// Add CSS animation for notification
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes slideInRight {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideOutRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+`;
+document.head.appendChild(style);
   </script>
 </body>
-</html>
 </html>
