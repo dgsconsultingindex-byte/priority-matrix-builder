@@ -1063,6 +1063,15 @@
       <div class="modal-footer">
         <button class="btn" id="deleteTaskBtn" style="background: var(--danger); color: white; border-color: var(--danger);">Delete</button>
         <div style="display: flex; gap: 10px;">
+          <button class="btn" id="addToCalendarBtn" style="display: none;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            Add to Calendar
+          </button>
           <button class="btn" id="cancelTaskBtn">Cancel</button>
           <button class="btn btn-primary" id="saveTaskBtn">Save Task</button>
         </div>
@@ -1399,6 +1408,242 @@ class DragDropManager {
   }
 }
 
+// Calendar Integration Manager
+class CalendarManager {
+  constructor() {
+    this.calendarProviders = {
+      google: 'Google Calendar',
+      outlook: 'Outlook',
+      apple: 'Apple Calendar'
+    };
+  }
+  
+  // Generate calendar links for a task
+  generateCalendarLinks(task) {
+    if (!task.due) {
+      console.warn('Task has no due date');
+      return null;
+    }
+    
+    const startDate = new Date(task.due);
+    const endDate = new Date(startDate.getTime() + ((task.estimatedMinutes || 30) * 60000));
+    
+    const title = encodeURIComponent(task.title);
+    const description = encodeURIComponent(task.description || '');
+    const location = encodeURIComponent('PrioBox Task');
+    
+    // Format dates for different calendar providers
+    const formatGoogleDate = (date) => {
+      return date.toISOString().replace(/-|:|\.\d\d\d/g, '');
+    };
+    
+    const start = formatGoogleDate(startDate);
+    const end = formatGoogleDate(endDate);
+    
+    return {
+      google: `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=${description}&location=${location}`,
+      outlook: `https://outlook.live.com/calendar/0/deeplink/compose?subject=${title}&startdt=${startDate.toISOString()}&enddt=${endDate.toISOString()}&body=${description}&location=${location}`,
+      ics: this.generateICS(task, startDate, endDate)
+    };
+  }
+  
+  // Generate .ics file for Apple Calendar and other clients
+  generateICS(task, startDate, endDate) {
+    const formatICSDate = (date) => {
+      return date.toISOString().replace(/-|:|\.\d\d\d/g, '');
+    };
+    
+    const now = formatICSDate(new Date());
+    const start = formatICSDate(startDate);
+    const end = formatICSDate(endDate);
+    
+    // Clean text for ICS format
+    const cleanText = (text) => {
+      return text.replace(/\n/g, '\\n').replace(/,/g, '\\,');
+    };
+    
+    const icsContent = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//PrioBox//Task Scheduler//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:${task.id}@priobox.solutions
+DTSTAMP:${now}
+DTSTART:${start}
+DTEND:${end}
+SUMMARY:${cleanText(task.title)}
+DESCRIPTION:${cleanText(task.description || '')}
+LOCATION:PrioBox Task
+STATUS:CONFIRMED
+SEQUENCE:0
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:Task reminder: ${cleanText(task.title)}
+END:VALARM
+END:VEVENT
+END:VCALENDAR`;
+
+    const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+    return URL.createObjectURL(blob);
+  }
+  
+  // Show calendar selection modal
+  showCalendarModal(task) {
+    if (!task.due) {
+      alert('⚠️ This task needs a due date to add to calendar.\n\nPlease set a due date first.');
+      return;
+    }
+    
+    const links = this.generateCalendarLinks(task);
+    if (!links) return;
+    
+    const modal = document.createElement('div');
+    modal.className = 'modal-overlay open';
+    modal.id = 'calendarModal';
+    modal.innerHTML = `
+      <div class="modal" style="max-width: 450px;">
+        <div class="modal-header">
+          <h3 style="display: flex; align-items: center; gap: 8px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            Add to Calendar
+          </h3>
+          <button class="modal-close" onclick="document.getElementById('calendarModal').remove()">×</button>
+        </div>
+        
+        <div class="modal-body">
+          <div style="background: var(--accent-light); padding: 1rem; border-radius: 0.5rem; margin-bottom: 1.5rem;">
+            <h4 style="font-size: 0.95rem; margin-bottom: 0.5rem; color: var(--text);">${this.escapeHtml(task.title)}</h4>
+            <p style="font-size: 0.875rem; color: var(--text-muted); margin: 0;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle;">
+                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+              </svg>
+              ${this.formatDateTime(new Date(task.due))} • ${task.estimatedMinutes || 30} min
+            </p>
+          </div>
+          
+          <p style="margin-bottom: 1.5rem; color: var(--text-muted); font-size: 0.95rem;">
+            Choose your calendar app:
+          </p>
+          
+          <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+            <!-- Google Calendar -->
+            <a href="${links.google}" target="_blank" rel="noopener noreferrer" 
+               class="calendar-option" 
+               style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: white; border: 2px solid var(--border); border-radius: 0.5rem; text-decoration: none; color: var(--text); transition: all 0.2s; cursor: pointer;"
+               onmouseover="this.style.borderColor='var(--accent)'; this.style.background='var(--accent-light)';"
+               onmouseout="this.style.borderColor='var(--border)'; this.style.background='white';">
+              <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #4285f4 0%, #34a853 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                  <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/>
+                </svg>
+              </div>
+              <div style="flex: 1; text-align: left;">
+                <div style="font-weight: 600; margin-bottom: 0.25rem;">Google Calendar</div>
+                <div style="font-size: 0.875rem; color: var(--text-muted);">Add to your Google account</div>
+              </div>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9 18 15 12 9 6"/>
+              </svg>
+            </a>
+            
+            <!-- Outlook -->
+            <a href="${links.outlook}" target="_blank" rel="noopener noreferrer" 
+               class="calendar-option" 
+               style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: white; border: 2px solid var(--border); border-radius: 0.5rem; text-decoration: none; color: var(--text); transition: all 0.2s; cursor: pointer;"
+               onmouseover="this.style.borderColor='var(--accent)'; this.style.background='var(--accent-light)';"
+               onmouseout="this.style.borderColor='var(--border)'; this.style.background='white';">
+              <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #0078d4 0%, #106ebe 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                  <path d="M24 7.387v9.225a.387.387 0 01-.387.388H.387A.387.387 0 010 16.612V7.387A.387.387 0 01.387 7h23.226c.214 0 .387.173.387.387zM2.25 9v6h19.5V9H2.25z"/>
+                  <path d="M6.75 11.25h10.5v1.5H6.75z"/>
+                </svg>
+              </div>
+              <div style="flex: 1; text-align: left;">
+                <div style="font-weight: 600; margin-bottom: 0.25rem;">Outlook</div>
+                <div style="font-size: 0.875rem; color: var(--text-muted);">Add to Outlook.com</div>
+              </div>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9 18 15 12 9 6"/>
+              </svg>
+            </a>
+            
+            <!-- Apple Calendar / Download ICS -->
+            <a href="${links.ics}" download="${this.sanitizeFilename(task.title)}.ics" 
+               class="calendar-option" 
+               style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: white; border: 2px solid var(--border); border-radius: 0.5rem; text-decoration: none; color: var(--text); transition: all 0.2s; cursor: pointer;"
+               onmouseover="this.style.borderColor='var(--accent)'; this.style.background='var(--accent-light)';"
+               onmouseout="this.style.borderColor='var(--border)'; this.style.background='white';">
+              <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #ff3b30 0%, #ff9500 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                  <line x1="16" y1="2" x2="16" y2="6"/>
+                  <line x1="8" y1="2" x2="8" y2="6"/>
+                  <line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+              </div>
+              <div style="flex: 1; text-align: left;">
+                <div style="font-weight: 600; margin-bottom: 0.25rem;">Apple Calendar</div>
+                <div style="font-size: 0.875rem; color: var(--text-muted);">Download .ics file</div>
+              </div>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+            </a>
+          </div>
+          
+          <p style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); font-size: 0.875rem; color: var(--text-muted); text-align: center;">
+            The event will be scheduled for ${this.formatDateTime(new Date(task.due))}
+          </p>
+        </div>
+      </div>
+    `;
+    
+    document.body.appendChild(modal);
+    
+    // Close on backdrop click
+    modal.addEventListener('click', (e) => {
+      if (e.target.id === 'calendarModal') {
+        modal.remove();
+      }
+    });
+  }
+  
+  // Helper: Format date and time
+  formatDateTime(date) {
+    const options = {
+      weekday: 'short',
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true
+    };
+    return date.toLocaleString('en-US', options);
+  }
+  
+  // Helper: Escape HTML
+  escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+  
+  // Helper: Sanitize filename
+  sanitizeFilename(filename) {
+    return filename.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+  }
+}
+
 // Store
 class TaskStore {
   constructor() {
@@ -1591,6 +1836,7 @@ function detectPriority(title) {
 
 const store = new TaskStore();
 const themeManager = new ThemeManager();
+const calendarManager = new CalendarManager();
 let dragDropManager;
 let currentView = 'dashboard';
 let currentEditingTask = null;
@@ -2259,6 +2505,15 @@ function openTaskModal(task = null) {
   }
   
   document.getElementById('deleteTaskBtn').style.display = task ? 'block' : 'none';
+  
+  // Show/hide Add to Calendar button based on whether task has a due date
+  const calendarBtn = document.getElementById('addToCalendarBtn');
+  if (task && task.due) {
+    calendarBtn.style.display = 'inline-flex';
+  } else {
+    calendarBtn.style.display = 'none';
+  }
+  
   document.getElementById('taskModal').classList.add('open');
   
   // Focus title input
@@ -2491,6 +2746,23 @@ document.getElementById('newSubtask').addEventListener('keypress', (e) => {
   if (e.key === 'Enter') {
     e.preventDefault();
     document.getElementById('addSubtaskBtn').click();
+  }
+});
+
+// Add to Calendar button
+document.getElementById('addToCalendarBtn').addEventListener('click', () => {
+  if (currentEditingTask) {
+    calendarManager.showCalendarModal(currentEditingTask);
+  }
+});
+
+// Update calendar button visibility when due date changes
+document.getElementById('taskDue').addEventListener('change', (e) => {
+  const calendarBtn = document.getElementById('addToCalendarBtn');
+  if (e.target.value && currentEditingTask) {
+    calendarBtn.style.display = 'inline-flex';
+  } else {
+    calendarBtn.style.display = 'none';
   }
 });
 
