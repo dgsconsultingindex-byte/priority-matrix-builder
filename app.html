@@ -553,7 +553,7 @@
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
       <div class="logo">
-        <img src="images/PrioBoxIcon.png" alt="PrioBox Logo" style="height: 32px; width: auto;">
+        <img src="images/Prioboxmain.png" alt="PrioBox Logo" style="height: 32px; width: auto;">
         <h1>PrioBox</h1>
       </div>
       <nav class="nav" role="menu">
@@ -602,13 +602,31 @@
           </svg>
           <span>Quick Add</span>
         </button>
-        <button class="btn" style="width: 100%;" id="newTaskBtn" aria-label="Create new task with full details">
+        <button class="btn" style="width: 100%; margin-bottom: 8px;" id="newTaskBtn" aria-label="Create new task with full details">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
           </svg>
           <span>New Task</span>
         </button>
-         <button class="btn" style="width: 100%;" id="exportBtn" aria-label="Export all tasks and data">
+        <button class="btn" style="width: 100%; margin-bottom: 8px;" id="templatesBtn" aria-label="Manage task templates">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+          </svg>
+          <span>Templates</span>
+        </button>
+        <button class="btn" style="width: 100%; margin-bottom: 8px;" id="bulkSelectBtn" aria-label="Bulk select tasks">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+          </svg>
+          <span>Bulk Select</span>
+        </button>
+        <button class="btn" style="width: 100%; margin-bottom: 8px;" id="customLabelsBtn" aria-label="Customize quadrant labels">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 6v6m5.2-13.2l-4.2 4.2m0 6l4.2 4.2M1 12h6m6 0h6m-13.2-5.2l4.2 4.2m0 6l-4.2 4.2"/>
+          </svg>
+          <span>Custom Labels</span>
+        </button>
+        <button class="btn" style="width: 100%;" id="exportBtn" aria-label="Export all tasks and data">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
           </svg>
@@ -741,7 +759,7 @@
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 6px;">
                         <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
                       </svg>
-                      Do First
+                      <span id="dashLabelDoFirst">Do First</span>
                     </span>
                     <span class="quadrant-count" id="countDoFirst">0</span>
                   </div>
@@ -753,7 +771,7 @@
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 6px;">
                         <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
                       </svg>
-                      Schedule
+                      <span id="dashLabelSchedule">Schedule</span>
                     </span>
                     <span class="quadrant-count" id="countSchedule">0</span>
                   </div>
@@ -765,7 +783,7 @@
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 6px;">
                         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
                       </svg>
-                      Delegate
+                      <span id="dashLabelDelegate">Delegate</span>
                     </span>
                     <span class="quadrant-count" id="countDelegate">0</span>
                   </div>
@@ -777,7 +795,7 @@
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 6px;">
                         <polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
                       </svg>
-                      Eliminate
+                      <span id="dashLabelEliminate">Eliminate</span>
                     </span>
                     <span class="quadrant-count" id="countEliminate">0</span>
                   </div>
@@ -812,7 +830,7 @@
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 6px;">
                     <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
                   </svg>
-                  Do First
+                  <span id="matrixLabelDoFirst">Do First</span>
                 </span>
                 <span class="quadrant-count" id="fullCountDoFirst">0</span>
               </div>
@@ -824,7 +842,7 @@
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 6px;">
                     <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
                   </svg>
-                  Schedule
+                  <span id="matrixLabelSchedule">Schedule</span>
                 </span>
                 <span class="quadrant-count" id="fullCountSchedule">0</span>
               </div>
@@ -836,7 +854,7 @@
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 6px;">
                     <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
                   </svg>
-                  Delegate
+                  <span id="matrixLabelDelegate">Delegate</span>
                 </span>
                 <span class="quadrant-count" id="fullCountDelegate">0</span>
               </div>
@@ -848,7 +866,7 @@
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 6px;">
                     <polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
                   </svg>
-                  Eliminate
+                  <span id="matrixLabelEliminate">Eliminate</span>
                 </span>
                 <span class="quadrant-count" id="fullCountEliminate">0</span>
               </div>
@@ -1057,6 +1075,12 @@
       </div>
       <div class="modal-footer">
         <button class="btn" id="deleteTaskBtn" style="background: var(--danger); color: white; border-color: var(--danger);">Delete</button>
+        <button class="btn" id="saveTemplateBtn" style="display: none;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/>
+          </svg>
+          Save as Template
+        </button>
         <div style="display: flex; gap: 10px;">
           <button class="btn" id="addToCalendarBtn" style="display: none;">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1227,6 +1251,112 @@
           </svg>
           Add Task
         </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Templates Modal -->
+  <div class="modal-overlay" id="templatesModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Task Templates</h3>
+        <button class="modal-close" id="templatesModalClose">×</button>
+      </div>
+      <div class="modal-body">
+        <div style="margin-bottom: 1.5rem;">
+          <p style="color: var(--text-muted); font-size: 0.95rem;">Save frequently used tasks as templates for quick creation.</p>
+        </div>
+        <div id="templatesList" style="display: flex; flex-direction: column; gap: 0.75rem;"></div>
+        <div id="templatesEmpty" class="empty-state" style="padding: 2rem;">
+          <div style="font-size: 48px; opacity: 0.3; margin-bottom: 1rem;">📋</div>
+          <div>No templates yet</div>
+          <div style="font-size: 0.875rem; color: var(--text-muted); margin-top: 0.5rem;">
+            Create a template by editing a task and clicking "Save as Template"
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" id="templatesModalCloseBtn">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bulk Actions Bar -->
+  <div id="bulkActionsBar" class="hidden" style="position: fixed; bottom: 0; left: 0; right: 0; background: linear-gradient(135deg, var(--accent) 0%, #8b5cf6 100%); color: white; padding: 1rem 2rem; box-shadow: 0 -4px 20px rgba(0,0,0,0.2); z-index: 999; display: flex; align-items: center; justify-content: space-between;">
+    <div style="display: flex; align-items: center; gap: 1rem;">
+      <span id="bulkSelectedCount" style="font-weight: 600; font-size: 1.125rem;">0 selected</span>
+      <button class="btn" onclick="selectedTaskIds.clear(); toggleBulkMode()" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3);">Clear Selection</button>
+    </div>
+    <div style="display: flex; gap: 0.75rem;">
+      <button class="btn" id="bulkCompleteBtn" style="background: var(--success); color: white; border: none;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+        Mark Complete
+      </button>
+      <button class="btn" id="bulkMoveBtn" style="background: white; color: var(--accent); border: none;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 8L22 12L18 16"/>
+          <path d="M2 12H22"/>
+        </svg>
+        Move To...
+      </button>
+      <button class="btn" id="bulkDeleteBtn" style="background: var(--danger); color: white; border: none;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="3 6 5 6 21 6"/>
+          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+        </svg>
+        Delete
+      </button>
+    </div>
+  </div>
+
+  <!-- Custom Labels Modal -->
+  <div class="modal-overlay" id="customLabelsModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Customize Quadrant Labels</h3>
+        <button class="modal-close" id="customLabelsClose">×</button>
+      </div>
+      <div class="modal-body">
+        <div style="margin-bottom: 1.5rem;">
+          <p style="color: var(--text-muted); font-size: 0.95rem;">Personalize your quadrant names to match your workflow.</p>
+        </div>
+        <div class="form-group">
+          <label class="form-label" style="display: flex; align-items: center; gap: 0.5rem;">
+            <div style="width: 12px; height: 12px; background: var(--danger); border-radius: 3px;"></div>
+            Quadrant 1 (Urgent & Important)
+          </label>
+          <input class="form-input" id="labelDoFirst" placeholder="e.g., Do First, Critical, Must Do">
+        </div>
+        <div class="form-group">
+          <label class="form-label" style="display: flex; align-items: center; gap: 0.5rem;">
+            <div style="width: 12px; height: 12px; background: var(--warning); border-radius: 3px;"></div>
+            Quadrant 2 (Important, Not Urgent)
+          </label>
+          <input class="form-input" id="labelSchedule" placeholder="e.g., Schedule, Plan, Strategic">
+        </div>
+        <div class="form-group">
+          <label class="form-label" style="display: flex; align-items: center; gap: 0.5rem;">
+            <div style="width: 12px; height: 12px; background: var(--success); border-radius: 3px;"></div>
+            Quadrant 3 (Urgent, Not Important)
+          </label>
+          <input class="form-input" id="labelDelegate" placeholder="e.g., Delegate, Assign, Defer">
+        </div>
+        <div class="form-group">
+          <label class="form-label" style="display: flex; align-items: center; gap: 0.5rem;">
+            <div style="width: 12px; height: 12px; background: var(--accent); border-radius: 3px;"></div>
+            Quadrant 4 (Neither Urgent nor Important)
+          </label>
+          <input class="form-input" id="labelEliminate" placeholder="e.g., Eliminate, Delete, Someday">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" id="resetLabelsBtn">Reset to Default</button>
+        <div style="display: flex; gap: 10px;">
+          <button class="btn" id="customLabelsCancel">Cancel</button>
+          <button class="btn btn-primary" id="customLabelsSave">Save Labels</button>
+        </div>
       </div>
     </div>
   </div>
@@ -1648,7 +1778,14 @@ class TaskStore {
     this.prefs = { 
       timerSessionsHistory: {}, 
       completedHistory: {},
-      lastCheckin: null
+      lastCheckin: null,
+      templates: {},
+      quadrantLabels: {
+        'do-first': 'Do First',
+        'schedule': 'Schedule',
+        'delegate': 'Delegate',
+        'eliminate': 'Eliminate'
+      }
     };
     this.load();
   }
@@ -1770,6 +1907,62 @@ class TaskStore {
     });
     return Object.values(projects);
   }
+  
+  // Template Management
+  saveTemplate(name, taskData) {
+    const id = 'tpl-' + Date.now();
+    this.prefs.templates[id] = {
+      id,
+      name,
+      taskData: {
+        title: taskData.title || '',
+        description: taskData.description || '',
+        estimatedMinutes: taskData.estimatedMinutes || 0,
+        quadrant: taskData.quadrant || 'do-first',
+        project: taskData.project || '',
+        tags: taskData.tags || [],
+        subtasks: taskData.subtasks || []
+      },
+      createdAt: Date.now()
+    };
+    this.savePrefs();
+    return id;
+  }
+  
+  getTemplates() {
+    return Object.values(this.prefs.templates || {});
+  }
+  
+  deleteTemplate(id) {
+    delete this.prefs.templates[id];
+    this.savePrefs();
+  }
+  
+  createTaskFromTemplate(templateId) {
+    const template = this.prefs.templates[templateId];
+    if (!template) return null;
+    return this.addTask({...template.taskData});
+  }
+  
+  // Custom Quadrant Labels
+  setQuadrantLabel(quadrant, label) {
+    this.prefs.quadrantLabels[quadrant] = label;
+    this.savePrefs();
+  }
+  
+  getQuadrantLabel(quadrant) {
+    return this.prefs.quadrantLabels[quadrant] || quadrant;
+  }
+  
+  resetQuadrantLabels() {
+    this.prefs.quadrantLabels = {
+      'do-first': 'Do First',
+      'schedule': 'Schedule',
+      'delegate': 'Delegate',
+      'eliminate': 'Eliminate'
+    };
+    this.savePrefs();
+  }
 }
 
 // Check-in banner
@@ -1836,6 +2029,8 @@ let dragDropManager;
 let currentView = 'dashboard';
 let currentEditingTask = null;
 let selectedQuickQuadrant = null;
+let bulkSelectionMode = false;
+let selectedTaskIds = new Set();
 
 // Timer
 class Timer {
@@ -1899,6 +2094,230 @@ class Timer {
 
 const timer = new Timer();
 let nextTaskData = null;
+
+// Bulk Actions Functions
+function toggleBulkMode() {
+  bulkSelectionMode = !bulkSelectionMode;
+  selectedTaskIds.clear();
+  
+  const bulkBtn = document.getElementById('bulkSelectBtn');
+  const bulkBar = document.getElementById('bulkActionsBar');
+  
+  if (bulkSelectionMode) {
+    bulkBtn.style.background = 'var(--accent)';
+    bulkBtn.style.color = 'white';
+    bulkBar.classList.remove('hidden');
+  } else {
+    bulkBtn.style.background = '';
+    bulkBtn.style.color = '';
+    bulkBar.classList.add('hidden');
+  }
+  
+  render();
+}
+
+function updateBulkActionsBar() {
+  document.getElementById('bulkSelectedCount').textContent = 
+    `${selectedTaskIds.size} selected`;
+}
+
+function bulkComplete() {
+  if (selectedTaskIds.size === 0) {
+    alert('⚠️ No tasks selected');
+    return;
+  }
+  
+  if (!confirm(`Mark ${selectedTaskIds.size} task(s) as complete?`)) return;
+  
+  selectedTaskIds.forEach(id => {
+    if (store.tasks[id] && !store.tasks[id].completed) {
+      store.toggleComplete(id);
+    }
+  });
+  
+  selectedTaskIds.clear();
+  toggleBulkMode();
+  render();
+  
+  alert(`✓ Tasks marked as complete!`);
+}
+
+function bulkMove() {
+  if (selectedTaskIds.size === 0) {
+    alert('⚠️ No tasks selected');
+    return;
+  }
+  
+  const quadrant = prompt(`Move ${selectedTaskIds.size} task(s) to:\n\n1 = Do First\n2 = Schedule\n3 = Delegate\n4 = Eliminate\n\nEnter 1-4:`);
+  
+  const quadrantMap = {
+    '1': 'do-first',
+    '2': 'schedule',
+    '3': 'delegate',
+    '4': 'eliminate'
+  };
+  
+  if (!quadrantMap[quadrant]) {
+    alert('❌ Invalid selection');
+    return;
+  }
+  
+  selectedTaskIds.forEach(id => {
+    if (store.tasks[id]) {
+      store.updateTask(id, { quadrant: quadrantMap[quadrant] });
+    }
+  });
+  
+  const quadrantNames = {
+    'do-first': 'Do First',
+    'schedule': 'Schedule',
+    'delegate': 'Delegate',
+    'eliminate': 'Eliminate'
+  };
+  
+  selectedTaskIds.clear();
+  toggleBulkMode();
+  render();
+  
+  alert(`✓ Tasks moved to ${quadrantNames[quadrantMap[quadrant]]}!`);
+}
+
+function bulkDelete() {
+  if (selectedTaskIds.size === 0) {
+    alert('⚠️ No tasks selected');
+    return;
+  }
+  
+  if (!confirm(`⚠️ Delete ${selectedTaskIds.size} task(s)?\n\nThis cannot be undone.`)) return;
+  
+  selectedTaskIds.forEach(id => {
+    store.deleteTask(id);
+  });
+  
+  selectedTaskIds.clear();
+  toggleBulkMode();
+  render();
+  
+  alert(`✓ Tasks deleted`);
+}
+
+// Templates Functions
+function openTemplatesModal() {
+  renderTemplatesList();
+  document.getElementById('templatesModal').classList.add('open');
+}
+
+function renderTemplatesList() {
+  const templates = store.getTemplates();
+  const list = document.getElementById('templatesList');
+  const empty = document.getElementById('templatesEmpty');
+  
+  if (templates.length === 0) {
+    list.style.display = 'none';
+    empty.style.display = 'block';
+    return;
+  }
+  
+  list.style.display = 'flex';
+  empty.style.display = 'none';
+  list.innerHTML = '';
+  
+  templates.forEach(template => {
+    const item = document.createElement('div');
+    item.style.cssText = 'display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: var(--bg); border-radius: 0.5rem; border: 1px solid var(--border);';
+    item.innerHTML = `
+      <div style="flex: 1;">
+        <div style="font-weight: 600; margin-bottom: 0.25rem;">${template.name}</div>
+        <div style="font-size: 0.875rem; color: var(--text-muted);">
+          ${template.taskData.quadrant} • ${template.taskData.estimatedMinutes || 0} min
+        </div>
+      </div>
+      <div style="display: flex; gap: 0.5rem;">
+        <button class="btn btn-primary" onclick="useTemplate('${template.id}')" style="padding: 0.5rem 1rem;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+          Use
+        </button>
+        <button class="btn" onclick="deleteTemplate('${template.id}')" style="padding: 0.5rem 1rem; background: var(--danger); color: white;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+          </svg>
+        </button>
+      </div>
+    `;
+    list.appendChild(item);
+  });
+}
+
+function useTemplate(templateId) {
+  const taskId = store.createTaskFromTemplate(templateId);
+  if (taskId) {
+    document.getElementById('templatesModal').classList.remove('open');
+    render();
+    alert('✓ Task created from template!');
+  }
+}
+
+function deleteTemplate(templateId) {
+  if (!confirm('Delete this template?')) return;
+  store.deleteTemplate(templateId);
+  renderTemplatesList();
+}
+
+function saveAsTemplate() {
+  if (!currentEditingTask) {
+    alert('⚠️ Please save the task first');
+    return;
+  }
+  
+  const name = prompt('Template name:', currentEditingTask.title);
+  if (!name) return;
+  
+  store.saveTemplate(name, {
+    title: currentEditingTask.title,
+    description: currentEditingTask.description,
+    estimatedMinutes: currentEditingTask.estimatedMinutes,
+    quadrant: currentEditingTask.quadrant,
+    project: currentEditingTask.project,
+    tags: currentEditingTask.tags || [],
+    subtasks: currentEditingTask.subtasks || []
+  });
+  
+  alert(`✓ Template "${name}" saved!\n\nAccess it from the Templates menu.`);
+}
+
+// Custom Labels Functions
+function openCustomLabelsModal() {
+  document.getElementById('labelDoFirst').value = store.getQuadrantLabel('do-first');
+  document.getElementById('labelSchedule').value = store.getQuadrantLabel('schedule');
+  document.getElementById('labelDelegate').value = store.getQuadrantLabel('delegate');
+  document.getElementById('labelEliminate').value = store.getQuadrantLabel('eliminate');
+  document.getElementById('customLabelsModal').classList.add('open');
+}
+
+function saveCustomLabels() {
+  const labels = {
+    'do-first': document.getElementById('labelDoFirst').value.trim() || 'Do First',
+    'schedule': document.getElementById('labelSchedule').value.trim() || 'Schedule',
+    'delegate': document.getElementById('labelDelegate').value.trim() || 'Delegate',
+    'eliminate': document.getElementById('labelEliminate').value.trim() || 'Eliminate'
+  };
+  
+  Object.entries(labels).forEach(([quadrant, label]) => {
+    store.setQuadrantLabel(quadrant, label);
+  });
+  
+  document.getElementById('customLabelsModal').classList.remove('open');
+  render();
+  alert('✓ Quadrant labels updated!');
+}
+
+function resetCustomLabels() {
+  if (!confirm('Reset quadrant labels to default?')) return;
+  store.resetQuadrantLabels();
+  openCustomLabelsModal();
+}
 
 // Utils
 function daysSince(ts) {
@@ -2026,13 +2445,34 @@ function createTaskElement(task) {
   el.className = 'task' + (task.completed ? ' completed' : '');
   el.dataset.taskId = task.id;
   
+  // Bulk selection checkbox (shown only in bulk mode)
+  if (bulkSelectionMode && !task.completed) {
+    const bulkCheckbox = document.createElement('input');
+    bulkCheckbox.type = 'checkbox';
+    bulkCheckbox.className = 'bulk-checkbox';
+    bulkCheckbox.checked = selectedTaskIds.has(task.id);
+    bulkCheckbox.style.cssText = 'width: 20px; height: 20px; cursor: pointer; margin-right: 8px;';
+    bulkCheckbox.onclick = (e) => {
+      e.stopPropagation();
+      if (selectedTaskIds.has(task.id)) {
+        selectedTaskIds.delete(task.id);
+      } else {
+        selectedTaskIds.add(task.id);
+      }
+      updateBulkActionsBar();
+    };
+    el.appendChild(bulkCheckbox);
+  }
+  
   const checkbox = document.createElement('div');
   checkbox.className = 'task-checkbox' + (task.completed ? ' checked' : '');
   if (task.completed) checkbox.textContent = '✓';
   checkbox.onclick = (e) => { 
     e.stopPropagation(); 
-    store.toggleComplete(task.id); 
-    render(); 
+    if (!bulkSelectionMode) {
+      store.toggleComplete(task.id); 
+      render(); 
+    }
   };
   el.appendChild(checkbox);
   
@@ -2131,8 +2571,26 @@ function createTaskElement(task) {
   return el;
 }
 
+// Update Quadrant Labels
+function updateQuadrantLabels() {
+  // Update dashboard labels
+  document.getElementById('dashLabelDoFirst').textContent = store.getQuadrantLabel('do-first');
+  document.getElementById('dashLabelSchedule').textContent = store.getQuadrantLabel('schedule');
+  document.getElementById('dashLabelDelegate').textContent = store.getQuadrantLabel('delegate');
+  document.getElementById('dashLabelEliminate').textContent = store.getQuadrantLabel('eliminate');
+  
+  // Update matrix view labels
+  document.getElementById('matrixLabelDoFirst').textContent = store.getQuadrantLabel('do-first');
+  document.getElementById('matrixLabelSchedule').textContent = store.getQuadrantLabel('schedule');
+  document.getElementById('matrixLabelDelegate').textContent = store.getQuadrantLabel('delegate');
+  document.getElementById('matrixLabelEliminate').textContent = store.getQuadrantLabel('eliminate');
+}
+
 // Render
 function render() {
+  // Update custom quadrant labels
+  updateQuadrantLabels();
+  
   const tasks = store.getAll();
   const incomplete = tasks.filter(t => !t.completed);
   
@@ -2500,6 +2958,7 @@ function openTaskModal(task = null) {
   }
   
   document.getElementById('deleteTaskBtn').style.display = task ? 'block' : 'none';
+  document.getElementById('saveTemplateBtn').style.display = task ? 'inline-flex' : 'none';
   
   // Show/hide Add to Calendar button based on whether task has a due date
   const calendarBtn = document.getElementById('addToCalendarBtn');
@@ -2758,6 +3217,45 @@ document.getElementById('taskDue').addEventListener('change', (e) => {
     calendarBtn.style.display = 'inline-flex';
   } else {
     calendarBtn.style.display = 'none';
+  }
+});
+
+// Templates
+document.getElementById('templatesBtn').addEventListener('click', openTemplatesModal);
+document.getElementById('templatesModalClose').addEventListener('click', () => {
+  document.getElementById('templatesModal').classList.remove('open');
+});
+document.getElementById('templatesModalCloseBtn').addEventListener('click', () => {
+  document.getElementById('templatesModal').classList.remove('open');
+});
+document.getElementById('saveTemplateBtn').addEventListener('click', saveAsTemplate);
+
+// Bulk Actions
+document.getElementById('bulkSelectBtn').addEventListener('click', toggleBulkMode);
+document.getElementById('bulkCompleteBtn').addEventListener('click', bulkComplete);
+document.getElementById('bulkMoveBtn').addEventListener('click', bulkMove);
+document.getElementById('bulkDeleteBtn').addEventListener('click', bulkDelete);
+
+// Custom Labels
+document.getElementById('customLabelsBtn').addEventListener('click', openCustomLabelsModal);
+document.getElementById('customLabelsClose').addEventListener('click', () => {
+  document.getElementById('customLabelsModal').classList.remove('open');
+});
+document.getElementById('customLabelsCancel').addEventListener('click', () => {
+  document.getElementById('customLabelsModal').classList.remove('open');
+});
+document.getElementById('customLabelsSave').addEventListener('click', saveCustomLabels);
+document.getElementById('resetLabelsBtn').addEventListener('click', resetCustomLabels);
+
+// Close modals on backdrop click
+document.getElementById('templatesModal').addEventListener('click', (e) => {
+  if (e.target.id === 'templatesModal') {
+    document.getElementById('templatesModal').classList.remove('open');
+  }
+});
+document.getElementById('customLabelsModal').addEventListener('click', (e) => {
+  if (e.target.id === 'customLabelsModal') {
+    document.getElementById('customLabelsModal').classList.remove('open');
   }
 });
 
